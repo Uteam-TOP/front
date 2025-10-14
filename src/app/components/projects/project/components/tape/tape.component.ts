@@ -36,7 +36,7 @@ export class TapeComponent {
       this.tapeService.projectId = data.id;
       this.getDataUser();
       this.tapeService.getTapes(data.id).subscribe((data: any) => {
-        this.tapeService.setItemsList(data.data);
+        this.tapeService.setItemsList(data);
       })
     })
 

@@ -10,19 +10,31 @@ export class DomainService {
 
   constructor(private http: HttpClient) { }
   
-  Domain(urlString: string) {
+  Domain(urlString: string): boolean {
+    if (!urlString) return false;
+
+    try {
+      // Если нет протокола — добавим https://
+      if (!/^https?:\/\//i.test(urlString)) {
+        urlString = 'https://' + urlString;
+      }
+
       const url = new URL(urlString);
       const hostname = url.hostname;
-      const domainParts = hostname.split('.');
 
+      // Проверяем именно t.me
       if (hostname === 't.me') {
         const channelName = url.pathname.slice(1);
-        return true;
+        return !!channelName; // true, если есть имя канала
       }
-    else{
+
+      return false;
+    } catch (err) {
+      console.error('Invalid URL:', urlString, err);
       return false;
     }
   }
+
 
   // Метод для извлечения основного домена без зоны
   setDomain(urlString: string): string {

@@ -61,6 +61,7 @@ export class HomeService {
 
         this.selectPage = this.selectPage + 1;
         this.vacancies = [...this.vacancies, ...filteredData];
+        console.log('vacancies',this.vacancies)
       }
       this.loading = false;
     })

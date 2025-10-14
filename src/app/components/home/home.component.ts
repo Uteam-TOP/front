@@ -25,7 +25,7 @@ import { PopUpEntryComponent } from '../pop-up-entry/pop-up-entry.component';
   imports: [CommonModule, OneSectionComponent, BackgroundImgsComponent, SearchComponent, SortetdFilterComponent, SearchInputPhoneComponent, VacancyLibraryComponent, ResumeLibraryComponent, ProjectComponent, HackathonCadComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers:[PopUpEntryComponent],
+  providers: [PopUpEntryComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   animations: [
     trigger('fadeAnimation', [
@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
     private http: HttpClient,
     private tokenService: TokenService,
     private popUpEntryService: PopUpEntryService,
-    private popUpEntryComponent:PopUpEntryComponent
+    private popUpEntryComponent: PopUpEntryComponent
   ) {
 
     this.settingHeaderService.post = false;
@@ -79,28 +79,38 @@ export class HomeComponent implements OnInit {
       this.verifyProfile();
     });
 
+    console.log('homeService.vacancies', this.homeService.vacancies)
+
   }
 
   verifyProfile(): void {
+    if (!this.userId || isNaN(this.userId)) {
+      console.error('Invalid user ID:', this.userId);
+      this.loading = false;
+      return;
+    }
+
     this.loading = true;
     this.http.get(`${environment.apiUrl}/auth/token/${this.userId}`)
       .subscribe({
         next: (response: any) => {
           this.loading = false;
-
-          // Успешное подтверждение (200)
           this.popUpEntryService.confirmAuth = true;
-          this.popUpEntryService.accessVerificationMessage = "Аккаунт успешно подтвержден"
+          this.popUpEntryService.accessVerificationMessage = "Аккаунт успешно подтвержден";
           this.popUpEntryService.showDialog();
-          // this.tokenService.setToken(response.token);
-          // localStorage.setItem('userNickname', response.nickname);
           this.popUpEntryComponent.login_user();
         },
         error: (error) => {
           this.loading = false;
 
-          if (error.status === 208) {  // Уже подтвержден
+          if (error.status === 208) {
             this.popUpEntryService.accessVerificationMessage = "Аккаунт уже подтвержден ранее";
+            this.popUpEntryService.showDialog();
+          } else if (error.status === 404) {
+            this.popUpEntryService.accessVerificationMessage = "Пользователь не найден";
+            this.popUpEntryService.showDialog();
+          } else {
+            this.popUpEntryService.accessVerificationMessage = "Произошла ошибка при подтверждении";
             this.popUpEntryService.showDialog();
           }
         }

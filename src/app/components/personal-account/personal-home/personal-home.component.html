@@ -54,7 +54,7 @@
                 </p>
                 <diV style=" display: flex;  flex-direction: row; align-items: flex-start; gap: 1rem;">
                     <a class="contacts-item" [href]="dataCurrentUser.freeLink">
-                        <ng-container *ngIf="domainService.Domain(dataCurrentUser.freeLink); else otherDomain">
+                        <ng-container *ngIf="dataCurrentUser.freeLink && domainService.Domain(dataCurrentUser.freeLink); else otherDomain">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_669_1177)">

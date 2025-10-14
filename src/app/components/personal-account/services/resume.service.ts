@@ -56,7 +56,7 @@ export class ResumeService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.put(`${this.domain}/secured/resumes/ofCurrentUser/${id}`, body, { headers });
+    return this.http.put(`${this.domain}/resumes/ofCurrentUser/${id}`, body, { headers });
   }
 
 

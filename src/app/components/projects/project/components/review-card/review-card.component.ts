@@ -50,7 +50,7 @@ export class ReviewCardComponent implements OnInit {
   deletePost() {
     this.tapeService.deletePost(this.Item.id).subscribe(() => {
       this.tapeService.getTapes(this.tapeService.projectId).subscribe((data: any) => {
-        this.tapeService.setItemsList(data.data);
+        this.tapeService.setItemsList(data);
       });
     });
   }

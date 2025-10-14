@@ -47,12 +47,12 @@
                         *ngIf="currentUserLogo && currentUserLogo !== 'default' && currentUserLogo !== ''; else default">
                         <ng-container *ngIf="isImageAvatar(currentUserLogo); else default">
                             <img *ngIf="currentUserLogo.startsWith('http')" [src]="currentUserLogo" class="logoImg"
-                                style="width: 44px; height: 44px;" (click)="viewUser()">
+                                style="width: 44px; height: 44px; border-radius: 50%;" (click)="viewUser()">
 
                             <!-- Если это локальное имя файла, добавляем путь -->
                             <img *ngIf="!currentUserLogo.startsWith('http')"
                                 [src]="'assets/avatars/' + currentUserLogo + '.png'" class="logoImg"
-                                style="width: 44px; height: 44px;" (click)="viewUser()">
+                                style="width: 44px; height: 44px;  border-radius: 50%;" (click)="viewUser()">
                         </ng-container>
                     </ng-container>
                     <ng-template #default>
