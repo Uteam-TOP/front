@@ -176,6 +176,23 @@ export class CreateEditProjectsComponent implements OnInit {
           tasks: user.tasks,
           nickname: user.nickname,
         });
+        this.projectService.isEditProject = true;
+        const backgroundContainer = document.querySelector('.background-container') as HTMLElement;
+        if (backgroundContainer) {
+          backgroundContainer.style.backgroundImage = `url(${user.headerLink})`;
+          backgroundContainer.style.backgroundSize = 'cover';
+          backgroundContainer.style.backgroundPosition = 'center';
+        }
+        this.headerImg = user.headerLink;
+        this.isLogoImageSelected = true;
+        const logoContainer = document.querySelector('.container-elements-left-iconBlock-img') as HTMLElement;
+        if (logoContainer) {
+          logoContainer.style.backgroundImage = `url(${user.avatarLink})`;
+          logoContainer.style.backgroundSize = 'contain';
+          logoContainer.style.backgroundRepeat = 'no-repeat';
+          logoContainer.style.backgroundPosition = 'center';
+        }
+        this.avatarImg = user.avatarLink;
 
         if (user.nickname) {
           this.oldNickname = user.nickname;
@@ -259,29 +276,30 @@ export class CreateEditProjectsComponent implements OnInit {
         newData.id = this.projectData.id;
         this.createEditProjectsService.setEditProject(newData).subscribe((data: any) => {
 
-          if (this.headerImg) {
+          if (this.isValidFile(this.headerImg)) {
             this.setAvatar(this.headerImg, 'header');
           }
-          if (this.avatarImg) {
-            this.setAvatar(this.headerImg, 'avatar');
+          if (this.isValidFile(this.avatarImg)) {
+            this.setAvatar(this.avatarImg, 'avatar');
           }
           this.projectService.setCurrentProjectData(data);
-          // this.router.navigate(['project', data.nickname]);
+
+          this.router.navigateByUrl(`/project/${data.nickname}`);
         })
       } else {
         this.createEditProjectsService.setNewProject(newData).subscribe((data: any) => {
 
-          if (this.headerImg) {
+          if (this.isValidFile(this.headerImg)) {
             this.setAvatar(this.headerImg, 'header');
           }
-          if (this.avatarImg) {
-            this.setAvatar(this.headerImg, 'avatar');
+          if (this.isValidFile(this.avatarImg)) {
+            this.setAvatar(this.avatarImg, 'avatar');
           }
           this.projectService.setCurrentProjectData(data);
           this.router.navigate(['project', data.nickname]);
         })
       }
-
+      this.projectService.isEditProject = false;
 
 
     } else {
@@ -290,6 +308,33 @@ export class CreateEditProjectsComponent implements OnInit {
   }
 
 
+
+
+  private isValidFile(file: any): boolean {
+    // Исключаем строки
+    if (typeof file === 'string') {
+      return false;
+    }
+
+    // Проверяем основные признаки файла
+    if (file instanceof File) {
+      return file.size > 0 && !!file.name && !!file.type;
+    }
+
+    if (file instanceof Blob) {
+      return file.size > 0;
+    }
+
+    // Проверка по структуре объекта
+    if (file && typeof file === 'object') {
+      const hasFileProperties = 'name' in file && 'size' in file && 'type' in file;
+      const hasBlobProperties = 'size' in file && 'type' in file;
+
+      return (hasFileProperties || hasBlobProperties) && file.size > 0;
+    }
+
+    return false;
+  }
 
   hasError(field: string, error: string): boolean {
     const control = this.form.get(field);

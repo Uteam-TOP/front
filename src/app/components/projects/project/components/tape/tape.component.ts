@@ -108,6 +108,7 @@ export class TapeComponent {
           // Добавляем URL изображения к посту
           post.imageUrl = imageResponse.url;
   
+          console.log('post',post)
           // Добавляем новый пост в начало списка
           this.itemsList = [post, ...this.itemsList];
   
