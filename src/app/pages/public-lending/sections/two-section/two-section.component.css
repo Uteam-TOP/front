@@ -99,8 +99,8 @@
     .block_left {
         grid-area: block_left;
         display: grid;
-        grid-template-areas: "article--first " 
-                            "article--second"  
+        grid-template-areas: "article--first "
+                            "article--second"
                             "article--third" ;
         z-index:19;
         padding: 5px;
@@ -116,14 +116,14 @@
         grid-area: article--first;
         display: flex;
         width:100%;
-        z-index:19;    
+        z-index:19;
     }
     .article--second {
         grid-area: article--second;
         display: flex;
         width:100%;
         margin-left: -80px;
-        z-index:19;    
+        z-index:19;
     }
     .article--third {
         grid-area:  article--third;
@@ -137,8 +137,8 @@
     /* ///////////////////// */
     .block_right {
         grid-area: block_right;
-        display: grid; 
-        grid-template-areas: 
+        display: grid;
+        grid-template-areas:
                 "article-first-text"
                 "article-second-text"
                 "btn_registration";
@@ -148,7 +148,7 @@
     }
     .article-first-text {
         grid-area: article-first-text;
-        z-index:19;   
+        z-index:19;
         max-width: 500px;
         width: 100%;
         font-weight: 400;
@@ -158,7 +158,7 @@
     }
     .article-second-text {
         grid-area: article-second-text;
-        z-index:19;   
+        z-index:19;
         margin-left: -150px;
         margin-top: -70px;
         max-width: 800px;
@@ -172,8 +172,8 @@
         justify-self: center;
         align-self: flex-start;
         grid-area: btn_registration;
-        z-index:19; 
-        text-align: center; 
+        z-index:19;
+        text-align: center;
         padding: 16px 80px;
         max-height: 50px;
         background: #84DD2C;
@@ -199,26 +199,26 @@
                              "block_right"
                              "app-lending-footer-button"
                              ;
-        height: 100vh;
+        height: 100%;
         z-index: 20;
 
     }
-    
+
     .block_left {
         grid-area: block_left;
         display: grid;
-        grid-template-areas: 
-                "article--first"  
-                "article--second"  
+        grid-template-areas:
+                "article--first"
+                "article--second"
                 "article--third";
         z-index:19;
-        padding: 5px 10px; 
+        padding: 5px 10px;
     }
     img {
         padding:2px;
         width:100%;
     }
-    
+
     .article--first {
         grid-area: article--first;
         display: flex;
@@ -246,7 +246,7 @@
     .block_right {
         grid-area: block_right;
         display: grid;
-        grid-template-areas: 
+        grid-template-areas:
                 "article-second-text"
                 "article-first-text"
                 "btn_registration";
@@ -257,7 +257,7 @@
 
     }
     .article-first-text {
-        grid-area: article-first-text;  
+        grid-area: article-first-text;
         max-width: 100%;
         font-weight: 400;
         font-size: clamp(12px, 4vw, 18px);
@@ -274,8 +274,8 @@
         grid-area: btn_registration;
         display: flex;
         justify-self: center;
-        width: max-content; 
-        text-align: center; 
+        width: max-content;
+        text-align: center;
         padding: 16px 50px;
         max-height: 50px;
         background: #84DD2C;

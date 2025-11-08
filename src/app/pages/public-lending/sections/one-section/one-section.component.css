@@ -137,18 +137,18 @@
         height: 70vw;
         left: -8vw;
     }
-    
+
     .background-container .center-image {
         width: 65vw;
         height: 65vw;
         top: 70%;
     }
-    
+
     .logo-overlay {
         width: 35vw;
         left: 38%;
     }
-    
+
     .slogan {
         font-size: 2rem;
         right: 7%;
@@ -164,18 +164,18 @@
         height: 70vw;
         left: -8vw;
     }
-    
+
     .background-container .center-image {
         width: 65vw;
         height: 65vw;
         top: 70%;
     }
-    
+
     .logo-overlay {
         width: 35vw;
         left: 38%;
     }
-    
+
     .slogan {
         font-size: 2rem;
         right: 7%;
@@ -196,7 +196,7 @@
         grid-template-rows: 1fr 1fr 70px;
         /* margin-top: 70px; */
         padding: 5px 10px;
-        height: 100vh;
+        height: 100%;
         z-index: 20;
     }
     /* Логотип */

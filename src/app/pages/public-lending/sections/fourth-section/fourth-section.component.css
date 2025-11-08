@@ -51,17 +51,17 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         justify-content: space-evenly;
-        height: 100vh;
+        height: 100%;
     }
     .article-images-right {
             display: grid;
             z-index: 12;
-            height: 92vh;
+            height: 92%;
             align-content: space-between;
-    }   
+    }
     .stairs-img-parent  {
         display: flex;
-        height: 78vh;
+        height: 78%;
     }
     .stairs-img-parent img {
         width: 100%;
@@ -83,7 +83,7 @@
         background-color: #A6EB20;
         padding: 10px 24px;
         border-top-left-radius: 100px;
-        border-bottom-left-radius: 100px;  
+        border-bottom-left-radius: 100px;
     }
     .fifth-title-in {
         margin-top: 20px;
@@ -94,10 +94,10 @@
         background-color: #ffffff2f;
         padding: 10px 24px;
         border-top-left-radius: 100px;
-        border-bottom-left-radius: 100px;  
+        border-bottom-left-radius: 100px;
         color: #fff;
     }
-    
+
 
 
     .article-text-left {
@@ -106,7 +106,7 @@
         align-content: space-around;
         z-index: 20;
         padding-top: 80px;
-        height: 92vh;
+        height: 92%;
     }
     .first-title {
         display: grid;
@@ -153,7 +153,7 @@
 
 /* Медиазапросы для адаптации */
 /* --------------------  mobile ---------------------------- */
-@media (max-width: 768px) {  
+@media (max-width: 768px) {
     .articles-container {
         margin-top: 70px;
         display: grid;
@@ -162,14 +162,14 @@
                              "article-images-right"
                              "app-lending-footer-button"
                              ;
-        height: 100vh;
+        height: 100%;
         z-index: 20;
     }
 
     .article-text-left  {
         grid-area: article-text-left;
         display: grid;
-        grid-template-areas: 
+        grid-template-areas:
                 "first-title"
                 "seconde-title"
                 "three-title"
@@ -224,7 +224,7 @@
         grid-area: article-images-right;
         display: grid;
         align-content: end;
-        grid-template-areas: 
+        grid-template-areas:
                 "block-btn"
                 ;
         gap: 10px;
@@ -251,7 +251,7 @@
         background-color: #A6EB20;
         padding: 10px 24px;
         border-top-left-radius: 100px;
-        border-bottom-left-radius: 100px;  
+        border-bottom-left-radius: 100px;
     }
     .fifth-title-in {
         margin-top: 10px;
@@ -262,11 +262,10 @@
         background-color: #ffffff2f;
         padding: 10px 24px;
         border-top-left-radius: 100px;
-        border-bottom-left-radius: 100px;  
+        border-bottom-left-radius: 100px;
         color: #fff;
     }
 
 
 }
- 
-     
+

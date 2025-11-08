@@ -8,18 +8,19 @@ import { SixthSectionComponent } from "./sections/sixth-section/sixth-section.co
 import { SeventhSectionComponent } from "./sections/seventh-section/seventh-section.component";
 import { LendingFooterButtonComponent } from "./sections/lending-footer-button/lending-footer-button.component";
 import { CommonModule } from '@angular/common';
+import {FooterComponent} from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-public-lending',
   standalone: true,
-  imports: [OneSectionComponent, TwoSectionComponent, ThirdSectionComponent, 
-    FourthSectionComponent, FifthSectionComponent, SixthSectionComponent, CommonModule, SeventhSectionComponent],
+  imports: [OneSectionComponent, TwoSectionComponent, ThirdSectionComponent,
+    FourthSectionComponent, FifthSectionComponent, SixthSectionComponent, CommonModule, SeventhSectionComponent, FooterComponent],
   templateUrl: './public-lending.component.html',
   styleUrl: './public-lending.component.css'
 })
 export class PublicLendingComponent implements AfterViewInit, OnDestroy {
   @ViewChildren('section') sections!: QueryList<ElementRef>;
-  
+
   private isScrolling = false;
   currentSection = 0;
   private scrollTimeout: any;
@@ -37,7 +38,9 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     // Блокируем стандартный скролл
     document.body.style.overflow = 'hidden';
-    
+
+    document.documentElement.style.overflow = 'hidden';
+
     this.sections.changes.subscribe(() => {
       this.sectionsInitialized = true;
       setTimeout(() => {
@@ -58,7 +61,8 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
   ngOnDestroy() {
     // Восстанавливаем стандартный скролл
     document.body.style.overflow = '';
-    
+    document.documentElement.style.overflow = '';
+
     if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
     if (this.resizeTimeout) clearTimeout(this.resizeTimeout);
   }
@@ -67,28 +71,28 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
   onWheel(event: WheelEvent) {
     // Всегда предотвращаем стандартное поведение
     event.preventDefault();
-    
+
     // Блокируем скролл во время анимации
     if (this.isScrolling || Date.now() - this.lastScrollTime < this.scrollCooldown) {
       return;
     }
-    
+
     // Накопление дельты для определения интенсивности скролла
     this.wheelDeltaAccumulator += Math.abs(event.deltaY);
-    
+
     // Если не достигли порога - выходим
     if (this.wheelDeltaAccumulator < this.wheelDeltaThreshold) {
       return;
     }
-    
+
     const delta = Math.sign(event.deltaY);
-    
+
     if (delta > 0) {
       this.nextSection();
     } else {
       this.previousSection();
     }
-    
+
     this.lastScrollTime = Date.now();
     this.wheelDeltaAccumulator = 0; // Сбрасываем аккумулятор
   }
@@ -96,7 +100,7 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (this.isScrolling || Date.now() - this.lastScrollTime < this.scrollCooldown) return;
-    
+
     if (event.key === 'ArrowDown' || event.key === 'PageDown') {
       event.preventDefault();
       this.nextSection();
@@ -120,13 +124,13 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
   onScroll(event: Event) {
     // Всегда предотвращаем стандартный скролл
     event.preventDefault();
-    
+
     // Игнорируем события скролла, которые мы сами инициируем
     if (this.isManualScroll) {
       this.isManualScroll = false;
       return;
     }
-    
+
     // Если скролл вызван не нами, принудительно возвращаем на текущую секцию
     if (!this.isScrolling) {
       this.scrollToSection(this.currentSection, false);
@@ -164,7 +168,7 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
     // Высокий порог для тач-устройств
     if (Math.abs(diff) > 80) {
       event.preventDefault();
-      
+
       if (diff > 0) {
         this.nextSection();
       } else {
@@ -184,7 +188,7 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
     this.isManualScroll = true;
 
     const targetPosition = index * window.innerHeight;
-    
+
     window.scrollTo({
       top: targetPosition,
       behavior: smooth ? 'smooth' : 'auto'
@@ -192,7 +196,7 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
 
     // Время завершения скролла
     const scrollDuration = smooth ? 600 : 100;
-    
+
     if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
     this.scrollTimeout = setTimeout(() => {
       this.isScrolling = false;
