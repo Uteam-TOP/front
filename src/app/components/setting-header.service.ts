@@ -15,19 +15,22 @@ export class SettingHeaderService {
   searchinputVisible: boolean = false;
   isSticky: boolean = false;
   isFooter: boolean = true;
-  
+
   constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.isheader = !event.url.includes('adminAccount');
+
+        this.isFooter = !event.url.includes('lending');
+
         if(!this.isheader){
           document.documentElement.style.setProperty('--background', '#f2f2f2');
         }
-        
+
       }
     });
   }
-  
+
   private isFilterSubject = new BehaviorSubject<boolean>(false);
 
   isFilterState$ = this.isFilterSubject.asObservable();

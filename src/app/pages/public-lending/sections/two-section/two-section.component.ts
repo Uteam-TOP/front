@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LendingFooterButtonComponent } from "../lending-footer-button/lending-footer-button.component";
+import {BaseSectionComponent} from "../base-section/base-section.component";
 
 @Component({
   selector: 'app-two-section',
@@ -8,6 +9,6 @@ import { LendingFooterButtonComponent } from "../lending-footer-button/lending-f
   templateUrl: './two-section.component.html',
   styleUrl: './two-section.component.css'
 })
-export class TwoSectionComponent {
+export class TwoSectionComponent extends BaseSectionComponent {
 
 }

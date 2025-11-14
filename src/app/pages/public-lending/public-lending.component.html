@@ -25,4 +25,6 @@
         <button *ngFor="let section of sections?.toArray(); let i = index" [class.active]="i === currentSection"
             (click)="goToSection(i)" class="dot"></button>
     </div>
+
+  <app-footer/>
 </div>

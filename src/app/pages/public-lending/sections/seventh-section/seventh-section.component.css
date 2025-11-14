@@ -47,17 +47,17 @@
         display: grid;
         grid-template-columns: 1fr 0.2fr 1fr;
         margin-top: 80px;
-        height: 98vh;
+        height: 98%;
         z-index: 20;
     }
 
     .article-images-left {
             display: grid;
-            justify-items: end; 
+            justify-items: end;
             align-items: end;
             padding-top: 120px;
             z-index: 20;
-            height: 65vh;
+            height: 65%;
     }
     .bottom-image {
         display: grid;
@@ -125,7 +125,7 @@
         background-color: #ffffff2f;
         padding: 10px 24px;
         border-top-left-radius: 100px;
-        border-bottom-left-radius: 100px;  
+        border-bottom-left-radius: 100px;
         color: #fff;
     }
     .fifth-title-in {
@@ -137,10 +137,10 @@
         background-color: #ffffff2f;
         padding: 10px 24px;
         border-top-left-radius: 100px;
-        border-bottom-left-radius: 100px;  
+        border-bottom-left-radius: 100px;
         color: #fff;
     }
-  
+
 }
 
 
@@ -159,7 +159,7 @@
                              "article-images-left"
                              "block-btn-forMobile"
                              "app-lending-footer-button";
-        height: 100vh;
+        height: 100%;
         z-index: 20;
         justify-content: space-between;
     }
@@ -169,7 +169,7 @@
     .block-btn {
         display: none;
     }
-    
+
     .article-text-right {
         grid-area: article-text-right;
         display: grid;
@@ -250,7 +250,7 @@
         background-color: #A6EB20;
         padding: 10px 24px;
         border-top-left-radius: 100px;
-        border-bottom-left-radius: 100px;  
+        border-bottom-left-radius: 100px;
     }
     .fifth-title-in {
         margin-top: 10px;
@@ -261,7 +261,7 @@
         background-color: #ffffff2f;
         padding: 10px 24px;
         border-top-left-radius: 100px;
-        border-bottom-left-radius: 100px;  
+        border-bottom-left-radius: 100px;
         color: #fff;
     }
 
