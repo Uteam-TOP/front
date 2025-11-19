@@ -51,8 +51,8 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: Dockerfile.dev
-          tags: ${{ steps.meta.outputs.REPO_NAME }}-dev:latest
+          file: Dockerfile-frontend
+          tags: ${{ steps.meta.outputs.REPO_NAME }}:front
           load: true # Load to local Docker daemon for testing
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
