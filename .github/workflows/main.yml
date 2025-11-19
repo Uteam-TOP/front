@@ -2,9 +2,9 @@ name: CI/CD – Angular Application with Docker
 
 on:
   push:
-    branches: [master]
+    branches: [developer]
   pull_request:
-    branches: [master]
+    branches: [developer]
     types: [opened, synchronize, reopened]
 
 jobs:
