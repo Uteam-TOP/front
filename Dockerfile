@@ -30,7 +30,7 @@
 # COPY --from=build /app/dist/ucomand/browser/* /usr/share/nginx/html/
 # COPY --from=build /app/src/assets /usr/share/nginx/html/assets
 
-# EXPOSE 8081
+# EXPOSE 9001
 
 # CMD ["nginx", "-g", "daemon off;"]
 
@@ -62,7 +62,7 @@ ENV VERSION_NUMBER=$VERSION_NUMBER_ARG
 ENV TZ=Europe/Zurich
 
 # Открываем порт 80 для доступа к приложению
-EXPOSE 8081
+EXPOSE 9001
 
 # Команда для запуска Angular приложения с использованием ng serve
-CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "8081"]
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "9001"]
