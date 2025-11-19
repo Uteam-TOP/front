@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import {Component, input, Input} from '@angular/core';
 
 @Component({
   selector: 'app-line-item',
@@ -13,5 +13,5 @@ export class LineItemComponent {
   @Input() width: number = 0;
   @Input() color: string = '';
   @Input() stroke: string = '';
-  @Input() border: string = '';
+  public border = input<string>('');
 }
