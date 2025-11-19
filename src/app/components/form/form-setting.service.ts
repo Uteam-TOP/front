@@ -21,7 +21,7 @@ export class FormSettingService {
   private domain = `${environment.apiUrl}`;
 
   getTags(type: string): Observable<any> {
-    return this.http.get(`${this.domain}/tags?types=${type}`);
+    return this.http.get(`${this.domain}/main/tag?types=${type}`);
   }
 
   setData(type: string, data: any): Observable<any> {
@@ -33,21 +33,21 @@ export class FormSettingService {
   }
 
 
-  getDataById(type: string, id: string){
+  getDataById(type: string, id: string) {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.get(`${this.domain}/${type}/${id}`, { headers });
+    return this.http.get(`${this.domain}/main/${type}/${id}`, { headers });
   }
 
 
-  putDataById(type: string, data: any, id: string){
+  putDataById(type: string, data: any, id: string) {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.put(`${this.domain}/${type}/${id}`,data, { headers });
+    return this.http.put(`${this.domain}/${type}/ofCurrentUser/${id}`, data, { headers });
   }
 
   deleteData(type: string, id: any): Observable<any> {
@@ -57,4 +57,13 @@ export class FormSettingService {
     });
     return this.http.delete(`${this.domain}/${type}/${id}`, { headers });
   }
+
+  addToProject(idVacancy: number, idProject: number) {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put(`${this.domain}/projects/${idProject}/addVacancies`, [idVacancy], { headers });
+  }
+
 }

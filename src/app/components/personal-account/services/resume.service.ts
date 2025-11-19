@@ -67,7 +67,7 @@ export class ResumeService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.delete(`${this.domain}/resumes/${id}`, { headers });
+    return this.http.delete(`${this.domain}/secured/resumes/${id}`, { headers });
   }
 
 
@@ -85,7 +85,8 @@ export class ResumeService {
     // Определяем новое состояние для резюме
     const newVisibility = resume.visibility === 'CREATOR_ONLY' ? 'EVERYBODY' : 'CREATOR_ONLY';
     const updatedResume = { ...resume, visibility: newVisibility };
-
+    console.log('resumeresumeresume',resume)
+    console.log('updatedResumeupdatedResume',updatedResume)
     // Обновляем резюме на сервере
     this.setArchive(resume.id, updatedResume).subscribe(
       (response: any) => {

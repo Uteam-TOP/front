@@ -12,6 +12,7 @@ import { PopUpErrorCreateService } from '../pop-up-error-create/pop-up-error-cre
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MenuNavService } from './menu-nav.service';
 import { environment } from '../../../environment';
+import { AvatarSelectionService } from '../pop-up-avatar/avatar-selection.service';
 
 @Component({
   selector: 'app-menu-nav',
@@ -33,7 +34,8 @@ export class MenuNavComponent implements OnInit {
   constructor(private location: Location, public settingHeaderService: SettingHeaderService,
     private router: Router, public tokenService: TokenService, private homeService: HomeService,
     private ngZone: NgZone, private cdr: ChangeDetectorRef, private formSettingService: FormSettingService,
-    private popUpErrorCreateService: PopUpErrorCreateService, private popUpEntryService: PopUpEntryService, public menuNavService: MenuNavService
+    private popUpErrorCreateService: PopUpErrorCreateService, private popUpEntryService: PopUpEntryService, 
+    public menuNavService: MenuNavService, private avatarSelectionService:AvatarSelectionService
   ) {
   }
 
@@ -41,8 +43,7 @@ export class MenuNavComponent implements OnInit {
   ngOnInit(): void {
 
     this.userAccess = localStorage.getItem('USaccess');
-    
-    console.log("userAccess",this.userAccess)
+
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
@@ -54,22 +55,42 @@ export class MenuNavComponent implements OnInit {
     this.menuNavService.getStorageValue().subscribe(value => {
       this.currentUserLogo = value;
     });
+    this.avatarSelectionService.selectedAvatar$.subscribe((value:any)=>{
+      this.currentUserLogo = value;
+      console.log('value',value)
+    })
     const savedTheme = localStorage.getItem('theme') || 'light';
     this.toggleTopic(savedTheme);
 
     this.tokenService.isAuthenticated$.subscribe(isAuthenticated => {
       this.ngZone.run(() => {
+        this.currentUserLogo = 
         this.isAuthenticated = isAuthenticated;
         this.setButtons();
         this.cdr.detectChanges();
+
       });
     });
   }
 
-  isImageAvatar(logo: string): boolean {
-    return logo.trim().startsWith('image');
+isImageAvatar(logo: any): boolean {
+  if (!logo || typeof logo !== 'string') {
+    return false;
   }
-
+  const trimmedLogo = logo.trim();
+  
+  // Для локальных аватаров (начинаются с image)
+  if (trimmedLogo.startsWith('image')) {
+    return true;
+  }
+  
+  // Для URL аватаров
+  if (trimmedLogo.startsWith('http') && trimmedLogo.includes('image')) {
+    return true;
+  }
+  
+  return false;
+}
   navigateTo(path: string) {
     this.router.navigate([path]);
     this.sidebarVisible = false;
@@ -124,11 +145,21 @@ export class MenuNavComponent implements OnInit {
 
   handleLogin(): void {
     this.sidebarVisible = false;
+    this.popUpEntryService.isAuth = true;
+    this.popUpEntryService.accessVerification = false;
+    this.popUpEntryService.confirmAuth = false;
+    localStorage.removeItem('confirmAuth');
+    localStorage.removeItem('authEmail');
     this.popUpEntryService.showDialog();
   }
 
   handleRegistration(): void {
     this.sidebarVisible = false;
+    this.popUpEntryService.isAuth = true;
+    this.popUpEntryService.accessVerification = false;
+    this.popUpEntryService.confirmAuth = false;
+    localStorage.removeItem('confirmAuth');
+    localStorage.removeItem('authEmail');
     this.popUpEntryService.showDialog();
   }
 

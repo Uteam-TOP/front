@@ -11,11 +11,17 @@
         </div>
 
         <div class="avatar-container">
+            <app-item-avatar [fileUrl]="fileUrl"  (setAvatar)="onSetAvatar($event)" [default]="false"></app-item-avatar>
             <app-item-avatar *ngFor="let item of filteredAvatars" [avatarSrc]="item"></app-item-avatar>
+
         </div>
-        
+
+
         <div class="btns">
             <a class="popup-btn-setAvatar" (click)="selectAvatar()">Выбрать</a>
         </div>
+
+
+
     </div>
 </div>

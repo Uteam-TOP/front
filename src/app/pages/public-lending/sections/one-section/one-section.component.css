@@ -1,0 +1,254 @@
+.background-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #5a4bb8;
+}
+
+/* Общие стили для псевдоэлементов */
+.background-container::before,
+.background-container::after,
+.background-container .center-image {
+    content: "";
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+/* Левое изображение */
+.background-container::before {
+    background-image: url('/assets/publicleinding/image1.png');
+    width: 60vw;
+    height: 60vw;
+    max-width: 1500px;
+    max-height: 1500px;
+    left: -6vw;
+    top: 45%;
+    transform: translateY(-50%);
+    z-index: 5;
+}
+
+/* Центральное изображение */
+.background-container .center-image {
+    background-image: url('/assets/publicleinding/image2.png');
+    width: 60vw;
+    height: 60vw;
+    max-width: 1500px;
+    max-height: 1500px;
+    left: 54%;
+    top: 75%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 4;
+}
+
+/* Правое изображение */
+.background-container::after {
+    background-image: url('/assets/publicleinding/image3.png');
+    width: 58vw;
+    height: 54vw;
+    max-width: 1000px;
+    max-height: 1000px;
+    right: -10%;
+    bottom: -35%;
+    z-index: 5;
+}
+
+
+@media (min-width: 768px) {
+    .block_container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Логотип */
+    .block_left {
+        /* display: flex;
+        justify-content: center; */
+    }
+    .logo-overlay {
+        position: absolute;
+        left: 36%;
+        top: 43%;
+        transform: translate(-50%, -50%);
+
+        max-width: 500px;
+        z-index: 10;
+        pointer-events: none;
+    }
+
+
+    .block_right {
+        height: 90vh;
+        display: grid;
+        align-content: space-between;
+        justify-content: center;
+        justify-items: center;
+        padding: 150px 0;
+        z-index: 20;
+    }
+    .block_titles {
+        display: flex;
+        width: 70%;
+        justify-content: end;
+        flex-wrap: wrap;
+        font-size: clamp(12px, 2vw, 1rem);
+        gap:10px
+    }
+    .tests {
+        padding: 10px 10px;
+        background: #A6EB20;
+        border-radius: 30px;
+    }
+
+    /* Текст слоган */
+    .slogan {
+        display: flex;
+        z-index: 20;
+        font-size: clamp(36px, 5vw, 72px);
+        text-align: left;
+        font-weight: 600;
+        line-height: 103%;
+        letter-spacing: 0em;
+        color: #fff;
+        animation: fadeIn 1.5s ease-out;
+    }
+
+    /* Анимация */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+
+}
+
+
+
+
+
+
+/* Медиазапросы для адаптации */
+
+/* Планшеты (768px - 1024px) */
+/* @media (max-width: 1024px) {
+    .background-container::before {
+        width: 70vw;
+        height: 70vw;
+        left: -8vw;
+    }
+
+    .background-container .center-image {
+        width: 65vw;
+        height: 65vw;
+        top: 70%;
+    }
+
+    .logo-overlay {
+        width: 35vw;
+        left: 38%;
+    }
+
+    .slogan {
+        font-size: 2rem;
+        right: 7%;
+    }
+} */
+
+/* Медиазапросы для адаптации */
+
+/* Планшеты (768px - 1024px) */
+/* @media (max-width: 1024px) {
+    .background-container::before {
+        width: 70vw;
+        height: 70vw;
+        left: -8vw;
+    }
+
+    .background-container .center-image {
+        width: 65vw;
+        height: 65vw;
+        top: 70%;
+    }
+
+    .logo-overlay {
+        width: 35vw;
+        left: 38%;
+    }
+
+    .slogan {
+        font-size: 2rem;
+        right: 7%;
+    }
+} */
+
+/* Медиазапросы для адаптации */
+/* --------------------  mobile ---------------------------- */
+@media (max-width: 768px) {
+
+    .background-container::before {
+        display: none;
+    }
+
+    .block_container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 70px;
+        /* margin-top: 70px; */
+        padding: 5px 10px;
+        height: 100%;
+        z-index: 20;
+    }
+    /* Логотип */
+    .block_left {
+        display: grid;
+        align-items: center;
+        justify-items: center;
+    }
+    .logo-overlay {
+        width: 80%;
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    .block_right {
+        display: grid;
+        padding: 10px 0;
+    }
+
+    .block_titles {
+        display: flex;
+        width: 100%;
+        justify-content: end;
+        align-self: center;
+        flex-wrap: wrap;
+        gap:5px;
+    }
+    .tests {
+        padding: 5px;
+        background: #A6EB20;
+        border-radius: 30px;
+        font-size: clamp(12px, 4vw, 18px);
+    }
+
+    /* Текст слоган */
+    .slogan {
+        display: flex;
+        justify-content: center;
+        z-index: 20;
+        font-size: clamp(36px, 5vw, 72px);
+        font-weight: 600;
+        line-height: 103%;
+        letter-spacing: 0em;
+        color: #fff;
+        animation: fadeIn 1.5s ease-out;
+    }
+
+    /* Анимация */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+
+}

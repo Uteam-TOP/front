@@ -11,9 +11,9 @@ import { PopUpAvatarService } from '../../pop-up-avatar/pop-up-avatar.service';
 import { catchError, map, Observable, of, Subscription } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AvatarSelectionService } from '../../pop-up-avatar/avatar-selection.service';
-import { forbiddenWordsValidator } from './errorNameList';
 import { SettingHeaderService } from '../../setting-header.service';
 import { MenuNavService } from '../../menu-nav/menu-nav.service';
+import { forbiddenWordsValidator } from '../../../../validators/forbidden-words.validator';
 
 @Component({
   selector: 'app-personal-data',
@@ -57,19 +57,23 @@ export class PersonalDataComponent implements OnInit {
     private router: Router, public popUpAvatarService: PopUpAvatarService,
     private avatarSelectionService: AvatarSelectionService, private settingHeaderService: SettingHeaderService, public menuNavService: MenuNavService) {
     this.personalDataForm = this.fb.group({
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
+      name: ['', [Validators.required, forbiddenWordsValidator()]],
+      surname: ['', [Validators.required, forbiddenWordsValidator()]],
       age: ['', Validators.required],
       gender: ['', Validators.required],
       city: ['', Validators.required],
-      freeLink: [''],
-      aboutMe: ['', [Validators.maxLength(700)]],
+      freeLink: ['' ],
+      aboutMe: ['', [Validators.maxLength(700), forbiddenWordsValidator()]],
       email: ['', [Validators.required, Validators.email]],
-      telegram: [{ value: '', disabled: true }, [Validators.required]],
-      domain: ['', [Validators.required]],
-    });
+      telegram: [{ value: ''}, [Validators.required,forbiddenWordsValidator()]],
+      domain: ['', [Validators.required, forbiddenWordsValidator()]],
+    }, { updateOn: 'blur' });
   }
 
+
+  get forbiddenWords() {
+    return this.personalDataForm.get('description')?.errors?.['forbiddenWords'] || [];
+  }
   formChanges() {
     this.personalDataForm.valueChanges.subscribe((changes) => {
       if (this.areAllFieldsEmpty() || this.isFormUnchanged()) {
@@ -88,6 +92,31 @@ export class PersonalDataComponent implements OnInit {
   isFormUnchanged(): boolean {
     return JSON.stringify(this.personalDataForm.value) === JSON.stringify(this.initialFormState);
   }
+
+  normalizeTelegram(): void {
+  const control = this.personalDataForm.get('telegram');
+  if (!control) return;
+
+  let value = control.value?.trim();
+
+  if (!value) return;
+
+  // Если ссылка
+  const telegramLinkPattern = /^(?:https?:\/\/)?(?:t\.me|telegram\.me)\/([a-zA-Z0-9_]+)/i;
+  const match = value.match(telegramLinkPattern);
+
+  if (match && match[1]) {
+    value = '@' + match[1]; // сохраняем как @nickname
+  } else if (value.startsWith('t.me/')) {
+    value = '@' + value.replace('t.me/', '');
+  } else if (!value.startsWith('@')) {
+    // если ввели ник без @
+    value = '@' + value;
+  }
+
+  control.setValue(value, { emitEvent: true });
+}
+
 
   onCancel() {
     if (this.initialFormState) {
@@ -159,7 +188,7 @@ export class PersonalDataComponent implements OnInit {
 
   userData() {
     this.personalDataService.getCurrentUser().subscribe(
-      (user: User) => {
+      (user: any) => {
         if (user && user.nickname && user.id) {
           if (user.imageLink) {
             this.menuNavService.setStorageValue(user.imageLink);
@@ -168,7 +197,7 @@ export class PersonalDataComponent implements OnInit {
             surname: user.lastName || '',
             age: user.age || '',
             gender: user.gender || '',
-            city: user.cityOfResidence?.name || '',
+            city: user.cityEntityOfResidence?.name || '',
             freeLink: user.freeLink || '',
             aboutMe: user.aboutMe || '',
             email: user.email,
@@ -176,7 +205,7 @@ export class PersonalDataComponent implements OnInit {
             domain: user.nickname || '',
           });
           this.dataCurrentUser = user;
-          this.cityOfResidence = user.cityOfResidence || {};
+          this.cityOfResidence = user.cityEntityOfResidence || {};
           this.setAvatar = user.imageLink;
 
           if (user.nickname) {
@@ -283,7 +312,7 @@ export class PersonalDataComponent implements OnInit {
   onSubmit() {
     const selectedCity = this.personalDataForm.get('city')?.value;
     const selectedCityControl = this.personalDataForm.get('city');
-
+  
     if (!this.isCityValid(selectedCity)) {
       this.getInputInval(false);
       selectedCityControl?.setErrors({ invalidCity: true });
@@ -304,7 +333,7 @@ export class PersonalDataComponent implements OnInit {
     } else {
       const formValues = this.personalDataForm.value;
 
-      const user: User = {
+      const user: any = {
         id: 0,
         firstName: formValues.name,
         lastName: formValues.surname,
@@ -313,10 +342,10 @@ export class PersonalDataComponent implements OnInit {
         freeLink: formValues.freeLink,
         ownLink: '',
         aboutMe: formValues.aboutMe.replace(/\r?\n/g, '\n'),
-        telegram: formValues.telegram,
+        telegram: formValues.telegram.replace('@', ''),
         email: formValues.email,
         dateOfRegistration: this.dataCurrentUser.dateOfRegistration,
-        cityOfResidence: this.cityOfResidence,
+        cityEntityOfResidence: {id: this.cityOfResidence.id} ,
         imageLink: this.setAvatar,
         nickname: formValues.domain,
         role: this.dataCurrentUser.role,
@@ -325,6 +354,7 @@ export class PersonalDataComponent implements OnInit {
       console.log("User", user)
       this.personalDataService.updateUser(user).subscribe(
         response => {
+          console.log('response ------ -----',response)
           this.userData();
           localStorage.setItem('userId', formValues.domain);
           localStorage.setItem('userNickname', formValues.domain);

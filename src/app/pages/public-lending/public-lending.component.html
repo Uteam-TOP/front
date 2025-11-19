@@ -1,0 +1,30 @@
+<div class="scroll-container">
+    <div #section class="section">
+        <app-one-section />
+    </div>
+    <div #section class="section">
+        <app-two-section />
+    </div>
+    <div #section class="section">
+        <app-third-section />
+    </div>
+    <div #section class="section">
+        <app-fourth-section />
+    </div>
+    <div #section class="section">
+        <app-fifth-section />
+    </div>
+      <div #section class="section">
+          <app-seventh-section />
+    </div>
+    <div #section class="section">
+        <app-sixth-section />
+    </div>
+
+    <div class="navigation-dots">
+        <button *ngFor="let section of sections?.toArray(); let i = index" [class.active]="i === currentSection"
+            (click)="goToSection(i)" class="dot"></button>
+    </div>
+
+  <app-footer/>
+</div>

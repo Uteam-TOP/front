@@ -23,11 +23,15 @@ import { PopUpErrorCreateService } from '../../pop-up-error-create/pop-up-error-
 import { TokenService } from '../../token.service';
 import { BanResumeComponent } from '../ban-resume/ban-resume.component';
 import { BanVacancyComponent } from '../ban-vacancy/ban-vacancy.component';
+import { PersonalProjectComponent } from '../personal-project/personal-project.component';
+import { ProjectService } from '../services/project.service';
+import { PopUpChangePasswordComponent } from '../../pop-up-change-password/pop-up-change-password.component';
+import { PopUpChangePasswordService } from '../../pop-up-change-password/pop-up-change-password.service';
 
 @Component({
   selector: 'app-personal-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, PersonalVacancyComponent, PersonalResumeComponent, ArchiveResumeComponent, ArchiveVacancyComponent, PopUpDeleteComponent, PopUpExitComponent, BanResumeComponent, BanVacancyComponent],
+  imports: [CommonModule, RouterLink, PersonalVacancyComponent, PersonalResumeComponent, ArchiveResumeComponent, ArchiveVacancyComponent, PopUpDeleteComponent, PopUpExitComponent, BanResumeComponent, BanVacancyComponent, PopUpChangePasswordComponent, PersonalProjectComponent],
   templateUrl: './personal-home.component.html',
   styleUrl: './personal-home.component.css',
   animations: [
@@ -48,14 +52,16 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
   private subscriptionExit: Subscription = new Subscription();
   isPopupVisible: boolean = false;
   isExitPopupVisible: boolean = false;
-
+  isChangePasswordPopupVisible: boolean = false;
   constructor(private settingHeaderService: SettingHeaderService, private router: Router,
     private route: ActivatedRoute, public domainService: DomainService,
     public viewCardService: ViewCardService, private personalDataService: PersonalDataService,
     private personalHomeService: PersonalHomeService, private popUpDeleteService: PopUpDeleteService, public popUpExitService: PopUpExitService,
     public resumeService: ResumeService, public vacancyService: VacancyService, public tokenService: TokenService,
     private formSettingService: FormSettingService,
-    private popUpErrorCreateService: PopUpErrorCreateService) { }
+    public projectService: ProjectService,
+    private popUpErrorCreateService: PopUpErrorCreateService, 
+  private popUpChangePasswordService:PopUpChangePasswordService) { }
 
   imagePath: string = '';
   domainName: string = '';
@@ -93,6 +99,20 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
     this.itemsToShowArchiveVacancies = this.showAllArchiveVacancies ? Infinity : 3;
   }
 
+  showAllArchiveProjects: boolean = false;
+  itemsToShowArchiveProjects: number = 3;
+  toggleArchiveProjects() {
+    this.showAllArchiveProjects = !this.showAllArchiveProjects;
+    this.itemsToShowArchiveProjects = this.showAllArchiveProjects ? Infinity : 3;
+  }
+
+  showAllProjects: boolean = false;
+  itemsToShowProjects: number = 3;
+  toggleProjects() {
+    this.showAllProjects = !this.showAllProjects;
+    this.itemsToShowProjects = this.showAllProjects ? Infinity : 3;
+  }
+
   ngOnInit(): void {
     this.settingHeaderService.shared = false;
     this.settingHeaderService.post = false;
@@ -100,7 +120,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
 
     this.resumeService.subscribeToGetCardsData();
     this.vacancyService.subscribeToGetCardsData();
-
+    this.projectService.subscribeToGetCardsData();
     this.domainService.checkImageExists(this.domainName).then((path) => {
       this.imagePath = path;
 
@@ -115,6 +135,12 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
         this.isExitPopupVisible = visible;
       })
     );
+    this.subscriptionExit.add(
+      this.popUpChangePasswordService.visible$.subscribe(visible => {
+        this.isChangePasswordPopupVisible = visible;
+      })
+    );
+    
 
     forkJoin({
       user: this.personalDataService.getCurrentUser().pipe(
@@ -192,6 +218,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.isExitPopupVisible = false;
     this.isPopupVisible = false;
+    this.isChangePasswordPopupVisible = false;
     this.popUpDeleteService.hidePopup();
     this.popUpExitService.hidePopup();
     this.resumeService.unsubscribeFromGetCardsData();
@@ -216,9 +243,40 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
       this.popUpErrorCreateService.visible = true;
     }
   }
+
+
+  handlePostProject(): void {
+    const fullAccess = localStorage.getItem('fullAccess')
+    const userNickname = localStorage.getItem('userNickname')
+    if (fullAccess == 'b326b5062b2f0e69046810717534cb09') {
+      this.formSettingService.isheading = false;
+      this.settingHeaderService.post = false;
+      this.settingHeaderService.shared = false;
+      this.router.navigate([`/${userNickname}/account/newProject`]);
+    } else {
+      this.popUpErrorCreateService.visible = true;
+    }
+  }
+
+  changePassword() { 
+    this.popUpChangePasswordService.showPopup();
+  }
+
   getCardUrl(cardValue: any, type: string, route: string): string {
     localStorage.setItem('routeTypeCard', type);
     return this.router.createUrlTree([route, cardValue]).toString();
+  }
+
+  getProjectUrl(cardValue: any): string {
+    return this.router.createUrlTree(['project', cardValue]).toString();
+  }
+
+  onProjecClick(event: MouseEvent, cardId: any): void {
+    if (event.button === 1 || event.ctrlKey || event.metaKey) {
+      return;
+    }
+    event.preventDefault();
+    this.router.navigate([`/project`, cardId]);
   }
 
 
@@ -234,7 +292,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
     const fullAccess = localStorage.getItem('fullAccess')
     const userNickname = localStorage.getItem('userNickname')
     if (fullAccess == 'b326b5062b2f0e69046810717534cb09') {
-      this.formSettingService.isheading = false;
+      this.formSettingService.isheading = true;
       this.formSettingService.typeForm = 'вакансии';
       this.settingHeaderService.post = false;
       this.settingHeaderService.shared = false;

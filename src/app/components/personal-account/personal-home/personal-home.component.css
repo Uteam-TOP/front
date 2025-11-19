@@ -22,6 +22,7 @@
     gap: 3rem;
 }
 
+
 .information,
 .contacts {
     flex: 1;
@@ -209,7 +210,7 @@ p {
 .second-path {
     display: flex;
     flex-direction: row;
-    gap: 2rem;
+    gap: 24px;
 }
 
 .container-resume,
@@ -219,6 +220,7 @@ p {
 }
 
 .title-cards {
+    width: 110px;
     font-family: var(--font-Monts);
     font-weight: 500;
     font-size: var(--text14);
@@ -244,7 +246,7 @@ p {
 
 
 .message-cards {
-    padding: 0 0 1rem 2.2rem;
+    padding: 0 32px 2.2rem;
     font-family: var(--font-Monts);
     font-weight: 500;
     font-size: var(--text13);
@@ -254,8 +256,11 @@ p {
 }
 
 .logoImg {
+    object-fit: cover;
     width: 6vw;
-    border-radius: 50%
+    height: 6vw;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
 }
 
 .container-resume-header,
@@ -280,7 +285,7 @@ p {
 
     font-family: var(--font-Monts);
     font-weight: 500;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 117%;
     color: #fff;
 }
@@ -355,6 +360,7 @@ p {
 .phone-btns-create {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
@@ -411,22 +417,33 @@ p {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 16px;
 }
 
-.app-card-vacancy-link{
+.app-card-vacancy-link {
     text-decoration: none;
 }
 
 @media (max-width: 1198px) {
 
-    .container-resume-header-newCards,
-    .container-vacancy-header-newCards {
-        display: none;
-    }
     .container {
         z-index: 1;
         margin-top: 120px;
+    }
+
+    .second-path {
+        flex-direction: column;
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .cards .app-card-vacancy-link {
+        width: 49%;
     }
 }
 
@@ -467,6 +484,16 @@ p {
 
 /* Media queries for phones */
 @media (max-width: 768px) {
+
+    .container-resume-header-newCards,
+    .container-vacancy-header-newCards {
+        display: none;
+    }
+
+    .cards .app-card-vacancy-link {
+        width: 100%;
+    }
+
     .phone-btns {
         display: flex;
         flex-direction: column;
@@ -507,6 +534,7 @@ p {
 
     .logoImg {
         width: 100% !important;
+        height: auto;
     }
 
     .container {

@@ -191,3 +191,25 @@ ul {
         justify-content: flex-start;
     }
 }
+
+@media (max-width: 500px) {
+
+  .footer-main-menu {
+    display: none;
+  }
+
+  .footer-main-contacts-block-row {
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-main-contacts-block-column-item {
+    padding-bottom: 0;
+  }
+
+  span {
+    display: inline-block;
+  }
+}

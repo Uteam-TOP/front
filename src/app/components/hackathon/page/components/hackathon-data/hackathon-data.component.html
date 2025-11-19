@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="first-content">
+        <div class="first-content-item left">
+            <p class="title-content">
+                {{dataHackathon.title}}
+            </p>
+            <div class="info-block">
+                <div class="info-item">
+                    <span class="label">Организатор:</span>
+                    <span class="value">{{dataHackathon.organizer}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Фокус:</span>
+                    <span class="value">{{dataHackathon.focus}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Для кого:</span>
+                    <span class="value">{{dataHackathon.targetAudience}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Условия участия:</span>
+                    <span class="value">{{dataHackathon.participationConditions}}</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">Мотивация:</span>
+                    <span class="value">{{dataHackathon.prizePool}}</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="first-content-item">
+            <div class="info-block">
+                <p class="title-content">
+                    {{ formatRussianDate(dataHackathon.startDate) }} - {{ formatRussianDate(dataHackathon.endDate) }}
+                </p>
+                <span id="typeHack">
+                    {{getFormatText(dataHackathon.format)}}
+                </span>
+                <span id="address">
+                    {{dataHackathon.location}}
+                </span>
+                <span class="info-item">
+                    <span class="value">
+                        Регистрация до:
+                    </span>
+                    <span class="label">
+                        {{ formatRussianDate(dataHackathon.endDate) }}
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="second-content">
+        <span class="label">
+            Описание
+        </span>
+        <span class="value">
+            {{dataHackathon.shortDescription}}
+        </span>
+
+        <div id="btn-block">
+            <app-new-application></app-new-application>
+        </div>
+    </div>
+</div>

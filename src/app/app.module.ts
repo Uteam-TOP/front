@@ -10,7 +10,7 @@ import { MenuNavComponent } from './components/menu-nav/menu-nav.component';
 import { PopUpEntryComponent } from './components/pop-up-entry/pop-up-entry.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PopUpErrorCreateComponent } from './components/pop-up-error-create/pop-up-error-create.component';
-
+import { LendingFooterButtonComponent } from "./pages/public-lending/sections/lending-footer-button/lending-footer-button.component";
 
 @NgModule({
   declarations: [
@@ -26,8 +26,9 @@ import { PopUpErrorCreateComponent } from './components/pop-up-error-create/pop-
     MenuNavComponent,
     PopUpEntryComponent,
     FooterComponent,
-    PopUpErrorCreateComponent
-  ],
+    PopUpErrorCreateComponent,
+    LendingFooterButtonComponent
+],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

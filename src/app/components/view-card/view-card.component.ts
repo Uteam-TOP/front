@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewCardService } from './view-card.service';
 import { SettingHeaderService } from '../setting-header.service';
@@ -53,6 +53,7 @@ export class ViewCardComponent implements OnInit {
     private popUpEntryService: PopUpEntryService,
     private route: ActivatedRoute,
     private resumeService: ResumeService,
+    private cdr: ChangeDetectorRef
   ) {
     this.visibleError = true;
   }
@@ -62,12 +63,12 @@ export class ViewCardComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.routeName = data['routeName'];
-      if(data['routeName'] == 'resume'){
-        this.typeCard = 'resumes';
+      if (data['routeName'] == 'resume') {
+        this.typeCard = 'resume';
 
       }
-      if(data['routeName'] == 'vacancy'){
-        this.typeCard = 'vacancies';
+      if (data['routeName'] == 'vacancy') {
+        this.typeCard = 'vacancy';
       }
     });
     this.settingHeaderService.shared = true;
@@ -78,15 +79,18 @@ export class ViewCardComponent implements OnInit {
       this.viewCardService.getCardData(id, this.typeCard).subscribe(
         (data) => {
           this.dataCard = data;
+          console.log("this.dataCard", this.dataCard)
           this.visibleCard = true;
           this.visibleError = false;
+
           this.domainName = this.domainService.setDomain(this.dataCard.user.freeLink);
           this.domainService.checkImageExists(this.domainName).then((path) => {
             this.imagePath = path;
-            
+
           });
           this.viewCardService.getCurrentUser().subscribe(user => {
             this.currentUser = user;
+            this.cdr.detectChanges();
             console.log("user", user)
           });
         },
@@ -107,9 +111,10 @@ export class ViewCardComponent implements OnInit {
         }
       );
     });
+
   }
 
-  viewUser():string  {
+  viewUser(): string {
     return this.router.createUrlTree([``, this.dataCard.user.nickname]).toString();
   }
 
@@ -122,7 +127,18 @@ export class ViewCardComponent implements OnInit {
   }
 
 
+  onProjectClick(event: MouseEvent): void {
+    if (event.button === 1 || event.ctrlKey || event.metaKey) {
+      return;
+    }
+    event.preventDefault();
+    this.router.navigate([`/project`, this.dataCard.projectDto.nickname]);
+  }
+
   enter() {
+    this.popUpEntryService.isAuth = true;
+    this.popUpEntryService.accessVerification = false;
+    this.popUpEntryService.confirmAuth = false;
     this.popUpEntryService.showDialog();
   }
 
@@ -135,13 +151,13 @@ export class ViewCardComponent implements OnInit {
   update(event: Event, id: number) {
     event.stopPropagation();
     const userId = localStorage.getItem('userId')
-    
-    if( this.typeCard =='vacancies'){
+
+    if (this.typeCard == 'vacancies') {
       this.router.navigate([`/myaccount/${userId}/updateVacancy/${id}`]);
-    }else{
+    } else {
       this.router.navigate([`/myaccount/${userId}/updateResume/${id}`]);
     }
-   
+
   }
 
 }

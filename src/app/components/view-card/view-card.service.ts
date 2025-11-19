@@ -58,7 +58,7 @@ export class ViewCardService {
   private domain = `${environment.apiUrl}`;
 
   getCardData(id: number, typeCard:string): Observable<any> {
-    return this.http.get(`${this.domain}/${typeCard}/${id}`);
+    return this.http.get(`${this.domain}/main/${typeCard}/${id}`);
   }
 
   getCurrentUser(): Observable<any> {
@@ -71,7 +71,7 @@ export class ViewCardService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<any>(`${this.domain}/users/currentUser`, { headers }).pipe(
+    return this.http.get<any>(`${this.domain}/secured/users/currentUser`, { headers }).pipe(
       catchError(() => {
         this.tokenService.clearToken()
         return of(null); 

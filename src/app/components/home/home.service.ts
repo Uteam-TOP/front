@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -19,6 +19,10 @@ export class HomeService {
   visibleNextPage: boolean = false;
   private themeSubject = new BehaviorSubject<string>(localStorage.getItem('theme') || 'light');
   activeTheme$ = this.themeSubject.asObservable();
+
+  private typeToggleSubject = new BehaviorSubject<string>('vacancy');
+  activeTypeToggle$ = this.typeToggleSubject.asObservable();
+
 
   private domain = `${environment.apiUrl}`;
 
@@ -42,46 +46,120 @@ export class HomeService {
     const typeSort = localStorage.getItem('typeSort');
     const queryParams = `page=${this.selectPage}&size=30&sorts=creationDate_desc`;
 
-    return this.http.post(`${this.domain}/${type}/getAll?${queryParams}`, savedFilters);
+    return this.http.post(`${this.domain}/main/${type}/getAll?${queryParams}`, savedFilters);
   }
 
   getVacancies() {
-    this.getCardData('vacancies').subscribe(data => {
+    this.getCardData('vacancy').subscribe(data => {
       if (data) {
-        const filteredData = data.filter((vacancy:any) => vacancy.visibility !== "BAN");
-        // console.log("searchdata",data)
-      if (filteredData.length === 30) {
-        this.visibleNextPage = true;
-      } else {
-        this.visibleNextPage = false;
-      }
-      
-      this.selectPage = this.selectPage + 1;
-      this.vacancies = [...this.vacancies, ...filteredData];
+        const filteredData = data.filter((vacancy: any) => vacancy.visibility !== "BAN");
+        if (filteredData.length === 30) {
+          this.visibleNextPage = true;
+        } else {
+          this.visibleNextPage = false;
+        }
+
+        this.selectPage = this.selectPage + 1;
+        this.vacancies = [...this.vacancies, ...filteredData];
+        console.log('vacancies',this.vacancies)
       }
       this.loading = false;
     })
   }
 
   getResumes() {
-    this.getCardData('resumes').subscribe(data => {
+    this.getCardData('resume').subscribe(data => {
       if (data) {
-        const filteredData = data.filter((resume:any) => resume.visibility !== "BAN");
+        const filteredData = data.filter((resume: any) => resume.visibility !== "BAN");
+        if (filteredData.length === 30) {
+          this.visibleNextPage = true;
+        } else {
+          this.visibleNextPage = false;
+        }
 
-      if (filteredData.length === 30) {
-        this.visibleNextPage = true;
-      } else {
-        this.visibleNextPage = false;
+        this.selectPage = this.selectPage + 1;
+        this.resumes = [...this.resumes, ...filteredData];
       }
-      
-      this.selectPage = this.selectPage + 1;
-      this.resumes = [...this.resumes, ...filteredData];
+      this.loading = false;
+    });
+  }
+
+  projects: any;
+
+  getProject() {
+
+    this.getCardProjects().subscribe((data: any) => {
+      if (data) {
+        const filteredData = data.filter((project: any) => project.visibility !== "BAN");
+        if (filteredData.length === 30) {
+          this.visibleNextPage = true;
+        } else {
+          this.visibleNextPage = false;
+        }
+
+        this.selectPage = this.selectPage + 1;
+        this.projects = [...this.projects, ...filteredData];
       }
       this.loading = false;
     });
   }
 
 
+  hackathons: any = [];
+
+  gethackathons() {
+    this.getCardHackathons().subscribe((data: any) => {
+      if (data) {
+        // const filteredData = data.data.filter((project: any) => project.visibility !== "BAN");
+        if (data.length === 30) {
+          this.visibleNextPage = true;
+        } else {
+          this.visibleNextPage = false;
+        }
+
+        this.selectPage = this.selectPage + 1;
+        this.hackathons = [...this.hackathons, ...data];
+      }
+      this.loading = false;
+    });
+  }
+
+
+  getCardProjects() {
+    const queryParams = `page=${this.selectPage}&size=30`;
+
+    const token = localStorage.getItem('authToken');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    if (token) {
+      return this.http.post(`${this.domain}/main/project/get-by-filter?${queryParams}`, {}, { headers });
+    } else {
+      return this.http.post(`${this.domain}/main/project/get-by-filter?${queryParams}`, {});
+    }
+
+  }
+
+    getCardHackathons() {
+    const queryParams = `page=${this.selectPage}&size=30`;
+
+    const token = localStorage.getItem('authToken');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    if (token) {
+      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`, { headers });
+    } else {
+      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`,);
+    }
+
+  }
+
+  
   nextPage() {
     if (this.typeToggle === 'vacancy') {
       this.getVacancies();
@@ -131,13 +209,14 @@ export class HomeService {
     this.selectPage = 0;
     this.resumes = [];
     this.vacancies = [];
+    this.projects = [];
     if (this.typeToggle === 'vacancy') {
       this.getVacancies();
     }
     if (this.typeToggle === 'resume') {
       this.getResumes();
     }
-    
+
   }
 
   saveSort(sort: string): void {
@@ -157,16 +236,25 @@ export class HomeService {
   }
 
   toggleType(type: any) {
+    this.typeToggleSubject.next(type);
     this.typeToggle = type;
     this.loading = true;
     this.selectPage = 0;
     this.resumes = [];
     this.vacancies = [];
+    this.projects = [];
+    this.hackathons = [];
     if (type === 'vacancy') {
       this.getVacancies();
     }
     if (type === 'resume') {
       this.getResumes();
+    }
+    if (type === 'project') {
+      this.getProject();
+    }
+    if (type === 'hackathon') {
+      this.gethackathons();
     }
   }
 

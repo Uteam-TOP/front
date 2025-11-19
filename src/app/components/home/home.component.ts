@@ -1,24 +1,32 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { CardVacancyComponent } from '../card-vacancy/card-vacancy.component';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundImgsComponent } from '../background-imgs/background-imgs.component';
 import { SearchComponent } from './search/search.component';
 import { SortetdFilterComponent } from './sortetd-filter/sortetd-filter.component';
 import { ViewCardService } from '../view-card/view-card.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SettingHeaderService } from '../setting-header.service';
-import { CardResumeComponent } from '../card-resume/card-resume.component';
 import { HomeService } from './home.service';
 import { OneSectionComponent } from './one-section/one-section.component';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { SearchInputPhoneComponent } from './search/search-input-phone/search-input-phone.component';
+import { ResumeLibraryComponent, VacancyLibraryComponent } from '../../../common-uteam-library';
+import { ProjectComponent } from './project/project.component';
+import { HackathonCadComponent } from './hackathon-cad/hackathon-cad.component';
+import { HttpClient } from '@angular/common/http';
+import { PopUpEntryService } from '../pop-up-entry/pop-up-entry.service';
+import { environment } from '../../../environment';
+import { TokenService } from '../token.service';
+import { PopUpEntryComponent } from '../pop-up-entry/pop-up-entry.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, OneSectionComponent, BackgroundImgsComponent, SearchComponent, CardVacancyComponent, SortetdFilterComponent, CardResumeComponent, SearchInputPhoneComponent],
+  imports: [CommonModule, OneSectionComponent, BackgroundImgsComponent, SearchComponent, SortetdFilterComponent, SearchInputPhoneComponent, VacancyLibraryComponent, ResumeLibraryComponent, ProjectComponent, HackathonCadComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
+  providers: [PopUpEntryComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   animations: [
     trigger('fadeAnimation', [
       transition(':enter', [
@@ -39,28 +47,75 @@ export class HomeComponent implements OnInit {
   isDesktop = false;
   isTablet = false;
   isMobile = false;
-
+  resumeVisibleSections: string[] = ['profession', 'availability', 'skills', 'motivations', 'profile']
 
   constructor(
     private viewCardService: ViewCardService,
     public settingHeaderService: SettingHeaderService,
     private router: Router,
     public homeService: HomeService,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private tokenService: TokenService,
+    private popUpEntryService: PopUpEntryService,
+    private popUpEntryComponent: PopUpEntryComponent
   ) {
-    
+
     this.settingHeaderService.post = false;
     this.settingHeaderService.shared = false;
     this.settingHeaderService.backbtn = false;
   }
 
+  userId!: number;
   ngOnInit() {
     this.settingHeaderService.isFilterState$.subscribe(value => {
       this.isVisibleFilter = value;
     });
     this.homeService.loadData();
     this.updateView(window.innerWidth);
+
+    this.route.params.subscribe(params => {
+      this.userId = +params['idUser'];
+      this.verifyProfile();
+    });
+
+    console.log('homeService.vacancies', this.homeService.vacancies)
+
   }
 
+  verifyProfile(): void {
+    if (!this.userId || isNaN(this.userId)) {
+      console.error('Invalid user ID:', this.userId);
+      this.loading = false;
+      return;
+    }
+
+    this.loading = true;
+    this.http.get(`${environment.apiUrl}/auth/token/${this.userId}`)
+      .subscribe({
+        next: (response: any) => {
+          this.loading = false;
+          this.popUpEntryService.confirmAuth = true;
+          this.popUpEntryService.accessVerificationMessage = "Аккаунт успешно подтвержден";
+          this.popUpEntryService.showDialog();
+          this.popUpEntryComponent.login_user();
+        },
+        error: (error) => {
+          this.loading = false;
+
+          if (error.status === 208) {
+            this.popUpEntryService.accessVerificationMessage = "Аккаунт уже подтвержден ранее";
+            this.popUpEntryService.showDialog();
+          } else if (error.status === 404) {
+            this.popUpEntryService.accessVerificationMessage = "Пользователь не найден";
+            this.popUpEntryService.showDialog();
+          } else {
+            this.popUpEntryService.accessVerificationMessage = "Произошла ошибка при подтверждении";
+            this.popUpEntryService.showDialog();
+          }
+        }
+      });
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
@@ -98,7 +153,7 @@ export class HomeComponent implements OnInit {
   }
 
 
-  nextPage(){
+  nextPage() {
     this.homeService.nextPage()
   }
 }

@@ -4,13 +4,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { TokenService } from '../token.service';
+import { environment } from '../../../environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
 
-  private domain = 'https://uteam.top/api';
+  private domain = environment.apiUrl;
 
   constructor(private router: Router, private tokenService: TokenService, private http: HttpClient) {}
 
@@ -29,7 +30,7 @@ export class AuthGuard implements CanActivate {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<any>(`${this.domain}/users/currentUser`, { headers }).pipe(
+    return this.http.get<any>(`${this.domain}/secured/users/currentUser`, { headers }).pipe(
       map(() => true),  // Если данные возвращены успешно, возвращаем true
       catchError(() => {
         this.tokenService.clearToken()
