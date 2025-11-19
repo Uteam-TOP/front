@@ -39,7 +39,7 @@
 
 
 # Используем Node.js в качестве базового образа
-FROM node:20.12-alpine3.18
+FROM node:24-alpine
 
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
@@ -61,7 +61,7 @@ ARG VERSION_NUMBER_ARG=no-version
 ENV VERSION_NUMBER=$VERSION_NUMBER_ARG
 ENV TZ=Europe/Zurich
 
-# Открываем порт 80 для доступа к приложению
+# Открываем порт 9001 для доступа к приложению
 EXPOSE 9001
 
 # Команда для запуска Angular приложения с использованием ng serve
