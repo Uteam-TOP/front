@@ -148,6 +148,7 @@ jobs:
           #   ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKERHUB_PROJECT_NAME }}:${{ steps.meta.outputs.SHORT_SHA }}
           cache-from: type=local,src=/tmp/.buildx-cache
   server_update:
+    if: github.ref == 'refs/heads/developer'
     needs: build-test-push
     name: Update server buy ssh
     runs-on: ubuntu-latest
@@ -162,6 +163,7 @@ jobs:
           script: bash deploy.sh
 
   server_update_prod:
+    if: github.ref == 'refs/heads/master'
     needs: build-prod
     name: Update server prod buy ssh
     runs-on: ubuntu-latest
