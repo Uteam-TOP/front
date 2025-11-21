@@ -9,7 +9,6 @@ on:
 
 jobs:
   build-test-push:
-    if: github.ref == 'refs/heads/developer'
     name: Build, Test and Push Docker Image
     runs-on: ubuntu-latest
 
