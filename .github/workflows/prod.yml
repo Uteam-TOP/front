@@ -9,7 +9,6 @@ on:
 
 jobs:
   build-prod:
-    if: github.ref == 'refs/heads/master'
     name: Build Prod
     runs-on: ubuntu-latest
 
