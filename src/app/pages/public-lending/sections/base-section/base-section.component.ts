@@ -1,11 +1,12 @@
-import { Component, ElementRef } from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef} from '@angular/core';
 
 @Component({
   selector: 'app-base-section',
   standalone: true,
   imports: [],
   templateUrl: './base-section.component.html',
-  styleUrl: './base-section.component.css'
+  styleUrl: './base-section.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export abstract class BaseSectionComponent {
   private resizeListener!: () => void;
