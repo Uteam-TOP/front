@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import { BaseSectionComponent } from "../base-section/base-section.component";
 
 @Component({
@@ -6,7 +6,8 @@ import { BaseSectionComponent } from "../base-section/base-section.component";
   standalone: true,
   imports: [],
   templateUrl: './sixth-section.component.html',
-  styleUrl: './sixth-section.component.css'
+  styleUrl: './sixth-section.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SixthSectionComponent extends BaseSectionComponent {
 
