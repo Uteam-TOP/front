@@ -165,3 +165,6 @@ div {
     display: none !important;
 }
 
+.lg-button {
+  cursor: pointer;
+}

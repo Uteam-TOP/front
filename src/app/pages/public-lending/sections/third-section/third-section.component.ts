@@ -1,7 +1,9 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, inject, Output} from '@angular/core';
 import { LendingFooterButtonComponent } from "../lending-footer-button/lending-footer-button.component";
 import { BaseSectionComponent } from "../base-section/base-section.component";
 import {NgOptimizedImage} from "@angular/common";
+import {HomeService} from "../../../../components/home/home.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-third-section',
@@ -12,5 +14,9 @@ import {NgOptimizedImage} from "@angular/common";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThirdSectionComponent extends BaseSectionComponent {
+  @Output() pageLink = new EventEmitter();
 
+  goToPage(url: string[], type?: string):void {
+    this.pageLink.emit({url, type});
+  }
 }
