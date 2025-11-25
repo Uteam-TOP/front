@@ -6,16 +6,16 @@
         <app-two-section />
     </div>
     <div #section class="section">
-        <app-third-section />
+        <app-third-section (pageLink)="goToPage($event)"/>
     </div>
     <div #section class="section">
-        <app-fourth-section />
+        <app-fourth-section (pageLink)="goToPage($event)"/>
     </div>
     <div #section class="section">
-        <app-fifth-section />
+        <app-fifth-section (pageLink)="goToPage($event)"/>
     </div>
       <div #section class="section">
-          <app-seventh-section />
+          <app-seventh-section (pageLink)="goToPage($event)"/>
     </div>
     <div #section class="section">
         <app-sixth-section />

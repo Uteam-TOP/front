@@ -4,7 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  HostListener,
+  HostListener, inject,
   OnDestroy,
   QueryList,
   ViewChildren
@@ -19,6 +19,9 @@ import { SeventhSectionComponent } from "./sections/seventh-section/seventh-sect
 import { LendingFooterButtonComponent } from "./sections/lending-footer-button/lending-footer-button.component";
 import { CommonModule } from '@angular/common';
 import {FooterComponent} from "../../components/footer/footer.component";
+import {HomeService} from "../../components/home/home.service";
+import {Router} from "@angular/router";
+import {INavigateLink} from "../../models/root.interface";
 
 @Component({
   selector: 'app-public-lending',
@@ -31,6 +34,9 @@ import {FooterComponent} from "../../components/footer/footer.component";
 })
 export class PublicLendingComponent implements AfterViewInit, OnDestroy {
   @ViewChildren('section') sections!: QueryList<ElementRef>;
+
+  private homeService = inject(HomeService);
+  private router = inject(Router);
 
   private isScrolling = false;
   currentSection = 0;
@@ -235,5 +241,12 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
     if (this.sectionsInitialized && this.sections) {
       this.scrollToSection(index);
     }
+  }
+
+  goToPage(event: INavigateLink):void {
+    if (event.type) {
+      this.homeService.toggleType(event.type);
+    }
+    this.router.navigate(event.url);
   }
 }
