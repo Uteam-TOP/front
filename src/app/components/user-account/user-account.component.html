@@ -31,7 +31,7 @@
                 <div class="date_registration">
                     <p class="title">На платформе с </p>
                     <span>
-                        {{ userData.dateOfRegistration | date: 'dd-MM-yyyy' }}
+                        {{ (userData.dateOfRegistration*1000) | date: 'dd-MM-yyyy' }}
                     </span>
                 </div>
             </div>
@@ -145,7 +145,7 @@
             <div class="date_registration desktopDate">
                 <p class="title">На платформе с </p>
                 <span>
-                    {{ userData.dateOfRegistration | date: 'dd-MM-yyyy' }}
+                    {{ (userData.dateOfRegistration*1000)| date: 'dd-MM-yyyy' }}
                 </span>
             </div>
         </div>

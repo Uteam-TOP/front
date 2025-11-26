@@ -22,6 +22,8 @@ export class CreateEditProjectsComponent implements OnInit {
   oldNickname: string = '';
   cancel_btn: boolean = false;
   projectData: any = null;
+  errorMessage: string = '';
+
   constructor(private fb: FormBuilder, private router: Router, private createEditProjectsService: CreateEditProjectsService, public projectService: ProjectService, private route: ActivatedRoute) {
 
   }
@@ -79,7 +81,7 @@ export class CreateEditProjectsComponent implements OnInit {
       title: ['', [Validators.required, Validators.maxLength(200), forbiddenWordsValidator()]],
       summary: ['', [Validators.required, Validators.maxLength(300), forbiddenWordsValidator()]],
       type: [, Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       telegram: ['', [Validators.required, forbiddenWordsValidator()]],
       description: ['', [Validators.required, Validators.maxLength(1500), forbiddenWordsValidator()]],
       developmentStage: ['', [Validators.required, Validators.maxLength(1500), forbiddenWordsValidator()]],
@@ -245,7 +247,6 @@ export class CreateEditProjectsComponent implements OnInit {
     });
 
     if (this.form.valid) {
-      console.log('Форма отправлена:', this.form.value);
 
       let data = this.form.value
       let newData: {
@@ -284,7 +285,12 @@ export class CreateEditProjectsComponent implements OnInit {
           }
           this.projectService.setCurrentProjectData(data);
 
-          this.router.navigateByUrl(`/project/${data.nickname}`);
+          // this.router.navigateByUrl(`/project/${data.nickname}`);
+            this.router.navigate(['project', data.nickname]);
+        },
+        (error: any) => {
+          console.log('error', error);
+          this.errorMessage = error.error.userMessage;
         })
       } else {
         this.createEditProjectsService.setNewProject(newData).subscribe((data: any) => {
@@ -297,6 +303,10 @@ export class CreateEditProjectsComponent implements OnInit {
           }
           this.projectService.setCurrentProjectData(data);
           this.router.navigate(['project', data.nickname]);
+        },
+        (error: any) => {
+          console.log('error', error);
+          this.errorMessage = error.error.userMessage;
         })
       }
       this.projectService.isEditProject = false;
@@ -304,6 +314,7 @@ export class CreateEditProjectsComponent implements OnInit {
 
     } else {
       console.log('Форма содержит ошибки:', this.form.errors);
+      this.form.markAllAsTouched();
     }
   }
 

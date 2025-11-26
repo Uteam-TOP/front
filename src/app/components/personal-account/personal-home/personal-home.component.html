@@ -29,7 +29,7 @@
                 <div class="date_registration">
                     <p class="title">На платформе с </p>
                     <span>
-                        {{ dataCurrentUser.dateOfRegistration | date: 'dd-MM-yyyy' }}
+                        {{ (dataCurrentUser.dateOfRegistration*1000) | date: 'dd-MM-yyyy' }}
                     </span>
                 </div>
             </div>
@@ -153,7 +153,7 @@
             <div class="date_registration desktopDate">
                 <p class="title">На платформе с </p>
                 <span>
-                    {{ dataCurrentUser.dateOfRegistration | date: 'dd-MM-yyyy' }}
+                    {{ (dataCurrentUser.dateOfRegistration*1000) | date: 'dd-MM-yyyy' }}
                 </span>
             </div>
         </div>
@@ -257,7 +257,7 @@
                             <app-personal-vacancy @fadeAnimation [item]="itemVacancy">
                             </app-personal-vacancy> -->
 
-                    <ng-container *ngFor="let itemProject of projectService.projectsList | slice:0:itemsToShowProjects">
+                    <ng-container *ngFor="let itemProject of projectService.projectsList | slice:0:itemsToShowProjects | sortBy: 'createdAt'">
                         <a class="app-card-vacancy-link" (click)="onProjecClick($event, itemProject.nickname)">
                             <app-personal-project @fadeAnimation [item]="itemProject">
                             </app-personal-project>
@@ -268,7 +268,7 @@
                         <app-ban-vacancy [item]="itemProject"></app-ban-vacancy>
                     </ng-container> -->
                     <div class="block-switchCards">
-                        <!-- 
+                        <!--
                         <a (click)="toggleVacancies()" *ngIf="vacancyService.filterVacancies('EVERYBODY').length>3"
                             class="switchCards">
                             {{ showAllVacancies ? 'Свернуть' : 'Показать все' }}

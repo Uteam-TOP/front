@@ -28,7 +28,7 @@
                 размещено
             </p>
             <p class="dateVacancy dateValue">
-                {{ cardItem?.creationDate | date: 'dd.MM.yyyy' }} <!-- Использовано creationDate и форматирование -->
+                {{ (cardItem?.creationDate*1000) | date: 'dd.MM.yyyy' }} <!-- Использовано creationDate и форматирование -->
             </p>
         </div>
     </div>
