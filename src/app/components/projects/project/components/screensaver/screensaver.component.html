@@ -39,7 +39,7 @@
                     создан
                 </p>
                 <p class="date-value">
-                    {{ detailsList?.createdAt | date:'dd.MM.yyyy' }}
+                    {{ (detailsList?.createdAt*1000) | date:'dd.MM.yyyy' }}
                 </p>
             </div>
             <div class="contacts">

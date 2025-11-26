@@ -27,11 +27,12 @@ import { PersonalProjectComponent } from '../personal-project/personal-project.c
 import { ProjectService } from '../services/project.service';
 import { PopUpChangePasswordComponent } from '../../pop-up-change-password/pop-up-change-password.component';
 import { PopUpChangePasswordService } from '../../pop-up-change-password/pop-up-change-password.service';
+import {SortByPipe} from "../../../pipes/sort-by.pipe";
 
 @Component({
   selector: 'app-personal-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, PersonalVacancyComponent, PersonalResumeComponent, ArchiveResumeComponent, ArchiveVacancyComponent, PopUpDeleteComponent, PopUpExitComponent, BanResumeComponent, BanVacancyComponent, PopUpChangePasswordComponent, PersonalProjectComponent],
+  imports: [CommonModule, RouterLink, PersonalVacancyComponent, PersonalResumeComponent, ArchiveResumeComponent, ArchiveVacancyComponent, PopUpDeleteComponent, PopUpExitComponent, BanResumeComponent, BanVacancyComponent, PopUpChangePasswordComponent, PersonalProjectComponent, SortByPipe],
   templateUrl: './personal-home.component.html',
   styleUrl: './personal-home.component.css',
   animations: [
@@ -60,7 +61,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
     public resumeService: ResumeService, public vacancyService: VacancyService, public tokenService: TokenService,
     private formSettingService: FormSettingService,
     public projectService: ProjectService,
-    private popUpErrorCreateService: PopUpErrorCreateService, 
+    private popUpErrorCreateService: PopUpErrorCreateService,
   private popUpChangePasswordService:PopUpChangePasswordService) { }
 
   imagePath: string = '';
@@ -140,7 +141,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
         this.isChangePasswordPopupVisible = visible;
       })
     );
-    
+
 
     forkJoin({
       user: this.personalDataService.getCurrentUser().pipe(
@@ -258,7 +259,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  changePassword() { 
+  changePassword() {
     this.popUpChangePasswordService.showPopup();
   }
 

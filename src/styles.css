@@ -165,6 +165,13 @@ div {
     display: none !important;
 }
 
+a,
+button,
 .lg-button {
   cursor: pointer;
+}
+
+.ng-touched.ng-invalid {
+  border-color: #ff6a00 !important;
+  border-width: 2px !important;
 }

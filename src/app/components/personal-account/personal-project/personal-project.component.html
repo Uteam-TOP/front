@@ -27,7 +27,7 @@
                 размещено
             </p>
             <p class="dateVacancy dateValue">
-                {{ item?.createdAt | date: 'dd.MM.yyyy' }} <!-- Форматирование даты -->
+                {{ (item?.createdAt*1000) | date: 'dd.MM.yyyy' }} <!-- Форматирование даты -->
             </p>
         </div>
     </div>

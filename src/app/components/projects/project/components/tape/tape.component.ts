@@ -6,11 +6,12 @@ import { ProjectService } from '../../project.service';
 import { FormsModule } from '@angular/forms';
 import { PhotoGridComponent } from '../review-card/photo-grid/photo-grid.component';
 import { TapeService } from './tape.service';
+import {SortByPipe} from "../../../../../pipes/sort-by.pipe";
 
 @Component({
   selector: 'app-tape',
   standalone: true,
-  imports: [CommonModule, ReviewCardComponent, FormsModule, PhotoGridComponent],
+  imports: [CommonModule, ReviewCardComponent, FormsModule, PhotoGridComponent, SortByPipe],
   templateUrl: './tape.component.html',
   styleUrl: './tape.component.css'
 })
@@ -98,40 +99,40 @@ export class TapeComponent {
 
   sendMessage(): void {
     if (!this.commentText?.trim()) return; // Проверяем, что текст не пустой
-  
+
     this.tapeService.setPost(this.currentProjectData.id, '', this.commentText).subscribe((post: any) => {
-      
+
       if (this.selectedImage) {
         this.tapeService.uploadPostImage(post.id, this.selectedImage).subscribe((imageResponse: any) => {
           console.log('Изображение успешно загружено', imageResponse);
-  
+
           // Добавляем URL изображения к посту
           post.imageUrl = imageResponse.url;
-  
+
           console.log('post',post)
           // Добавляем новый пост в начало списка
           this.itemsList = [post, ...this.itemsList];
-  
+
           // Очищаем форму
           this.clearText();
           this.removeImage();
-  
+
         }, error => {
           console.error('Ошибка загрузки изображения:', error);
         });
       } else {
         // Если без изображения, сразу добавляем
         this.itemsList = [post, ...this.itemsList];
-  
+
         // Очищаем форму
         this.clearText();
       }
-  
+
     }, error => {
       console.error('Ошибка публикации поста:', error);
     });
   }
-  
+
 
 
 }

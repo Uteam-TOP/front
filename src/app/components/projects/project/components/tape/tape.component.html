@@ -41,5 +41,5 @@
     </div>
 
 
-    <app-review-card [visibleFoto]="true" [Item]="itemCard" *ngFor="let itemCard of itemsList"></app-review-card>
+    <app-review-card [visibleFoto]="true" [Item]="itemCard" *ngFor="let itemCard of itemsList | sortBy: 'createdAt'"></app-review-card>
 </div>

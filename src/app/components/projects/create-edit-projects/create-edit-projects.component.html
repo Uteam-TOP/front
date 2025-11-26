@@ -91,10 +91,11 @@
                         <div class="container-elements-left-gruopInputs-items-block">
                             <p class="container-elements-left-gruopInputs-items-block-title">Email:</p>
                             <input class="container-elements-left-gruopInputs-items-block-input" type="text"
-                                placeholder="Введите email" formControlName="email" />
+                                placeholder="Введите email" formControlName="email" name="email" />
                             <div *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)"
                                 class="error-message">
                                 <div *ngIf="form.get('email')?.errors?.['required']">Email обязателен.</div>
+                              <div *ngIf="form.get('email')?.errors?.['email']">E-mail введен неправильно.</div>
                             </div>
                         </div>
                         <div class="container-elements-left-gruopInputs-items-block">
@@ -210,14 +211,18 @@
                     для целей, определенных в Согласии на обработку персональных данных
                 </p>
                 <div class="container-elements-right-btnBlock">
-                    <button *ngIf="!projectService.isEditProject" class="container-elements-right-btnBlock-btn"
-                        (click)="submitForm(false)">
-                        Опубликовать
-                    </button>
-                    <button *ngIf="projectService.isEditProject" class="container-elements-right-btnBlock-btn"
-                        (click)="submitForm(true)">
-                        Изменить
-                    </button>
+                  <div *ngIf="errorMessage"
+                       class="error-message">
+                    <p>{{ errorMessage }}</p>
+                  </div>
+                  <button *ngIf="!projectService.isEditProject" class="container-elements-right-btnBlock-btn"
+                      (click)="submitForm(false)">
+                      Опубликовать
+                  </button>
+                  <button *ngIf="projectService.isEditProject" class="container-elements-right-btnBlock-btn"
+                      (click)="submitForm(true)">
+                      Изменить
+                  </button>
                 </div>
             </div>
         </div>
