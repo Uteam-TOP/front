@@ -11,11 +11,11 @@
 .search {
     width: 100%;
     padding: 1.5rem 0;
-    background: #b9aeff;
+    background: #5A4BB8;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; 
+    position: relative;
     transition: background-color 0.5s, padding 0.5s, top 0.5s;
 }
 
@@ -24,7 +24,7 @@ app-search.sticky {
     position: fixed;
     top: 0;
     padding: 1rem 0;
-    background: #b9aeff; 
+    background: #5A4BB8;
     z-index: 10;
 }
 
@@ -33,7 +33,7 @@ app-search.sticky {
 }
 
 app-search:not(.sticky) {
-    background: #b9aeff;
+    background: #5A4BB8;
 }
 
 
@@ -67,16 +67,16 @@ app-search:not(.sticky) {
 @media (max-width: 1199.98px) {
     app-search.sticky {
         width: 100%;
-        top: 60px; 
+        top: 60px;
         background: #806BFF;
         padding: 0;
         z-index: 50;
     }
-    
+
     .search-container {
         z-index: 10;
     }
-    
+
     .content {
         padding-top: 66px;
         height: auto;
@@ -93,5 +93,5 @@ app-search:not(.sticky) {
     }
 
 
-    
+
 }

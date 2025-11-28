@@ -1,0 +1,33 @@
+<button #prev class="swiper-button swiper-prev"><img src="assets/icons/swiper-button.svg" alt="prev" /> </button>
+<swiper-container
+  #swiper
+  [modules]="[Navigation]"
+  [slidesPerView]="4"
+  [spaceBetween]="20"
+  [loop]="false"
+  [allowTouchMove]="true"
+  [enabled]="true"
+  [navigation]="navigation">
+  <swiper-slide  *ngFor="let item of items; let i = index">
+    <a [href]="getCardUrl(item.id, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
+       (click)="onCardClick($event, item.nickname, type)">
+      <ng-container *ngIf="type === 'project'">
+        <app-project class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-project>
+      </ng-container>
+
+      <ng-container *ngIf="type === 'vacancy'">
+        <lib-vacancy class="card"  [cardItem]="item" *ngIf="item.visibility != 'BAN'"></lib-vacancy>
+      </ng-container>
+
+      <ng-container *ngIf="type === 'resume'">
+        <lib-resume class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'" [visibleSections]="resumeVisibleSections"> </lib-resume>
+      </ng-container>
+
+      <ng-container *ngIf="type === 'hackathon'">
+        <app-hackathon-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-hackathon-card>
+      </ng-container>
+
+    </a>
+  </swiper-slide>
+</swiper-container>
+<button #next class="swiper-button swiper-next"><img src="assets/icons/swiper-button.svg" alt="next" /> </button>
