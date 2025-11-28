@@ -1,4 +1,9 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, HostListener, OnInit } from '@angular/core';
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  Component,
+  HostListener,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundImgsComponent } from '../background-imgs/background-imgs.component';
 import { SearchComponent } from './search/search.component';
@@ -18,11 +23,13 @@ import { PopUpEntryService } from '../pop-up-entry/pop-up-entry.service';
 import { environment } from '../../../environment';
 import { TokenService } from '../token.service';
 import { PopUpEntryComponent } from '../pop-up-entry/pop-up-entry.component';
+import {Navigation} from "swiper/modules";
+import {HomeSliderComponent} from "./home-slider/home-slider.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, OneSectionComponent, BackgroundImgsComponent, SearchComponent, SortetdFilterComponent, SearchInputPhoneComponent, VacancyLibraryComponent, ResumeLibraryComponent, ProjectComponent, HackathonCadComponent],
+  imports: [CommonModule, OneSectionComponent, BackgroundImgsComponent, SearchComponent, SortetdFilterComponent, SearchInputPhoneComponent, VacancyLibraryComponent, ResumeLibraryComponent, ProjectComponent, HackathonCadComponent, HomeSliderComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   providers: [PopUpEntryComponent],
@@ -48,6 +55,8 @@ export class HomeComponent implements OnInit {
   isTablet = false;
   isMobile = false;
   resumeVisibleSections: string[] = ['profession', 'availability', 'skills', 'motivations', 'profile']
+
+  navigation: any = {};
 
   constructor(
     private viewCardService: ViewCardService,
@@ -156,4 +165,6 @@ export class HomeComponent implements OnInit {
   nextPage() {
     this.homeService.nextPage()
   }
+
+  protected readonly Navigation = Navigation;
 }
