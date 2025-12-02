@@ -20,6 +20,9 @@
               <div class="column">
                 <app-home-slider [items]="homeService.hackathons" [type]="'hackathon'"></app-home-slider>
               </div>
+            <div class="slider-footer">
+              <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>
+            </div>
           </div>
         </ng-container>
 
@@ -38,6 +41,9 @@
                   </a>
                 </swiper-slide>
             </swiper-container>
+            <div class="slider-footer">
+              <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>
+            </div>
         </div>
         </ng-container>
     </ng-container>
@@ -47,10 +53,13 @@
     <ng-container *ngIf="homeService.typeToggle === 'project'">
         <ng-container *ngIf="isDesktop">
           <div class="container">
-              <h3>Новые проекты</h3>
-              <div class="column">
-                <app-home-slider [items]="homeService.projects" [type]="'project'"></app-home-slider>
-              </div>
+            <h3>Новые проекты</h3>
+            <div class="column">
+              <app-home-slider [items]="homeService.projects" [type]="'project'"></app-home-slider>
+            </div>
+            <div class="slider-footer">
+              <a routerLink="/projects"><ui-button [text]="'Все проекты'" [type]="'arrow'"></ui-button></a>
+            </div>
           </div>
         </ng-container>
 
@@ -93,6 +102,9 @@
                 </a>
             </swiper-slide>
             </swiper-container>
+            <div class="slider-footer">
+              <a routerLink="/projects"><ui-button [text]="'Все проекты'" [type]="'arrow'"></ui-button></a>
+            </div>
         </div>
         </ng-container>
     </ng-container>
@@ -109,6 +121,9 @@
               <h3>Вакансии</h3>
               <div class="column">
                 <app-home-slider [items]="homeService.vacancies" [type]="'vacancy'"></app-home-slider>
+              </div>
+              <div class="slider-footer">
+                <a routerLink="/vacancies"><ui-button [text]="'Все вакансии'" [type]="'arrow'"></ui-button></a>
               </div>
 
               <div class="column bottom">
@@ -145,6 +160,9 @@
                         </a>
                   </swiper-slide>
               </swiper-container>
+              <div class="slider-footer">
+                <a routerLink="/vacancies"><ui-button [text]="'Все вакансии'" [type]="'arrow'"></ui-button></a>
+              </div>
           </div>
         </ng-container>
 
@@ -159,6 +177,9 @@
                 <h3>Резюме</h3>
                 <div class="column">
                   <app-home-slider [items]="homeService.resumes" [type]="'resume'"></app-home-slider>
+                </div>
+                <div class="slider-footer">
+                  <a routerLink="/resumes"><ui-button [text]="'Все резюме'" [type]="'arrow'"></ui-button></a>
                 </div>
             </div>
         </ng-container>
@@ -179,6 +200,9 @@
                       </a>
                   </swiper-slide>
               </swiper-container>
+              <div class="slider-footer">
+                <a routerLink="/resumes"><ui-button [text]="'Все резюме'" [type]="'arrow'"></ui-button></a>
+              </div>
           </div>
         </ng-container>
     </ng-container>

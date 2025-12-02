@@ -1,4 +1,4 @@
-<div class="content" [ngClass]="{'sticky': settingHeaderService.isSticky}">
+<div class="content" [ngClass]="{'sticky': settingHeaderService.isSticky, 'menu-bg' : showMainMenu}">
     <div class="first-container">
         <a href="">
             <div class="leftContent navBTN">
@@ -23,6 +23,10 @@
                 </svg>
             </div>
         </a>
+
+        <ng-container *ngIf="showMainMenu">
+          <app-main-menu></app-main-menu>
+        </ng-container>
         <div class="rightContent">
             <ng-container *ngIf="settingHeaderService.post">
                 <a (click)="handlePostResume()" class="additionalBtn additional"

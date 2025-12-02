@@ -10,7 +10,7 @@
   [navigation]="navigation">
   <swiper-slide  *ngFor="let item of items; let i = index">
     <a [href]="getCardUrl(item.id, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
-       (click)="onCardClick($event, item.nickname, type)">
+       (click)="onCardClick($event, item.id, type)">
       <ng-container *ngIf="type === 'project'">
         <app-project class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-project>
       </ng-container>

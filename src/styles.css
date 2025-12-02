@@ -155,6 +155,10 @@ div {
     font-family: var(--font-Monts);
 }
 
+a {
+  text-decoration: none;
+}
+
 
 .work{
     background: var(--tag-background) !important;

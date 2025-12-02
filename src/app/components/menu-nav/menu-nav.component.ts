@@ -13,11 +13,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MenuNavService } from './menu-nav.service';
 import { environment } from '../../../environment';
 import { AvatarSelectionService } from '../pop-up-avatar/avatar-selection.service';
+import {MainMenuComponent} from "../main-menu/main-menu.component";
 
 @Component({
   selector: 'app-menu-nav',
   standalone: true,
-  imports: [CommonModule, SidebarModule],
+  imports: [CommonModule, SidebarModule, MainMenuComponent],
   templateUrl: './menu-nav.component.html',
   styleUrl: './menu-nav.component.css',
 })
@@ -29,12 +30,17 @@ export class MenuNavComponent implements OnInit {
   isAuthenticated!: boolean;
   userAccess: string | null = '';
 
+  showMainMenu: boolean = false;
+
+  // Pages where the main menu is displayed
+  showMainMenuFor: string[] = ['/vacancies', '/hackathons', '/projects', '/resumes'];
+
   currentUserLogo: any;
   buttonsConfig: { label: string, class: string, action: () => void }[] = [];
   constructor(private location: Location, public settingHeaderService: SettingHeaderService,
     private router: Router, public tokenService: TokenService, private homeService: HomeService,
     private ngZone: NgZone, private cdr: ChangeDetectorRef, private formSettingService: FormSettingService,
-    private popUpErrorCreateService: PopUpErrorCreateService, private popUpEntryService: PopUpEntryService, 
+    private popUpErrorCreateService: PopUpErrorCreateService, private popUpEntryService: PopUpEntryService,
     public menuNavService: MenuNavService, private avatarSelectionService:AvatarSelectionService
   ) {
   }
@@ -50,6 +56,8 @@ export class MenuNavComponent implements OnInit {
         if (event.url !== '/') {
           this.settingHeaderService.isSticky = false;
         }
+
+        this.showMainMenu = this.showMainMenuFor.includes(event.url);
       }
     });
     this.menuNavService.getStorageValue().subscribe(value => {
@@ -64,7 +72,7 @@ export class MenuNavComponent implements OnInit {
 
     this.tokenService.isAuthenticated$.subscribe(isAuthenticated => {
       this.ngZone.run(() => {
-        this.currentUserLogo = 
+        this.currentUserLogo =
         this.isAuthenticated = isAuthenticated;
         this.setButtons();
         this.cdr.detectChanges();
@@ -78,17 +86,17 @@ isImageAvatar(logo: any): boolean {
     return false;
   }
   const trimmedLogo = logo.trim();
-  
+
   // Для локальных аватаров (начинаются с image)
   if (trimmedLogo.startsWith('image')) {
     return true;
   }
-  
+
   // Для URL аватаров
   if (trimmedLogo.startsWith('http') && trimmedLogo.includes('image')) {
     return true;
   }
-  
+
   return false;
 }
   navigateTo(path: string) {
@@ -194,7 +202,7 @@ isImageAvatar(logo: any): boolean {
     localStorage.setItem('theme', this.activeTopic);
     if (this.activeTopic === 'dark') {
       document.documentElement.style.setProperty('--background', '#333334');
-      document.documentElement.style.setProperty('--background-card', 'rgba(255, 255, 255, 0.1)');
+      document.documentElement.style.setProperty('--background-card', 'rgba(72, 72, 72)');
       document.documentElement.style.setProperty('--card-hover', '#5a4bb8');
       document.documentElement.style.setProperty('--font-color', '#fff');
       document.documentElement.style.setProperty('--background-archive', 'rgba(255, 255, 255, 0.05)');

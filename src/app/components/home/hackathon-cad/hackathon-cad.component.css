@@ -156,7 +156,7 @@
         font-size: 24px;
         line-height: 120%;
         text-transform: uppercase;
-        color: #101010;
+        color: var(--font-color);
     }
 
     .info-block {
@@ -169,14 +169,14 @@
         font-weight: 600;
         font-size: 14px;
         line-height: 120%;
-        color: #101010;
+        color: var(--font-color);
     }
 
     .value {
         font-weight: 400;
         font-size: 14px;
         line-height: 129%;
-        color: #101010
+        color: var(--font-color);
     }
 
 }
@@ -189,7 +189,7 @@
     font-size: 12px;
     line-height: 117%;
     text-align: right;
-    color: #101010;
+    color: var(--font-color);
     align-items: flex-end;
     margin-bottom: 16px;
 }

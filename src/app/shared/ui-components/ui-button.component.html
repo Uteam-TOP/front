@@ -1,0 +1,7 @@
+<button [ngClass]="className">
+  {{ text }}
+  <ng-content></ng-content>
+  <ng-container *ngIf="type === 'arrow'">
+    <img class="icon-arrow" src="assets/icons/arrow_button.svg" alt="arrow">
+  </ng-container>
+</button>

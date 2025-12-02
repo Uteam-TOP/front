@@ -10,6 +10,10 @@
     left: 0;
 }
 
+.menu-bg {
+  background: #5A4BB8;
+}
+
 .sticky {
     background: #5A4BB8;
 }
@@ -22,6 +26,10 @@
     flex-direction: row;
     justify-content: space-between;
 
+  a {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .second-container {
