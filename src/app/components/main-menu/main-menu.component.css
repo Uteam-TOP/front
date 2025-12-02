@@ -114,5 +114,9 @@
     min-width: 710px;
   }
 
+  @media (max-width: 900px) {
+    display: none;
+  }
+
 }
 

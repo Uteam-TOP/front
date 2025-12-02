@@ -22,6 +22,7 @@
     margin-top: 30px;
     column-gap: 29px;
     display: flex;
+    padding-right: 40px;
 
     .list-cards-col {
       flex: 1;
@@ -45,6 +46,11 @@
         left: 64%;
       }
     }
+  }
 
+  @media (max-width: 768px) {
+    .list-cards {
+      flex-direction: column;
+    }
   }
 }
