@@ -1,0 +1,32 @@
+:host {
+  button {
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    border: none;
+    padding: 15px;
+    max-width: 200px;
+    height: 38px;
+    background: #806bff;
+    font-family: var(--font-Monts);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 117%;
+    color: #fff;
+
+    &.size-small {
+      padding: 8px 10px !important;
+      height: 33px;
+    }
+
+    &.type-border {
+      border: 1px solid #806bff;
+      background: transparent;
+      color: #806bff;
+    }
+
+    .icon-arrow {
+      margin-left: 15px;
+    }
+  }
+}

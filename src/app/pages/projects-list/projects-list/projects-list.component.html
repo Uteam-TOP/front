@@ -1,0 +1,5 @@
+@if (projectsList$ | async; as data) {
+  @if (data.length) {
+    <app-list-layer [cards]="data" [type]="'project'"></app-list-layer>
+  }
+}

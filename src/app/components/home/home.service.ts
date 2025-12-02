@@ -30,10 +30,13 @@ export class HomeService {
     this.themeSubject.next(theme);
   }
 
-  getCardData(type: string): Observable<any> {
+  getCardData(type: string, page?: number): Observable<any> {
     let savedFilters: any = {};
     const filters = sessionStorage.getItem('bodyFilters');
 
+    if (typeof page === 'number') {
+        this.selectPage = page;
+    }
     if (filters) {
       savedFilters = JSON.parse(filters);
     } else {
@@ -125,7 +128,11 @@ export class HomeService {
   }
 
 
-  getCardProjects() {
+  getCardProjects(page?: number): Observable<any[]> {
+    if (typeof page === 'number') {
+      this.selectPage = page;
+    }
+
     const queryParams = `page=${this.selectPage}&size=30`;
 
     const token = localStorage.getItem('authToken');
@@ -135,14 +142,17 @@ export class HomeService {
     });
 
     if (token) {
-      return this.http.post(`${this.domain}/main/project/get-by-filter?${queryParams}`, {}, { headers });
+      return this.http.post<any[]>(`${this.domain}/main/project/get-by-filter?${queryParams}`, {}, { headers });
     } else {
-      return this.http.post(`${this.domain}/main/project/get-by-filter?${queryParams}`, {});
+      return this.http.post<any[]>(`${this.domain}/main/project/get-by-filter?${queryParams}`, {});
     }
 
   }
 
-    getCardHackathons() {
+    getCardHackathons(page?: number): Observable<any> {
+    if (typeof page === 'number') {
+      this.selectPage = page;
+    }
     const queryParams = `page=${this.selectPage}&size=30`;
 
     const token = localStorage.getItem('authToken');
@@ -159,7 +169,7 @@ export class HomeService {
 
   }
 
-  
+
   nextPage() {
     if (this.typeToggle === 'vacancy') {
       this.getVacancies();

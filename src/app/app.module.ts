@@ -11,6 +11,7 @@ import { PopUpEntryComponent } from './components/pop-up-entry/pop-up-entry.comp
 import { FooterComponent } from './components/footer/footer.component';
 import { PopUpErrorCreateComponent } from './components/pop-up-error-create/pop-up-error-create.component';
 import { LendingFooterButtonComponent } from "./pages/public-lending/sections/lending-footer-button/lending-footer-button.component";
+import {MainMenuComponent} from "./components/main-menu/main-menu.component";
 
 @NgModule({
   declarations: [
@@ -27,8 +28,9 @@ import { LendingFooterButtonComponent } from "./pages/public-lending/sections/le
     PopUpEntryComponent,
     FooterComponent,
     PopUpErrorCreateComponent,
-    LendingFooterButtonComponent
-],
+    LendingFooterButtonComponent,
+    MainMenuComponent
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

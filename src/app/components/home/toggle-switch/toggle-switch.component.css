@@ -4,7 +4,6 @@
     overflow: hidden;
     box-shadow: 1px 2px 4px 0 rgba(40, 40, 40, 0.1);
     background: rgba(51, 51, 52, 0.3);
-    margin-left: -5rem;
 }
 
 @media (max-width: 1380px) {
@@ -33,12 +32,12 @@
     cursor: pointer;
     border: none;
     outline: none;
-    appearance: none; 
-    background: none; 
+    appearance: none;
+    background: none;
     color: #fff;
-    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-                padding 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
                 box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
     font-family: var(--font-Monts);
@@ -49,7 +48,7 @@
 }
 
 .toggle-btn.active {
-    border-radius: 30px; 
+    border-radius: 30px;
     padding: 15px 50px;
     box-shadow: 1px 2px 4px 0 rgba(40, 40, 40, 0.1);
     background: #fff;
@@ -61,7 +60,7 @@
 }
 
 .toggle-btn:focus {
-    outline: none; 
+    outline: none;
     border-radius: 30px;
 }
 

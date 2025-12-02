@@ -9,7 +9,7 @@ import { BackgroundImgsComponent } from '../background-imgs/background-imgs.comp
 import { SearchComponent } from './search/search.component';
 import { SortetdFilterComponent } from './sortetd-filter/sortetd-filter.component';
 import { ViewCardService } from '../view-card/view-card.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import { SettingHeaderService } from '../setting-header.service';
 import { HomeService } from './home.service';
 import { OneSectionComponent } from './one-section/one-section.component';
@@ -25,11 +25,12 @@ import { TokenService } from '../token.service';
 import { PopUpEntryComponent } from '../pop-up-entry/pop-up-entry.component';
 import {Navigation} from "swiper/modules";
 import {HomeSliderComponent} from "./home-slider/home-slider.component";
+import {UiButtonComponent} from "../../shared/ui-components/ui-button.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, OneSectionComponent, BackgroundImgsComponent, SearchComponent, SortetdFilterComponent, SearchInputPhoneComponent, VacancyLibraryComponent, ResumeLibraryComponent, ProjectComponent, HackathonCadComponent, HomeSliderComponent],
+  imports: [CommonModule, OneSectionComponent, BackgroundImgsComponent, SearchComponent, SortetdFilterComponent, SearchInputPhoneComponent, VacancyLibraryComponent, ResumeLibraryComponent, ProjectComponent, HackathonCadComponent, HomeSliderComponent, UiButtonComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   providers: [PopUpEntryComponent],
