@@ -19,10 +19,26 @@
     z-index: 1 !important;
 }
 
+.container {
+  min-height: 500px;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 105%;
+    height: 215px;
+    background: #5A4BB8;
+    z-index: -10;
+    margin-top: -120px;
+  }
+}
+
 .card-container {
     display: flex;
-    gap: 1rem;
+    gap: 100px;
     margin-top: 10px;
+    flex-direction: column;
 
     &::before {
       content: "";

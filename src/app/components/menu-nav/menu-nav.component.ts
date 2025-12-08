@@ -175,7 +175,7 @@ isImageAvatar(logo: any): boolean {
     this.location.back();
   }
 
-  toggle(button: string) {
+  toggle(button:  'vacancy' | 'hackathon' | 'project' | 'resume') {
     this.homeService.typeToggle = button;
     this.activeButton = button;
     this.homeService.toggleType(button);

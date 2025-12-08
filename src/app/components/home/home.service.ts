@@ -11,7 +11,7 @@ export class HomeService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  typeToggle: string = 'vacancy';
+  typeToggle: 'vacancy' | 'hackathon' | 'project' | 'resume' = 'vacancy';
   vacancies: any[] = [];
   resumes: any[] = [];
   loading: boolean = true;
@@ -20,7 +20,7 @@ export class HomeService {
   private themeSubject = new BehaviorSubject<string>(localStorage.getItem('theme') || 'light');
   activeTheme$ = this.themeSubject.asObservable();
 
-  private typeToggleSubject = new BehaviorSubject<string>('vacancy');
+  private typeToggleSubject = new BehaviorSubject<'vacancy' | 'hackathon' | 'project' | 'resume'>('vacancy');
   activeTypeToggle$ = this.typeToggleSubject.asObservable();
 
 
@@ -28,6 +28,11 @@ export class HomeService {
 
   changeTheme(theme: string) {
     this.themeSubject.next(theme);
+  }
+
+  changeType(type: 'vacancy' | 'hackathon' | 'project' | 'resume') {
+    this.typeToggleSubject.next(type);
+    this.typeToggle = type;
   }
 
   getCardData(type: string, page?: number): Observable<any> {
@@ -87,7 +92,7 @@ export class HomeService {
     });
   }
 
-  projects: any;
+  projects: any[] = [];
 
   getProject() {
 
@@ -246,14 +251,14 @@ export class HomeService {
   }
 
   toggleType(type: any) {
-    this.typeToggleSubject.next(type);
+    // this.typeToggleSubject.next(type);
     this.typeToggle = type;
     this.loading = true;
     this.selectPage = 0;
-    this.resumes = [];
-    this.vacancies = [];
-    this.projects = [];
-    this.hackathons = [];
+    // this.resumes = [];
+    // this.vacancies = [];
+    // this.projects = [];
+    // this.hackathons = [];
     if (type === 'vacancy') {
       this.getVacancies();
     }

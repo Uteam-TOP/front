@@ -12,47 +12,12 @@
     <div class="card-container">
 
 
-<!-- ***************************** hackathon ********************************** -->
-    <ng-container *ngIf="homeService.typeToggle === 'hackathon'">
-        <ng-container *ngIf="isDesktop">
-          <div class="container">
-              <h3>Хакатоны</h3>
-              <div class="column">
-                <app-home-slider [items]="homeService.hackathons" [type]="'hackathon'"></app-home-slider>
-              </div>
-            <div class="slider-footer">
-              <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>
-            </div>
-          </div>
-        </ng-container>
 
-        <ng-container *ngIf="isMobile">
-          <div class="column">
-            <swiper-container
-              [slidesPerView]="1"
-              [loop]="false"
-              [allowTouchMove]="true"
-              [navigation]="true"
-            >
-                <swiper-slide  *ngFor="let item of homeService.hackathons; let i = index">
-                  <a [href]="getCardUrl(item.id, 'hackathon', 'hackathon')" class="app-card-vacancy-link"
-                    (click)="onCardClick($event, item.nickname, 'hackathon')">
-                    <app-hackathon-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-hackathon-card>
-                  </a>
-                </swiper-slide>
-            </swiper-container>
-            <div class="slider-footer">
-              <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>
-            </div>
-        </div>
-        </ng-container>
-    </ng-container>
-<!-- ***************************** close hackathon ********************************** -->
 
 <!-- *****************************  project ********************************** -->
-    <ng-container *ngIf="homeService.typeToggle === 'project'">
+    <ng-container>
         <ng-container *ngIf="isDesktop">
-          <div class="container">
+          <div class="container" #projects>
             <h3>Новые проекты</h3>
             <div class="column">
               <app-home-slider [items]="homeService.projects" [type]="'project'"></app-home-slider>
@@ -110,14 +75,50 @@
     </ng-container>
 <!-- ***************************** close project ********************************** -->
 
+<!-- ***************************** hackathon ********************************** -->
+    <ng-container>
+      <ng-container *ngIf="isDesktop">
+        <div class="container" #hackathons>
+          <h3>Хакатоны</h3>
+          <div class="column">
+            <app-home-slider [items]="homeService.hackathons" [type]="'hackathon'"></app-home-slider>
+          </div>
+          <div class="slider-footer">
+            <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="isMobile">
+        <div class="column">
+          <swiper-container
+            [slidesPerView]="1"
+            [loop]="false"
+            [allowTouchMove]="true"
+            [navigation]="true"
+          >
+            <swiper-slide  *ngFor="let item of homeService.hackathons; let i = index">
+              <a [href]="getCardUrl(item.id, 'hackathon', 'hackathon')" class="app-card-vacancy-link"
+                 (click)="onCardClick($event, item.nickname, 'hackathon')">
+                <app-hackathon-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-hackathon-card>
+              </a>
+            </swiper-slide>
+          </swiper-container>
+          <div class="slider-footer">
+            <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+<!-- ***************************** close hackathon ********************************** -->
 
 <!-- ***************************** vacancy ********************************** -->
 
-    <ng-container *ngIf="homeService.typeToggle === 'vacancy'">
+    <ng-container>
 
         <ng-container *ngIf="isDesktop">
 
-          <div class="container">
+          <div class="container" #vacancies>
               <h3>Вакансии</h3>
               <div class="column">
                 <app-home-slider [items]="homeService.vacancies" [type]="'vacancy'"></app-home-slider>
@@ -171,9 +172,9 @@
 
 
 <!-- ***************************** resume ********************************** -->
-    <ng-container *ngIf="homeService.typeToggle === 'resume'">
+    <ng-container>
         <ng-container *ngIf="isDesktop">
-            <div class="container">
+            <div class="container" #resumes>
                 <h3>Резюме</h3>
                 <div class="column">
                   <app-home-slider [items]="homeService.resumes" [type]="'resume'"></app-home-slider>
@@ -235,11 +236,6 @@
 
 <!-- ***************************** close resume ********************************** -->
     </div>
-
-
-
-
-
 
     <div class="nextPage">
       <a *ngIf="homeService.visibleNextPage" (click)="nextPage()">
