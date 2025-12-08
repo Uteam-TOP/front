@@ -26,7 +26,7 @@ export class FooterComponent {
     this.router.navigate([path]);
   }
 
-  toggle(button: string) {
+  toggle(button:  'vacancy' | 'hackathon' | 'project' | 'resume') {
     this.homeService.typeToggle = button;
     this.homeService.toggleType(button);
     window.scrollTo({ top: 0, behavior: 'smooth' });

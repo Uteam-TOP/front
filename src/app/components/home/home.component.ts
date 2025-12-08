@@ -2,7 +2,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
   HostListener,
-  OnInit,
+  OnInit, viewChild, ViewChild, ElementRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundImgsComponent } from '../background-imgs/background-imgs.component';
@@ -49,6 +49,11 @@ import {UiButtonComponent} from "../../shared/ui-components/ui-button.component"
 })
 export class HomeComponent implements OnInit {
 
+  @ViewChild('projects') ProjectsDiv!: ElementRef;
+  @ViewChild('hackathons') HackathonsDiv!: ElementRef;
+  @ViewChild('vacancies') VacanciesDiv!: ElementRef;
+  @ViewChild('resumes') ResumesDiv!: ElementRef;
+
   loading: boolean = true;
   isVisibleFilter: boolean = false;
 
@@ -56,6 +61,7 @@ export class HomeComponent implements OnInit {
   isTablet = false;
   isMobile = false;
   resumeVisibleSections: string[] = ['profession', 'availability', 'skills', 'motivations', 'profile']
+  scrollTimeout: any;
 
   navigation: any = {};
 
@@ -70,14 +76,58 @@ export class HomeComponent implements OnInit {
     private popUpEntryService: PopUpEntryService,
     private popUpEntryComponent: PopUpEntryComponent
   ) {
-
     this.settingHeaderService.post = false;
     this.settingHeaderService.shared = false;
     this.settingHeaderService.backbtn = false;
   }
 
   userId!: number;
+
+  @HostListener('document:scroll', ['$event'])
+  public onViewportScroll() {
+    const windowHeight = window.innerHeight;
+    const boundingRectProjects = this.ProjectsDiv.nativeElement.getBoundingClientRect();
+    const boundingRectHackathons = this.HackathonsDiv.nativeElement.getBoundingClientRect();
+    const boundingRectVacancy = this.VacanciesDiv.nativeElement.getBoundingClientRect();
+    const boundingRectResumes = this.ResumesDiv.nativeElement.getBoundingClientRect();
+
+    if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
+    this.scrollTimeout = setTimeout(() => {
+
+      if (boundingRectProjects.top >= 0 && boundingRectProjects.bottom - 500 <= windowHeight) {
+        // this.homeService.changeType('project');
+        this.homeService.typeToggle = 'project';
+      }
+
+      if (boundingRectHackathons.top >= 0 && boundingRectHackathons.bottom - 500 <= windowHeight) {
+        if (!this.homeService.hackathons.length && !this.homeService.loading) {
+          this.homeService.toggleType('hackathon');
+        }
+        // this.homeService.changeType('hackathon');
+        this.homeService.typeToggle = 'hackathon';
+      }
+
+      if (boundingRectVacancy.top >= 0 && boundingRectVacancy.bottom - 500 <= windowHeight) {
+        if (!this.homeService.vacancies.length && !this.homeService.loading) {
+          this.homeService.toggleType('vacancy');
+        }
+        // this.homeService.changeType('vacancy');
+        this.homeService.typeToggle = 'vacancy';
+      }
+
+      if (boundingRectResumes.top >= 0 && boundingRectResumes.bottom - 400 <= windowHeight) {
+        if (!this.homeService.resumes.length && !this.homeService.loading) {
+          this.homeService.toggleType('resume');
+        }
+        // this.homeService.changeType('resume');
+        this.homeService.typeToggle = 'resume';
+      }
+
+    }, 50)
+  }
+
   ngOnInit() {
+    this.homeService.toggleType('project');
     this.settingHeaderService.isFilterState$.subscribe(value => {
       this.isVisibleFilter = value;
     });
@@ -89,8 +139,25 @@ export class HomeComponent implements OnInit {
       this.verifyProfile();
     });
 
-    console.log('homeService.vacancies', this.homeService.vacancies)
+    this.homeService.activeTypeToggle$.subscribe((value: 'vacancy' | 'hackathon' | 'project' | 'resume') => {
+      let element;
+      if (value === 'vacancy') {
+        element = this.VacanciesDiv.nativeElement;
+      } else if (value === 'hackathon') {
+        element = this.HackathonsDiv.nativeElement;
+      } else if (value === 'project') {
+        element = this.ProjectsDiv.nativeElement;
+      } else if (value === 'resume') {
+        element = this.ResumesDiv.nativeElement;
+      } else {
+        element = this.ProjectsDiv.nativeElement;
+      }
+      this.scrollToSection(element, true)
+    })
+  }
 
+  scrollToSection(element: HTMLElement, smooth: boolean = true) {
+    element.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'center'});
   }
 
   verifyProfile(): void {
