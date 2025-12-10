@@ -230,3 +230,7 @@ swiper-container {
     text-decoration: none
   }
 }
+
+.title-blue {
+  color: var(--font-color-blue);
+}

@@ -43,9 +43,6 @@ export class TeamComponent implements OnInit {
       }
 
     })
-
-
-
   }
 
   checkUserInTeam(itemsList: any[]): boolean {

@@ -3,6 +3,7 @@ import {ListLayerComponent} from "../../../layers/list-layer/list-layer.componen
 import {HomeService} from "../../../components/home/home.service";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {Observable} from "rxjs";
+import {SkeletonBlockComponent} from "../../../shared/ui-components/skeleton-block/skeleton-block.component";
 
 @Component({
   selector: 'app-resume-list',
@@ -10,7 +11,8 @@ import {Observable} from "rxjs";
   imports: [
     ListLayerComponent,
     NgIf,
-    AsyncPipe
+    AsyncPipe,
+    SkeletonBlockComponent
   ],
   templateUrl: './resume-list.component.html',
   styleUrl: './resume-list.component.css'

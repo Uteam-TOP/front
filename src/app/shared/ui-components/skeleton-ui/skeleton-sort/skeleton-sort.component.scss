@@ -1,0 +1,42 @@
+.list-manage {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  animation: skeleton-loading 1s linear infinite alternate;
+
+  &__sort {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 32px;
+
+    .sort-button,
+    .sort-text,
+    .sort-image {
+      background: rgb(197, 197, 197);
+      height: 100%;
+      border-radius: 16px;
+    }
+
+    .sort-image {
+      width: 32px;
+    }
+    .sort-button {
+      width: 65px;
+    }
+
+    .sort-text {
+      width: 100px;
+      height: 60%;
+    }
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, inject, Input, OnInit} from '@angular/core';
-import {UiButtonComponent} from "../../shared/ui-components/ui-button.component";
+import {UiButtonComponent} from "../../shared/ui-components/ui-button/ui-button.component";
 import {HackathonCadComponent} from "../../components/home/hackathon-cad/hackathon-cad.component";
 import {NgClass, NgForOf, NgIf, NgTemplateOutlet} from "@angular/common";
 import {ProjectComponent} from "../../components/home/project/project.component";

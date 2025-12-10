@@ -25,12 +25,13 @@ import { TokenService } from '../token.service';
 import { PopUpEntryComponent } from '../pop-up-entry/pop-up-entry.component';
 import {Navigation} from "swiper/modules";
 import {HomeSliderComponent} from "./home-slider/home-slider.component";
-import {UiButtonComponent} from "../../shared/ui-components/ui-button.component";
+import {UiButtonComponent} from "../../shared/ui-components/ui-button/ui-button.component";
+import {SkeletonBlockComponent} from "../../shared/ui-components/skeleton-block/skeleton-block.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, OneSectionComponent, BackgroundImgsComponent, SearchComponent, SortetdFilterComponent, SearchInputPhoneComponent, VacancyLibraryComponent, ResumeLibraryComponent, ProjectComponent, HackathonCadComponent, HomeSliderComponent, UiButtonComponent, RouterLink],
+  imports: [CommonModule, OneSectionComponent, BackgroundImgsComponent, SearchComponent, SortetdFilterComponent, SearchInputPhoneComponent, VacancyLibraryComponent, ResumeLibraryComponent, ProjectComponent, HackathonCadComponent, HomeSliderComponent, UiButtonComponent, RouterLink, SkeletonBlockComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   providers: [PopUpEntryComponent],
