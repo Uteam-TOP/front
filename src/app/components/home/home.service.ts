@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {BehaviorSubject, delay, Observable} from 'rxjs';
 import { environment } from '../../../environment';
 
 @Injectable({
@@ -35,7 +35,7 @@ export class HomeService {
     this.typeToggle = type;
   }
 
-  getCardData(type: string, page?: number): Observable<any> {
+  getCardData(type: string, page?: number, pageSize?: number): Observable<any> {
     let savedFilters: any = {};
     const filters = sessionStorage.getItem('bodyFilters');
 
@@ -51,10 +51,12 @@ export class HomeService {
       this.saveFilters(savedFilters);
     }
 
-    const typeSort = localStorage.getItem('typeSort');
-    const queryParams = `page=${this.selectPage}&size=30&sorts=creationDate_desc`;
+    const size = pageSize ? pageSize : 10;
 
-    return this.http.post(`${this.domain}/main/${type}/getAll?${queryParams}`, savedFilters);
+    const typeSort = localStorage.getItem('typeSort');
+    const queryParams = `page=${this.selectPage}&size=${size}&sorts=creationDate_desc`;
+
+    return this.http.post(`${this.domain}/main/${type}/getAll?${queryParams}`, savedFilters).pipe( delay(600) );
   }
 
   getVacancies() {
@@ -69,7 +71,6 @@ export class HomeService {
 
         this.selectPage = this.selectPage + 1;
         this.vacancies = [...this.vacancies, ...filteredData];
-        console.log('vacancies',this.vacancies)
       }
       this.loading = false;
     })
@@ -167,9 +168,9 @@ export class HomeService {
     });
 
     if (token) {
-      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`, { headers });
+      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`, { headers }).pipe(delay(600));
     } else {
-      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`,);
+      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`,).pipe(delay(600));
     }
 
   }
@@ -270,6 +271,9 @@ export class HomeService {
     }
     if (type === 'hackathon') {
       this.gethackathons();
+    }
+    if (type === 'news') {
+
     }
   }
 

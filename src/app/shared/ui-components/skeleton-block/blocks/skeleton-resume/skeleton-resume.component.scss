@@ -1,0 +1,138 @@
+.skeleton-card {
+  border-radius: 1.3rem;
+  padding: 12px;
+  width: 449px;
+  box-shadow: 1px 2px 4px #2828281a;
+  background: white;
+  margin-bottom: 1rem;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    break-inside: avoid;
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+}
+
+.skeleton-title {
+  width: 60%;
+  height: 16px;
+  background-color: rgb(197, 197, 197);
+  border-radius: 1.3rem;
+  margin-top: 5px;
+}
+
+.search {
+  width: 100%;
+  height: 68px;
+  background-color: rgb(197, 197, 197);
+  border-radius: 1.3rem;
+
+}
+
+.skills {
+  width: 25%;
+  height: 14px;
+  background-color: rgb(197, 197, 197);
+  border-radius: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background-color: rgb(197, 197, 197);
+  padding: 4px 8px;
+  width: 58px;
+  height: 31px;
+}
+
+.motivation {
+  width: 25%;
+  height: 14px;
+  background-color: rgb(197, 197, 197);
+  border-radius: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.motivation-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+}
+
+.motivation-tag {
+  border-radius: 50px;
+  padding: 8px 10px;
+  width: 68px;
+  height: 14px;
+  background-color: rgb(197, 197, 197);
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1rem;
+  align-items: flex-end;
+}
+
+.leftProfile {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.logo {
+  border-radius: 30px;
+  width: 52px;
+  height: 52px;
+  background-color: rgb(197, 197, 197);
+}
+
+.main-name {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-bottom: 2px;
+}
+
+.name {
+  margin: 0.1rem;
+  width: 60px;
+  height: 15.5px;
+  background-color: rgb(197, 197, 197);
+  border-radius: 1.3rem;
+}
+
+.rightProfile {
+  display: flex;
+  flex-direction: column;
+}
+
+.date {
+  margin: 0.1rem;
+  width: 73px;
+  height: 15.5px;
+  background-color: rgb(197, 197, 197);
+  border-radius: 1.3rem;
+}
+
+
+@keyframes skeleton-loading {
+  0% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

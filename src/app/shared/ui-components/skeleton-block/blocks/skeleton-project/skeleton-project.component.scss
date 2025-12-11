@@ -1,0 +1,174 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.3rem;
+  width: 448px;
+  background: var(--background-card);
+  margin-bottom: 1rem;
+  break-inside: avoid;
+  transition: transform .3s ease-in-out;
+}
+
+.card:hover {
+  -webkit-box-shadow: 4px 4px 20px -11px rgba(40, 40, 40, 0.35);
+  -moz-box-shadow: 4px 4px 20px -11px rgba(40, 40, 40, 0.35);
+  box-shadow: 4px 4px 20px -11px rgba(40, 40, 40, 0.35);
+  transform: scale(1.012);
+}
+
+
+.background {
+  width: 100%;
+  background: #e4e4e4;
+  height: 140px;
+  display: flex;
+  align-items: flex-start;
+  border-radius: 1.3rem 1.3rem 0 0;
+  padding: 12px;
+  position: relative;
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+
+}
+
+.type-badge {
+  border-radius: 30px;
+  padding: 6px 12px;
+  background: rgb(197, 197, 197);
+  width: 130px;
+  height: 34px;
+}
+
+.like {
+  display: flex;
+  border-radius: 30px;
+  padding: 6px 12px;
+  background: rgb(197, 197, 197);
+  width: 80px;
+  height: 34px;
+}
+
+.background img {
+  display: none;
+}
+
+
+.body {
+  padding: 12px;
+  animation: skeleton-loading 1s linear infinite alternate;
+
+  .title-container {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    height: 38px;
+
+    .avatar {
+      position: absolute;
+      top: -55px;
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      background: rgb(197, 197, 197);
+    }
+
+    .title {
+      height: fit-content;
+      margin: 0;
+      margin-left: 93px;
+      color: var(--font-color);
+    }
+
+    &__title {
+      margin-left: 93px;
+      height: 34px;
+      background: rgb(197, 197, 197);
+      width: 100%;
+      border-radius: 17px;
+    }
+  }
+
+  .description {
+    height: 34px;
+    background: rgb(197, 197, 197);
+    width: 100%;
+    border-radius: 17px;
+    margin-top: 10px;
+  }
+
+  .vacancies {
+    height: 138px;
+
+    .vacanciesItem {
+      height: 34px;
+      background: rgb(197, 197, 197);
+      width: 100%;
+      border-radius: 17px;
+      margin-top: 10px;
+    }
+
+  }
+
+  .commands {
+    height: 68.05px;
+
+    .team-container {
+      display: flex;
+      gap: -8px;
+
+      .team-member {
+        position: relative;
+        display: flex;
+        gap: 12px;
+
+        &:not(:first-child) {
+          margin-left: -20px;
+        }
+
+        .avatar {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: rgba(158, 158, 158, 0.6);
+        }
+      }
+    }
+
+    .text12 {
+      height: 20px;
+      background: rgb(197, 197, 197);
+      width: 30%;
+      border-radius: 17px;
+      margin-top: 10px;
+    }
+  }
+
+  .date-container {
+    display: flex;
+    justify-content: flex-end;
+
+    .date {
+      height: 20px;
+      background: rgb(197, 197, 197);
+      width: 30%;
+      border-radius: 17px;
+      margin: 0;
+    }
+  }
+
+}
+
+@keyframes skeleton-loading {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}

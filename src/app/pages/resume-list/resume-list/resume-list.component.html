@@ -2,4 +2,6 @@
   @if (data.length) {
     <app-list-layer [cards]="data" [type]="'resume'"></app-list-layer>
   }
+} @else {
+  <skeleton-block [type]="'resume'" [amount]="9" [wrap]="'wrap'"></skeleton-block>
 }

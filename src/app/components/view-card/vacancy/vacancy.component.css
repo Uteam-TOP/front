@@ -6,6 +6,7 @@
     padding: 12px;
     width: 100%;
     break-inside: avoid;
+    background: #fff;
 }
 
 .title {

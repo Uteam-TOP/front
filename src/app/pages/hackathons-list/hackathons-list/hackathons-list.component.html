@@ -2,4 +2,6 @@
   @if (data.length) {
     <app-list-layer [cards]="data" [type]="'hackathon'"></app-list-layer>
   }
+} @else {
+  <skeleton-block [type]="'hackathon'" [amount]="9" [wrap]="'wrap'"></skeleton-block>
 }

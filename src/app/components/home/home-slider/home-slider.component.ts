@@ -7,6 +7,7 @@ import { ResumeLibraryComponent, VacancyLibraryComponent } from '../../../../com
 import {SwiperOptions} from "swiper/types";
 import { SwiperContainer } from 'swiper/element';
 import {HackathonCadComponent} from "../hackathon-cad/hackathon-cad.component";
+import {VacancyComponent} from "../../view-card/vacancy/vacancy.component";
 
 @Component({
   selector: 'app-home-slider',
@@ -17,7 +18,8 @@ import {HackathonCadComponent} from "../hackathon-cad/hackathon-cad.component";
     ProjectComponent,
     VacancyLibraryComponent,
     ResumeLibraryComponent,
-    HackathonCadComponent
+    HackathonCadComponent,
+    VacancyComponent
   ],
   templateUrl: './home-slider.component.html',
   styleUrl: './home-slider.component.css',

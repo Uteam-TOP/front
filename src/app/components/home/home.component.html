@@ -20,10 +20,24 @@
           <div class="container" #projects>
             <h3>Новые проекты</h3>
             <div class="column">
-              <app-home-slider [items]="homeService.projects" [type]="'project'"></app-home-slider>
+              @if (homeService.projects.length) {
+                <app-home-slider [items]="homeService.projects" [type]="'project'"></app-home-slider>
+              } @else {
+                <skeleton-block [type]="'project'" [amount]="4"></skeleton-block>
+              }
+
             </div>
             <div class="slider-footer">
               <a routerLink="/projects"><ui-button [text]="'Все проекты'" [type]="'arrow'"></ui-button></a>
+            </div>
+
+            <h3 class="title-blue">Новости проектов</h3>
+            <div class="column">
+              @if (homeService.projects.length) {
+                <app-home-slider [items]="homeService.projects" [type]="'project'"></app-home-slider>
+              } @else {
+                <skeleton-block [type]="'project'" [amount]="4"></skeleton-block>
+              }
             </div>
           </div>
         </ng-container>
@@ -54,19 +68,23 @@
 
         <ng-container *ngIf="isMobile">
           <div class="column">
-            <swiper-container
-              [slidesPerView]="1"
-              [loop]="false"
-              [allowTouchMove]="true"
-              [navigation]="true"
-            >
-            <swiper-slide  *ngFor="let item of homeService.projects; let i = index">
-                <a [href]="getCardUrl(item.id, 'project', 'project')" class="app-card-vacancy-link"
-                   (click)="onCardClick($event, item.nickname, 'project')">
-                <app-project class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-project>
-                </a>
-            </swiper-slide>
-            </swiper-container>
+            @if (homeService.projects.length) {
+              <swiper-container
+                [slidesPerView]="1"
+                [loop]="false"
+                [allowTouchMove]="true"
+                [navigation]="true"
+              >
+                <swiper-slide  *ngFor="let item of homeService.projects; let i = index">
+                    <a [href]="getCardUrl(item.id, 'project', 'project')" class="app-card-vacancy-link"
+                       (click)="onCardClick($event, item.nickname, 'project')">
+                    <app-project class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-project>
+                    </a>
+                </swiper-slide>
+              </swiper-container>
+            } @else {
+              <skeleton-block [type]="'project'" [amount]="4"></skeleton-block>
+            }
             <div class="slider-footer">
               <a routerLink="/projects"><ui-button [text]="'Все проекты'" [type]="'arrow'"></ui-button></a>
             </div>
@@ -81,7 +99,11 @@
         <div class="container" #hackathons>
           <h3>Хакатоны</h3>
           <div class="column">
-            <app-home-slider [items]="homeService.hackathons" [type]="'hackathon'"></app-home-slider>
+            @if (homeService.hackathons.length) {
+              <app-home-slider [items]="homeService.hackathons" [type]="'hackathon'"></app-home-slider>
+            } @else {
+              <skeleton-block [type]="'hackathon'" [amount]="4"></skeleton-block>
+            }
           </div>
           <div class="slider-footer">
             <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>
@@ -91,19 +113,23 @@
 
       <ng-container *ngIf="isMobile">
         <div class="column">
-          <swiper-container
-            [slidesPerView]="1"
-            [loop]="false"
-            [allowTouchMove]="true"
-            [navigation]="true"
-          >
-            <swiper-slide  *ngFor="let item of homeService.hackathons; let i = index">
-              <a [href]="getCardUrl(item.id, 'hackathon', 'hackathon')" class="app-card-vacancy-link"
-                 (click)="onCardClick($event, item.nickname, 'hackathon')">
-                <app-hackathon-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-hackathon-card>
-              </a>
-            </swiper-slide>
-          </swiper-container>
+          @if (homeService.hackathons.length) {
+            <swiper-container
+              [slidesPerView]="1"
+              [loop]="false"
+              [allowTouchMove]="true"
+              [navigation]="true"
+            >
+              <swiper-slide  *ngFor="let item of homeService.hackathons; let i = index">
+                <a [href]="getCardUrl(item.id, 'hackathon', 'hackathon')" class="app-card-vacancy-link"
+                   (click)="onCardClick($event, item.nickname, 'hackathon')">
+                  <app-hackathon-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-hackathon-card>
+                </a>
+              </swiper-slide>
+            </swiper-container>
+          } @else {
+            <skeleton-block [type]="'hackathon'" [amount]="4"></skeleton-block>
+          }
           <div class="slider-footer">
             <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>
           </div>
@@ -121,7 +147,11 @@
           <div class="container" #vacancies>
               <h3>Вакансии</h3>
               <div class="column">
-                <app-home-slider [items]="homeService.vacancies" [type]="'vacancy'"></app-home-slider>
+                @if (homeService.vacancies.length) {
+                  <app-home-slider [items]="homeService.vacancies" [type]="'vacancy'"></app-home-slider>
+                } @else {
+                  <skeleton-block [type]="'vacancy'" [amount]="4"></skeleton-block>
+                }
               </div>
               <div class="slider-footer">
                 <a routerLink="/vacancies"><ui-button [text]="'Все вакансии'" [type]="'arrow'"></ui-button></a>
@@ -148,19 +178,23 @@
 
         <ng-container *ngIf="isMobile">
             <div class="column">
-              <swiper-container
-                [slidesPerView]="1"
-                [loop]="false"
-                [allowTouchMove]="true"
-                [navigation]="true"
-              >
-                  <swiper-slide  *ngFor="let item of homeService.vacancies; let i = index">
-                        <a [href]="getCardUrl(item.id, 'vacancies', 'vacancy')" class="app-card-vacancy-link"
-                        (click)="onCardClick($event, item.id, 'vacancy')">
-                          <lib-vacancy class="card"  [cardItem]="item" *ngIf="item.visibility != 'BAN'"></lib-vacancy>
-                        </a>
-                  </swiper-slide>
-              </swiper-container>
+              @if (homeService.vacancies.length) {
+                <swiper-container
+                  [slidesPerView]="1"
+                  [loop]="false"
+                  [allowTouchMove]="true"
+                  [navigation]="true"
+                >
+                    <swiper-slide  *ngFor="let item of homeService.vacancies; let i = index">
+                          <a [href]="getCardUrl(item.id, 'vacancies', 'vacancy')" class="app-card-vacancy-link"
+                          (click)="onCardClick($event, item.id, 'vacancy')">
+                            <lib-vacancy class="card"  [cardItem]="item" *ngIf="item.visibility != 'BAN'"></lib-vacancy>
+                          </a>
+                    </swiper-slide>
+                </swiper-container>
+              } @else {
+                <skeleton-block [type]="'vacancy'" [amount]="4"></skeleton-block>
+              }
               <div class="slider-footer">
                 <a routerLink="/vacancies"><ui-button [text]="'Все вакансии'" [type]="'arrow'"></ui-button></a>
               </div>
@@ -177,7 +211,11 @@
             <div class="container" #resumes>
                 <h3>Резюме</h3>
                 <div class="column">
-                  <app-home-slider [items]="homeService.resumes" [type]="'resume'"></app-home-slider>
+                  @if (homeService.resumes.length) {
+                    <app-home-slider [items]="homeService.resumes" [type]="'resume'"></app-home-slider>
+                  } @else {
+                    <skeleton-block [type]="'resume'" [amount]="4"></skeleton-block>
+                  }
                 </div>
                 <div class="slider-footer">
                   <a routerLink="/resumes"><ui-button [text]="'Все резюме'" [type]="'arrow'"></ui-button></a>
@@ -187,20 +225,24 @@
 
         <ng-container *ngIf="isMobile">
             <div class="column">
-              <swiper-container
-                [slidesPerView]="1"
-                [loop]="false"
-                [allowTouchMove]="true"
-                [navigation]="true"
-              >
-                  <swiper-slide *ngFor="let item of homeService.resumes; let i = index">
-                      <a [href]="getCardUrl(item.id, 'resumes', 'resume')" class="app-card-resume-link"
-                        (click)="onCardClick($event, item.id, 'resume')">
-                      <lib-resume class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"
-                        [visibleSections]="resumeVisibleSections"> </lib-resume>
-                      </a>
-                  </swiper-slide>
-              </swiper-container>
+              @if (homeService.resumes.length) {
+                <swiper-container
+                  [slidesPerView]="1"
+                  [loop]="false"
+                  [allowTouchMove]="true"
+                  [navigation]="true"
+                >
+                    <swiper-slide *ngFor="let item of homeService.resumes; let i = index">
+                        <a [href]="getCardUrl(item.id, 'resumes', 'resume')" class="app-card-resume-link"
+                          (click)="onCardClick($event, item.id, 'resume')">
+                        <lib-resume class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"
+                          [visibleSections]="resumeVisibleSections"> </lib-resume>
+                        </a>
+                    </swiper-slide>
+                </swiper-container>
+              } @else {
+                <skeleton-block [type]="'resume'" [amount]="4"></skeleton-block>
+              }
               <div class="slider-footer">
                 <a routerLink="/resumes"><ui-button [text]="'Все резюме'" [type]="'arrow'"></ui-button></a>
               </div>

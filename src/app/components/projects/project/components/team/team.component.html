@@ -7,7 +7,6 @@
         </div>
         <div class="container-card-users">
             <app-participant *ngFor="let item of itemsList " [itemData]="item"></app-participant>
-
         </div>
 
         <a id="myTeam" (click)="setActiveTab()" *ngIf="isOwner == true">Открыть список команды</a>
