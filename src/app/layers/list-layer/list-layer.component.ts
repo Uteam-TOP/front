@@ -6,6 +6,7 @@ import {ProjectComponent} from "../../components/home/project/project.component"
 import { ResumeLibraryComponent, VacancyLibraryComponent } from '../../../common-uteam-library';
 import {Router} from "@angular/router";
 import {SortByPipe} from "../../pipes/sort-by.pipe";
+import {VacancyComponent} from "../../components/view-card/vacancy/vacancy.component";
 
 @Component({
   selector: 'app-list-layer',
@@ -22,7 +23,8 @@ import {SortByPipe} from "../../pipes/sort-by.pipe";
     ResumeLibraryComponent,
     SortByPipe,
     NgTemplateOutlet,
-    NgClass
+    NgClass,
+    VacancyComponent
   ],
   templateUrl: './list-layer.component.html',
   styleUrl: './list-layer.component.scss',

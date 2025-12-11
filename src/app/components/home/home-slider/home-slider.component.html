@@ -16,7 +16,7 @@
       </ng-container>
 
       <ng-container *ngIf="type === 'vacancy'">
-        <lib-vacancy class="card"  [cardItem]="item" *ngIf="item.visibility != 'BAN'"></lib-vacancy>
+        <app-vacancy [data]="item" class="card" *ngIf="item.visibility != 'BAN'"></app-vacancy>
       </ng-container>
 
       <ng-container *ngIf="type === 'resume'">

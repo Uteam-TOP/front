@@ -10,7 +10,6 @@ import {SkeletonBlockComponent} from "../../../shared/ui-components/skeleton-blo
   standalone: true,
   imports: [
     ListLayerComponent,
-    NgIf,
     AsyncPipe,
     SkeletonBlockComponent
   ],

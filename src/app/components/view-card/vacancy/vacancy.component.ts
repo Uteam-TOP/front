@@ -30,7 +30,6 @@ export class VacancyComponent {
   }
 
   getSkills(item: number): string {
-    console.log("item",)
     switch (item) {
       case 1:
         return 'Junior';
@@ -44,7 +43,6 @@ export class VacancyComponent {
   }
 
   getSkillText(item: number): string {
-    console.log("item",)
     switch (item) {
       case 1:
         return 'Jun';

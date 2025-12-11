@@ -21,7 +21,7 @@ export class VacanciesListComponent {
   vacanciesList$: Observable<any[]>;
 
   constructor() {
-    this.vacanciesList$ = this.homeService.getCardData('vacancy', 0);
+    this.vacanciesList$ = this.homeService.getCardData('vacancy', 0, 100);
   }
 
 }
