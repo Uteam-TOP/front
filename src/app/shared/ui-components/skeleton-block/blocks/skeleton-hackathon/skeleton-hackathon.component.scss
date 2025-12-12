@@ -1,9 +1,15 @@
+:host {
+  width: 100%;
+  display: block;
+  flex: 1;
+}
+
 .skeleton-card {
   display: flex;
   flex-direction: column;
   border-radius: 1.3rem;
   background: white;
-  width: 445px;
+  width: 100%;
   margin-bottom: 1rem;
 
   &__container {

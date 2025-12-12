@@ -1,4 +1,13 @@
-import {AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, Input, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  ElementRef,
+  HostListener,
+  inject,
+  Input,
+  ViewChild
+} from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
 import {Router} from "@angular/router";
 import {Navigation} from "swiper/modules";
@@ -8,6 +17,7 @@ import {SwiperOptions} from "swiper/types";
 import { SwiperContainer } from 'swiper/element';
 import {HackathonCadComponent} from "../hackathon-cad/hackathon-cad.component";
 import {VacancyComponent} from "../../view-card/vacancy/vacancy.component";
+import {SkeletonBlockComponent} from "../../../shared/ui-components/skeleton-block/skeleton-block.component";
 
 @Component({
   selector: 'app-home-slider',
@@ -19,7 +29,8 @@ import {VacancyComponent} from "../../view-card/vacancy/vacancy.component";
     VacancyLibraryComponent,
     ResumeLibraryComponent,
     HackathonCadComponent,
-    VacancyComponent
+    VacancyComponent,
+    SkeletonBlockComponent
   ],
   templateUrl: './home-slider.component.html',
   styleUrl: './home-slider.component.css',
@@ -34,13 +45,23 @@ export class HomeSliderComponent implements AfterViewInit {
   @Input() type: 'project' | 'vacancy' | 'resume' | 'hackathon' = 'project';
 
   private router = inject(Router);
+  isDesktop: boolean = true;
+  isTablet: boolean = false;
+  isMobile: boolean = false;
+
+  emptyCards = [1, 2, 3, 4];
 
   resumeVisibleSections: string[] = ['profession', 'availability', 'skills', 'motivations', 'profile']
 
   navigation: any = {};
 
   constructor() {
-    console.log('init home-slider')
+    this.updateView(window.innerWidth);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    this.updateView(event.target.innerWidth);
   }
 
   getCardUrl(cardValue: any, type: string, route: string): string {
@@ -72,6 +93,22 @@ export class HomeSliderComponent implements AfterViewInit {
       swiper.navigation.update();
     }
     console.log(swiper)
+  }
+
+  updateView(width: number): void {
+    if (width >= 1024) {
+      this.isDesktop = true;
+      this.isTablet = false;
+      this.isMobile = false;
+    } else if (width >= 768 && width < 1024) {
+      this.isDesktop = false;
+      this.isTablet = true;
+      this.isMobile = false;
+    } else {
+      this.isDesktop = false;
+      this.isTablet = false;
+      this.isMobile = true;
+    }
   }
 
   protected readonly Navigation = Navigation;
