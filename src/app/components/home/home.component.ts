@@ -58,6 +58,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   loading: boolean = true;
   isVisibleFilter: boolean = false;
 
+  windowHeight: number = 0;
+  boundingRectProjects: DOMRect | undefined;
+  boundingRectHackathons: DOMRect | undefined;
+  boundingRectVacancy: DOMRect | undefined;
+  boundingRectResumes: DOMRect | undefined;
+
   resumeVisibleSections: string[] = ['profession', 'availability', 'skills', 'motivations', 'profile']
   scrollTimeout: any;
 
@@ -88,31 +94,31 @@ export class HomeComponent implements OnInit, AfterViewInit {
     if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
     this.scrollTimeout = setTimeout(() => {
 
-      const windowHeight = window.innerHeight;
-      const boundingRectProjects = this.ProjectsDiv.nativeElement.getBoundingClientRect();
-      const boundingRectHackathons = this.HackathonsDiv.nativeElement.getBoundingClientRect();
-      const boundingRectVacancy = this.VacanciesDiv.nativeElement.getBoundingClientRect();
-      const boundingRectResumes = this.ResumesDiv.nativeElement.getBoundingClientRect();
+      this.windowHeight = window.innerHeight;
+      this.boundingRectProjects = this.ProjectsDiv.nativeElement.getBoundingClientRect();
+      this.boundingRectHackathons = this.HackathonsDiv.nativeElement.getBoundingClientRect();
+      this.boundingRectVacancy = this.VacanciesDiv.nativeElement.getBoundingClientRect();
+      this.boundingRectResumes = this.ResumesDiv.nativeElement.getBoundingClientRect();
 
-      if (boundingRectProjects.top >= 0 && boundingRectProjects.bottom - 500 <= windowHeight) {
+      if (this.boundingRectProjects && this.boundingRectProjects.top >= 0 && this.boundingRectProjects.bottom - 500 <= this.windowHeight) {
         this.homeService.typeToggle = 'project';
       }
 
-      if (boundingRectHackathons.top >= 0 && boundingRectHackathons.bottom - 500 <= windowHeight) {
+      if (this.boundingRectHackathons && this.boundingRectHackathons.top >= 0 && this.boundingRectHackathons.bottom - 500 <= this.windowHeight) {
         if (!this.homeService.hackathons.length && !this.homeService.loading) {
           this.homeService.toggleType('hackathon');
         }
         this.homeService.typeToggle = 'hackathon';
       }
 
-      if (boundingRectVacancy.top >= 0 && boundingRectVacancy.bottom - 500 <= windowHeight) {
+      if (this.boundingRectVacancy && this.boundingRectVacancy.top >= 0 && this.boundingRectVacancy.bottom - 500 <= this.windowHeight) {
         if (!this.homeService.vacancies.length && !this.homeService.loading) {
           this.homeService.toggleType('vacancy');
         }
         this.homeService.typeToggle = 'vacancy';
       }
 
-      if (boundingRectResumes.top >= 0 && boundingRectResumes.bottom - 400 <= windowHeight) {
+      if (this.boundingRectResumes && this.boundingRectResumes.top >= 0 && this.boundingRectResumes.bottom - 400 <= this.windowHeight) {
         if (!this.homeService.resumes.length && !this.homeService.loading) {
           this.homeService.toggleType('resume');
         }
@@ -133,7 +139,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.userId = +params['idUser'];
       this.verifyProfile();
     });
-
   }
 
   ngAfterViewInit() {
@@ -155,7 +160,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   scrollToSection(element: HTMLElement, smooth: boolean = true) {
-    element.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'center'});
+    const elementRect = element.getBoundingClientRect();
+    window.scrollBy({ top:elementRect.top - 200, behavior: 'smooth' });
   }
 
   verifyProfile(): void {
