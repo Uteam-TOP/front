@@ -2,32 +2,39 @@
 <swiper-container
   #swiper
   [modules]="[Navigation]"
-  [slidesPerView]="4"
+  [slidesPerView]="isDesktop ? 4 : 1.3"
   [spaceBetween]="20"
   [loop]="false"
   [allowTouchMove]="true"
-  [enabled]="true"
+  [enabled]="isDesktop"
   [navigation]="navigation">
-  <swiper-slide  *ngFor="let item of items; let i = index">
-    <a [href]="getCardUrl(item.id, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
-       (click)="onCardClick($event, item.id, type)">
-      <ng-container *ngIf="type === 'project'">
-        <app-project class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-project>
-      </ng-container>
+  @if (items.length) {
+    <swiper-slide  *ngFor="let item of items; let i = index">
+      <a [href]="getCardUrl(item.id, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
+         (click)="onCardClick($event, item.id, type)">
+        <ng-container *ngIf="type === 'project'">
+          <app-project class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-project>
+        </ng-container>
 
-      <ng-container *ngIf="type === 'vacancy'">
-        <app-vacancy [data]="item" class="card" *ngIf="item.visibility != 'BAN'"></app-vacancy>
-      </ng-container>
+        <ng-container *ngIf="type === 'vacancy'">
+          <app-vacancy [data]="item" class="card" *ngIf="item.visibility != 'BAN'"></app-vacancy>
+        </ng-container>
 
-      <ng-container *ngIf="type === 'resume'">
-        <lib-resume class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'" [visibleSections]="resumeVisibleSections"> </lib-resume>
-      </ng-container>
+        <ng-container *ngIf="type === 'resume'">
+          <lib-resume class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'" [visibleSections]="resumeVisibleSections"> </lib-resume>
+        </ng-container>
 
-      <ng-container *ngIf="type === 'hackathon'">
-        <app-hackathon-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-hackathon-card>
-      </ng-container>
+        <ng-container *ngIf="type === 'hackathon'">
+          <app-hackathon-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-hackathon-card>
+        </ng-container>
 
-    </a>
-  </swiper-slide>
+      </a>
+    </swiper-slide>
+  } @else {
+    <swiper-slide  *ngFor="let item of emptyCards; let i = index">
+      <skeleton-block [type]="type" [amount]="1"></skeleton-block>
+    </swiper-slide>
+  }
+
 </swiper-container>
 <button #next class="swiper-button swiper-next"><img src="assets/icons/swiper-button.svg" alt="next" /> </button>

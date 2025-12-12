@@ -1,8 +1,14 @@
+:host {
+  width: 100%;
+  display: block;
+  flex: 1;
+}
+
 .card {
   display: flex;
   flex-direction: column;
   border-radius: 1.3rem;
-  width: 448px;
+  width: 100%;
   background: var(--background-card);
   margin-bottom: 1rem;
   break-inside: avoid;

@@ -56,7 +56,7 @@ export class HomeService {
     const typeSort = localStorage.getItem('typeSort');
     const queryParams = `page=${this.selectPage}&size=${size}&sorts=creationDate_desc`;
 
-    return this.http.post(`${this.domain}/main/${type}/getAll?${queryParams}`, savedFilters).pipe( delay(600) );
+    return this.http.post(`${this.domain}/main/${type}/getAll?${queryParams}`, savedFilters).pipe( delay(300) );
   }
 
   getVacancies() {
@@ -168,9 +168,9 @@ export class HomeService {
     });
 
     if (token) {
-      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`, { headers }).pipe(delay(600));
+      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`, { headers }).pipe(delay(300));
     } else {
-      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`,).pipe(delay(600));
+      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`,).pipe(delay(300));
     }
 
   }

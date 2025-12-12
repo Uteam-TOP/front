@@ -2,7 +2,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
   HostListener,
-  OnInit, viewChild, ViewChild, ElementRef,
+  OnInit, viewChild, ViewChild, ElementRef, AfterViewInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundImgsComponent } from '../background-imgs/background-imgs.component';
@@ -48,7 +48,7 @@ import {SkeletonBlockComponent} from "../../shared/ui-components/skeleton-block/
     ])
   ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
   @ViewChild('projects') ProjectsDiv!: ElementRef;
   @ViewChild('hackathons') HackathonsDiv!: ElementRef;
@@ -58,9 +58,6 @@ export class HomeComponent implements OnInit {
   loading: boolean = true;
   isVisibleFilter: boolean = false;
 
-  isDesktop = false;
-  isTablet = false;
-  isMobile = false;
   resumeVisibleSections: string[] = ['profession', 'availability', 'skills', 'motivations', 'profile']
   scrollTimeout: any;
 
@@ -86,17 +83,18 @@ export class HomeComponent implements OnInit {
 
   @HostListener('document:scroll', ['$event'])
   public onViewportScroll() {
-    const windowHeight = window.innerHeight;
-    const boundingRectProjects = this.ProjectsDiv.nativeElement.getBoundingClientRect();
-    const boundingRectHackathons = this.HackathonsDiv.nativeElement.getBoundingClientRect();
-    const boundingRectVacancy = this.VacanciesDiv.nativeElement.getBoundingClientRect();
-    const boundingRectResumes = this.ResumesDiv.nativeElement.getBoundingClientRect();
+
 
     if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
     this.scrollTimeout = setTimeout(() => {
 
+      const windowHeight = window.innerHeight;
+      const boundingRectProjects = this.ProjectsDiv.nativeElement.getBoundingClientRect();
+      const boundingRectHackathons = this.HackathonsDiv.nativeElement.getBoundingClientRect();
+      const boundingRectVacancy = this.VacanciesDiv.nativeElement.getBoundingClientRect();
+      const boundingRectResumes = this.ResumesDiv.nativeElement.getBoundingClientRect();
+
       if (boundingRectProjects.top >= 0 && boundingRectProjects.bottom - 500 <= windowHeight) {
-        // this.homeService.changeType('project');
         this.homeService.typeToggle = 'project';
       }
 
@@ -104,7 +102,6 @@ export class HomeComponent implements OnInit {
         if (!this.homeService.hackathons.length && !this.homeService.loading) {
           this.homeService.toggleType('hackathon');
         }
-        // this.homeService.changeType('hackathon');
         this.homeService.typeToggle = 'hackathon';
       }
 
@@ -112,7 +109,6 @@ export class HomeComponent implements OnInit {
         if (!this.homeService.vacancies.length && !this.homeService.loading) {
           this.homeService.toggleType('vacancy');
         }
-        // this.homeService.changeType('vacancy');
         this.homeService.typeToggle = 'vacancy';
       }
 
@@ -120,11 +116,10 @@ export class HomeComponent implements OnInit {
         if (!this.homeService.resumes.length && !this.homeService.loading) {
           this.homeService.toggleType('resume');
         }
-        // this.homeService.changeType('resume');
         this.homeService.typeToggle = 'resume';
       }
 
-    }, 50)
+    }, 30)
   }
 
   ngOnInit() {
@@ -133,13 +128,15 @@ export class HomeComponent implements OnInit {
       this.isVisibleFilter = value;
     });
     this.homeService.loadData();
-    this.updateView(window.innerWidth);
 
     this.route.params.subscribe(params => {
       this.userId = +params['idUser'];
       this.verifyProfile();
     });
 
+  }
+
+  ngAfterViewInit() {
     this.homeService.activeTypeToggle$.subscribe((value: 'vacancy' | 'hackathon' | 'project' | 'resume') => {
       let element;
       if (value === 'vacancy') {
@@ -193,27 +190,6 @@ export class HomeComponent implements OnInit {
           }
         }
       });
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any): void {
-    this.updateView(event.target.innerWidth);
-  }
-
-  updateView(width: number): void {
-    if (width >= 1024) {
-      this.isDesktop = true;
-      this.isTablet = false;
-      this.isMobile = false;
-    } else if (width >= 768 && width < 1024) {
-      this.isDesktop = false;
-      this.isTablet = true;
-      this.isMobile = false;
-    } else {
-      this.isDesktop = false;
-      this.isTablet = false;
-      this.isMobile = true;
-    }
   }
 
   getCardUrl(cardValue: any, type: string, route: string): string {
