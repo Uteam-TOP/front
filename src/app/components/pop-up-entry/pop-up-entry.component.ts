@@ -24,6 +24,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
 
   authForm: FormGroup;
   isError: boolean = false;
+
   constructor(
     public popUpEntryService: PopUpEntryService,
     private tokenService: TokenService,
@@ -59,10 +60,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
 
     const formData = this.authForm.value;
     formData.email = formData.email.trim();
-    console.log('formData', formData)
     const data = { ...formData };
-
-    console.log('this.popUpEntryService.isAuth', this.popUpEntryService.isAuth)
     if (this.popUpEntryService.isAuth === true) {
       delete data.telegram;
     }
@@ -85,6 +83,8 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
       // this.tokenService.setToken(response.token);
       // this.userAuthenticated = true;
       // this.login_user();
+    }, (error) => {
+      this.errorMessage = error.error.details;
     })
     // }
   }
