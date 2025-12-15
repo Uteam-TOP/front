@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import { AvatarSelectionService } from '../avatar-selection.service';
 import { CommonModule } from '@angular/common';
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-item-avatar',
@@ -16,6 +17,8 @@ export class ItemAvatarComponent implements OnInit {
   @Output() setAvatar = new EventEmitter<File>();
 selectedAvatar:any
 
+  private userService = inject(UserService);
+
   constructor(private avatarSelectionService: AvatarSelectionService) { }
 
   ngOnInit(): void {
@@ -28,12 +31,12 @@ selectedAvatar:any
       } else {
    if (this.fileUrl) {
   console.log('this.fileUrl ', this.fileUrl);
-  
+
   // Получаем базовое имя файла без _male и _female
   const baseFileName = this.fileUrl
     .replace(/_male$/, '')  // Удаляем _male в конце
     .replace(/_female$/, ''); // Удаляем _female в конце
-  
+
   // Если есть загруженное изображение, сравниваем с базовым именем
   this.isSelected = selectedAvatar === baseFileName &&
                    selectedAvatar !== `${baseFileName}_male` &&
@@ -57,6 +60,7 @@ selectedAvatar:any
       const gender = this.avatarSrc.split('_')[1];
       this.avatarSelectionService.selectGender(gender);
     }
+    this.userService.updateAvatar(avatar);
     event.stopPropagation();
   }
 
