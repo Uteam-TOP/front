@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {Component, ElementRef, inject, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { PersonalDataService } from './personal-data.service';
@@ -14,6 +14,7 @@ import { AvatarSelectionService } from '../../pop-up-avatar/avatar-selection.ser
 import { SettingHeaderService } from '../../setting-header.service';
 import { MenuNavService } from '../../menu-nav/menu-nav.service';
 import { forbiddenWordsValidator } from '../../../../validators/forbidden-words.validator';
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-personal-data',
@@ -47,6 +48,8 @@ export class PersonalDataComponent implements OnInit {
   oldDomain: string = ''
   cancel_btn: boolean = false;
   initialFormState: any;
+
+  private userService = inject(UserService);
 
 
   @ViewChildren('formField') formFields!: QueryList<ElementRef>;
@@ -133,12 +136,19 @@ export class PersonalDataComponent implements OnInit {
     this.settingHeaderService.post = true;
     this.settingHeaderService.backbtn = true;
     this.avatarSelectionService.selectedAvatar$.subscribe(selectedAvatar => {
-      this.setAvatar = selectedAvatar
+      if (selectedAvatar) {
+        if (selectedAvatar.includes('message')) {
+          const avatar = JSON.parse(selectedAvatar);
+          this.setAvatar = avatar.message;
+        } else {
+          this.setAvatar = selectedAvatar;
+        }
+      }
     });
 
     this.avatarSelectionService.selectedTypeAvatar$.subscribe(selectedTypeAvatar => {
       this.setTypeAvatar = selectedTypeAvatar
-      this.personalDataForm.get('gender')?.setValue(this.setTypeAvatar?.toUpperCase());
+      // this.personalDataForm.get('gender')?.setValue(this.setTypeAvatar?.toUpperCase());
     });
 
     this.subscription.add(
@@ -159,6 +169,17 @@ export class PersonalDataComponent implements OnInit {
       this.setGender = value;
     });
     // this.toggleDisable()
+
+    this.userService.avatarUpdateTrigger$.subscribe((selectedAvatar: string) => {
+      if (selectedAvatar) {
+        if (selectedAvatar.includes('message')) {
+          const avatar = JSON.parse(selectedAvatar);
+          this.setAvatar = avatar.message;
+        } else {
+          this.setAvatar = selectedAvatar;
+        }
+      }
+    })
   }
 
 
@@ -312,7 +333,7 @@ export class PersonalDataComponent implements OnInit {
   onSubmit() {
     const selectedCity = this.personalDataForm.get('city')?.value;
     const selectedCityControl = this.personalDataForm.get('city');
-  
+
     if (!this.isCityValid(selectedCity)) {
       this.getInputInval(false);
       selectedCityControl?.setErrors({ invalidCity: true });

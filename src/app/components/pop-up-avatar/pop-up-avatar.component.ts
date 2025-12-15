@@ -78,86 +78,86 @@ export class PopUpAvatarComponent {
   // }
 
 
-selectAvatar(): void {
-  this.avatarSelectionService.selectedAvatar$
-    .pipe(take(1))
-    .subscribe((value: any) => {
-      if (!value) {
-        console.error('No avatar selected');
-        return;
-      }
-
-      console.log('Received value type:', typeof value, value);
-
-      // Если это blob URL (строка начинающаяся с 'blob:')
-      if (typeof value === 'string' && value.startsWith('blob:')) {
-        console.warn('Blob URL detected - need to handle this case');
-        // Если у вас есть файл в this.file, используйте его
-        if (this.file) {
-          this.uploadFile(this.file);
-        } else {
-          console.error('No file available for blob URL');
+  selectAvatar(): void {
+    this.avatarSelectionService.selectedAvatar$
+      .pipe(take(1))
+      .subscribe((value: any) => {
+        if (!value) {
+          console.error('No avatar selected');
+          return;
         }
-      }
-      // Если это настоящий File объект
-      else if (value instanceof File) {
-        this.uploadFile(value);
-      }
-      // Если это обычный URL строки
-      else if (typeof value === 'string') {
-        this.updateAvatarUrl(value);
-      }
-      else {
-        console.error('Unsupported avatar format:', value);
-      }
-    });
-}
 
-private uploadFile(file: File): void {
-  const formData = new FormData();
-  formData.append('avatar', file, file.name); // Добавляем имя файла
+        console.log('Received value type:', typeof value, value);
 
-  console.log('Uploading file:', file.name, 'size:', file.size, 'type:', file.type);
-
-  this.avatarSelectionService.setAvatar(formData).subscribe({
-    next: (response) => {
-      console.log('Avatar updated successfully:', response);
-      const avatarUrl = response ;
-      if (avatarUrl) {
-        this.avatarSelectionService.selectAvatar(avatarUrl);
-        this.avatarSelectionService.selectGender('custom');
-        this.popUpAvatarService.hidePopup();
-      }
-    },
-    error: (error) => {
-      console.error('Error uploading avatar:', error);
-      // Добавьте обработку ошибок
-    }
-  });
-}
-
-private updateAvatarUrl(url: string): void {
-  this.personalDataService.getCurrentUser().subscribe({
-    next: (user: any) => {
-      user.imageLink = url;
-      this.personalDataService.updateUser(user).subscribe({
-        next: (response) => {
-          console.log('Avatar URL updated successfully');
-          const imageLink = response?.imageLink || url;
-          this.avatarSelectionService.selectAvatar(imageLink);
-          this.avatarSelectionService.selectGender('custom');
-          this.popUpAvatarService.hidePopup();
-        },
-        error: (error) => {
-          console.error('Error updating URL:', error);
+        // Если это blob URL (строка начинающаяся с 'blob:')
+        if (typeof value === 'string' && value.startsWith('blob:')) {
+          console.warn('Blob URL detected - need to handle this case');
+          // Если у вас есть файл в this.file, используйте его
+          if (this.file) {
+            this.uploadFile(this.file);
+          } else {
+            console.error('No file available for blob URL');
+          }
+        }
+        // Если это настоящий File объект
+        else if (value instanceof File) {
+          this.uploadFile(value);
+        }
+        // Если это обычный URL строки
+        else if (typeof value === 'string') {
+          this.updateAvatarUrl(value);
+        }
+        else {
+          console.error('Unsupported avatar format:', value);
         }
       });
-    },
-    error: (error) => {
-      console.error('Error getting user:', error);
-    }
-  });
-}
+  }
+
+  private uploadFile(file: File): void {
+    const formData = new FormData();
+    formData.append('avatar', file, file.name); // Добавляем имя файла
+
+    console.log('Uploading file:', file.name, 'size:', file.size, 'type:', file.type);
+
+    this.avatarSelectionService.setAvatar(formData).subscribe({
+      next: (response) => {
+        console.log('Avatar updated successfully:', response);
+        const avatarUrl = response ;
+        if (avatarUrl) {
+          this.avatarSelectionService.selectAvatar(avatarUrl);
+          this.avatarSelectionService.selectGender('custom');
+          this.popUpAvatarService.hidePopup();
+        }
+      },
+      error: (error) => {
+        console.error('Error uploading avatar:', error);
+        // Добавьте обработку ошибок
+      }
+    });
+  }
+
+  private updateAvatarUrl(url: string): void {
+    this.personalDataService.getCurrentUser().subscribe({
+      next: (user: any) => {
+        user.imageLink = url;
+        this.personalDataService.updateUser(user).subscribe({
+          next: (response) => {
+            console.log('Avatar URL updated successfully');
+            const imageLink = response?.imageLink || url;
+            this.avatarSelectionService.selectAvatar(imageLink);
+            this.avatarSelectionService.selectGender('custom');
+            this.popUpAvatarService.hidePopup();
+          },
+          error: (error) => {
+            console.error('Error updating URL:', error);
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error getting user:', error);
+      }
+    });
+  }
 
   file: File | null = null;
   fileUrl: string = '';

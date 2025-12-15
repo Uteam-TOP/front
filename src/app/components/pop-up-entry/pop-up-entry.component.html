@@ -24,9 +24,14 @@
         <form [formGroup]="authForm" autocomplete="off" style="width: 100%;">
           <div class="input-group" style="    width: 100%;">
             <label for="email" class="text10opac05">Почта:</label>
-            <input #formField type="text" id="email" formControlName="email" placeholder="Введите почту"
-              autocomplete="off"
-              [ngClass]="{'invalid': authForm.get('email')?.invalid && (authForm.get('email')?.dirty && isError || authForm.get('email')?.touched && isError)}">
+            <input #formField
+               type="text"
+               id="email"
+               formControlName="email"
+               placeholder="Введите почту"
+               autocomplete="off"
+               [ngClass]="{'invalid': authForm.get('email')?.invalid && (authForm.get('email')?.dirty &&
+                  isError || authForm.get('email')?.touched && isError)}">
             <div
               *ngIf="authForm.get('email')?.invalid && (authForm.get('email')?.dirty || authForm.get('email')?.touched)"
               class="error-message">
@@ -41,11 +46,17 @@
           </div>
           <div class="input-group" *ngIf="popUpEntryService.isAuth == false">
             <label for="telegram" class="text10opac05">Телеграм:</label>
-            <input #formField type="text" id="telegram" formControlName="telegram" placeholder="Введите телеграм"
-              autocomplete="off"
-              [ngClass]="{'invalid': authForm.get('telegram')?.invalid && (authForm.get('telegram')?.dirty && isError || authForm.get('telegram')?.touched && isError)}">
+            <input #formField
+               type="text"
+               id="telegram"
+               formControlName="telegram"
+               placeholder="Введите телеграм"
+               autocomplete="off"
+               [ngClass]="{'invalid': authForm.get('telegram')?.invalid &&
+               (authForm.get('telegram')?.dirty && isError || authForm.get('telegram')?.touched && isError)}">
             <div
-              *ngIf="authForm.get('telegram')?.invalid && (authForm.get('telegram')?.dirty || authForm.get('telegram')?.touched)"
+              *ngIf="authForm.get('telegram')?.invalid &&
+              (authForm.get('telegram')?.dirty || authForm.get('telegram')?.touched)"
               class="error-message">
               <div *ngIf="authForm.get('telegram')?.errors?.['required']">Телеграм обязательна для заполнения.</div>
             </div>
