@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { SidebarModule } from 'primeng/sidebar';
 import { SettingHeaderService } from '../setting-header.service';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import {NavigationEnd, NavigationStart, Router, RouterLink} from '@angular/router';
 import { TokenService } from '../token.service';
 import { HomeService } from '../home/home.service';
 import { FormSettingService } from '../form/form-setting.service';
@@ -18,7 +18,7 @@ import {MainMenuComponent} from "../main-menu/main-menu.component";
 @Component({
   selector: 'app-menu-nav',
   standalone: true,
-  imports: [CommonModule, SidebarModule, MainMenuComponent],
+  imports: [CommonModule, SidebarModule, MainMenuComponent, RouterLink],
   templateUrl: './menu-nav.component.html',
   styleUrl: './menu-nav.component.css',
 })

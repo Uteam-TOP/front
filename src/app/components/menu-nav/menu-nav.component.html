@@ -158,12 +158,22 @@
                     </button>
                 </div>
             </li>
-            <li (click)="toggle('vacancy')">
-                <a (click)="toggle('vacancy')">
+            <li routerLink="/projects" (click)="this.sidebarVisible = false">
+              <a>
+                Список проектов
+              </a>
+            </li>
+            <li routerLink="/hackathons" (click)="this.sidebarVisible = false">
+              <a>
+                Список хакатонов
+              </a>
+            </li>
+            <li routerLink="/vacancies" (click)="this.sidebarVisible = false">
+                <a>
                     Список вакансий
                 </a>
             </li>
-            <li (click)="toggle('resume')">
+            <li routerLink="/resumes" (click)="this.sidebarVisible = false">
                 <a>
                     Список резюме
                 </a>
