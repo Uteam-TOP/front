@@ -59,11 +59,11 @@ export class AboutUsComponent implements OnDestroy{
   ];
 
   itemLineList = [
-    { stroke: '#298cf4', color: 'linear-gradient(270deg, #298cf4 0%, rgba(41, 140, 244, 0.3) 100%)', width: 25, value: '1. Разработка и запуск Web-версии платформы UTeam.top с начальным функционалом (поиск/размещение резюме и вакансий) ', border: "#298cf4" },
-    { stroke: '#23b9b0', color: 'linear-gradient(270deg, #23b9b0 0%, rgba(35, 185, 176, 0.3) 100%)', width: 28, value: '2. Мобильная версия Android/IOS', border: 'rgba(255, 255, 255, 0.1)' },
-    { stroke: '#50b229', color: 'linear-gradient(270deg, #50b229 0%, rgba(80, 178, 41, 0.3) 100%)', width: 31, value: '3. Обновление, добавление разделов и функционала', border: 'rgba(255, 255, 255, 0.1)' },
-    { stroke: '#806bff', color: 'linear-gradient(270deg, #806bff 0%, rgba(128, 107, 255, 0.3) 100%)', width: 33, value: '4. Создание Crypto-token.', border: 'rgba(255, 255, 255, 0.1)' },
-    { stroke: '#cf87f1', color: 'linear-gradient(270deg, #cf87f1 0%, rgba(207, 135, 241, 0.3) 100%)', width: 36, value: '5. Telegram-app', border: 'rgba(255, 255, 255, 0.1)' },
-    { stroke: '#ffab00', color: 'linear-gradient(270deg, #ffab00 0%, rgba(255, 171, 0, 0.3) 100%)', width: 39, value: '6. Обновление, добавление разделов и функционала', border: 'rgba(255, 255, 255, 0.1)' },
+    { stroke: '#298cf4', color: 'linear-gradient(270deg, #298cf4 0%, rgba(41, 140, 244, 0.3) 100%)', width: 25, value: 'Найти людей под свой проект', border: "#298cf4" },
+    { stroke: '#23b9b0', color: 'linear-gradient(270deg, #23b9b0 0%, rgba(35, 185, 176, 0.3) 100%)', width: 28, value: 'Показать прогресс разработки', border: 'rgba(255, 255, 255, 0.1)' },
+    { stroke: '#50b229', color: 'linear-gradient(270deg, #50b229 0%, rgba(80, 178, 41, 0.3) 100%)', width: 31, value: 'Заявить о себе в профессиональном сообществе', border: 'rgba(255, 255, 255, 0.1)' },
+    { stroke: '#806bff', color: 'linear-gradient(270deg, #806bff 0%, rgba(128, 107, 255, 0.3) 100%)', width: 33, value: 'Найти команду мечты\n', border: 'rgba(255, 255, 255, 0.1)' },
+    { stroke: '#cf87f1', color: 'linear-gradient(270deg, #cf87f1 0%, rgba(207, 135, 241, 0.3) 100%)', width: 36, value: 'Попасть в хакатон или событие, которое даст толчок развитию\n', border: 'rgba(255, 255, 255, 0.1)' },
+    // { stroke: '#ffab00', color: 'linear-gradient(270deg, #ffab00 0%, rgba(255, 171, 0, 0.3) 100%)', width: 39, value: '6. Обновление, добавление разделов и функционала', border: 'rgba(255, 255, 255, 0.1)' },
   ]
 }

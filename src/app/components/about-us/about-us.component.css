@@ -1,8 +1,9 @@
 .container {
     margin: 0 auto;
-    width: 65%;
     position: relative;
     margin-top: 210px;
+  max-width: 1200px;
+  padding: 0 30px;
 }
 
 .destiny-chapter {
@@ -243,7 +244,7 @@
 .team-member:hover {
     color: #84dd2c;
 }
-  
+
 
 
 
@@ -257,18 +258,18 @@
 }
 
 .updates-list, .research-list {
-    list-style-type: none;  
-    padding-left: 0;       
+    list-style-type: none;
+    padding-left: 0;
     /* margin-left: 20px;      */
 }
 
 
 .updates-list li::before, .research-list li::before {
-    content: '–';         
-    display: inline-block; 
-    width: 1em;           
+    content: '–';
+    display: inline-block;
+    width: 1em;
     /* margin-left: -1.5em;    */
-    margin-right: 0;   
+    margin-right: 0;
 }
 
 
@@ -298,7 +299,7 @@
     .aboutUs{
         padding: 0 1rem;
     }
-    
+
     .container {
         width: 95%;
         margin-top: 100px;
@@ -351,4 +352,211 @@
     .container_chapter-team {
         justify-content: flex-start
     }
+}
+
+.image-container img {
+  width: 145px;
+  height: 145px;
+  object-fit: cover;
+  z-index: 2;
+  position: relative;
+}
+
+.image-container {
+  display: inline-block;
+  position: relative;
+  align-self: center;
+}
+
+.image-container::after {
+  content: '';
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #FFEAB0;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.blocks-container {
+  display: grid;
+  grid-template-columns: 24% 50% 24%;
+  grid-template-rows: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.blocks-container p,
+.blocks-container h3,
+.blocks-container ul {
+  margin: 0;
+}
+
+.blocks-container__block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  color: white;
+  gap: 20px;
+  border-radius: 20px;
+}
+
+.blocks-container__block h3 {
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.blocks-container__block ul {
+  padding-left: 20px;
+}
+
+.blocks-container__block ul li {
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.blocks-container__block ul li:before {
+  content:"·";
+  font-size: 94px;
+  vertical-align: top;
+  line-height: 4px;
+  position: absolute;
+  left: -26px;
+  top: 0;
+}
+
+.bg-green {
+  grid-row: span 2 / span 2;
+  background-color: #50B229;
+}
+
+.bg-mint {
+  background-color: #23B9B0;
+  flex-direction: row;
+}
+
+.bg-lilac {
+  grid-column-start: 2;
+  grid-row-start: 2;
+  background-color: #806BFF;
+  flex-direction: row;
+}
+
+.bg-blue {
+  grid-row: span 2 / span 2;
+  grid-column-start: 3;
+  grid-row-start: 1;
+  background-color: #298CF4;
+}
+
+.blocks-container__text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+
+.tasks-solution-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3px;
+}
+.tasks-solution {
+  background-color: #806BFF;
+  border-radius: 35px;
+  padding: 4px 45px;
+  margin: 0 20px;
+}
+.tasks-solution p {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--font-color);
+  text-transform: uppercase;
+}
+
+.our-destination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3px;
+}
+
+.our-destination {
+  max-width: 1140px;
+  display: flex;
+  background-color: #5A4BB8;
+  border-radius: 300px 60px 60px 300px;
+  padding: 12px;
+  gap: 32px;
+  align-items: center;
+  margin: 32px;
+
+  color: white;
+}
+
+.our-destination-title {
+  background-color: #806BFF;
+  border-radius: 50%;
+  min-width: 162px;
+  height: 162px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.our-destination-title p {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.our-destination-text p {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+
+@media (max-width: 989px) {
+  .blocks-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .blocks-container__block {
+    flex-direction: column;
+    width: 49%;
+  }
+
+}
+
+@media (max-width: 760px) {
+  .container {
+    padding: 0;
+  }
+  .blocks-container__block {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .image-container {
+    align-self: baseline;
+  }
+
+  .image-container::after {
+    width: 60px;
+    height: 60px;
+  }
+
+  .image-container img {
+    max-width: 70px;
+    object-fit: contain;
+  }
+
+  .our-destination {
+    flex-direction: column;
+    border-radius: 90px 30px 30px 30px;
+    align-items: flex-start;
+  }
 }
