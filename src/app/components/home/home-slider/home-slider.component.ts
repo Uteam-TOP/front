@@ -18,6 +18,7 @@ import { SwiperContainer } from 'swiper/element';
 import {HackathonCadComponent} from "../hackathon-cad/hackathon-cad.component";
 import {VacancyComponent} from "../../view-card/vacancy/vacancy.component";
 import {SkeletonBlockComponent} from "../../../shared/ui-components/skeleton-block/skeleton-block.component";
+import {ProjectsNewsComponent} from "../../cards/projects-news/projects-news.component";
 
 @Component({
   selector: 'app-home-slider',
@@ -30,7 +31,8 @@ import {SkeletonBlockComponent} from "../../../shared/ui-components/skeleton-blo
     ResumeLibraryComponent,
     HackathonCadComponent,
     VacancyComponent,
-    SkeletonBlockComponent
+    SkeletonBlockComponent,
+    ProjectsNewsComponent
   ],
   templateUrl: './home-slider.component.html',
   styleUrl: './home-slider.component.css',
@@ -42,7 +44,7 @@ export class HomeSliderComponent implements AfterViewInit {
   @ViewChild('swiper') swiperComp!: ElementRef<SwiperContainer>;
 
   @Input() items: any[] = [];
-  @Input() type: 'project' | 'vacancy' | 'resume' | 'hackathon' = 'project';
+  @Input() type: 'project' | 'vacancy' | 'resume' | 'hackathon' | 'news' = 'project';
 
   private router = inject(Router);
   isDesktop: boolean = true;

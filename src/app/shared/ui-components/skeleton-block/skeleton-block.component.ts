@@ -21,7 +21,7 @@ import {SkeletonResumeComponent} from "./blocks/skeleton-resume/skeleton-resume.
   styleUrl: './skeleton-block.component.scss'
 })
 export class SkeletonBlockComponent implements OnInit {
-  @Input() type: 'project' | 'hackathon' | 'vacancy' | 'resume' = 'project';
+  @Input() type: 'project' | 'hackathon' | 'vacancy' | 'resume' | 'news' = 'project';
   @Input() amount: number = 1;
   @Input() wrap: 'wrap' | 'nowrap' = 'nowrap';
 

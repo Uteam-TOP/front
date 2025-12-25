@@ -80,15 +80,16 @@ export class ProjectService {
 
   isEditProject: boolean = false;
 
-  getCurrentProject(nicknameProject: string): Observable<any> {
+  getCurrentProject(nicknameProject: string | number): Observable<any> {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
+    const idType = !isNaN(nicknameProject as number) ? '' : 'by-nickname/'
     if(token){
-      return this.http.get<any>(`${environment.apiUrl}/main/project/by-nickname/${nicknameProject}`, { headers })
+      return this.http.get<any>(`${environment.apiUrl}/main/project/${idType}${nicknameProject}`, { headers })
     }else{
-      return this.http.get<any>(`${environment.apiUrl}/main/project/by-nickname/${nicknameProject}`)
+      return this.http.get<any>(`${environment.apiUrl}/main/project/${idType}${nicknameProject}`)
     }
   }
 
@@ -106,6 +107,10 @@ export class ProjectService {
 
     return this.http.post<any>(`${environment.apiUrl}/main/project/${idProject}/vacancies/get-by-filter?page=0&size=100`, filters, { headers })
 
+  }
+
+  likePost(id: number): Observable<any> {
+    return this.http.put<any>(`${environment.apiUrl}/${id}/like`, {})
   }
 
 

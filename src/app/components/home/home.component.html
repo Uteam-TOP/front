@@ -23,7 +23,10 @@
 
           <h3 class="title-blue">Новости проектов</h3>
           <div class="column">
-              <app-home-slider [items]="homeService.projects" [type]="'project'"></app-home-slider>
+              <app-home-slider [items]="news" [type]="'news'"></app-home-slider>
+          </div>
+          <div class="slider-footer">
+            <a routerLink="/projects"><ui-button [text]="'Все новости'" [type]="'arrow'"></ui-button></a>
           </div>
         </div>
       </ng-container>

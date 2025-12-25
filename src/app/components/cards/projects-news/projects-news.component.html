@@ -1,1 +1,41 @@
-<p>projects-news works!</p>
+<div class="card">
+  @if (newsItem.imageLink) {
+    <div class="background"
+         [ngStyle]="{
+       'background-image':
+       'url(' + newsItem.imageLink + ')'
+       }">
+    </div>
+  }
+
+
+  <div class="body" [ngStyle]="{'height' : newsItem.imageLink ? '63%' : '100%' }">
+    <div>
+      <div class="card-title">
+        <div class="logo">
+          <img [src]="newsItem.author.imageLink ? newsItem.author.imageLink : '/assets/avatars/default.png'" alt="avatar"/>
+        </div>
+        <div class="card-name">
+          <p>{{ newsItem.author.firstName }}</p>
+          <p>{{ newsItem.author.lastName }}</p>
+          <div class="card-time">
+            <span>{{ (newsItem.createdAt * 1000) | date:'dd.MM.yyyy' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>{{ newsItem.content }}</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="card-rating">
+        <div class="like" (click)="likeButton(newsItem.id, $event)">
+          <p>{{ newsItem.likesCount }}</p>
+          <img src="/assets/icons/like.png" alt="like" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

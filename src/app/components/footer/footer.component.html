@@ -1,10 +1,10 @@
 <div class="footer">
     <div class="footer-main">
         <ul class="footer-main-menu">
-            <li class="footer-main-menu-btn" (click)="toggle('vacancy')">
+            <li class="footer-main-menu-btn" routerLink="/vacancies">
                 <a>Список вакансий</a>
             </li>
-            <li class="footer-main-menu-btn" (click)="toggle('resume')">
+            <li class="footer-main-menu-btn" routerLink="/resume">
                 <a>Список резюме</a>
             </li>
             <li class="footer-main-menu-btn" (click)="handlePostResume()">
@@ -16,7 +16,7 @@
             <li class="footer-main-menu-btn" (click)="navigateTo('aboutUs')">
                 <a>О нас</a>
             </li>
-            <li class="footer-main-menu-btn" style="    padding-bottom: 28px;">
+            <li class="footer-main-menu-btn" style="    padding-bottom: 28px;" (click)="viewUser()">
                 <a>Пригласить друзей</a>
             </li>
         </ul>

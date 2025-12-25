@@ -11,9 +11,13 @@
   @if (items.length) {
     <swiper-slide  *ngFor="let item of items; let i = index">
       <a [href]="getCardUrl(item.id, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
-         (click)="onCardClick($event, item.id, type)">
+         (click)="onCardClick($event, item.id, type)" class="card-container">
         <ng-container *ngIf="type === 'project'">
           <app-project class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-project>
+        </ng-container>
+
+        <ng-container *ngIf="type === 'news'">
+          <app-projects-news class="card" [newsItem]="item" *ngIf="item.visibility != 'BAN'"></app-projects-news>
         </ng-container>
 
         <ng-container *ngIf="type === 'vacancy'">
