@@ -47,6 +47,20 @@ skeleton-block {
   display: block;
 }
 
+.card-container {
+  display: block;
+  height: 100%;
+
+  .card {
+    height: 93%;
+  }
+}
+
+::ng-deep .profile {
+    margin-top: auto !important;
+}
+
+
 @media (min-width: 768px) {
   .column {
     display: flex;

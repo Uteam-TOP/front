@@ -67,6 +67,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   resumeVisibleSections: string[] = ['profession', 'availability', 'skills', 'motivations', 'profile']
   scrollTimeout: any;
 
+  news: any[] = [];
+
   navigation: any = {};
 
   constructor(
@@ -139,6 +141,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.userId = +params['idUser'];
       this.verifyProfile();
     });
+
+    this.homeService.getNewsData(0).subscribe(data => {
+       this.news = data;
+    })
   }
 
   ngAfterViewInit() {

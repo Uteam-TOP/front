@@ -175,6 +175,25 @@ export class HomeService {
 
   }
 
+  getNewsData(page: number): Observable<any> {
+    if (typeof page === 'number') {
+      this.selectPage = page;
+    }
+    const queryParams = `page=${this.selectPage}&size=10`;
+
+    const token = localStorage.getItem('authToken');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    if (token) {
+      return this.http.get(`${this.domain}/main/project/all-posts?${queryParams}`, { headers }).pipe(delay(300));
+    } else {
+      return this.http.get(`${this.domain}/main/project/all-posts?${queryParams}`,).pipe(delay(300));
+    }
+  }
+
 
   nextPage() {
     if (this.typeToggle === 'vacancy') {
