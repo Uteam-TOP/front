@@ -9,7 +9,8 @@
   [enabled]="isDesktop"
   [navigation]="navigation">
   @if (items.length) {
-    <swiper-slide  *ngFor="let item of items; let i = index">
+    <swiper-slide
+      *ngFor="let item of items | sortBy: type === 'vacancy' || type === 'resume' ? 'creationDate' : 'createdAt'; let i = index">
       <a [href]="getCardUrl(item.id, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
          (click)="onCardClick($event, item.id, type)" class="card-container">
         <ng-container *ngIf="type === 'project'">

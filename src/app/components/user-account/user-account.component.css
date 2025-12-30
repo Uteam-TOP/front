@@ -143,6 +143,7 @@ p {
 }
 .logoImg {
     width: 6vw;
+  height: 6vw;
     border-radius: 50%
 }
 .logo {
@@ -294,7 +295,7 @@ p {
     .fullName {
         font-size: var(--text14);
     }
-    
+
     .ProfileChapter {
         padding: 0 1rem 0px 0.5rem;
     }
@@ -320,7 +321,7 @@ p {
         font-size: 0.7rem;
     }
 
-    
+
     .location-value {
         font-size: 0.9rem;
     }
@@ -337,7 +338,7 @@ p {
         padding-right: 0.3rem;
         padding-bottom: 0.3rem;
         width: 95%;
-        margin: 0 auto; 
+        margin: 0 auto;
     }
 }
 

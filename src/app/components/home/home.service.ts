@@ -54,7 +54,7 @@ export class HomeService {
     const size = pageSize ? pageSize : 10;
 
     const typeSort = localStorage.getItem('typeSort');
-    const queryParams = `page=${this.selectPage}&size=${size}&sorts=creationDate_desc`;
+    const queryParams = `page=${this.selectPage}&size=${size}&sorts=creationDate_ASC`;
 
     return this.http.post(`${this.domain}/main/${type}/getAll?${queryParams}`, savedFilters).pipe( delay(300) );
   }

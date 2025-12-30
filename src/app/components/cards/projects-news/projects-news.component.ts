@@ -1,6 +1,7 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
 import {DatePipe, NgOptimizedImage, NgStyle} from "@angular/common";
 import {ProjectService} from "../../projects/project/project.service";
+import {AvatarPipe} from "../../../pipes/avatar.pipe";
 
 @Component({
   selector: 'app-projects-news',
@@ -8,7 +9,8 @@ import {ProjectService} from "../../projects/project/project.service";
   imports: [
     NgStyle,
     NgOptimizedImage,
-    DatePipe
+    DatePipe,
+    AvatarPipe
   ],
   templateUrl: './projects-news.component.html',
   styleUrl: './projects-news.component.scss'

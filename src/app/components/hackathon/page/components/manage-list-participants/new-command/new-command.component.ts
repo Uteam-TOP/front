@@ -3,11 +3,12 @@ import { Component, Input } from '@angular/core';
 import { NewCommandService } from './new-command.service';
 import { ManageListParticipantsService } from '../manage-list-participants.service';
 import { HackathonService } from '../../../hackathon.service';
+import {AvatarPipe} from "../../../../../../pipes/avatar.pipe";
 
 @Component({
   selector: 'app-new-command',
   standalone: true,
-  imports: [CommonModule],
+    imports: [CommonModule, AvatarPipe],
   templateUrl: './new-command.component.html',
   styleUrl: './new-command.component.css'
 })

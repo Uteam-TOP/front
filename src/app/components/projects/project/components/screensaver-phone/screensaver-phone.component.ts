@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { ProjectService } from '../../project.service';
 import { CommonModule } from '@angular/common';
 import { SettingHeaderService } from '../../../../setting-header.service';
+import {AvatarPipe} from "../../../../../pipes/avatar.pipe";
 
 @Component({
   selector: 'app-screensaver-phone',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AvatarPipe],
   templateUrl: './screensaver-phone.component.html',
   styleUrl: './screensaver-phone.component.css'
 })

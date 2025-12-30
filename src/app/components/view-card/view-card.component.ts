@@ -13,11 +13,12 @@ import { ResumeService } from '../personal-account/services/resume.service';
 import { PageErrorComponent } from '../page-error/page-error.component';
 import { ErrorViewCardComponent } from './error-view-card/error-view-card.component';
 import { trigger, transition, style, animate } from '@angular/animations';
+import {AvatarPipe} from "../../pipes/avatar.pipe";
 
 @Component({
   selector: 'app-view-vacancy',
   standalone: true,
-  imports: [CommonModule, SkeletonModule, VacancyComponent, ResumeComponent, SkeletonModule, PageErrorComponent, ErrorViewCardComponent],
+  imports: [CommonModule, SkeletonModule, VacancyComponent, ResumeComponent, SkeletonModule, PageErrorComponent, ErrorViewCardComponent, AvatarPipe],
   templateUrl: './view-card.component.html',
   styleUrls: ['./view-card.component.css'],
   animations: [
@@ -132,7 +133,7 @@ export class ViewCardComponent implements OnInit {
       return;
     }
     event.preventDefault();
-    this.router.navigate([`/project`, this.dataCard.projectDto.nickname]);
+    this.router.navigate([`/project`, this.dataCard.projectDto.id]);
   }
 
   enter() {
@@ -152,7 +153,7 @@ export class ViewCardComponent implements OnInit {
     event.stopPropagation();
     const userId = localStorage.getItem('userId')
 
-    if (this.typeCard == 'vacancies') {
+    if (this.typeCard == 'vacancy') {
       this.router.navigate([`/myaccount/${userId}/updateVacancy/${id}`]);
     } else {
       this.router.navigate([`/myaccount/${userId}/updateResume/${id}`]);

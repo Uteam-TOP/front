@@ -114,6 +114,8 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
     this.itemsToShowProjects = this.showAllProjects ? Infinity : 3;
   }
 
+  tab: 'project' | 'resume' | 'vacancy' = 'project';
+
   ngOnInit(): void {
     this.settingHeaderService.shared = false;
     this.settingHeaderService.post = false;

@@ -156,6 +156,7 @@ isImageAvatar(logo: any): boolean {
     this.popUpEntryService.isAuth = true;
     this.popUpEntryService.accessVerification = false;
     this.popUpEntryService.confirmAuth = false;
+    this.popUpEntryService.isRegistration = false;
     localStorage.removeItem('confirmAuth');
     localStorage.removeItem('authEmail');
     this.popUpEntryService.showDialog();
@@ -166,6 +167,7 @@ isImageAvatar(logo: any): boolean {
     this.popUpEntryService.isAuth = true;
     this.popUpEntryService.accessVerification = false;
     this.popUpEntryService.confirmAuth = false;
+    this.popUpEntryService.isRegistration = true;
     localStorage.removeItem('confirmAuth');
     localStorage.removeItem('authEmail');
     this.popUpEntryService.showDialog();

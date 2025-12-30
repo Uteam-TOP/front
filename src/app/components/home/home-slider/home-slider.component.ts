@@ -5,7 +5,7 @@ import {
   ElementRef,
   HostListener,
   inject,
-  Input,
+  Input, OnInit,
   ViewChild
 } from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
@@ -19,6 +19,7 @@ import {HackathonCadComponent} from "../hackathon-cad/hackathon-cad.component";
 import {VacancyComponent} from "../../view-card/vacancy/vacancy.component";
 import {SkeletonBlockComponent} from "../../../shared/ui-components/skeleton-block/skeleton-block.component";
 import {ProjectsNewsComponent} from "../../cards/projects-news/projects-news.component";
+import {SortByPipe} from "../../../pipes/sort-by.pipe";
 
 @Component({
   selector: 'app-home-slider',
@@ -32,13 +33,14 @@ import {ProjectsNewsComponent} from "../../cards/projects-news/projects-news.com
     HackathonCadComponent,
     VacancyComponent,
     SkeletonBlockComponent,
-    ProjectsNewsComponent
+    ProjectsNewsComponent,
+    SortByPipe
   ],
   templateUrl: './home-slider.component.html',
   styleUrl: './home-slider.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class HomeSliderComponent implements AfterViewInit {
+export class HomeSliderComponent implements AfterViewInit, OnInit {
   @ViewChild('prev', { read: ElementRef }) prev!: ElementRef;
   @ViewChild('next', { read: ElementRef }) next!: ElementRef;
   @ViewChild('swiper') swiperComp!: ElementRef<SwiperContainer>;
@@ -64,6 +66,10 @@ export class HomeSliderComponent implements AfterViewInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: any): void {
     this.updateView(event.target.innerWidth);
+  }
+
+  ngOnInit() {
+    this.items = this.items.sort((a, b) => a.id - b.id);
   }
 
   getCardUrl(cardValue: any, type: string, route: string): string {

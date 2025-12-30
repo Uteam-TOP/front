@@ -99,7 +99,13 @@
             </div>
           </div> -->
           <a *ngIf="!telegramWidgetLoaded" class="popup-login-link" style="margin-top: 16px; width: 100%;"
-            (click)="authUser()">Зарегистрироваться</a>
+             (click)="authUser()">
+            @if (!popUpEntryService.isRegistration) {
+              Войти
+            } @else {
+              Зарегистрироваться
+            }
+          </a>
         </form>
       </div>
 
@@ -111,15 +117,15 @@
           <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
             (input)="moveFocus($event, 1)" #digit1>
           <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
-            (input)="moveFocus($event, 2)" #digit2>
+            (input)="moveFocus($event, 2)" (keydown.backspace)="moveFocus($event, 0, 'delete')" #digit2>
           <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
-            (input)="moveFocus($event, 3)" #digit3>
+            (input)="moveFocus($event, 3)" (keydown.backspace)="moveFocus($event, 1, 'delete')" #digit3>
           <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
-            (input)="moveFocus($event, 4)" #digit4>
+            (input)="moveFocus($event, 4)" (keydown.backspace)="moveFocus($event, 2, 'delete')" #digit4>
           <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
-            (input)="moveFocus($event, 5)" #digit5>
+            (input)="moveFocus($event, 5)" (keydown.backspace)="moveFocus($event, 3, 'delete')" #digit5>
           <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
-            (input)="moveFocus($event, 6)" #digit6>
+            (input)="moveFocus($event, 6)" (keydown.backspace)="moveFocus($event, 4, 'delete')" #digit6>
         </div>
         <div style="text-align: center; font-size: 14px; color: #666; margin-top: -2rem;">
           Письмо может попасть в папку «Спам» — проверьте её

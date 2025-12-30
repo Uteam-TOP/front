@@ -35,10 +35,11 @@ export class VacanciesComponent implements OnInit {
       if (this.projectData?.id) {
         this.projectService.getVacanciesProject(this.projectData.id).subscribe(
           (response: any) => {
-            console.log('vacancies', response);
-            this.vacancies = (response?.data || []).filter(
-              (vacancy: any) => vacancy.visibility !== "CREATOR_ONLY"
-          );
+          //   console.log('vacancies', response);
+          //   this.vacancies = (response?.data || []).filter(
+          //     (vacancy: any) => vacancy.visibility !== "CREATOR_ONLY"
+          // );
+            this.vacancies = response;
             this.projectService.setCurrentProjectVacancies(this.vacancies)
           },
           (error) => {

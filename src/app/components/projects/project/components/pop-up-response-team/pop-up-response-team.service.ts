@@ -16,7 +16,7 @@ export class PopUpResponseTeamService {
   projectData: any;
 
   constructor(private http: HttpClient) { }
- 
+
 
   showPopup() {
     this.visibleSubject.next(true);  // Устанавливаем значение true
@@ -50,23 +50,38 @@ export class PopUpResponseTeamService {
 
   setTeamProject(coverLetter: any) {
     const token = localStorage.getItem('authToken');
-  
+
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-  
+
     return this.selectedResume$.pipe(
       switchMap(resume => {
         const data = {
           "coverLetter": coverLetter,
           "resume": resume
         };
-  
+
         return this.http.post(`${environment.apiUrl}/projects/${this.projectData.id}/applications`, data, { headers });
       })
     );
   }
-  
+
+  setTeamProjectWithResume():Observable<any> {
+    const token = localStorage.getItem('authToken');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.selectedResume$.pipe(
+      switchMap(resume => {
+
+        return this.http.post(`${environment.apiUrl}/applications/project/${this.projectData.id}/resume/${resume.id}`, {}, { headers });
+      })
+    );
+  }
+
 
 
 }

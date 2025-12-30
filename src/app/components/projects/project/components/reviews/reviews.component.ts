@@ -5,11 +5,12 @@ import { PersonalDataService } from '../../../../personal-account/personal-data/
 import { ReviewsService } from './reviews.service';
 import { ProjectService } from '../../project.service';
 import { FormsModule } from '@angular/forms';
+import {AvatarPipe} from "../../../../../pipes/avatar.pipe";
 
 @Component({
   selector: 'app-reviews',
   standalone: true,
-  imports: [CommonModule, ReviewCardComponent, FormsModule],
+  imports: [CommonModule, ReviewCardComponent, FormsModule, AvatarPipe],
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.css'
 })
