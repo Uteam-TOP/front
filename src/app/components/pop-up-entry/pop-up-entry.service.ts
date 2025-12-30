@@ -16,6 +16,7 @@ export class PopUpEntryService {
   accessVerification: boolean = false;
   accessVerificationMessage: string = 'Почта успешно подтверждена';
   confirmAuth: boolean = false;
+  isRegistration: boolean = false;
   private domain = `${environment.apiUrl}`;
 
   getUser(): Observable<any> {

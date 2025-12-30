@@ -51,7 +51,7 @@ import {SkeletonBlockComponent} from "../../shared/ui-components/skeleton-block/
 export class HomeComponent implements OnInit, AfterViewInit {
 
   @ViewChild('projects') ProjectsDiv!: ElementRef;
-  @ViewChild('hackathons') HackathonsDiv!: ElementRef;
+  // @ViewChild('hackathons') HackathonsDiv!: ElementRef;
   @ViewChild('vacancies') VacanciesDiv!: ElementRef;
   @ViewChild('resumes') ResumesDiv!: ElementRef;
 
@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
       this.windowHeight = window.innerHeight;
       this.boundingRectProjects = this.ProjectsDiv.nativeElement.getBoundingClientRect();
-      this.boundingRectHackathons = this.HackathonsDiv.nativeElement.getBoundingClientRect();
+      // this.boundingRectHackathons = this.HackathonsDiv.nativeElement.getBoundingClientRect();
       this.boundingRectVacancy = this.VacanciesDiv.nativeElement.getBoundingClientRect();
       this.boundingRectResumes = this.ResumesDiv.nativeElement.getBoundingClientRect();
 
@@ -106,12 +106,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.homeService.typeToggle = 'project';
       }
 
-      if (this.boundingRectHackathons && this.boundingRectHackathons.top >= 0 && this.boundingRectHackathons.bottom - 500 <= this.windowHeight) {
-        if (!this.homeService.hackathons.length && !this.homeService.loading) {
-          this.homeService.toggleType('hackathon');
-        }
-        this.homeService.typeToggle = 'hackathon';
-      }
+      // if (this.boundingRectHackathons && this.boundingRectHackathons.top >= 0 && this.boundingRectHackathons.bottom - 500 <= this.windowHeight) {
+      //   if (!this.homeService.hackathons.length && !this.homeService.loading) {
+      //     this.homeService.toggleType('hackathon');
+      //   }
+      //   this.homeService.typeToggle = 'hackathon';
+      // }
 
       if (this.boundingRectVacancy && this.boundingRectVacancy.top >= 0 && this.boundingRectVacancy.bottom - 500 <= this.windowHeight) {
         if (!this.homeService.vacancies.length && !this.homeService.loading) {
@@ -152,8 +152,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
       let element;
       if (value === 'vacancy') {
         element = this.VacanciesDiv.nativeElement;
-      } else if (value === 'hackathon') {
-        element = this.HackathonsDiv.nativeElement;
+      // } else if (value === 'hackathon') {
+      //   element = this.HackathonsDiv.nativeElement;
       } else if (value === 'project') {
         element = this.ProjectsDiv.nativeElement;
       } else if (value === 'resume') {

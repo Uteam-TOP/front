@@ -7,6 +7,7 @@ import { ResumeLibraryComponent, VacancyLibraryComponent } from '../../../common
 import {Router} from "@angular/router";
 import {SortByPipe} from "../../pipes/sort-by.pipe";
 import {VacancyComponent} from "../../components/view-card/vacancy/vacancy.component";
+import {NotFoundComponent} from "../not-found/not-found.component";
 
 @Component({
   selector: 'app-list-layer',
@@ -14,17 +15,12 @@ import {VacancyComponent} from "../../components/view-card/vacancy/vacancy.compo
   imports: [
     UiButtonComponent,
     HackathonCadComponent,
-    NgForOf,
     NgIf,
     ProjectComponent,
     ResumeLibraryComponent,
-    VacancyLibraryComponent,
-    VacancyLibraryComponent,
     ResumeLibraryComponent,
-    SortByPipe,
-    NgTemplateOutlet,
-    NgClass,
-    VacancyComponent
+    VacancyComponent,
+    NotFoundComponent
   ],
   templateUrl: './list-layer.component.html',
   styleUrl: './list-layer.component.scss',

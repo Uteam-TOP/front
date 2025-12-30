@@ -4,11 +4,12 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environment';
 import { PopUpEntryService } from '../../pop-up-entry/pop-up-entry.service';
+import {AvatarPipe} from "../../../pipes/avatar.pipe";
 
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AvatarPipe],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css'
 })

@@ -14,7 +14,7 @@
 
         <div class="title-container">
             <ng-container *ngIf="cardItem.avatarLink">
-                <img [src]="cardItem.avatarLink" alt="avatar" style="    width: 85px;
+                <img [src]="cardItem.avatarLink | avatar" alt="avatar" style="    width: 85px;
                 height: 85px;
                 border-radius: 50%;">
             </ng-container>
@@ -76,7 +76,7 @@
                         class="team-member">
 
                         <ng-container *ngIf="item.user.imageLink">
-                            <img [src]="item.user.imageLink" alt="avatar" class="avatar">
+                            <img [src]="item.user.imageLink | avatar" alt="avatar" class="avatar">
                         </ng-container>
                         <ng-container *ngIf="!item.user.imageLink">
                             <img [src]="'assets/avatars/default.png'" alt="avatar" class="avatar">

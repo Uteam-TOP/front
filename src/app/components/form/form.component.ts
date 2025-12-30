@@ -75,7 +75,7 @@ export class FormComponent implements OnInit {
     private route: ActivatedRoute,
     public saveChangesPopupService: SaveChangesPopupService,
     private cdr: ChangeDetectorRef
-  ) { 
+  ) {
     this.initializeForm();
     this.route.data.subscribe(data => {
       const routeName = data['routeName'];
@@ -156,7 +156,7 @@ export class FormComponent implements OnInit {
       this.selectedTags = tags;
     });
   }
-  
+
   loadFormDataFromStorage(): void {
     const savedData = localStorage.getItem(this.FORM_STORAGE_KEY);
     if (savedData) {
@@ -170,7 +170,7 @@ export class FormComponent implements OnInit {
           profession: [formData.profession],
           minPayment: formData.minPayment || 0
         });
-        this.setPaymentAmount = formData.minPayment || 0; 
+        this.setPaymentAmount = formData.minPayment || 0;
         this.saveChangesPopupService.showPopup();
 
         console.log("this.form",{ ...this.form.value })
@@ -189,7 +189,7 @@ export class FormComponent implements OnInit {
           profession: [data.profession],
           minPayment: data.minPayment || 0
         });
-        this.setPaymentAmount = data.minPayment || 0; 
+        this.setPaymentAmount = data.minPayment || 0;
 
         console.log("this.form",{ ...this.form.value })
         this.cdr.detectChanges();
@@ -275,7 +275,7 @@ export class FormComponent implements OnInit {
     formData.skills.forEach((skill: any) => {
       skill.competenceLevel = skill.competenceLevel === 0 ? null : skill.competenceLevel;
     });
-    
+
     const typeEndpoint = this.typeForm === 'резюме' ? 'resumes' : 'vacancies';
     console.log("typeEndpointtypeEndpoint", typeEndpoint)
     console.log("formDataformData", formData)
@@ -307,7 +307,7 @@ export class FormComponent implements OnInit {
               })
           }
 
-          this.handleSuccess(response, typeEndpoint)
+          // this.handleSuccess(response, typeEndpoint)
 
         },
         (error: any) => {
@@ -353,12 +353,12 @@ export class FormComponent implements OnInit {
     // formData.freeLink = formData.freeLink || "string";
     // formData.ownLink = formData.ownLink || "string";
     // formData.contacts = formData.contacts || "string";
-    formData.details = formData.details.replace(/\r?\n/g, '\n') || "string";
-    formData.title = formData.title || "string";
+    formData.details = formData.details.replace(/\r?\n/g, '\n') || "";
+    formData.title = formData.title || "";
     formData.minPayment = formData.minPayment || 0;
     delete formData.gender;
 
- 
+
     return formData
   }
 
@@ -408,5 +408,5 @@ export class FormComponent implements OnInit {
   }
 
 
- 
+
 }

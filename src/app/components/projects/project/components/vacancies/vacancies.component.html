@@ -9,7 +9,7 @@
     </a>
   </div>
   <div class="container-cards">
-    <ng-container *ngIf="isTablet">
+    <ng-container *ngIf="isTablet && vacancies">
       <div class="column">
         <ng-container *ngFor="let item of vacancies; let i = index">
           <ng-container *ngIf="i % 2 === 0"> <!-- First Column: 0, 2, 4, ... -->

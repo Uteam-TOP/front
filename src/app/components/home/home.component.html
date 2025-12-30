@@ -32,20 +32,6 @@
       </ng-container>
       <!-- ***************************** close project ********************************** -->
 
-      <!-- ***************************** hackathon ********************************** -->
-      <ng-container>
-        <div class="container" #hackathons>
-          <h3>Хакатоны</h3>
-          <div class="column">
-              <app-home-slider [items]="homeService.hackathons" [type]="'hackathon'"></app-home-slider>
-          </div>
-          <div class="slider-footer">
-            <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>
-          </div>
-        </div>
-      </ng-container>
-      <!-- ***************************** close hackathon ********************************** -->
-
       <!-- ***************************** vacancy ********************************** -->
 
       <ng-container>
@@ -66,7 +52,7 @@
 
       <!-- ***************************** resume ********************************** -->
       <ng-container>
-        <div class="container" #resumes>
+        <div class="container" style="margin-bottom: 115px" #resumes>
           <h3>Резюме</h3>
           <div class="column">
             <app-home-slider [items]="homeService.resumes" [type]="'resume'"></app-home-slider>
@@ -79,6 +65,20 @@
 
       <!-- ***************************** close resume ********************************** -->
     </div>
+
+    <!-- ***************************** hackathon ********************************** -->
+<!--    <ng-container>-->
+<!--      <div class="container" #hackathons>-->
+<!--        <h3>Хакатоны</h3>-->
+<!--        <div class="column">-->
+<!--          <app-home-slider [items]="homeService.hackathons" [type]="'hackathon'"></app-home-slider>-->
+<!--        </div>-->
+<!--        <div class="slider-footer">-->
+<!--          <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </ng-container>-->
+    <!-- ***************************** close hackathon ********************************** -->
 
     <div class="nextPage">
       <a *ngIf="homeService.visibleNextPage" (click)="nextPage()">

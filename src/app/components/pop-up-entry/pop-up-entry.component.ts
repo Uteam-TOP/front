@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core';
+import {Component, AfterViewInit, OnDestroy, OnInit, ElementRef, ViewChild, HostListener} from '@angular/core';
 import { PopUpEntryService } from './pop-up-entry.service';
 import { TokenService } from '../token.service';
 import { HttpClient } from '@angular/common/http';
@@ -282,10 +282,22 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('digit5') digit5!: ElementRef;
   @ViewChild('digit6') digit6!: ElementRef;
 
-  moveFocus(event: any, nextField: number) {
-    const input = event.target;
-    if (input.value.length === 1) {
+  moveFocus(event: any, nextField: number, type?: string) {
+    event.target.value.length > 1 ? event.target.value = event.data.slice(0, 1) : event.target.value;
+
+    if (type && type === 'delete') {
       switch (nextField) {
+        case 0: this.digit2.nativeElement.value = ''; break;
+        case 1: this.digit3.nativeElement.value = ''; break;
+        case 2: this.digit4.nativeElement.value = ''; break;
+        case 3: this.digit5.nativeElement.value = ''; break;
+        case 4: this.digit6.nativeElement.value = ''; break;
+      }
+    }
+
+    if (event.target.value.length >= 1 || type === 'delete') {
+      switch (nextField) {
+        case 0: this.digit1.nativeElement.focus(); break;
         case 1: this.digit2.nativeElement.focus(); break;
         case 2: this.digit3.nativeElement.focus(); break;
         case 3: this.digit4.nativeElement.focus(); break;
@@ -294,6 +306,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
         case 6: this.verifyCode(); break;
       }
     }
+
   }
 
   verifyCode() {

@@ -1,9 +1,12 @@
 import { Component, Input } from '@angular/core';
+import {AvatarPipe} from "../../../../../../pipes/avatar.pipe";
 
 @Component({
   selector: 'app-commands-item',
   standalone: true,
-  imports: [],
+    imports: [
+        AvatarPipe
+    ],
   templateUrl: './commands-item.component.html',
   styleUrl: './commands-item.component.css'
 })

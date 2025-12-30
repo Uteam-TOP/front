@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import {AvatarPipe} from "../../../../../../pipes/avatar.pipe";
 
 
 @Component({
   selector: 'app-participant',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AvatarPipe],
   templateUrl: './participant.component.html',
   styleUrl: './participant.component.css'
 })
