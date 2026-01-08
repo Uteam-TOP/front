@@ -36,6 +36,7 @@
     "@angular-devkit/build-angular": "^18.0.2",
     "@angular/cli": "^18.0.2",
     "@angular/compiler-cli": "^18.0.0",
+    "@openapitools/openapi-generator-cli": "^2.27.0",
     "@types/jasmine": "~5.1.0",
     "@types/lodash": "^4.17.7",
     "jasmine-core": "~5.1.0",
