@@ -38,7 +38,6 @@ export class ListLayerComponent implements OnInit {
   public sortType: 'desc' | 'asc' = 'desc';
 
   ngOnInit() {
-    console.log('cards', this.cards);
     this.sortBy = this.type === 'vacancy' || this.type === 'resume' ? 'creationDate' : 'createdAt';
     this.sortByButton('desc');
   }

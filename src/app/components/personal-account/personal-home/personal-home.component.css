@@ -255,11 +255,13 @@ p {
 .title-cards {
     width: 110px;
     font-family: var(--font-Monts);
-    font-weight: 500;
+    font-weight: 600;
     font-size: var(--text14);
     line-height: 117%;
     color: var(--font-color);
     padding: 2rem 0 2rem 2.2rem;
+  text-transform: uppercase;
+  margin-top: 10px !important;
 }
 
 .cards {
@@ -269,6 +271,7 @@ p {
     padding-right: 1rem;
     padding-bottom: 1rem;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .archive-resume,
@@ -462,7 +465,8 @@ p {
 .app-card-vacancy-link {
   text-decoration: none;
   flex: 1;
-  max-width: 380px;
+  min-width: 340px;
+  max-width: 340px;
 }
 
 /* ----------- */
@@ -496,6 +500,14 @@ p {
   font-size: 0.8rem;
   line-height: 120%;
   color: #101010;
+}
+
+.buttons-mobile {
+  margin: 0 15px 20px 15px;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+
 }
 
 @media (max-width: 1198px) {
@@ -618,7 +630,7 @@ p {
 
     .second-path {
         flex-direction: column;
-        gap: 3rem;
+        gap: 1rem;
     }
 
     .first-part {
@@ -684,6 +696,16 @@ p {
         padding: 0.8rem 1rem;
         width: 95%;
         margin: 0 auto;
+    }
+
+    .container-cards {
+      .cards {
+        flex-direction: row;
+        overflow: scroll;
+        scrollbar-width: none;
+        flex-wrap: nowrap;
+      }
+
     }
 }
 

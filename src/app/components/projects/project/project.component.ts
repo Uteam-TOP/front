@@ -29,7 +29,8 @@ import { combineLatest } from 'rxjs';
 export class ProjectComponent implements OnInit {
 
   isPopupVisible: boolean = false;
-  
+  showUserRespondedMessage: boolean = false;
+
   constructor(public projectService: ProjectService, private popUpResponseTeamService: PopUpResponseTeamService, private route: ActivatedRoute,
     private personalDataService: PersonalDataService,
     private tokenService: TokenService) {
@@ -44,30 +45,28 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this.paramId = this.route.snapshot.paramMap.get('id');
     console.log('paramId', this.paramId);
-  
+
     this.projectService.currentProjectIsOwner$.subscribe((value: boolean) => {
       this.isOwner = value;
     });
-  
+
     if (this.paramId) {
       this.projectService.getCurrentProject(this.paramId).subscribe((dataProject: any) => {
         this.projectService.setCurrentProjectData(dataProject);
         this.projectData = dataProject;
-  
+
         this.detailsListProject = [
           { title: 'Описание', context: dataProject.description || 'Нет данных' },
           { title: 'Этап развития', context: dataProject.developmentStage || 'Нет данных' },
           { title: 'Задачи', context: dataProject.tasks || 'Нет данных' },
         ];
-  
-        console.log('dataProject', dataProject);
       });
     }
-  
+
     this.popUpResponseTeamService.visible$.subscribe((visible) => {
       this.isPopupVisible = visible;
     });
-  
+
     if (this.tokenService.getToken()) {
       // ✅ Теперь ждем загрузки `projectData` перед вызовом `getCurrentUser`
       combineLatest([
@@ -79,16 +78,12 @@ export class ProjectComponent implements OnInit {
           this.projectService.setCurrentProjectIsOwner(false);
           return;
         }
-  
+
         let nickname = localStorage.getItem('userNickname');
-        console.log('projectData', projectData);
-        console.log('visible.nickname', visible.nickname);
-  
+
         if (projectData.owner) {
-          console.log('projectData.owner.nickname', projectData.owner.nickname);
           if (visible.nickname === projectData.owner.nickname) {
             this.projectService.setCurrentProjectIsOwner(true);
-            console.log('(visible.nickname === nickname)');
           } else {
             this.projectService.setCurrentProjectIsOwner(false);
           }
@@ -107,11 +102,11 @@ export class ProjectComponent implements OnInit {
     } else {
       this.projectService.setCurrentProjectIsOwner(false);
     }
-  
+
     const imageUrl =
       'https://s3-alpha-sig.figma.com/img/1794/ba72/32c521779550b3739252f0a0fa851e85?Expires=1730678400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ThIZOtZLeGKH4-q0ljiIalrTJMAMWdAjTdo8smUxwUkli0I7kR5FSieo-PW-ZZ2D2Lq7284lOFICZwOVSM1K2AJ7g487SO9LYygzKe5l6-uzkHOOadpHltpoyVdDfXPGXGTX~tkAAeCgtGigpBYGNJDDnjpRuSYq6z3B1zExkAgXmBBMGVdgpOfVxL9VLM4RPAQyzSlZm4g8oXbP5NSJkPA49lOF-q8TNfa9WQkZYkc~oqHMbVWn-8G1MKxf7ftMtbroqfLivnfkpSmC7CutO7Er18fjDumIiR1XsnI5Vx7F9Wi6Mtz7GvJs~wSj8PnrcYhNuu1l~4cL6YELrEVbOQ__';
     const overlayElement = document.querySelector('.overlay') as HTMLElement;
-  
+
     if (overlayElement) {
       overlayElement.style.backgroundImage = `url(${imageUrl})`;
       overlayElement.style.backgroundSize = 'cover';

@@ -250,7 +250,6 @@ export class PersonalDataComponent implements OnInit {
       },
       (error) => {
         console.error('Ошибка при загрузке данных пользователя:', error);
-        console.log('error.status', error)
         localStorage.removeItem('userNickname');
         localStorage.removeItem('authToken');
         localStorage.removeItem('fullAccess');

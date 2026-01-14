@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
-import {BehaviorSubject, delay, Observable} from 'rxjs';
+import {BehaviorSubject, delay, Observable, take} from 'rxjs';
 import { environment } from '../../../environment';
 
 @Injectable({
@@ -100,11 +100,7 @@ export class HomeService {
     this.getCardProjects().subscribe((data: any) => {
       if (data) {
         const filteredData = data.filter((project: any) => project.visibility !== "BAN");
-        if (filteredData.length === 30) {
-          this.visibleNextPage = true;
-        } else {
-          this.visibleNextPage = false;
-        }
+        this.visibleNextPage = filteredData.length === 30;
 
         this.selectPage = this.selectPage + 1;
         this.projects = [...this.projects, ...filteredData];
@@ -117,7 +113,11 @@ export class HomeService {
   hackathons: any = [];
 
   gethackathons() {
-    this.getCardHackathons().subscribe((data: any) => {
+    this.getCardHackathons()
+      .pipe(
+        take(1)
+      )
+      .subscribe((data: any) => {
       if (data) {
         // const filteredData = data.data.filter((project: any) => project.visibility !== "BAN");
         if (data.length === 30) {

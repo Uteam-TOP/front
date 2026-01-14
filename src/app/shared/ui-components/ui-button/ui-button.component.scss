@@ -25,6 +25,21 @@
       color: #806bff;
     }
 
+    &.type-green {
+      background: #84DD2C;
+      color: #101010;
+      padding: 16px 26px !important;
+      height: auto;
+    }
+
+    &.type-green-border {
+      background: transparent;
+      border: 1px solid #84DD2C;
+      color: #84DD2C;
+      padding: 16px 26px !important;
+      height: auto;
+    }
+
     .icon-arrow {
       margin-left: 15px;
     }

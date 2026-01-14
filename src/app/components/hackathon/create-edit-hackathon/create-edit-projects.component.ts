@@ -46,7 +46,6 @@ export class CreateEditProjectsComponent implements OnInit {
     //   this.projectData = value;
     // })
     let paramId = this.route.snapshot.paramMap.get('nickname');
-    console.log('paramId', paramId)
 
     if (paramId) this.ProjectData(paramId);
 
@@ -158,9 +157,7 @@ export class CreateEditProjectsComponent implements OnInit {
   ProjectData(nicknameProject: string) {
     this.hackathonService.getCurrentHackathon(nicknameProject).subscribe(
       (user: any) => {
-        console.log('data data', user)
         this.projectData = user;
-        console.log('projectDataprojectData',this.projectData)
         this.form.patchValue({
           title: user.title || '',
           customLink: user.customLink || '',

@@ -14,7 +14,6 @@ export class ProjectService {
 
   selectProject(project: string): void {
     this.selectedProjectSubject.next(project);
-    console.log("Project", project)
   }
 
 }

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './archive-resume.component.css'
 })
 export class ArchiveResumeComponent {
-  
+
   @Input() cardItem: any;
 
   constructor(private resumeService:ResumeService, private router: Router){}
@@ -30,7 +30,6 @@ export class ArchiveResumeComponent {
   }
 
   getSkills(item: number): string {
-    console.log("item", item)
     switch (item) {
       case 1:
         return 'Junior';
@@ -42,16 +41,16 @@ export class ArchiveResumeComponent {
         return '';
     }
   }
-  
+
   isSettingActive: boolean = false;
-  
+
   Actived() {
     this.isSettingActive = !this.isSettingActive
   }
 
   refund() {
     if (this.cardItem) {
-          this.resumeService.toggleResumeArchive(this.cardItem); 
+          this.resumeService.toggleResumeArchive(this.cardItem);
     }
   }
 

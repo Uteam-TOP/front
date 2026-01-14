@@ -41,7 +41,6 @@ export class UserAccountComponent implements OnInit, OnDestroy {
 
     this.settingHeaderService.shared = true;
     this.settingHeaderService.backbtn = true;
-    console.log('userAccount')
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id')!;
       if (this.userId) {
@@ -49,20 +48,20 @@ export class UserAccountComponent implements OnInit, OnDestroy {
       } else {
       }
     });
-    
+
   }
 
 loadData(id: string): void {
     this.userAccountService.getUserData(id).subscribe(
       async (userData) => {
         this.userData = userData;
-        
+
         if (userData.freeLink) {
           this.domainName = this.domainService.setDomain(userData.freeLink);
-  
+
           this.imagePath = await this.domainService.checkImageExists(this.domainName);
         }
-  
+
         this.userAccountService.getVacanciesData(this.userData.id).subscribe(
           (vacancies) => {
             this.vacancies = vacancies;
@@ -71,7 +70,7 @@ loadData(id: string): void {
             console.error('Error while fetching vacancies:', error);
           }
         );
-  
+
         this.userAccountService.getResumessData(this.userData.id).subscribe(
           (resumes) => {
             this.resumes = resumes;
@@ -82,7 +81,6 @@ loadData(id: string): void {
         );
       },
       (error) => {
-        console.log('error.status',error)
         if(this.userId == localStorage.getItem('userNickname')) {
           localStorage.removeItem('userNickname');
           localStorage.removeItem('authToken');
@@ -120,5 +118,5 @@ loadData(id: string): void {
     event.preventDefault();
     this.router.navigate([`/${type}`, cardId]);
   }
-  
+
 }
