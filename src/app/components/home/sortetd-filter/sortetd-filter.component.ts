@@ -121,7 +121,6 @@ export class SortetdFilterComponent implements OnInit {
 
     this.homeService.activeTypeToggle$.subscribe((value: string) => {
       this.togleType = value;
-      console.log("togleType", value)
     })
   }
 
@@ -212,7 +211,6 @@ export class SortetdFilterComponent implements OnInit {
     delete dataToSubmit.profession;
     delete dataToSubmit.motivation;
 
-    console.log('dataToSubmit', dataToSubmit);
     this.homeService.selectPage = 0;
     this.homeService.saveFilters(dataToSubmit);
     this.homeService.getVacancies();

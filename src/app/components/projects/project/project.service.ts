@@ -13,7 +13,7 @@ export class ProjectService {
   activeTab: 'aboutProject' | 'tape' | 'myTeam' = 'aboutProject'
 
 
-  private currentProjectDataSubject = new BehaviorSubject<any>(null);
+  currentProjectDataSubject = new BehaviorSubject<any>(null);
 
   // Observable for project data
   public currentProjectData$: Observable<any> = this.currentProjectDataSubject.asObservable();
@@ -36,7 +36,7 @@ export class ProjectService {
   updateUserAppliedStatus(): void {
     const currentData = this.getCurrentProjectData();
 
-    if (currentData && currentData.hasOwnProperty('currentUserAppliedToProject')) {
+    if (currentData) {
       currentData.currentUserAppliedToProject = true;
       this.setCurrentProjectData(currentData);
     } else {
@@ -109,8 +109,16 @@ export class ProjectService {
 
   }
 
+  likeProject(id: number): Observable<any> {
+    return this.http.put<any>(`${environment.apiUrl}/projects/${id}/like`, {})
+  }
+
   likePost(id: number): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}/${id}/like`, {})
+  }
+
+  isUserResponded(projectId: number): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}/applications/has-current-user-responded-project/${projectId}`)
   }
 
 

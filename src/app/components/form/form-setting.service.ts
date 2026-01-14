@@ -14,7 +14,7 @@ export class FormSettingService {
   title: string = '';
 
   isEdit: boolean = false;
-  isheading: boolean = false;
+  isheading: boolean = true;
 
   visible: boolean = false;
 

@@ -18,7 +18,6 @@ export class PersonalResumeComponent implements OnInit {
 
   constructor(private router: Router, private viewCardService: ViewCardService, private resumeService: ResumeService) { }
   ngOnInit(): void {
-    console.log("cardItem", this.cardItem)
   }
 
   getSkillsColor(item: number): string {
@@ -33,9 +32,8 @@ export class PersonalResumeComponent implements OnInit {
         return '';
     }
   }
-  
+
   getSkills(item: number): string {
-    console.log("item", item)
     switch (item) {
       case 1:
         return 'Junior';
@@ -49,7 +47,6 @@ export class PersonalResumeComponent implements OnInit {
   }
 
   getSkillText(item: number): string {
-    console.log("item", )
     switch (item) {
       case 1:
         return 'Jun';
@@ -61,7 +58,7 @@ export class PersonalResumeComponent implements OnInit {
         return '';
     }
   }
-  
+
   getMotivationColor(item: string): string {
     switch (item) {
       case 'Без оплаты':
@@ -92,7 +89,7 @@ export class PersonalResumeComponent implements OnInit {
   }
 
   setArchive(event: Event) {
-    event.preventDefault(); 
+    event.preventDefault();
     event.stopPropagation();
     if (this.cardItem) {
       this.resumeService.toggleResumeArchive(this.cardItem);
@@ -100,7 +97,7 @@ export class PersonalResumeComponent implements OnInit {
   }
 
   update(event: Event, id: number) {
-    event.preventDefault(); 
+    event.preventDefault();
     event.stopPropagation();
     const userId = localStorage.getItem('userId')
     this.router.navigate([`/myaccount/${userId}/updateResume/${id}`]);

@@ -86,8 +86,17 @@
             </ng-container>
 
         </div>
+      <div class="card-footer">
         <div class="date-container">
-            <p class="date">размещено {{ (cardItem.createdAt*1000) | date:'dd.MM.yyyy' }}</p>
+          <p class="date">размещено {{ (cardItem.createdAt*1000) | date:'dd.MM.yyyy' }}</p>
         </div>
+        <div class="social-buttons">
+          <div class="like" (click)="toggleLike($event)">
+            <p>{{ cardItem.likesCount }}</p>
+            <img src="/assets/icons/like.png" alt="like" />
+          </div>
+        </div>
+      </div>
+
     </div>
 </div>

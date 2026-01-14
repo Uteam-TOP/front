@@ -65,7 +65,6 @@ export class MenuNavComponent implements OnInit {
     });
     this.avatarSelectionService.selectedAvatar$.subscribe((value:any)=>{
       this.currentUserLogo = value;
-      console.log('value',value)
     })
     const savedTheme = localStorage.getItem('theme') || 'light';
     this.toggleTopic(savedTheme);

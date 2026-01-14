@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../../../environment';
 import { PopUpEntryService } from '../../pop-up-entry/pop-up-entry.service';
 import {AvatarPipe} from "../../../pipes/avatar.pipe";
+import {ProjectService} from "../../projects/project/project.service";
 
 @Component({
   selector: 'app-project',
@@ -21,6 +22,7 @@ export class ProjectComponent {
   constructor(private router: Router,
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
+    private projectService: ProjectService,
     private popUpEntryService: PopUpEntryService) { }
 
   type: any[] = [
@@ -70,14 +72,8 @@ export class ProjectComponent {
       this.popUpEntryService.showDialog();
       return;
     }
-    const url = `${environment.apiUrl}${this.cardItem.id}/like`;
-    const method = 'PUT';
-    const token = localStorage.getItem('authToken');
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    this.http.request(method, url, { headers }).subscribe(() => {
+    this.projectService.likeProject(this.cardItem.id).subscribe(() => {
       this.cardItem.userLike = !this.cardItem.userLike;
       this.cardItem.likesCount += this.cardItem.userLike ? 1 : -1;
       this.cdr.detectChanges();

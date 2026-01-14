@@ -149,11 +149,11 @@ export class CreateEditProjectsComponent implements OnInit {
   }
 
 
-  setAvatar(file: any, endpoint: string): void {
+  setAvatar(file: any, endpoint: string, id: number): void {
     const formData = new FormData();
     formData.append('avatar', file);
 
-    this.createEditProjectsService.setAvatar(formData, endpoint, this.projectData.id).subscribe({
+    this.createEditProjectsService.setAvatar(formData, endpoint, id).subscribe({
       next: (response) => {
         console.log('Avatar updated successfully:', response);
       },
@@ -278,10 +278,10 @@ export class CreateEditProjectsComponent implements OnInit {
         this.createEditProjectsService.setEditProject(newData).subscribe((data: any) => {
 
           if (this.isValidFile(this.headerImg)) {
-            this.setAvatar(this.headerImg, 'header');
+            this.setAvatar(this.headerImg, 'header', data.id);
           }
           if (this.isValidFile(this.avatarImg)) {
-            this.setAvatar(this.avatarImg, 'avatar');
+            this.setAvatar(this.avatarImg, 'avatar', data.id);
           }
           this.projectService.setCurrentProjectData(data);
 
@@ -296,10 +296,10 @@ export class CreateEditProjectsComponent implements OnInit {
         this.createEditProjectsService.setNewProject(newData).subscribe((data: any) => {
 
           if (this.isValidFile(this.headerImg)) {
-            this.setAvatar(this.headerImg, 'header');
+            this.setAvatar(this.headerImg, 'header', data.id);
           }
           if (this.isValidFile(this.avatarImg)) {
-            this.setAvatar(this.avatarImg, 'avatar');
+            this.setAvatar(this.avatarImg, 'avatar', data.id);
           }
           this.projectService.setCurrentProjectData(data);
           this.router.navigate(['project', data.nickname]);
@@ -323,17 +323,18 @@ export class CreateEditProjectsComponent implements OnInit {
 
   private isValidFile(file: any): boolean {
     // Исключаем строки
+
     if (typeof file === 'string') {
       return false;
     }
 
     // Проверяем основные признаки файла
     if (file instanceof File) {
-      return file.size > 0 && !!file.name && !!file.type;
+      return file.size !== 0 && !!file.name && !!file.type;
     }
 
     if (file instanceof Blob) {
-      return file.size > 0;
+      return file.size !== 0;
     }
 
     // Проверка по структуре объекта
@@ -341,7 +342,7 @@ export class CreateEditProjectsComponent implements OnInit {
       const hasFileProperties = 'name' in file && 'size' in file && 'type' in file;
       const hasBlobProperties = 'size' in file && 'type' in file;
 
-      return (hasFileProperties || hasBlobProperties) && file.size > 0;
+      return (hasFileProperties || hasBlobProperties) && file.size !== 0;
     }
 
     return false;

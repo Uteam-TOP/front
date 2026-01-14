@@ -64,6 +64,8 @@ export class FormComponent implements OnInit {
   visible: boolean = false;
   activeLink: string = 'Сначала новые';
   isPayment: boolean = false;
+  errorMessage: string = '';
+  title: string = '';
 
   private readonly FORM_STORAGE_KEY = 'formData';
 
@@ -82,6 +84,8 @@ export class FormComponent implements OnInit {
       this.isEditMode = routeName.includes('update');
       this.typeForm = routeName.includes('Resume') ? 'резюме' : 'вакансии';
 
+      this.title = this.typeForm === 'резюме' ? 'Резюме' : '';
+
       if (this.isEditMode) {
         this.initializeForm();
         this.loadExistingData();
@@ -99,9 +103,6 @@ export class FormComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       const isProject = params['isProject']; // Convert to boolean if needed
       const idProject = +params['idProject']; // Convert to number if needed
-
-      console.log('isProjectisProject:', isProject);
-      console.log('idProject:', idProject);
 
       // Assign the values to component properties if needed
       this.isProject = isProject;
@@ -136,14 +137,13 @@ export class FormComponent implements OnInit {
 
   setPaymentAmount: number = 0;
   onPaymentAmountChange(paymentAmount: number) {
-    console.log('Payment changed:', paymentAmount);
     this.setPaymentAmount = paymentAmount
     this.form.get('minPayment')?.setValue(this.setPaymentAmount);
   }
 
   initializeForm(): void {
     this.form = this.fb.group({
-      title: ['', [this.optionalValidator, Validators.maxLength(100), forbiddenWordsValidator()]],
+      title: [this.title, [this.optionalValidator, Validators.maxLength(100), forbiddenWordsValidator()]],
       profession: [null, Validators.required],
       skills: [[], Validators.required],
       motivations: [this.selectedTags, Validators.required],
@@ -161,7 +161,6 @@ export class FormComponent implements OnInit {
     const savedData = localStorage.getItem(this.FORM_STORAGE_KEY);
     if (savedData) {
       const parsedData = JSON.parse(savedData);
-      console.log("parsedData,", parsedData)
       if (parsedData.type === this.typeForm) {
 
         const formData = parsedData.formData;
@@ -172,8 +171,6 @@ export class FormComponent implements OnInit {
         });
         this.setPaymentAmount = formData.minPayment || 0;
         this.saveChangesPopupService.showPopup();
-
-        console.log("this.form",{ ...this.form.value })
       }
     }
   }
@@ -190,8 +187,6 @@ export class FormComponent implements OnInit {
           minPayment: data.minPayment || 0
         });
         this.setPaymentAmount = data.minPayment || 0;
-
-        console.log("this.form",{ ...this.form.value })
         this.cdr.detectChanges();
       });
     }
@@ -200,7 +195,7 @@ export class FormComponent implements OnInit {
   clearDraft(): void {
     localStorage.removeItem(this.FORM_STORAGE_KEY);
     this.form.reset({
-      title: '',
+      title: this.title,
       profession: [],
       skills: [],
       motivations: [],
@@ -277,8 +272,6 @@ export class FormComponent implements OnInit {
     });
 
     const typeEndpoint = this.typeForm === 'резюме' ? 'resumes' : 'vacancies';
-    console.log("typeEndpointtypeEndpoint", typeEndpoint)
-    console.log("formDataformData", formData)
     if (this.isEditMode) {
       const id = this.route.snapshot.paramMap.get('id');
       if (id) {
@@ -288,11 +281,7 @@ export class FormComponent implements OnInit {
           },
           (error: any) => {
             this.saveFormDataToStorage();
-            if (error.status) {
-              this.router.navigate(['/error', { num: error.status }]);
-            } else {
-              this.router.navigate(['/error', { num: 500 }]);
-            }
+            this.errorMessage = error.error.details;
           }
         );
       }
@@ -303,20 +292,16 @@ export class FormComponent implements OnInit {
           if(this.isProject && this.idProject){
             this.formSettingService.addToProject(response.id, this.idProject).subscribe(
               (response) => {
-                console.log('add to project',response);
+                // this.handleSuccess(response, typeEndpoint)
               })
           }
 
-          // this.handleSuccess(response, typeEndpoint)
+          this.handleSuccess(response, typeEndpoint)
 
         },
         (error: any) => {
           this.saveFormDataToStorage();
-          if (error.status) {
-            this.router.navigate(['/error', { num: error.status }]);
-          } else {
-            this.router.navigate(['/error', { num: 500 }]);
-          }
+          this.errorMessage = error.error.details;
         }
       );
 
@@ -354,7 +339,7 @@ export class FormComponent implements OnInit {
     // formData.ownLink = formData.ownLink || "string";
     // formData.contacts = formData.contacts || "string";
     formData.details = formData.details.replace(/\r?\n/g, '\n') || "";
-    formData.title = formData.title || "";
+    formData.title = formData.title || this.title;
     formData.minPayment = formData.minPayment || 0;
     delete formData.gender;
 
@@ -374,7 +359,7 @@ export class FormComponent implements OnInit {
     this.tagSelectedLevelComponent.reset();
 
     this.form.reset({
-      title: '',
+      title: this.title,
       profession: [],
       skills: [],
       motivations: [],

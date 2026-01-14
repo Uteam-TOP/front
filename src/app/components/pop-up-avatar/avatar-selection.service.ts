@@ -18,7 +18,6 @@ export class AvatarSelectionService {
 
   selectAvatar(avatar: string): void {
     this.selectedAvatarSubject.next(avatar);
-    console.log("avatar", avatar)
   }
 
   selectGender(typeAvatar: string) {
@@ -50,7 +49,7 @@ setAvatar(formData: FormData): Observable<any> {
         return this.http.post(
             `${environment.apiUrl}/secured/users/${retrievedData.id}/avatar`,
             formData,
-            { 
+            {
                 headers,
                 responseType: 'text'  // Добавляем responseType в тот же объект
             }

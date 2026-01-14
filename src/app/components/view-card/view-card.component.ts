@@ -80,7 +80,6 @@ export class ViewCardComponent implements OnInit {
       this.viewCardService.getCardData(id, this.typeCard).subscribe(
         (data) => {
           this.dataCard = data;
-          console.log("this.dataCard", this.dataCard)
           this.visibleCard = true;
           this.visibleError = false;
 
@@ -92,7 +91,6 @@ export class ViewCardComponent implements OnInit {
           this.viewCardService.getCurrentUser().subscribe(user => {
             this.currentUser = user;
             this.cdr.detectChanges();
-            console.log("user", user)
           });
         },
         (error) => {

@@ -13,7 +13,7 @@ import {NgClass, NgIf} from "@angular/common";
 })
 export class UiButtonComponent implements OnChanges {
   @Input() text: string = '';
-  @Input() type: 'arrow' | 'edit' | 'add' | 'default' | 'border' = 'default';
+  @Input() type: 'arrow' | 'edit' | 'add' | 'default' | 'border' | 'green' | 'green-border' = 'default';
   @Input() size: 'small' | 'medium' | 'large' = 'medium';
   public className: any = '';
 

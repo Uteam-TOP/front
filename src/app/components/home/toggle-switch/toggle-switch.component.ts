@@ -1,10 +1,13 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import { HomeService } from '../home.service';
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-toggle-switch',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './toggle-switch.component.html',
   styleUrl: './toggle-switch.component.css'
 })

@@ -5,6 +5,8 @@ import { PopUpResponseTeamService } from '../pop-up-response-team/pop-up-respons
 import { JobComponent } from './job/job.component';
 import { ProjectService } from '../../project.service';
 import { TeamService } from './team.service';
+import {catchError, concatMap, first, map, mergeMap, of, switchMap, take} from "rxjs";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-team',
@@ -26,44 +28,56 @@ export class TeamComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.projectService.currentProjectIsOwner$.subscribe((value: boolean) => {
+    this.projectService.currentProjectIsOwner$
+      .subscribe((value: boolean) => {
       this.isOwner = value;
-      console.log('value', value)
     })
 
     this.projectService.currentProjectVacancies$.subscribe((data: any) => {
       this.vacancies = data;
     })
-    this.projectService.currentProjectData$.subscribe((data: any) => {
-      this.currentProjectData = data;
-      if (data != null) {
+    this.projectService.currentProjectData$
+      .pipe(
+        filter(project => !!project && !!project.id),
+        concatMap(currentProjectResult => {
+          return this.projectService.isUserResponded(currentProjectResult.id).pipe(
+            map(userRespondedResult => ({currentProjectResult, userRespondedResult})),
+            catchError(err => {
+              console.error('Ошибка в запросе isUserResponded:', err);
+              return of({ currentProjectResult, userRespondedResult: null });
+            })
+          )
+        })
+      )
+      .subscribe(({currentProjectResult, userRespondedResult}) => {
+      this.currentProjectData = currentProjectResult;
+      console.log('currentProjectData', this.currentProjectData);
+      if (currentProjectResult != null) {
         this.teamService.getTeamProject(this.currentProjectData?.id).subscribe((value: any) => {
           this.itemsList = value;
         })
       }
 
+      this.isOwner = userRespondedResult;
     })
   }
 
+  // checkUserResponded() {
+  //   this.projectService.isUserResponded(this.currentProjectData.id).subscribe((value: any) => {
+  //
+  //   })
+  // }
+
   checkUserInTeam(itemsList: any[]): boolean {
     // Получаем данные пользователя из sessionStorage
-    const userData = sessionStorage.getItem('userData');
-    if (!userData) {
+    console.log('itemsList', itemsList);
+    const userNickname = localStorage.getItem('userNickname');
+    if (!userNickname) {
       console.warn('Пользователь не авторизован!');
       return false;
     }
 
-    let userId: number;
-    try {
-      userId = JSON.parse(userData).id;
-      console.log('userId', userId)
-    } catch (error) {
-      console.error('Ошибка парсинга userData:', error);
-      return false;
-    }
-
-    // Проверяем, есть ли userId в itemsList
-    return itemsList.some(item => item.user?.id === userId);
+    return itemsList.some(item => item.user?.nickname === userNickname);
   }
 
 

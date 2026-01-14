@@ -17,7 +17,6 @@ export class ResumeComponent  implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data']) {
-      console.log('New data received:', changes['data'].currentValue);
     }
   }
 
@@ -47,7 +46,6 @@ export class ResumeComponent  implements OnChanges {
   }
 
   getSkills(item: number): string {
-    console.log("item", item)
     switch (item) {
       case 1:
         return 'Junior';
@@ -61,7 +59,6 @@ export class ResumeComponent  implements OnChanges {
   }
 
   getSkillText(item: number): string {
-    console.log("item",)
     switch (item) {
       case 1:
         return 'Jun';

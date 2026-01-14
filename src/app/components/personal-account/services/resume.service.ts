@@ -48,7 +48,7 @@ export class ResumeService {
     }
   }
 
-  
+
   setArchive(id: string, body: any): Observable<any> {
     const token = localStorage.getItem('authToken');
 
@@ -85,8 +85,6 @@ export class ResumeService {
     // Определяем новое состояние для резюме
     const newVisibility = resume.visibility === 'CREATOR_ONLY' ? 'EVERYBODY' : 'CREATOR_ONLY';
     const updatedResume = { ...resume, visibility: newVisibility };
-    console.log('resumeresumeresume',resume)
-    console.log('updatedResumeupdatedResume',updatedResume)
     // Обновляем резюме на сервере
     this.setArchive(resume.id, updatedResume).subscribe(
       (response: any) => {
@@ -107,4 +105,3 @@ export class ResumeService {
     );
   }
 }
- 

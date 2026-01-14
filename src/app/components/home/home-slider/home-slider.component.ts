@@ -100,7 +100,6 @@ export class HomeSliderComponent implements AfterViewInit, OnInit {
       swiper.navigation.init();
       swiper.navigation.update();
     }
-    console.log(swiper)
   }
 
   updateView(width: number): void {
