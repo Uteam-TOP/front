@@ -9,7 +9,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForOf, NgIf} from "@angular/common";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {Navigation} from "swiper/modules";
 import {ProjectComponent} from "../project/project.component";
 import { ResumeLibraryComponent, VacancyLibraryComponent } from '../../../../common-uteam-library';
@@ -20,6 +20,7 @@ import {VacancyComponent} from "../../view-card/vacancy/vacancy.component";
 import {SkeletonBlockComponent} from "../../../shared/ui-components/skeleton-block/skeleton-block.component";
 import {ProjectsNewsComponent} from "../../cards/projects-news/projects-news.component";
 import {SortByPipe} from "../../../pipes/sort-by.pipe";
+import {ProjectService} from "../../projects/project/project.service";
 
 @Component({
   selector: 'app-home-slider',
@@ -34,7 +35,8 @@ import {SortByPipe} from "../../../pipes/sort-by.pipe";
     VacancyComponent,
     SkeletonBlockComponent,
     ProjectsNewsComponent,
-    SortByPipe
+    SortByPipe,
+    RouterLink
   ],
   templateUrl: './home-slider.component.html',
   styleUrl: './home-slider.component.css',
@@ -47,6 +49,8 @@ export class HomeSliderComponent implements AfterViewInit, OnInit {
 
   @Input() items: any[] = [];
   @Input() type: 'project' | 'vacancy' | 'resume' | 'hackathon' | 'news' = 'project';
+
+  private projectService = inject(ProjectService);
 
   private router = inject(Router);
   isDesktop: boolean = true;
@@ -74,15 +78,24 @@ export class HomeSliderComponent implements AfterViewInit, OnInit {
 
   getCardUrl(cardValue: any, type: string, route: string): string {
     localStorage.setItem('routeTypeCard', type);
-    return this.router.createUrlTree([route, cardValue]).toString();
+    if (type === 'news') {
+      return this.router.createUrlTree(['project', cardValue.project.id]).toString();
+    }
+    return this.router.createUrlTree([route, cardValue.id]).toString();
   }
 
   onCardClick(event: MouseEvent, cardId: any, type: string): void {
     if (event.button === 1 || event.ctrlKey || event.metaKey) {
       return;
     }
-    event.preventDefault();
-    this.router.navigate([`/${type}`, cardId]);
+    if (type === 'news') {
+      // this.router.navigate([`/project`, cardId]);
+      this.projectService.setActiveTab('tape');
+    } else {
+      this.projectService.setActiveTab('aboutProject');
+    }
+    // event.preventDefault();
+    // this.router.navigate([`/${type}`, cardId]);
   }
 
   ngAfterViewInit() {

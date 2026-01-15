@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import { environment } from '../../../../environment';
 
 @Injectable({
@@ -11,13 +11,20 @@ export class ProjectService {
   constructor(private http: HttpClient) { }
 
   activeTab: 'aboutProject' | 'tape' | 'myTeam' = 'aboutProject'
-
+  activeTabSubject = new BehaviorSubject<'aboutProject' | 'tape' | 'myTeam'>('aboutProject');
+  public currentActiveTab$: Observable<any> = this.activeTabSubject.asObservable();
 
   currentProjectDataSubject = new BehaviorSubject<any>(null);
-
   // Observable for project data
   public currentProjectData$: Observable<any> = this.currentProjectDataSubject.asObservable();
 
+
+  private currentProjectIsOwnerSubject = new BehaviorSubject<boolean>(false);
+  public currentProjectIsOwner$: Observable<any> = this.currentProjectIsOwnerSubject.asObservable();
+
+  setActiveTab(tab: 'aboutProject' | 'tape' | 'myTeam'): void {
+    this.activeTabSubject.next(tab);
+  }
   // Method to update the project data
   setCurrentProjectData(data: any): void {
     this.currentProjectDataSubject.next(data);
@@ -62,14 +69,8 @@ export class ProjectService {
     this.currentProjectVacanciesSubject.next(null);
   }
 
-
-
-  private currentProjectIsOwnerSubject = new BehaviorSubject<boolean>(false);
-
-  public currentProjectIsOwner$: Observable<any> = this.currentProjectIsOwnerSubject.asObservable();
-
-
   setCurrentProjectIsOwner(data: boolean): void {
+    console.log('currentProjectIsOwnerSubject', data)
     this.currentProjectIsOwnerSubject.next(data);
   }
 

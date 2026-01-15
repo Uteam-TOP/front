@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { ParticipantComponent } from './participant/participant.component';
 import { PopUpResponseTeamService } from '../pop-up-response-team/pop-up-response-team.service';
 import { JobComponent } from './job/job.component';
@@ -23,8 +23,9 @@ export class TeamComponent implements OnInit {
   vacancies: any;
   currentProjectData: any;
   isOwner: boolean = false;
+  projectService = inject(ProjectService);
 
-  constructor(private popUpResponseTeamService: PopUpResponseTeamService, private projectService: ProjectService, private teamService: TeamService) { }
+  constructor(private popUpResponseTeamService: PopUpResponseTeamService, private teamService: TeamService) { }
 
   ngOnInit(): void {
 
@@ -70,7 +71,6 @@ export class TeamComponent implements OnInit {
 
   checkUserInTeam(itemsList: any[]): boolean {
     // Получаем данные пользователя из sessionStorage
-    console.log('itemsList', itemsList);
     const userNickname = localStorage.getItem('userNickname');
     if (!userNickname) {
       console.warn('Пользователь не авторизован!');

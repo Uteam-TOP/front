@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { ToolsComponent } from './components/tools/tools.component';
 import { TeamComponent } from './components/team/team.component';
 import { VacanciesComponent } from './components/vacancies/vacancies.component';
@@ -30,8 +30,9 @@ export class ProjectComponent implements OnInit {
 
   isPopupVisible: boolean = false;
   showUserRespondedMessage: boolean = false;
+  projectService = inject(ProjectService);
 
-  constructor(public projectService: ProjectService, private popUpResponseTeamService: PopUpResponseTeamService, private route: ActivatedRoute,
+  constructor(private popUpResponseTeamService: PopUpResponseTeamService, private route: ActivatedRoute,
     private personalDataService: PersonalDataService,
     private tokenService: TokenService) {
 
@@ -44,7 +45,6 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.paramId = this.route.snapshot.paramMap.get('id');
-    console.log('paramId', this.paramId);
 
     this.projectService.currentProjectIsOwner$.subscribe((value: boolean) => {
       this.isOwner = value;
@@ -78,6 +78,7 @@ export class ProjectComponent implements OnInit {
           this.projectService.setCurrentProjectIsOwner(false);
           return;
         }
+        console.log('visible', visible.nickname, projectData.owner.nickname);
 
         let nickname = localStorage.getItem('userNickname');
 
@@ -112,6 +113,14 @@ export class ProjectComponent implements OnInit {
       overlayElement.style.backgroundSize = 'cover';
       overlayElement.style.backgroundPosition = 'center';
     }
+
+    this.projectService.currentActiveTab$.subscribe(
+      result => {
+        if (result === 'tape') {
+          this.setActiveTab('tape');
+        }
+      }
+    )
   }
 
   setActiveTab(tab: 'aboutProject' | 'tape') {
