@@ -9,13 +9,13 @@
             <app-participant *ngFor="let item of itemsList " [itemData]="item"></app-participant>
         </div>
 
-        <a id="myTeam" (click)="setActiveTab()" *ngIf="isOwner">Открыть список команды</a>
+        <a id="myTeam" (click)="setActiveTab()" *ngIf="projectService.currentProjectIsOwner$ | async">Открыть список команды</a>
     </div>
 
-    <a *ngIf="!isOwner && !checkUserInTeam(itemsList)" class="container-users-btn"
+    <a *ngIf="!((projectService.currentProjectIsOwner$ | async) || isOwner) && !checkUserInTeam(itemsList)" class="container-users-btn"
         (click)="getPopUoP()">Хочу в команду</a>
 
-    <div *ngIf="isOwner && !checkUserInTeam(itemsList)" style="    display: flex;
+    <div *ngIf="((projectService.currentProjectIsOwner$ | async) || isOwner) && !checkUserInTeam(itemsList)" style="    display: flex;
         flex-direction: column;
         align-items: center;
         padding: 0 24px;">

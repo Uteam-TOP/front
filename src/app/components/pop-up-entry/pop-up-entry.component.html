@@ -44,28 +44,28 @@
             </div>
             <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
           </div>
-          <div class="input-group" *ngIf="popUpEntryService.isAuth == false">
-            <label for="telegram" class="text10opac05">Телеграм:</label>
-            <input #formField
-               type="text"
-               id="telegram"
-               formControlName="telegram"
-               placeholder="Введите телеграм"
-               autocomplete="off"
-               [ngClass]="{'invalid': authForm.get('telegram')?.invalid &&
-               (authForm.get('telegram')?.dirty && isError || authForm.get('telegram')?.touched && isError)}">
-            <div
-              *ngIf="authForm.get('telegram')?.invalid &&
-              (authForm.get('telegram')?.dirty || authForm.get('telegram')?.touched)"
-              class="error-message">
-              <div *ngIf="authForm.get('telegram')?.errors?.['required']">Телеграм обязательна для заполнения.</div>
-            </div>
-            <div *ngIf="authForm.get('telegram')?.errors?.['forbiddenWords']" class="error-message">
-              Запрещённые слова: <span *ngFor="let word of authForm.get('telegram')?.errors?.['forbiddenWords']">{{
-                word }},
-              </span>
-            </div>
-          </div>
+<!--          <div class="input-group" *ngIf="popUpEntryService.isAuth == false">-->
+<!--            <label for="telegram" class="text10opac05">Телеграм:</label>-->
+<!--            <input #formField-->
+<!--               type="text"-->
+<!--               id="telegram"-->
+<!--               formControlName="telegram"-->
+<!--               placeholder="Введите телеграм"-->
+<!--               autocomplete="off"-->
+<!--               [ngClass]="{'invalid': authForm.get('telegram')?.invalid &&-->
+<!--               (authForm.get('telegram')?.dirty && isError || authForm.get('telegram')?.touched && isError)}">-->
+<!--            <div-->
+<!--              *ngIf="authForm.get('telegram')?.invalid &&-->
+<!--              (authForm.get('telegram')?.dirty || authForm.get('telegram')?.touched)"-->
+<!--              class="error-message">-->
+<!--              <div *ngIf="authForm.get('telegram')?.errors?.['required']">Телеграм обязательна для заполнения.</div>-->
+<!--            </div>-->
+<!--            <div *ngIf="authForm.get('telegram')?.errors?.['forbiddenWords']" class="error-message">-->
+<!--              Запрещённые слова: <span *ngFor="let word of authForm.get('telegram')?.errors?.['forbiddenWords']">{{-->
+<!--                word }},-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
           <!-- <div class="input-group" *ngIf="popUpEntryService.isAuth == false">
             <label for="nickname" class="text10opac05">Никнейм:</label>
             <input #formField type="text" id="nickname" formControlName="nickname" placeholder="Введите никнейм"
