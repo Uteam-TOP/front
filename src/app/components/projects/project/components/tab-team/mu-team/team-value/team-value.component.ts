@@ -43,6 +43,7 @@ export class TeamValueComponent {
       this.selectedProfession = this.value;
       this.onChange(this.value);
     }
+    console.log('item', this.item);
   }
 
 
@@ -60,6 +61,10 @@ export class TeamValueComponent {
       this.value = tag.name;
 
     }
+  }
+
+  getUserNickname(): string | null {
+    return localStorage.getItem('userNickname');
   }
 
   getSelectedTagsText(): string {
