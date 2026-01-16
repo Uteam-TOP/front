@@ -40,6 +40,10 @@
     --font-Monts: "Montserrat";
     --second-family: "Comfortaa";
 
+    --button-profile-background: #e2e2e2;
+    --button-profile-border: 0px solid #806BFF;
+    --button-profile-color: #101010;
+
     --subtitle1: 14px;
     --text10: 10px;
     --text12: 12px;
@@ -122,8 +126,8 @@
     transition: border-bottom 0.3s ease, color 0.3s ease;
 
     &.active {
-        border-bottom: 1.6px solid #101010;
-        color: #101010;
+        border-bottom: 1.6px solid var(--font-color);
+        color: var(--font-color);
     }
 }
 

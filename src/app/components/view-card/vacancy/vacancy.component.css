@@ -6,7 +6,7 @@
     padding: 12px;
     width: 100%;
     break-inside: avoid;
-    background: #fff;
+    background: var(--background-card);
 }
 
 .title {
