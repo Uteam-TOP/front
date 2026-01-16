@@ -219,6 +219,10 @@ isImageAvatar(logo: any): boolean {
       document.documentElement.style.setProperty('--tag-background', 'rgba(243, 243, 243, 0.1)');
       document.documentElement.style.setProperty('--btnClosedFilter-color', 'rgba(227, 227, 230, 0.3)');
       document.documentElement.style.setProperty('--btnClosedFilter-hover', 'rgba(227, 227, 230, 1)');
+      document.documentElement.style.setProperty('--font-color-blue', '#fff');
+      document.documentElement.style.setProperty('--button-profile-background', 'rgba(0, 0, 0, .2)');
+      document.documentElement.style.setProperty('--button-profile-border', '1px solid #806BFF');
+      document.documentElement.style.setProperty('--button-profile-color', '#806BFF');
     } else {
       document.documentElement.style.setProperty('--background', '#f2f2f2');
       document.documentElement.style.setProperty('--background-card', '#fff');
@@ -237,6 +241,10 @@ isImageAvatar(logo: any): boolean {
       document.documentElement.style.setProperty('--tag-background', '#F3F3F3');
       document.documentElement.style.setProperty('--btnClosedFilter-color', 'rgba(51, 51, 52, 0.3)');
       document.documentElement.style.setProperty('--btnClosedFilter-hover', 'rgba(51, 51, 52, 1)');
+      document.documentElement.style.setProperty('--font-color-blue', '#5A4BB8');
+      document.documentElement.style.setProperty('--button-profile-background', '#e2e2e2');
+      document.documentElement.style.setProperty('--button-profile-border', '0px solid #806BFF');
+      document.documentElement.style.setProperty('--button-profile-color', '#101010');
     }
   }
 

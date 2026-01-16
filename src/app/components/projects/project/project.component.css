@@ -52,8 +52,12 @@ p {
     font-size: 14px;
     line-height: 114%;
     text-transform: uppercase;
-    color: #101010;
+    color: var(--font-color);
     cursor: pointer;
+}
+
+#returnToProject svg path {
+  fill: var(--font-color);
 }
 
 #returnToProject:hover span {

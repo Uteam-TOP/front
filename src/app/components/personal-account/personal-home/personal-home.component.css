@@ -111,7 +111,7 @@ p {
 .contacts {
     display: flex;
     flex-direction: column;
-  background-color: white;
+  background-color: var(--background-card);
   border-radius: 25px;
   gap: 25px;
   padding: 20px
@@ -349,7 +349,7 @@ p {
 
 .menuProfile a {
     flex: 1;
-    background: #e2e2e2;
+    background: var(--button-profile-background);
     border-radius: 2rem;
     padding: 0.8rem 1rem;
     display: flex;
@@ -362,7 +362,9 @@ p {
     font-weight: 500;
     font-size: 0.8rem;
     line-height: 120%;
-    color: #101010;
+    color: var(--button-profile-color);
+    border: var(--button-profile-border)
+
 }
 
 .menuProfile a:hover {
@@ -472,7 +474,7 @@ p {
 /* ----------- */
 
 .information {
-  background-color: white;
+  background-color: var(--background-card);
   padding: 20px 0;
   border-radius: 25px;
   flex: 2;
@@ -486,7 +488,7 @@ p {
 }
 
 .desktop-edit-profile {
-  background: #e2e2e2;
+  background: var(--button-profile-background);
   border-radius: 300px;
   padding: 0.7rem 1rem;
   display: flex;
@@ -499,7 +501,8 @@ p {
   font-weight: 500;
   font-size: 0.8rem;
   line-height: 120%;
-  color: #101010;
+  color: var(--button-profile-color);
+  border: var(--button-profile-border);
 }
 
 .buttons-mobile {

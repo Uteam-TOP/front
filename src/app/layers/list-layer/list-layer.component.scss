@@ -11,6 +11,10 @@
     display: flex;
     justify-content: space-between;
 
+    span {
+      color: var(--font-color);
+    }
+
     &__sort {
       display: flex;
       align-items: center;
