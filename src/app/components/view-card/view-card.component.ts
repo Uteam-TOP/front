@@ -158,5 +158,13 @@ export class ViewCardComponent implements OnInit {
     }
 
   }
+  getImageLink(): string {
+    if (this.dataCard.projectDto) {
+      return this.dataCard.projectDto.avatarLink;
+    } else {
+      return this.dataCard?.user?.imageLink
+    }
+
+  }
 
 }

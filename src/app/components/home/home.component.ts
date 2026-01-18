@@ -2,7 +2,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
   HostListener,
-  OnInit, viewChild, ViewChild, ElementRef, AfterViewInit,
+  OnInit, viewChild, ViewChild, ElementRef, AfterViewInit, OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundImgsComponent } from '../background-imgs/background-imgs.component';
@@ -48,7 +48,7 @@ import {SkeletonBlockComponent} from "../../shared/ui-components/skeleton-block/
     ])
   ]
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('projects') ProjectsDiv!: ElementRef;
   // @ViewChild('hackathons') HackathonsDiv!: ElementRef;
@@ -224,4 +224,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   protected readonly Navigation = Navigation;
+
+  ngOnDestroy() {
+    this.homeService.destroyHomeService();
+  }
 }

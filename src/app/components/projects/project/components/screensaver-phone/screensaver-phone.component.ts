@@ -4,6 +4,7 @@ import { ProjectService } from '../../project.service';
 import { CommonModule } from '@angular/common';
 import { SettingHeaderService } from '../../../../setting-header.service';
 import {AvatarPipe} from "../../../../../pipes/avatar.pipe";
+import {PopUpEntryService} from "../../../../pop-up-entry/pop-up-entry.service";
 
 @Component({
   selector: 'app-screensaver-phone',
@@ -21,7 +22,8 @@ export class ScreensaverPhoneComponent implements OnInit {
   projectData: any;
 
   constructor(private router: Router, private projectService: ProjectService,
-    private cdr: ChangeDetectorRef, public settingHeaderService:SettingHeaderService) { }
+    private cdr: ChangeDetectorRef, public settingHeaderService:SettingHeaderService,
+              private popUpEntryService: PopUpEntryService) { }
 
   ngOnInit(): void {
     this.projectService.currentProjectData$.subscribe((value: any) => {
@@ -62,8 +64,20 @@ export class ScreensaverPhoneComponent implements OnInit {
   toggleLike(event: Event) {
     event.stopPropagation();
     event.preventDefault();
-    this.isLiked = !this.isLiked;
-    this.cdr.detectChanges();
+    let userData = localStorage.getItem('authToken');
+    let userNickname = localStorage.getItem('autuserNicknamehToken');
+    if (!userData && !userNickname) {
+      this.popUpEntryService.showDialog();
+      return;
+    }
+
+    this.projectService.likeProject(this.detailsList.id).subscribe((result) => {
+      this.detailsList.userLike = !this.detailsList.userLike;
+      this.detailsList.likesCount = result;
+      this.cdr.detectChanges();
+    }, error => {
+      console.error('Ошибка при отправке лайка:', error);
+    });
   }
 
 }

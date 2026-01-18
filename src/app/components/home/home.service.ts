@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Injectable, OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
-import {BehaviorSubject, delay, Observable, take} from 'rxjs';
+import {BehaviorSubject, delay, Observable, Subject, take, takeUntil} from 'rxjs';
 import { environment } from '../../../environment';
 
 @Injectable({
@@ -22,6 +22,8 @@ export class HomeService {
 
   private typeToggleSubject = new BehaviorSubject<'vacancy' | 'hackathon' | 'project' | 'resume'>('vacancy');
   activeTypeToggle$ = this.typeToggleSubject.asObservable();
+
+  private destroy$ = new Subject<void>();
 
 
   private domain = `${environment.apiUrl}`;
@@ -60,7 +62,10 @@ export class HomeService {
   }
 
   getVacancies() {
-    this.getCardData('vacancy').subscribe(data => {
+    this.getCardData('vacancy')
+      .pipe(
+        takeUntil(this.destroy$)
+      ).subscribe(data => {
       if (data) {
         const filteredData = data.filter((vacancy: any) => vacancy.visibility !== "BAN");
         if (filteredData.length === 30) {
@@ -77,7 +82,10 @@ export class HomeService {
   }
 
   getResumes() {
-    this.getCardData('resume').subscribe(data => {
+    this.getCardData('resume')
+      .pipe(
+        takeUntil(this.destroy$)
+      ).subscribe(data => {
       if (data) {
         const filteredData = data.filter((resume: any) => resume.visibility !== "BAN");
         if (filteredData.length === 30) {
@@ -97,8 +105,13 @@ export class HomeService {
 
   getProject() {
 
-    this.getCardProjects().subscribe((data: any) => {
+    this.getCardProjects()
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe((data: any) => {
       if (data) {
+        this.projects = [];
         const filteredData = data.filter((project: any) => project.visibility !== "BAN");
         this.visibleNextPage = filteredData.length === 30;
 
@@ -115,11 +128,11 @@ export class HomeService {
   gethackathons() {
     this.getCardHackathons()
       .pipe(
-        take(1)
+        takeUntil(this.destroy$)
       )
       .subscribe((data: any) => {
       if (data) {
-        // const filteredData = data.data.filter((project: any) => project.visibility !== "BAN");
+        this.hackathons = [];
         if (data.length === 30) {
           this.visibleNextPage = true;
         } else {
@@ -294,6 +307,11 @@ export class HomeService {
     if (type === 'news') {
 
     }
+  }
+
+  destroyHomeService() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }
