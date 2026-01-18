@@ -73,9 +73,9 @@ export class ProjectComponent {
       return;
     }
 
-    this.projectService.likeProject(this.cardItem.id).subscribe(() => {
+    this.projectService.likeProject(this.cardItem.id).subscribe((result) => {
       this.cardItem.userLike = !this.cardItem.userLike;
-      this.cardItem.likesCount += this.cardItem.userLike ? 1 : -1;
+      this.cardItem.likesCount = result;
       this.cdr.detectChanges();
     }, error => {
       console.error('Ошибка при отправке лайка:', error);

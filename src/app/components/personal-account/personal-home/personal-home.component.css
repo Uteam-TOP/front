@@ -580,7 +580,9 @@ p {
     }
 
     .cards .app-card-vacancy-link {
-        width: 100%;
+        width: 80%;
+      min-width: 80%;
+      max-width: 80%;
     }
 
     .phone-btns {

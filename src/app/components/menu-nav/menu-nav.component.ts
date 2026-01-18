@@ -1,19 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
-import { SidebarModule } from 'primeng/sidebar';
-import { SettingHeaderService } from '../setting-header.service';
+import {CommonModule, Location} from '@angular/common';
+import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
+import {SidebarModule} from 'primeng/sidebar';
+import {SettingHeaderService} from '../setting-header.service';
 import {NavigationEnd, NavigationStart, Router, RouterLink} from '@angular/router';
-import { TokenService } from '../token.service';
-import { HomeService } from '../home/home.service';
-import { FormSettingService } from '../form/form-setting.service';
-import { Location } from '@angular/common';
-import { PopUpEntryService } from '../pop-up-entry/pop-up-entry.service';
-import { PopUpErrorCreateService } from '../pop-up-error-create/pop-up-error-create.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MenuNavService } from './menu-nav.service';
-import { environment } from '../../../environment';
-import { AvatarSelectionService } from '../pop-up-avatar/avatar-selection.service';
+import {TokenService} from '../token.service';
+import {HomeService} from '../home/home.service';
+import {FormSettingService} from '../form/form-setting.service';
+import {PopUpEntryService} from '../pop-up-entry/pop-up-entry.service';
+import {PopUpErrorCreateService} from '../pop-up-error-create/pop-up-error-create.service';
+import {MenuNavService} from './menu-nav.service';
+import {AvatarSelectionService} from '../pop-up-avatar/avatar-selection.service';
 import {MainMenuComponent} from "../main-menu/main-menu.component";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-menu-nav',
@@ -32,6 +30,10 @@ export class MenuNavComponent implements OnInit {
 
   showMainMenu: boolean = false;
 
+  private _previousUrl?: string;
+  private _currentUrl?: string;
+  private _routeHistory: string[] = [];
+
   // Pages where the main menu is displayed
   showMainMenuFor: string[] = ['/vacancies', '/hackathons', '/projects', '/resumes'];
 
@@ -43,13 +45,50 @@ export class MenuNavComponent implements OnInit {
     private popUpErrorCreateService: PopUpErrorCreateService, private popUpEntryService: PopUpEntryService,
     public menuNavService: MenuNavService, private avatarSelectionService:AvatarSelectionService
   ) {
+
+    this._routeHistory = [];
+    router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      // @ts-ignore
+      .subscribe((event: NavigationEnd) => {
+        this._setURLs(event);
+      });
+  }
+
+  private _setURLs(event: NavigationEnd): void {
+    this._previousUrl = this._currentUrl;
+    this._currentUrl = event.urlAfterRedirects;
+    this._routeHistory.push(event.urlAfterRedirects);
+    console.log('_routeHistory', this._routeHistory);
+  }
+
+  previousUrl() {
+    const substrings = ['resumes', 'vacancies', 'projects', 'hackathons'];
+    let previousUrl = '';
+    const includesOne = substrings.some(substring => {
+      previousUrl = substring;
+      return this._previousUrl?.includes(substring);
+    });
+
+    if (this._currentUrl?.includes('home')) {
+      this.router.navigate(['/']);
+    } else if (includesOne) {
+      this.router.navigate([`/${previousUrl}`]);
+    } else {
+      const userId = localStorage.getItem('userNickname');
+      if (userId !== null) {
+        this.router.navigate([`/${userId}`]);
+      } else {
+        this.router.navigate(['/']);
+      }
+
+    }
   }
 
 
   ngOnInit(): void {
 
     this.userAccess = localStorage.getItem('USaccess');
-
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
