@@ -9,13 +9,13 @@ import { environment } from '../../../../environment';
   providedIn: 'root'
 })
 export class PersonalDataService {
-  
+
   constructor(private http: HttpClient) { }
 
   visible: boolean = false;
 
   private domain = `${environment.apiUrl}`;
-   
+
   getCities(): Observable<any> {
     return this.http.get(`${this.domain}/main/cities`);
   }
@@ -44,6 +44,10 @@ export class PersonalDataService {
 
   validatorDomain(name:string){
     return this.http.get<{ isAvailable: boolean }>(`${this.domain}/secured/users/nicknames/${name}/isAvailable`);
+  }
+
+  getTags(type: string): Observable<any> {
+    return this.http.get(`${this.domain}/main/tag?types=${type}`);
   }
 
 }

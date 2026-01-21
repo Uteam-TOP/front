@@ -7,7 +7,14 @@ import { AuthGuard } from './components/personal-account/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule)
+    loadChildren: () => {
+      if (localStorage.getItem('isWasAuthenticated')) {
+        return import('./components/home/home.module').then(m => m.HomeModule)
+      } else {
+        return import('./pages/public-lending/public-lending.module').then(m => m.PublicLendingModule)
+      }
+
+    }
   },
   {
     path: 'news',
@@ -15,7 +22,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'lending',
+    path: 'landing',
     loadChildren: () => import('./pages/public-lending/public-lending.module').then(m => m.PublicLendingModule)
   },
   {

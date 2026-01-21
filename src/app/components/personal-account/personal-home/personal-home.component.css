@@ -513,6 +513,12 @@ p {
 
 }
 
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
 @media (max-width: 1198px) {
 
     .container {

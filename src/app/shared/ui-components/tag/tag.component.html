@@ -1,0 +1,8 @@
+<div class="tag" [ngClass]="{ 'with-competence-level': tag.competenceLevel }">
+  <p class="tagText">
+    {{tag.name}}
+  </p>
+  <p *ngIf="tag.competenceLevel" [ngStyle]="{ 'background': getTagColor(tag.competenceLevel) }" class="tag-level">
+    {{ getTagText(tag.competenceLevel) }}
+  </p>
+</div>

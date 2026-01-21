@@ -40,7 +40,16 @@
         </div>
         <div class="information-user" *ngIf="isDataComplete" style="white-space: pre-wrap;">
           <p class="title">Навыки</p>
-          Навыки не указаны
+          <div class="tags">
+            @if (dataCurrentUser.userSkills) {
+              @for (skill of dataCurrentUser.userSkills; track skill.id) {
+                <app-tag [tag]="skill"></app-tag>
+              }
+            } @else {
+              Навыки не указаны
+            }
+          </div>
+
         </div>
         <div class="edit-button">
           <a (click)="getRouting()" style="padding: 0.67rem 1rem;" class="desktop-edit-profile"
