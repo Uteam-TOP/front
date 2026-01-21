@@ -152,7 +152,7 @@ export class HomeService {
       this.selectPage = page;
     }
 
-    const queryParams = `page=${this.selectPage}&size=30`;
+    const queryParams = `page=${this.selectPage}&size=30&sorts=createdAt_DESC`;
 
     const token = localStorage.getItem('authToken');
 

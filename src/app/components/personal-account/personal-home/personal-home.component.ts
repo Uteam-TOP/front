@@ -29,11 +29,12 @@ import { PopUpChangePasswordComponent } from '../../pop-up-change-password/pop-u
 import { PopUpChangePasswordService } from '../../pop-up-change-password/pop-up-change-password.service';
 import {SortByPipe} from "../../../pipes/sort-by.pipe";
 import {UiButtonComponent} from "../../../shared/ui-components/ui-button/ui-button.component";
+import {TagComponent} from "../../../shared/ui-components/tag/tag.component";
 
 @Component({
   selector: 'app-personal-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, PersonalVacancyComponent, PersonalResumeComponent, ArchiveResumeComponent, ArchiveVacancyComponent, PopUpDeleteComponent, PopUpExitComponent, BanResumeComponent, BanVacancyComponent, PopUpChangePasswordComponent, PersonalProjectComponent, SortByPipe, UiButtonComponent],
+  imports: [CommonModule, RouterLink, PersonalVacancyComponent, PersonalResumeComponent, ArchiveResumeComponent, ArchiveVacancyComponent, PopUpDeleteComponent, PopUpExitComponent, BanResumeComponent, BanVacancyComponent, PopUpChangePasswordComponent, PersonalProjectComponent, SortByPipe, UiButtonComponent, TagComponent],
   templateUrl: './personal-home.component.html',
   styleUrl: './personal-home.component.css',
   animations: [

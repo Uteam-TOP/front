@@ -94,7 +94,7 @@
               <label class="text10opac05" for="city">Город:</label>
               <p-autoComplete #cityField id="city" formControlName="city" [suggestions]="filteredCities"
                 (completeMethod)="filterCities($event)" (onSelect)="onCitySelect($event)" field="name"
-                placeholder="Введите город" [emptyMessage]="'Города не найдены'" 
+                placeholder="Введите город" [emptyMessage]="'Города не найдены'"
                 [ngClass]="{'invalid': personalDataForm.get('city')?.invalid && (personalDataForm.get('city')?.dirty && isError || personalDataForm.get('city')?.touched && isError)}" />
               <div
                 *ngIf="personalDataForm.get('city')?.invalid && (personalDataForm.get('city')?.dirty || personalDataForm.get('city')?.touched)"
@@ -183,6 +183,19 @@
             </div>
           </div>
         </div>
+
+        <div class="chapter">
+          <div class="chapter-title">Навыки:</div>
+          <div class="chapter-content">
+            <app-tag-selected-level [placeholderValue]="'Выберете навыки'"
+                                    formControlName="userSkills"
+                                    (tagsChanged)="onTagsChanged($event, 'userSkills' )" [service]="personalDataService"></app-tag-selected-level>
+            <div *ngIf="personalDataForm.get('userSkills')?.invalid && personalDataForm.get('userSkills')?.touched" class="error-message">
+              Необходимо выбрать от 1 до 10 навыков
+            </div>
+          </div>
+        </div>
+
         <div class="chapter">
           <div class="chapter-title">Ссылка на аккаунт Uteam:</div>
           <div class="chapter-content chapter-domain">
