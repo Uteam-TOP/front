@@ -25,6 +25,7 @@ export class CreateEditProjectsComponent implements OnInit {
   cancel_btn: boolean = false;
   projectData: any = null;
   errorMessage: string = '';
+  isLoading: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router, private createEditProjectsService: CreateEditProjectsService, public projectService: ProjectService, private route: ActivatedRoute, public personalDataService: PersonalDataService) {
 
@@ -161,6 +162,7 @@ export class CreateEditProjectsComponent implements OnInit {
         console.log('Avatar updated successfully:', response);
       },
       error: (error) => {
+        this.errorMessage = 'Изображение слишком большое'
         console.error('Error updating avatar:', error);
       }
     });
@@ -243,6 +245,7 @@ export class CreateEditProjectsComponent implements OnInit {
 
   submitForm(isEdit: boolean): void {
     this.submitAttempted = true;
+    this.isLoading = true;
 
     Object.keys(this.form.controls).forEach((field) => {
       const control = this.form.get(field);
@@ -292,10 +295,17 @@ export class CreateEditProjectsComponent implements OnInit {
           this.projectService.setCurrentProjectData(data);
 
           // this.router.navigateByUrl(`/project/${data.nickname}`);
-            this.router.navigate(['project', data.nickname]);
+
+          setTimeout(() => {
+            if (!this.errorMessage) {
+              this.router.navigate(['project', data.nickname]);
+            }
+          }, 1000);
+
         },
         (error: any) => {
           console.log('error', error);
+          this.isLoading = false;
           this.errorMessage = error.error.userMessage;
         })
       } else {
@@ -308,10 +318,17 @@ export class CreateEditProjectsComponent implements OnInit {
             this.setAvatar(this.avatarImg, 'avatar', data.id);
           }
           this.projectService.setCurrentProjectData(data);
-          this.router.navigate(['project', data.nickname]);
+          this.isLoading = true;
+          setTimeout(() => {
+            if (!this.errorMessage) {
+              this.router.navigate(['project', data.nickname]);
+            }
+          }, 1000);
+
         },
         (error: any) => {
           console.log('error', error);
+          this.isLoading = false;
           this.errorMessage = error.error.userMessage;
         })
       }
