@@ -245,7 +245,7 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
 
   goToPage(event: INavigateLink):void {
     if (event.type) {
-      this.homeService.toggleType(event.type);
+      // this.homeService.toggleType(event.type);
     }
     this.router.navigate(event.url);
   }

@@ -6,11 +6,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CreateEditProjectsService } from './create-edit-projects.service';
 import { ProjectService } from '../project/project.service';
 import { forbiddenWordsValidator } from '../../../../validators/forbidden-words.validator';
+import {TagSelectedLevelComponent} from "../../form-components/tag-selected-level/tag-selected-level.component";
+import {PersonalDataService} from "../../personal-account/personal-data/personal-data.service";
 
 @Component({
   selector: 'app-create-edit-projects',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TypeProjectComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TypeProjectComponent, TagSelectedLevelComponent],
   templateUrl: './create-edit-projects.component.html',
   styleUrl: './create-edit-projects.component.css'
 })
@@ -24,7 +26,7 @@ export class CreateEditProjectsComponent implements OnInit {
   projectData: any = null;
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private router: Router, private createEditProjectsService: CreateEditProjectsService, public projectService: ProjectService, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private router: Router, private createEditProjectsService: CreateEditProjectsService, public projectService: ProjectService, private route: ActivatedRoute, public personalDataService: PersonalDataService) {
 
   }
   onTextAreaInput(event: Event, minHeight = 98) {
@@ -87,6 +89,7 @@ export class CreateEditProjectsComponent implements OnInit {
       developmentStage: ['', [Validators.required, Validators.maxLength(1500), forbiddenWordsValidator()]],
       tasks: ['', [Validators.required, Validators.maxLength(1500), forbiddenWordsValidator()]],
       nickname: ['', [Validators.required, forbiddenWordsValidator()]],
+      stack: [[]]
     });
   }
 
@@ -177,6 +180,7 @@ export class CreateEditProjectsComponent implements OnInit {
           developmentStage: user.developmentStage || '',
           tasks: user.tasks,
           nickname: user.nickname,
+          stack: user.stack,
         });
         this.projectService.isEditProject = true;
         const backgroundContainer = document.querySelector('.background-container') as HTMLElement;
@@ -260,6 +264,7 @@ export class CreateEditProjectsComponent implements OnInit {
         developmentStage: any;
         tasks: any;
         nickname: any;
+        stack: any[];
       } = {
         'title': data.title,
         'summary': data.summary,
@@ -270,6 +275,7 @@ export class CreateEditProjectsComponent implements OnInit {
         'developmentStage': data.developmentStage.replace(/\r?\n/g, '\n'),
         'tasks': data.tasks.replace(/\r?\n/g, '\n'),
         'nickname': data.nickname,
+        'stack': data.stack,
 
       };
 

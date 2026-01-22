@@ -412,7 +412,7 @@ export class PersonalDataComponent implements OnInit {
           localStorage.setItem('userNickname', formValues.domain);
           const userId = localStorage.getItem('userId')
           localStorage.setItem('fullAccess', 'b326b5062b2f0e69046810717534cb09');
-          // this.router.navigate([`/myaccount/${userId}/home`]);
+          this.router.navigate([`/myaccount/${userId}/home`]);
         },
         error => {
           console.error('Ошибка при отправке данных:', error);

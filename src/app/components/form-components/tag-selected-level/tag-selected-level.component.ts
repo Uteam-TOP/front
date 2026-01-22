@@ -32,13 +32,14 @@ export class TagSelectedLevelComponent implements ControlValueAccessor, OnChange
   tags: { id: number; name: string; nameEng: string; competenceLevel: number | null; type: string, color: string | null }[]  = [];
   @Input() type: string = 'SKILL';
   @Input() service: any;
+  @Input() isLevelAvl: boolean = true;
 
   @Output() tagsChanged = new EventEmitter<{ id: number; name: string; nameEng: string; competenceLevel: number | null; type: string, color: string | null }[]>();
 
   @ViewChild('dialog') dialog!: ElementRef;
 
   @ViewChild('selTag') selTag!: ElementRef;
-  
+
   showTagBlock = false;
   selectedTags: { id: number; name: string; nameEng: string; competenceLevel: number | null; type: string, color: string | null }[] = [];
   selectedTag: { id: number; name: string; nameEng: string; competenceLevel: number | null; type: string, color: string | null } | null = null;
@@ -78,24 +79,24 @@ export class TagSelectedLevelComponent implements ControlValueAccessor, OnChange
   //   this.service.getTags(this.type, this.page, 100).subscribe((results: any) => {
   //     if (results.length > 0) {
   //       this.page += 1;
-        
+
   //       const newTags = results.filter((newTag: any) => !this.tags.some(tag => tag.id === newTag.id));
-        
+
   //       this.tags = [...this.tags, ...newTags];
   //       this.updateFilteredTags();
   //     }
   //   });
   // }
-  
+
   loadMoreTags(): void {
     this.service.getTags(this.type).subscribe((results: any) => {
       if (results.length > 0) {
-  
+
         const newTags = results.filter((newTag: any) => !this.tags.some(tag => tag.id === newTag.id));
         this.tags = [...this.tags, ...newTags];
-        
+
         this.updateFilteredTags();
-  
+
       }
     });
   }
@@ -105,7 +106,7 @@ export class TagSelectedLevelComponent implements ControlValueAccessor, OnChange
       setTimeout(() => {
         const dialogRect = this.dialog.nativeElement.getBoundingClientRect();
         const elementRect = tagElement.getBoundingClientRect();
-  
+
         // Вычисляем прокрутку внутри контейнера
         const scrollTop = elementRect.top - dialogRect.top + this.dialog.nativeElement.scrollTop - offset;
         this.dialog.nativeElement.scrollTo({ top: scrollTop, behavior: 'smooth' });
@@ -122,32 +123,36 @@ export class TagSelectedLevelComponent implements ControlValueAccessor, OnChange
       tagElement.style.paddingTop = '6px';
       tagElement.style.paddingBottom = '0px';
     }
-    this.showTagBlock = true;
-   
+
+    if (this.isLevelAvl) {
+      this.showTagBlock = true;
+    } else {
+      this.selectLevel(1, tag.id, '#50b229', tag.type, tag.nameEng);
+    }
   }
 
   selectLevel(level: number, id: number, color: string = '', type: string, nameEng: string) {
     if (this.selectedTag) {
-      const tagId = this.selectedTag.id; 
+      const tagId = this.selectedTag.id;
       if (this.selectedTags.length < this.maxTags || this.selectedTags.some(t => t.name === this.selectedTag!.name)) {
         let existingTag = this.selectedTags.find(t => t.name === this.selectedTag!.name);
         if (existingTag) {
           existingTag.competenceLevel = level;
           existingTag.color = color;
         } else {
-          this.selectedTags.push({ 
-            name: this.selectedTag.name, 
-            id: this.selectedTag.id, 
-            competenceLevel: level, 
-            color: color, 
-            type: type, 
-            nameEng: nameEng 
+          this.selectedTags.push({
+            name: this.selectedTag.name,
+            id: this.selectedTag.id,
+            competenceLevel: level,
+            color: color,
+            type: type,
+            nameEng: nameEng
           });
         }
-        
+
         this.tags = this.tags.filter(t => t.id !== tagId);
         this.updateFilteredTags()
-        
+
         this.selectedTag = null;
         this.showTagBlock = false;
         this.searchQuery = '';
@@ -158,7 +163,7 @@ export class TagSelectedLevelComponent implements ControlValueAccessor, OnChange
       }
     }
   }
-  
+
 
   deleteTag(tag: { id: number; name: string; nameEng: string; competenceLevel: number | null; type: string, color: string | null }) {
     this.selectedTags = this.selectedTags.filter(t => t.id !== tag.id);
@@ -178,7 +183,7 @@ export class TagSelectedLevelComponent implements ControlValueAccessor, OnChange
     if (value && Array.isArray(value)) {
       this.selectedTags = value;
       this.tags = this.tags.filter(tag => !value.some(selectedTag => selectedTag.id === tag.id));
-    
+
       // Обновляем фильтрованные теги после удаления
       this.updateFilteredTags();
     } else {
@@ -255,20 +260,20 @@ export class TagSelectedLevelComponent implements ControlValueAccessor, OnChange
 
   //       this.languagesEng = true;
   //       this.filteredTags = this.tags
-  //         .filter(tag => tag.nameEng.toLowerCase().includes(this.searchQuery.toLowerCase())) 
-  //         // .sort((a, b) => a.nameEng.localeCompare(b.nameEng)); 
+  //         .filter(tag => tag.nameEng.toLowerCase().includes(this.searchQuery.toLowerCase()))
+  //         // .sort((a, b) => a.nameEng.localeCompare(b.nameEng));
   //     } else {
 
   //       this.languagesEng = false;
   //       this.filteredTags = this.tags
-  //         .filter(tag => tag.name.toLowerCase().includes(this.searchQuery.toLowerCase())) 
-  //         // .sort((a, b) => a.name.localeCompare(b.name)); 
+  //         .filter(tag => tag.name.toLowerCase().includes(this.searchQuery.toLowerCase()))
+  //         // .sort((a, b) => a.name.localeCompare(b.name));
   //     }
   //   }else{
   //     this.languagesEng = false;
   //     this.filteredTags = this.tags
-  //       .filter(tag => tag.name.toLowerCase().includes(this.searchQuery.toLowerCase())) 
-  //       // .sort((a, b) => a.name.localeCompare(b.name)); 
+  //       .filter(tag => tag.name.toLowerCase().includes(this.searchQuery.toLowerCase()))
+  //       // .sort((a, b) => a.name.localeCompare(b.name));
   //   }
   // }
 

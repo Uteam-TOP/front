@@ -18,11 +18,12 @@ import { ScreensaverPhoneComponent } from './components/screensaver-phone/screen
 import { PersonalDataService } from '../../personal-account/personal-data/personal-data.service';
 import { TokenService } from '../../token.service';
 import { combineLatest } from 'rxjs';
+import {TagComponent} from "../../../shared/ui-components/tag/tag.component";
 
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [CommonModule, ToolsComponent, ScreensaverPhoneComponent, TabTeamComponent, TeamComponent, AboutProjectComponent, VacanciesComponent, ReviewsComponent, PopUpResponseTeamComponent, TapeComponent, ScreensaverComponent, ArchiveVacanciesComponent],
+  imports: [CommonModule, ToolsComponent, ScreensaverPhoneComponent, TabTeamComponent, TeamComponent, AboutProjectComponent, VacanciesComponent, ReviewsComponent, PopUpResponseTeamComponent, TapeComponent, ScreensaverComponent, ArchiveVacanciesComponent, TagComponent],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css'
 })

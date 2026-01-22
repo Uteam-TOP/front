@@ -246,7 +246,8 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
         this.popUpEntryService.visible = false;
         this.avatarSelectionService.selectAvatar(data.imageLink)
         this.closePopUp()
-        this.router.navigate(['/']);
+        console.log('navigate');
+        window.location.reload();
       },
       (error) => {
       }
