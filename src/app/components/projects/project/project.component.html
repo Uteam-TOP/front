@@ -21,6 +21,23 @@
                 </ng-container>
             </div>
 
+          @if (projectService.activeTab == 'aboutProject') {
+            <div class="container-elements-left-context" style="white-space: pre-wrap;">
+              <p class="title">Технологии</p>
+              <div class="tags">
+                @if (projectData && projectData.stack.length) {
+                  @for (technology of projectData.stack; track technology.id) {
+                    <app-tag [tag]="technology"></app-tag>
+                  }
+                } @else {
+                  Технологии не указаны
+                }
+              </div>
+
+            </div>
+          }
+
+
             <ng-container *ngIf="projectService.activeTab == 'myTeam'">
                 <div style="padding-left: 24px;">
                     <a (click)="setActiveTab('aboutProject')" id="returnToProject">

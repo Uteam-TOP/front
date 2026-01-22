@@ -3,7 +3,7 @@
     <div class="tagItem" *ngFor="let tag of selectedTags">
       <div class="tag">
         <div>{{ tag.name }}</div>
-        <ng-container *ngIf="tag.competenceLevel !== 0">
+        <ng-container *ngIf="tag.competenceLevel !== 0 && isLevelAvl">
           <ng-container *ngIf="tag.competenceLevel">
             <div class="levelTag" [ngStyle]="{ 'background': getSkillsColor(tag.competenceLevel) }">
               {{ getCompetenceLevel(tag.competenceLevel) }}
