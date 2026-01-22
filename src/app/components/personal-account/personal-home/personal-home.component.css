@@ -519,6 +519,11 @@ p {
   gap: 0.3rem;
 }
 
+::ng-deep .menu_btn {
+  flex-wrap: wrap;
+}
+
+
 @media (max-width: 1198px) {
 
     .container {

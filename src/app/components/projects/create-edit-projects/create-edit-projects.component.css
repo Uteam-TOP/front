@@ -221,6 +221,11 @@ textarea::placeholder {
   margin: 5px;
 }
 
+.is-loading {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 
 @media (max-width: 1198px) {
     .container {

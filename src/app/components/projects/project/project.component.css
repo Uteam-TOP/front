@@ -71,6 +71,7 @@ p {
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 500;
+  color: var(--font-color);
 }
 
 .tags {
@@ -78,6 +79,7 @@ p {
   flex-wrap: wrap;
   gap: 0.3rem;
   margin-top: 10px;
+  color: var(--font-color);
 }
 
 

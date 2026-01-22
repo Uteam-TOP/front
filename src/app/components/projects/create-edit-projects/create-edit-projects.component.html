@@ -222,7 +222,7 @@
                     соответствии с Федеральным законом от 27.07.2006 года №152-ФЗ «О персональных данных», на условиях и
                     для целей, определенных в Согласии на обработку персональных данных
                 </p>
-                <div class="container-elements-right-btnBlock">
+                <div class="container-elements-right-btnBlock" [ngClass]="{'is-loading': isLoading}">
                   <div *ngIf="errorMessage"
                        class="error-message">
                     <p>{{ errorMessage }}</p>

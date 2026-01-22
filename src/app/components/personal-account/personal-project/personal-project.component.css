@@ -196,6 +196,7 @@
     justify-content: space-around;
     gap: 1rem;
     margin-top: 1rem;
+    flex-wrap: wrap;
 }
 .menu_btn a{
     flex: 1;
