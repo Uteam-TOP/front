@@ -9,18 +9,17 @@
     justify-content: center;
     align-items: center;
     z-index: 999;
-    
+
 }
 
 .popup {
-    background: #fff25f;
+    background: var(--background-card);
     padding: 20px;
     border-radius: 8px;
     width: 42vw;
     /* height: 38vh; */
     max-height: 90dvh;
     position: relative;
-    border: 1px solid #fff25f;
     border-radius: 20px;
 
     display: flex;
@@ -40,6 +39,15 @@
     width: 24px;
     height: 24px;
     z-index: 1000;
+}
+
+label {
+  color: var(--font-color);
+}
+
+input {
+  background: var(--background);
+  border-color: var(--background-archive) !important;
 }
 
 .close-button:hover svg path {
@@ -137,6 +145,9 @@
     }
 }
 
+.message {
+  color: var(--font-color);
+}
 
 .error-message {
     color: #d9534f;
