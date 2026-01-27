@@ -59,7 +59,6 @@ export class MenuNavComponent implements OnInit {
     this._previousUrl = this._currentUrl;
     this._currentUrl = event.urlAfterRedirects;
     this._routeHistory.push(event.urlAfterRedirects);
-    console.log('_routeHistory', this._routeHistory);
   }
 
   previousUrl() {
@@ -76,10 +75,11 @@ export class MenuNavComponent implements OnInit {
       this.router.navigate([`/${previousUrl}`]);
     } else {
       const userId = localStorage.getItem('userNickname');
-      if (userId !== null) {
+
+      if (userId && this._previousUrl?.includes(userId)) {
         this.router.navigate([`/${userId}`]);
       } else {
-        this.router.navigate(['/']);
+        this.location.back();
       }
 
     }

@@ -1,367 +1,754 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    width: 75%;
-    margin: 0 auto;
-    margin-top: 100px;
-    box-sizing: border-box;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 100px;
+  box-sizing: border-box;
+  gap: 2rem;
 
-    position: relative;
-    z-index: 10;
+  position: relative;
+  z-index: 10;
+}
+
+.contacts {
+  padding-top: 3rem;
 }
 
 .first-part {
-    display: flex;
-    flex-direction: row;
-    gap: 3rem;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
 }
+
 
 .information,
 .contacts {
-    flex: 1;
-}
-
-.titleLogin {
-    font-family: var(--font-Monts);
-    font-weight: 400;
-    font-size: 0.9rem;
-    line-height: 117%;
-    text-transform: uppercase;
-    color: var(--font-color);
-}
-
-.btnLogin {
-    display: flex;
-    border-radius: 300px;
-    padding: 1rem 1.2rem;
-    margin-top: 2rem;
-    width: 100%;
-    background: #e2e2e2;
-    font-family: var(--font-Monts);
-    font-weight: 400;
-    font-size: 0.9rem;
-    line-height: 120%;
-    color: #101010;
-    justify-content: center;
-    text-decoration: none;
-}
-
-.title {
-    font-family: var(--font-Monts);
-    font-weight: 500;
-    font-size: var(--text12);
-    line-height: 140%;
-    color: var(--font-color);
-}
-
-.ProfileChapter {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    padding: 1rem 2rem 0px 25px;
+  flex: 1;
 }
 
 .skeleton-tag {
-    width: 100px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
+.title {
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: var(--text12);
+  line-height: 140%;
+  color: var(--font-color);
+}
+
+.titleActive {
+  color: #fff !important;
+}
+
+.archiveMessage {
+  color: #959292 !important;
+}
+
+.ProfileChapter {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1rem 2rem 0px 25px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.fullName {
+  font-family: var(--font-Monts);
+  font-weight: 600;
+  font-size: var(--text16);
+  line-height: 117%;
+  color: var(--font-color);
+}
 
 .information-user {
-    margin-top: 1rem;
-    font-family: var(--font-Monts);
-    font-weight: 400;
-    font-size: var(--text14);
-    line-height: 117%;
-    color: var(--font-color);
-    margin-left: 25px;
+  margin-top: 1rem;
+  font-family: var(--font-Monts);
+  font-weight: 400;
+  font-size: 0.85rem;
+  line-height: 117%;
+  color: var(--font-color);
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .personal-details {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin-top: 1rem;
-    margin-left: 25px;
-    color: var(--font-color);
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  color: var(--font-color);
+  font-size: var(--text14);
+  margin-top: 3px;
 }
 
 p {
-    margin: 0;
-
+  margin: 0;
 }
 
 .location,
 .age {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 
-    font-family: var(--font-Monts);
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 117%;
+  font-family: var(--font-Monts);
+  font-weight: 400;
+  font-size: 0.85rem;
+  line-height: 117%;
 }
 
 .contacts {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-left: 25px;
-}
-
-.date_registration {
-    display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    font-family: var(--font-Monts);
-    font-weight: 500;
-    font-size: 0.8rem;
-    line-height: 117%;
-    color: var(--font-color);
-    gap: 0.5rem;
-    margin-right: 25px;
-}
-
-.ProfileChapter {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    gap: 1rem;
-    padding: 1rem 2rem 0px 2rem;
-}
-
-.profile {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    margin-top: 1rem;
-}
-.logoImg {
-    width: 6vw;
-  height: 6vw;
-    border-radius: 50%
-}
-.logo {
-    width: 100px;
-}
-
-.fullName {
-    margin: 0;
-    font-family: var(--font-Monts);
-    font-weight: 500;
-    font-size: var(--text16);
-    line-height: 117%;
-    color: var(--font-color);
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-card);
+  border-radius: 25px;
+  gap: 25px;
+  padding: 20px
 }
 
 .chapterCard-title {
-    margin-bottom: 0.5rem;
-    font-family: var(--font-Monts);
-    font-weight: 500;
-    font-size: var(--text12);
-    line-height: 140%;
-    color: var(--font-color);
+  margin-bottom: 0.5rem;
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: var(--text12);
+  line-height: 117%;
+  color: var(--font-color);
 }
 
 .contacts-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 20px;
-    padding: 6px 12px 6px 8px;
-    background: #e2e2e2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 20px;
+  padding: 6px 12px 6px 8px;
+  background: #e2e2e2;
+
 }
 
 .contacts-item:hover {
-    background: #B9AEFF;
+  background: #B9AEFF;
 }
 
 
 .contacts-item img {
-    object-fit: contain;
+  object-fit: contain;
 }
 
 .contacts-item p {
-    margin: 0;
-    font-family: var(--font-Monts);
-    font-weight: 500;
-    font-size: 0.75rem;
-    line-height: 120%;
-    text-decoration: underline;
-    text-decoration-skip-ink: none;
-    color: #101010;
+  margin: 0;
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 120%;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #101010;
 }
 
 
+.date_registration {
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: var(--text12);
+  line-height: 117%;
+  margin-top: 3px;
+  color: #8B8B8B;
+}
 
+.achievements {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.message-profile {
+  border: 1px solid #fff25f;
+  border-radius: 20px;
+  padding: 24px;
+  background: #FFF25F;
+}
+
+.title-message {
+  margin: 0;
+  margin-bottom: 1rem;
+  font-family: var(--font-Monts);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 117%;
+  text-transform: uppercase;
+  color: #101010;
+}
+
+.text-message {
+  width: 75%;
+  margin: 0;
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 117%;
+  color: #101010;
+}
 
 
 /* резюме и вакансии */
 
 .second-path {
-    display: flex;
-    flex-direction: row;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  margin-left: 40px;
+
+  .tab {
+    background-color: #50B229;
+    color: white;
+    padding: 7px 40px;
+    border-radius: 10px 10px 0 0;
+    margin-left: -10px;
+    cursor: pointer;
+    z-index: 15;
+
+    span {
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+  .tab-blue {
+    background-color: #806BFF;
+    z-index: 10;
+  }
+
+  .tab-mint {
+    background-color: #23B9B0;
+    z-index: 5;
+  }
+
+  .active {
+    padding: 9px 40px;
+    z-index: 30;
+    margin-top: -3px;
+  }
 }
 
 .container-resume,
 .container-vacancy {
-    flex: 1;
-    border-radius: 1.5rem;
-    background: #806bff;
+  border-radius: 1.5rem;
+  background: #806bff;
+  margin-bottom: 1rem;
 }
 
 .title-cards {
-    font-family: var(--font-Monts);
-    font-weight: 500;
-    font-size: var(--text14);
-    line-height: 117%;
-    color: #fff;
-    padding: 2rem 2.2rem;
+  width: 110px;
+  font-family: var(--font-Monts);
+  font-weight: 600;
+  font-size: var(--text14);
+  line-height: 117%;
+  color: var(--font-color);
+  padding: 2rem 0 2rem 2.2rem;
+  text-transform: uppercase;
+  margin-top: 10px !important;
 }
 
 .cards {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-bottom: 1rem;
+  display: flex;
+  gap: 0.7rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.archive-resume,
+.archive-vacancy {
+  border-radius: 1.5rem;
+  background: var(--background-archive);
+}
+
+
+.message-cards {
+  padding: 0 32px 2.2rem;
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: var(--text13);
+  line-height: 117%;
+  text-transform: uppercase;
+  color: var(--font-color);
 }
 
 .logoImg {
-    width: 6vw;
+  object-fit: cover;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
 }
 
-.phoneDate{
-    display: none;
+.title {
+  font-weight: 700;
+  font-size: var(--text14);
+  margin: 5px 0;
 }
 
-.app-card-vacancy-link{
-    text-decoration: none;
+.container-resume-header,
+.container-vacancy-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 }
+
+.container-resume-header-newCards,
+.container-vacancy-header-newCards {
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  padding: 15px;
+  margin-top: 2rem;
+  margin-right: 2rem;
+  max-width: 200px;
+  height: 38px;
+  background: #84dd2c;
+
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 117%;
+  color: #fff;
+}
+
+.container-resume-header-newCards:hover,
+.container-vacancy-header-newCards:hover {
+  background: #B9AEFF;
+}
+
+.menuProfile {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin: 0 auto;
+  width: 60%;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.menuProfile a {
+  flex: 1;
+  background: var(--button-profile-background);
+  border-radius: 2rem;
+  padding: 0.8rem 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: 0.8rem;
+  line-height: 120%;
+  color: var(--button-profile-color);
+  border: var(--button-profile-border)
+
+}
+
+.menuProfile a:hover {
+  background: #b9aeff;
+}
+
+.block-switchCards {
+  display: none;
+  justify-content: flex-end;
+}
+
+.switchCards {
+  font-family: var(--font-Monts);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 114%;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--font-color);
+}
+
+.switchCards:hover {
+  color: #676768;
+}
+
+
+
+.phone-btns,
+.phoneDate {
+  display: none;
+}
+
+.phone-btns-edit {
+  width: 100%;
+}
+
+.phone-btns-create {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.phone-btns-create a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.phone-btns-edit a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 300px;
+  padding: 8px 12px;
+  width: 100%;
+  height: 40px;
+  background: #e2e2e2;
+  font-family: var(--font-Monts);
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 120%;
+  color: #101010;
+}
+
+.phone-btns-edit a:hover {
+  background: #b9aeff;
+}
+
+.additionalBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 44px;
+  gap: 0.5rem;
+  border-radius: 30px;
+  background: #84DD2C;
+  padding: 1rem;
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: 0.8rem;
+  line-height: 117%;
+  color: #fff;
+}
+
+.additionalBtn:hover {
+  background: #5A4BB8;
+}
+
+
+.container-cards {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.app-card-vacancy-link {
+  text-decoration: none;
+  flex: 1;
+  min-width: 340px;
+  max-width: 340px;
+}
+
+/* ----------- */
+
+.information {
+  background-color: var(--background-card);
+  padding: 20px 0;
+  border-radius: 25px;
+  flex: 2;
+}
+
+.edit-button {
+  display: flex;
+  justify-content: end;
+  margin: 0 25px;
+  padding-top: 15px
+}
+
+.desktop-edit-profile {
+  background: var(--button-profile-background);
+  border-radius: 300px;
+  padding: 0.7rem 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: 0.8rem;
+  line-height: 120%;
+  color: var(--button-profile-color);
+  border: var(--button-profile-border);
+}
+
+.buttons-mobile {
+  margin: 0 15px 20px 15px;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+::ng-deep .menu_btn {
+  flex-wrap: wrap;
+}
+
+
 @media (max-width: 1198px) {
-    .container {
-        z-index: 1;
-        margin-top: 120px;
-    }
+
+  .container {
+    z-index: 1;
+    margin-top: 120px;
+  }
+
+  .second-path {
+    flex-direction: column;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .cards .app-card-vacancy-link {
+    width: 49%;
+  }
 }
 
-@media (max-width : 865px) {
+/* Media queries for tablets */
+@media (max-width: 1024px) {
+  .container {
+    width: 90%;
+  }
 
-    .first-part,
-    .second-path {
-        flex-direction: column;
-    }
+  .text-message {
+    width: 100%;
+  }
+
+  .ProfileChapter {
+    padding: 1rem 1.5rem 0px 1.5rem;
+  }
+
+  .information-user {
+    font-size: 0.9rem;
+
+  }
+
+  .title-cards {
+    padding: 1.5rem 1.8rem;
+  }
+
+  .cards {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .menuProfile {
+    width: 100%;
+  }
+
 }
 
-@media (max-width: 789.98px) {
+/* Media queries for phones */
+@media (max-width: 768px) {
 
-    .title-cards{
-        /* font-size: 0.7rem; */
-        padding: 0.8rem 1rem;
-        width: 95%;
-        margin: 0 auto;
-    }
+  .container-resume-header-newCards,
+  .container-vacancy-header-newCards {
+    display: none;
+  }
 
-    .phoneDate{
-        display: flex;
-        margin-left: 10px;
-    }
-    .desktopDate{
-        display: none !important;
-    }
-    .container {
-        width: 100%;
-        margin-top: 100px;
-    }
+  .cards .app-card-vacancy-link {
+    width: 80%;
+    min-width: 80%;
+    max-width: 80%;
+  }
 
-    .information-user {
-        margin-left: 10px;
-    }
+  .phone-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
 
-    .first-part {
-        width: 95%;
-        margin: 0 auto;
-        padding: 1rem 0;
-    }
+  .contacts {
+    margin-left: 0;
+  }
 
-    .fullName {
-        font-size: var(--text14);
-    }
+  .phone-btns-create a {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 
-    .ProfileChapter {
-        padding: 0 1rem 0px 0.5rem;
-    }
+  .desktopDate,
+  .desktop-edit-profile {
+    display: none !important;
+  }
 
-    .personal-details {
-        margin-left: 10px;
-    }
+  .phoneDate {
+    display: flex;
+  }
 
-    .logoImg {
-        width: 100%;
-    }
-
-    .contacts {
-        padding-top: 0 !important;
-        margin-left: 10px;
-    }
-
-    .date_registration {
-        margin-top: 1rem;
-    }
-
-    .date_registration span {
-        font-size: 0.7rem;
-    }
+  .container-cards {
+    gap: 1rem;
+  }
 
 
-    .location-value {
-        font-size: 0.9rem;
-    }
+  .information-user {
+    margin-left: 10px;
+  }
 
-    /* .chapterCard-title {
-        font-size: 0.7rem;
-    } */
-    .container-resume, .container-vacancy{
-        padding-bottom: 1.5rem;
-    }
+  .logo {
+    width: 100px;
+  }
 
+  .logoImg {
+    width: 100% !important;
+    height: auto;
+  }
+
+  .container {
+    width: 95%;
+  }
+
+
+  .second-path {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .first-part {
+    margin: 1rem;
+    width: 95%;
+    flex-direction: column;
+    gap: 1rem;
+
+  }
+
+  .personal-details {
+    margin-left: 0;
+  }
+
+  .ProfileChapter {
+    padding: 0 1rem 0px 0.5rem;
+  }
+
+  .fullName {
+    font-size: var(--text16);
+    font-weight: 600;
+  }
+
+  .information-user {
+    font-size: 0.8rem;
+  }
+
+
+  .cards {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    padding-bottom: 0.3rem;
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .date_registration {
+    margin-top: 1rem;
+    justify-content: end;
+    text-align: center;
+  }
+
+  .date_registration span {
+    font-size: 0.7rem;
+  }
+
+  .menuProfile {
+    flex-direction: column;
+  }
+
+  .information-user,
+  .location-value {
+    font-size: 0.9rem;
+  }
+
+  .container-resume,
+  .container-vacancy {
+    padding-bottom: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .title-cards {
+    font-size: var(--text12);
+    padding: 0.8rem 1rem;
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .container-cards {
     .cards {
-        padding-left: 0.3rem;
-        padding-right: 0.3rem;
-        padding-bottom: 0.3rem;
-        width: 95%;
-        margin: 0 auto;
+      flex-direction: row;
+      overflow: scroll;
+      scrollbar-width: none;
+      flex-wrap: nowrap;
     }
+
+  }
 }
 
 
+/* Media queries for small phones */
 @media (max-width: 480px) {
+  .container {
+    width: 100%;
+  }
 
-    .title {
-        font-size: 0.7rem;
-    }
+  .ProfileChapter {
+    padding: 0.5rem 0.5rem 0px 0;
+  }
 
-    .location-value {
-        font-size: 0.9rem;
-    }
+  .information-user,
+  .location-value {
+    font-size: 0.9rem;
+  }
+}
 
-    .ProfileChapter {
-        padding: 0.5rem 0.5rem 0px 0.5rem;
-    }
+@media (max-width: 390px) {
+  .phone-btns-create a {
+    text-align: center;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
 
-    .information-user {
-        margin-left: 10px;
-    }
-
-    .personal-details {
-        margin-left: 10px;
-    }
 }

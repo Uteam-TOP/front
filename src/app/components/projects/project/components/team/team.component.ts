@@ -7,6 +7,7 @@ import { ProjectService } from '../../project.service';
 import { TeamService } from './team.service';
 import {catchError, concatMap, first, map, mergeMap, of, switchMap, take} from "rxjs";
 import {filter} from "rxjs/operators";
+import {PopUpEntryService} from "../../../../pop-up-entry/pop-up-entry.service";
 
 @Component({
   selector: 'app-team',
@@ -25,7 +26,8 @@ export class TeamComponent implements OnInit {
   isOwner: boolean = false;
   projectService = inject(ProjectService);
 
-  constructor(private popUpResponseTeamService: PopUpResponseTeamService, private teamService: TeamService) { }
+  constructor(private popUpResponseTeamService: PopUpResponseTeamService, private teamService: TeamService,
+              private popUpEntryService: PopUpEntryService) { }
 
   ngOnInit(): void {
 
@@ -83,6 +85,12 @@ export class TeamComponent implements OnInit {
 
 
   getPopUoP() {
+    let userData = localStorage.getItem('authToken');
+    let userNickname = localStorage.getItem('autuserNicknamehToken');
+    if (!userData && !userNickname) {
+      this.popUpEntryService.showDialog(true, 'Войдите в аккаунт, чтобы присоединиться к команде');
+      return;
+    }
     this.popUpResponseTeamService.showPopup()
   }
 
