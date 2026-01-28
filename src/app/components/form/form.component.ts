@@ -277,6 +277,7 @@ export class FormComponent implements OnInit {
       if (id) {
         this.formSettingService.putDataById(typeEndpoint, formData, id).subscribe(
           (response) => {
+            this.saveChangesPopupService.hidePopup();
             this.handleSuccess(response, typeEndpoint)
           },
           (error: any) => {
@@ -292,6 +293,7 @@ export class FormComponent implements OnInit {
           if(this.isProject && this.idProject){
             this.formSettingService.addToProject(response.id, this.idProject).subscribe(
               (response) => {
+                this.saveChangesPopupService.hidePopup();
                 // this.handleSuccess(response, typeEndpoint)
               })
           }

@@ -22,9 +22,15 @@
     width: 100%;
     align-items: center;" *ngIf="!popUpEntryService.confirmAuth && !popUpEntryService.accessVerification">
         <form [formGroup]="authForm" autocomplete="off" style="width: 100%;">
-          @if (popUpEntryService.withMessage && popUpEntryService.message) {
-            <p class="message">{{ popUpEntryService.message }}</p>
-          }
+          <p class="message">
+            @if (popUpEntryService.withMessage && popUpEntryService.message) {
+              {{ popUpEntryService.message }}
+            } @else if (!popUpEntryService.isRegistration) {
+              Введите e-mail, чтобы войти
+            } @else {
+              Введите e-mail, чтобы зарегистрироваться
+            }
+          </p>
           <div class="input-group" style="    width: 100%;">
             <label for="email" class="text10opac05">Почта:</label>
             <input #formField

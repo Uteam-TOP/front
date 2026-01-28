@@ -27,7 +27,14 @@ export class CreateEditProjectsComponent implements OnInit {
   errorMessage: string = '';
   isLoading: boolean = false;
 
-  constructor(private fb: FormBuilder, private router: Router, private createEditProjectsService: CreateEditProjectsService, public projectService: ProjectService, private route: ActivatedRoute, public personalDataService: PersonalDataService) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private createEditProjectsService: CreateEditProjectsService,
+    public projectService: ProjectService,
+    private route: ActivatedRoute,
+    public personalDataService: PersonalDataService
+  ) {
 
   }
   onTextAreaInput(event: Event, minHeight = 98) {
@@ -92,6 +99,11 @@ export class CreateEditProjectsComponent implements OnInit {
       nickname: ['', [Validators.required, forbiddenWordsValidator()]],
       stack: [[]]
     });
+
+    this.form.valueChanges.subscribe(() => {
+      this.isLoading = false;
+      this.errorMessage = '';
+    })
   }
 
   @ViewChild('fileBackgroundInput') fileBackgroundInput!: ElementRef<HTMLInputElement>;
@@ -113,6 +125,8 @@ export class CreateEditProjectsComponent implements OnInit {
 
   // Общая функция для изменения изображения
   onImageChange(event: Event, target: 'background' | 'logo'): void {
+    this.errorMessage = '';
+    this.isLoading = false;
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const file = input.files[0];
@@ -225,6 +239,7 @@ export class CreateEditProjectsComponent implements OnInit {
   }
 
   formChanges() {
+    this.isLoading = false;
     this.form.valueChanges.subscribe((changes) => {
       if (this.areAllFieldsEmpty()) {
         this.cancel_btn = false;
@@ -253,7 +268,7 @@ export class CreateEditProjectsComponent implements OnInit {
       control?.markAsTouched();
     });
 
-    if (this.form.valid) {
+    if (this.form.valid && !this.errorMessage) {
 
       let data = this.form.value
       let newData: {
