@@ -39,8 +39,8 @@ export class PopUpResponseTeamComponent {
   }
 
   submit(): void {
-    
-    this.popUpResponseTeamService.setTeamProject(this.textarea).subscribe(
+
+    this.popUpResponseTeamService.setTeamProjectWithResume().subscribe(
       (response: any) => {
         this.projectService.updateUserAppliedStatus();
         this.isCurrect = true;

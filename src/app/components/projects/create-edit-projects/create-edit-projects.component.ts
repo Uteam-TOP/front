@@ -6,11 +6,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CreateEditProjectsService } from './create-edit-projects.service';
 import { ProjectService } from '../project/project.service';
 import { forbiddenWordsValidator } from '../../../../validators/forbidden-words.validator';
+import {TagSelectedLevelComponent} from "../../form-components/tag-selected-level/tag-selected-level.component";
+import {PersonalDataService} from "../../personal-account/personal-data/personal-data.service";
 
 @Component({
   selector: 'app-create-edit-projects',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TypeProjectComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TypeProjectComponent, TagSelectedLevelComponent],
   templateUrl: './create-edit-projects.component.html',
   styleUrl: './create-edit-projects.component.css'
 })
@@ -22,7 +24,17 @@ export class CreateEditProjectsComponent implements OnInit {
   oldNickname: string = '';
   cancel_btn: boolean = false;
   projectData: any = null;
-  constructor(private fb: FormBuilder, private router: Router, private createEditProjectsService: CreateEditProjectsService, public projectService: ProjectService, private route: ActivatedRoute) {
+  errorMessage: string = '';
+  isLoading: boolean = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private createEditProjectsService: CreateEditProjectsService,
+    public projectService: ProjectService,
+    private route: ActivatedRoute,
+    public personalDataService: PersonalDataService
+  ) {
 
   }
   onTextAreaInput(event: Event, minHeight = 98) {
@@ -79,13 +91,19 @@ export class CreateEditProjectsComponent implements OnInit {
       title: ['', [Validators.required, Validators.maxLength(200), forbiddenWordsValidator()]],
       summary: ['', [Validators.required, Validators.maxLength(300), forbiddenWordsValidator()]],
       type: [, Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       telegram: ['', [Validators.required, forbiddenWordsValidator()]],
       description: ['', [Validators.required, Validators.maxLength(1500), forbiddenWordsValidator()]],
       developmentStage: ['', [Validators.required, Validators.maxLength(1500), forbiddenWordsValidator()]],
       tasks: ['', [Validators.required, Validators.maxLength(1500), forbiddenWordsValidator()]],
       nickname: ['', [Validators.required, forbiddenWordsValidator()]],
+      stack: [[]]
     });
+
+    this.form.valueChanges.subscribe(() => {
+      this.isLoading = false;
+      this.errorMessage = '';
+    })
   }
 
   @ViewChild('fileBackgroundInput') fileBackgroundInput!: ElementRef<HTMLInputElement>;
@@ -107,6 +125,8 @@ export class CreateEditProjectsComponent implements OnInit {
 
   // Общая функция для изменения изображения
   onImageChange(event: Event, target: 'background' | 'logo'): void {
+    this.errorMessage = '';
+    this.isLoading = false;
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const file = input.files[0];
@@ -147,15 +167,16 @@ export class CreateEditProjectsComponent implements OnInit {
   }
 
 
-  setAvatar(file: any, endpoint: string): void {
+  setAvatar(file: any, endpoint: string, id: number): void {
     const formData = new FormData();
     formData.append('avatar', file);
 
-    this.createEditProjectsService.setAvatar(formData, endpoint, this.projectData.id).subscribe({
+    this.createEditProjectsService.setAvatar(formData, endpoint, id).subscribe({
       next: (response) => {
         console.log('Avatar updated successfully:', response);
       },
       error: (error) => {
+        this.errorMessage = 'Изображение слишком большое'
         console.error('Error updating avatar:', error);
       }
     });
@@ -175,6 +196,7 @@ export class CreateEditProjectsComponent implements OnInit {
           developmentStage: user.developmentStage || '',
           tasks: user.tasks,
           nickname: user.nickname,
+          stack: user.stack,
         });
         this.projectService.isEditProject = true;
         const backgroundContainer = document.querySelector('.background-container') as HTMLElement;
@@ -217,6 +239,7 @@ export class CreateEditProjectsComponent implements OnInit {
   }
 
   formChanges() {
+    this.isLoading = false;
     this.form.valueChanges.subscribe((changes) => {
       if (this.areAllFieldsEmpty()) {
         this.cancel_btn = false;
@@ -237,6 +260,7 @@ export class CreateEditProjectsComponent implements OnInit {
 
   submitForm(isEdit: boolean): void {
     this.submitAttempted = true;
+    this.isLoading = true;
 
     Object.keys(this.form.controls).forEach((field) => {
       const control = this.form.get(field);
@@ -244,8 +268,7 @@ export class CreateEditProjectsComponent implements OnInit {
       control?.markAsTouched();
     });
 
-    if (this.form.valid) {
-      console.log('Форма отправлена:', this.form.value);
+    if (this.form.valid && !this.errorMessage) {
 
       let data = this.form.value
       let newData: {
@@ -259,6 +282,7 @@ export class CreateEditProjectsComponent implements OnInit {
         developmentStage: any;
         tasks: any;
         nickname: any;
+        stack: any[];
       } = {
         'title': data.title,
         'summary': data.summary,
@@ -269,6 +293,7 @@ export class CreateEditProjectsComponent implements OnInit {
         'developmentStage': data.developmentStage.replace(/\r?\n/g, '\n'),
         'tasks': data.tasks.replace(/\r?\n/g, '\n'),
         'nickname': data.nickname,
+        'stack': data.stack,
 
       };
 
@@ -277,26 +302,49 @@ export class CreateEditProjectsComponent implements OnInit {
         this.createEditProjectsService.setEditProject(newData).subscribe((data: any) => {
 
           if (this.isValidFile(this.headerImg)) {
-            this.setAvatar(this.headerImg, 'header');
+            this.setAvatar(this.headerImg, 'header', data.id);
           }
           if (this.isValidFile(this.avatarImg)) {
-            this.setAvatar(this.avatarImg, 'avatar');
+            this.setAvatar(this.avatarImg, 'avatar', data.id);
           }
           this.projectService.setCurrentProjectData(data);
 
-          this.router.navigateByUrl(`/project/${data.nickname}`);
+          // this.router.navigateByUrl(`/project/${data.nickname}`);
+
+          setTimeout(() => {
+            if (!this.errorMessage) {
+              this.router.navigate(['project', data.nickname]);
+            }
+          }, 1000);
+
+        },
+        (error: any) => {
+          console.log('error', error);
+          this.isLoading = false;
+          this.errorMessage = error.error.userMessage;
         })
       } else {
         this.createEditProjectsService.setNewProject(newData).subscribe((data: any) => {
 
           if (this.isValidFile(this.headerImg)) {
-            this.setAvatar(this.headerImg, 'header');
+            this.setAvatar(this.headerImg, 'header', data.id);
           }
           if (this.isValidFile(this.avatarImg)) {
-            this.setAvatar(this.avatarImg, 'avatar');
+            this.setAvatar(this.avatarImg, 'avatar', data.id);
           }
           this.projectService.setCurrentProjectData(data);
-          this.router.navigate(['project', data.nickname]);
+          this.isLoading = true;
+          setTimeout(() => {
+            if (!this.errorMessage) {
+              this.router.navigate(['project', data.nickname]);
+            }
+          }, 1000);
+
+        },
+        (error: any) => {
+          console.log('error', error);
+          this.isLoading = false;
+          this.errorMessage = error.error.userMessage;
         })
       }
       this.projectService.isEditProject = false;
@@ -304,6 +352,7 @@ export class CreateEditProjectsComponent implements OnInit {
 
     } else {
       console.log('Форма содержит ошибки:', this.form.errors);
+      this.form.markAllAsTouched();
     }
   }
 
@@ -312,17 +361,18 @@ export class CreateEditProjectsComponent implements OnInit {
 
   private isValidFile(file: any): boolean {
     // Исключаем строки
+
     if (typeof file === 'string') {
       return false;
     }
 
     // Проверяем основные признаки файла
     if (file instanceof File) {
-      return file.size > 0 && !!file.name && !!file.type;
+      return file.size !== 0 && !!file.name && !!file.type;
     }
 
     if (file instanceof Blob) {
-      return file.size > 0;
+      return file.size !== 0;
     }
 
     // Проверка по структуре объекта
@@ -330,7 +380,7 @@ export class CreateEditProjectsComponent implements OnInit {
       const hasFileProperties = 'name' in file && 'size' in file && 'type' in file;
       const hasBlobProperties = 'size' in file && 'type' in file;
 
-      return (hasFileProperties || hasBlobProperties) && file.size > 0;
+      return (hasFileProperties || hasBlobProperties) && file.size !== 0;
     }
 
     return false;

@@ -5,7 +5,7 @@
         </div>
 
         <div class="content">
-            <ng-container *ngIf="formSettingService.isheading">
+            <ng-container *ngIf="typeForm === 'вакансии'">
                 <div class="firstRow">
                     <div class="stage">
                         <p class="stage-title">Заголовок:</p>
@@ -29,7 +29,7 @@
             <div class="secondRow">
                 <div class="stage">
                     <p class="stage-title">Специализация:</p>
-                    <app-tag-selected-level [placeholderValue]="'Выберете специализацию'" 
+                    <app-tag-selected-level [placeholderValue]="'Выберете специализацию'"
                         [maxTags]="1" [type]="'PROFESSION'" formControlName="profession"
                         (tagsChanged)="onTagsChanged($event, 'profession')" [service]="formSettingService"></app-tag-selected-level>
                     <div *ngIf="form.get('profession')?.invalid && form.get('profession')?.touched"
@@ -40,7 +40,7 @@
 
                 <div class="stage">
                     <p class="stage-title">Навыки:</p>
-                    <app-tag-selected-level [placeholderValue]="'Выберете навыки'" 
+                    <app-tag-selected-level [placeholderValue]="'Выберете навыки'"
                         formControlName="skills"
                         (tagsChanged)="onTagsChanged($event, 'skills' )" [service]="formSettingService"></app-tag-selected-level>
                     <div *ngIf="form.get('skills')?.invalid && form.get('skills')?.touched" class="error-message">
@@ -97,14 +97,18 @@
                     </div>
                 </div>
 
-                <div class="stage container-btns">
-                    <a class="createBtn" (click)="submit()" style="color: #ffffff;">Опубликовать</a>
-                    <div class="secondBtns">
-                        <ng-container *ngIf="isEditMode">
-                            <a class="deleteBtn" style="color: #000000;" (click)="deleteCard()">Удалить</a>
-                        </ng-container>
 
-                    </div>
+                <div class="stage container-btns">
+                  <div class="error-message">
+                    {{ this.errorMessage }}
+                  </div>
+                  <a class="createBtn" (click)="submit()" style="color: #ffffff;">Опубликовать</a>
+                  <div class="secondBtns">
+                      <ng-container *ngIf="isEditMode">
+                          <a class="deleteBtn" style="color: #000000;" (click)="deleteCard()">Удалить</a>
+                      </ng-container>
+
+                  </div>
                 </div>
             </div>
         </div>

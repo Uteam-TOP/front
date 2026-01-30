@@ -4,11 +4,13 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environment';
 import { PopUpEntryService } from '../../pop-up-entry/pop-up-entry.service';
+import {AvatarPipe} from "../../../pipes/avatar.pipe";
+import {ProjectService} from "../../projects/project/project.service";
 
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AvatarPipe],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css'
 })
@@ -20,6 +22,7 @@ export class ProjectComponent {
   constructor(private router: Router,
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
+    private projectService: ProjectService,
     private popUpEntryService: PopUpEntryService) { }
 
   type: any[] = [
@@ -66,19 +69,13 @@ export class ProjectComponent {
     let userData = localStorage.getItem('authToken');
     let userNickname = localStorage.getItem('autuserNicknamehToken');
     if (!userData && !userNickname) {
-      this.popUpEntryService.showDialog();
+      this.popUpEntryService.showDialog(true, 'Войдите, чтобы иметь возможность оценивать посты');
       return;
     }
-    const url = `${environment.apiUrl}${this.cardItem.id}/like`;
-    const method = 'PUT';
-    const token = localStorage.getItem('authToken');
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    this.http.request(method, url, { headers }).subscribe(() => {
+    this.projectService.likeProject(this.cardItem.id).subscribe((result) => {
       this.cardItem.userLike = !this.cardItem.userLike;
-      this.cardItem.likesCount += this.cardItem.userLike ? 1 : -1;
+      this.cardItem.likesCount = result;
       this.cdr.detectChanges();
     }, error => {
       console.error('Ошибка при отправке лайка:', error);

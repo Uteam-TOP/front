@@ -4,7 +4,7 @@
     <div class="articles-container">
 
             <div class="article-images-left">
-                    <img class="test" src="assets/publicleinding/three/Group_27.svg" alt="">
+                    <img class="test" ngSrc="assets/publicleinding/three/Group_27.png" alt="" fill>
             </div>
 
 
@@ -20,20 +20,20 @@
                 </div>
                 <div class="block-btn">
                     <div class="fourth-title">
-                        <div class="fourth-title-in">
+                        <div class="fourth-title-in lg-button" (click)="goToPage(['/projects'], 'project')">
                             <div>ПРОЕКТЫ</div>
                             <img src="assets/publicleinding/three/icon_BACK.svg" alt="">
                         </div>
                     </div>
                     <div class="fourth-title">
-                        <div class="fifth-title-in">
+                        <div class="fifth-title-in lg-button" (click)="goToPage(['/resumes'], 'resume')">
                             <div>РЕЗЮМЕ</div>
                             <img src="assets/publicleinding/three/icon_BACK_white.svg" alt="">
-                        </div>    
+                        </div>
                     </div>
                 </div>
-            </div> 
-        
+            </div>
+
 
 
             <app-lending-footer-button class="app-lending-footer-button" >

@@ -1,0 +1,45 @@
+<button #prev class="swiper-button swiper-prev"><img src="assets/icons/swiper-button.png" alt="prev" /> </button>
+<swiper-container
+  #swiper
+  [modules]="[Navigation]"
+  [slidesPerView]="isDesktop ? 4 : 1.3"
+  [spaceBetween]="20"
+  [loop]="false"
+  [allowTouchMove]="true"
+  [enabled]="isDesktop"
+  [navigation]="navigation">
+  @if (items.length) {
+    <swiper-slide
+      *ngFor="let item of items | sortBy: type === 'vacancy' || type === 'resume' ? 'creationDate' : 'createdAt'; let i = index">
+      <a [routerLink]="getCardUrl(item, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
+         (click)="onCardClick($event, item.id, type)" class="card-container">
+        <ng-container *ngIf="type === 'project'">
+          <app-project class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-project>
+        </ng-container>
+
+        <ng-container *ngIf="type === 'news'">
+          <app-projects-news class="card" [newsItem]="item" *ngIf="item.visibility != 'BAN'"></app-projects-news>
+        </ng-container>
+
+        <ng-container *ngIf="type === 'vacancy'">
+          <app-vacancy [data]="item" class="card" *ngIf="item.visibility != 'BAN'"></app-vacancy>
+        </ng-container>
+
+        <ng-container *ngIf="type === 'resume'">
+          <lib-resume class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'" [visibleSections]="resumeVisibleSections"> </lib-resume>
+        </ng-container>
+
+        <ng-container *ngIf="type === 'hackathon'">
+          <app-hackathon-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-hackathon-card>
+        </ng-container>
+
+      </a>
+    </swiper-slide>
+  } @else {
+    <swiper-slide  *ngFor="let item of emptyCards; let i = index">
+      <skeleton-block [type]="type" [amount]="1"></skeleton-block>
+    </swiper-slide>
+  }
+
+</swiper-container>
+<button #next class="swiper-button swiper-next"><img src="assets/icons/swiper-button.png" alt="next" /> </button>

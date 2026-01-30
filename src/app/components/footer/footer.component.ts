@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SettingHeaderService } from '../setting-header.service';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { HomeService } from '../home/home.service';
 import { FormSettingService } from '../form/form-setting.service';
 import { PopUpEntryService } from '../pop-up-entry/pop-up-entry.service';
@@ -9,7 +9,9 @@ import { TokenService } from '../token.service';
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })
@@ -26,7 +28,7 @@ export class FooterComponent {
     this.router.navigate([path]);
   }
 
-  toggle(button: string) {
+  toggle(button:  'vacancy' | 'hackathon' | 'project' | 'resume') {
     this.homeService.typeToggle = button;
     this.homeService.toggleType(button);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -59,6 +61,11 @@ export class FooterComponent {
     } else {
       this.popUpEntryService.showDialog();
     }
+  }
+
+  viewUser() {
+    const userId = localStorage.getItem('userNickname')
+    this.router.navigate([`/${userId}`]);
   }
 
 

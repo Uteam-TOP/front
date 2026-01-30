@@ -1,0 +1,117 @@
+.card {
+  width: 100%;
+  height: 376px;
+  border-radius: 1.3rem;
+  overflow: hidden;
+  background-color:var(--background-card);
+  color: #101010;
+}
+
+.card-image img {
+  width: 100%;
+}
+
+.background {
+  background-size: cover;
+  background-position: center;
+  height: 140px;
+  border-radius: 1.3rem 1.3rem 0 0;
+  position: relative;
+}
+
+.card-title {
+  display: flex;
+  gap: 10px;
+
+  .logo {
+    img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .card-name {
+    font-size: 12px;
+    color: var(--font-color);
+
+    p {
+      font-weight: 600;
+    }
+
+    .card-time {
+      color: #BDBDBD
+    }
+  }
+
+
+}
+
+.card-name p {
+  margin: 0;
+}
+
+.body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-body {
+  display:flex;
+  height: 112px;
+  color: var(--font-color);
+
+  p {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.footer {
+  display:flex;
+
+}
+
+.card-rating {
+  display:flex;
+  width: 100%;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.comments {
+  display: flex;
+  width: 54px;
+  height: 30px;
+  background-color: #F3F3F3;
+  border-radius: 50px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.comments img{
+  width: 24px;
+  height: 24px;
+}
+
+.like {
+  display: flex;
+  height: 30px;
+  background-color: #F3F3F3;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 50px;
+}
+
+.like img {
+  width: 24px;
+  height: 24px;
+}

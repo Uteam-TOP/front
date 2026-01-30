@@ -28,9 +28,8 @@ export class ArchiveVacancyComponent {
         return '';
     }
   }
-  
+
   getSkills(item: number): string {
-    console.log("item", item)
     switch (item) {
       case 1:
         return 'Junior';
@@ -74,7 +73,7 @@ export class ArchiveVacancyComponent {
     const userId = localStorage.getItem('userId')
     this.router.navigate([`/myaccount/${userId}/updateVacancy/${id}`]);
   }
-  
+
 }
 
 

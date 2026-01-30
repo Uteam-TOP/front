@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnDestroy, OnInit, ElementRef, ViewChild } from '@angular/core';
+import {Component, AfterViewInit, OnDestroy, OnInit, ElementRef, ViewChild, HostListener} from '@angular/core';
 import { PopUpEntryService } from './pop-up-entry.service';
 import { TokenService } from '../token.service';
 import { HttpClient } from '@angular/common/http';
@@ -12,11 +12,12 @@ import { environment } from '../../../environment';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { forbiddenWordsValidator } from '../personal-account/personal-data/errorNameList';
 import { AvatarSelectionService } from '../pop-up-avatar/avatar-selection.service';
+import {TrimOnInputDirective} from "../../directives/trim.directive";
 
 @Component({
   selector: 'app-pop-up-entry',
   standalone: true,
-  imports: [CommonModule, DialogModule, ButtonModule, InputTextModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, DialogModule, ButtonModule, InputTextModule, FormsModule, ReactiveFormsModule, TrimOnInputDirective],
   templateUrl: './pop-up-entry.component.html',
   styleUrls: ['./pop-up-entry.component.css']
 })
@@ -24,6 +25,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
 
   authForm: FormGroup;
   isError: boolean = false;
+
   constructor(
     public popUpEntryService: PopUpEntryService,
     private tokenService: TokenService,
@@ -59,10 +61,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
 
     const formData = this.authForm.value;
     formData.email = formData.email.trim();
-    console.log('formData', formData)
     const data = { ...formData };
-
-    console.log('this.popUpEntryService.isAuth', this.popUpEntryService.isAuth)
     if (this.popUpEntryService.isAuth === true) {
       delete data.telegram;
     }
@@ -85,6 +84,8 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
       // this.tokenService.setToken(response.token);
       // this.userAuthenticated = true;
       // this.login_user();
+    }, (error) => {
+      this.errorMessage = error.error.details;
     })
     // }
   }
@@ -239,11 +240,14 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
         console.log('----------data ', data)
         localStorage.setItem('Linkken', data.imageLink);
         localStorage.setItem('userNickname', data.nickname);
+        localStorage.setItem('isWasAuthenticated', 'true');
         sessionStorage.setItem('userData', JSON.stringify(data));
         this.popUpEntryService.userVisible = true;
         this.popUpEntryService.visible = false;
         this.avatarSelectionService.selectAvatar(data.imageLink)
         this.closePopUp()
+        console.log('navigate');
+        window.location.reload();
       },
       (error) => {
       }
@@ -282,10 +286,22 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('digit5') digit5!: ElementRef;
   @ViewChild('digit6') digit6!: ElementRef;
 
-  moveFocus(event: any, nextField: number) {
-    const input = event.target;
-    if (input.value.length === 1) {
+  moveFocus(event: any, nextField: number, type?: string) {
+    event.target.value.length > 1 ? event.target.value = event.data.slice(0, 1) : event.target.value;
+
+    if (type && type === 'delete') {
       switch (nextField) {
+        case 0: this.digit2.nativeElement.value = ''; break;
+        case 1: this.digit3.nativeElement.value = ''; break;
+        case 2: this.digit4.nativeElement.value = ''; break;
+        case 3: this.digit5.nativeElement.value = ''; break;
+        case 4: this.digit6.nativeElement.value = ''; break;
+      }
+    }
+
+    if (event.target.value.length >= 1 || type === 'delete') {
+      switch (nextField) {
+        case 0: this.digit1.nativeElement.focus(); break;
         case 1: this.digit2.nativeElement.focus(); break;
         case 2: this.digit3.nativeElement.focus(); break;
         case 3: this.digit4.nativeElement.focus(); break;
@@ -294,6 +310,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
         case 6: this.verifyCode(); break;
       }
     }
+
   }
 
   verifyCode() {

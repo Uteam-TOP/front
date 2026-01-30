@@ -45,3 +45,9 @@ input[type="checkbox"] {
     line-height: 117%;
     color: var(--font-color);
 }
+
+.avatar-image {
+  object-fit: cover;
+  height: 92px;
+  width: 92px;
+}

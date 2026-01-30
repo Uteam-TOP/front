@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
 import { SettingHeaderService } from '../../setting-header.service';
 import { ArchiveResumeComponent } from '../archive-resume/archive-resume.component';
 import { ArchiveVacancyComponent } from '../archive-vacancy/archive-vacancy.component';
@@ -27,11 +27,14 @@ import { PersonalProjectComponent } from '../personal-project/personal-project.c
 import { ProjectService } from '../services/project.service';
 import { PopUpChangePasswordComponent } from '../../pop-up-change-password/pop-up-change-password.component';
 import { PopUpChangePasswordService } from '../../pop-up-change-password/pop-up-change-password.service';
+import {SortByPipe} from "../../../pipes/sort-by.pipe";
+import {UiButtonComponent} from "../../../shared/ui-components/ui-button/ui-button.component";
+import {TagComponent} from "../../../shared/ui-components/tag/tag.component";
 
 @Component({
   selector: 'app-personal-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, PersonalVacancyComponent, PersonalResumeComponent, ArchiveResumeComponent, ArchiveVacancyComponent, PopUpDeleteComponent, PopUpExitComponent, BanResumeComponent, BanVacancyComponent, PopUpChangePasswordComponent, PersonalProjectComponent],
+  imports: [CommonModule, RouterLink, PersonalVacancyComponent, PersonalResumeComponent, ArchiveResumeComponent, ArchiveVacancyComponent, PopUpDeleteComponent, PopUpExitComponent, BanResumeComponent, BanVacancyComponent, PopUpChangePasswordComponent, PersonalProjectComponent, SortByPipe, UiButtonComponent, TagComponent],
   templateUrl: './personal-home.component.html',
   styleUrl: './personal-home.component.css',
   animations: [
@@ -60,7 +63,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
     public resumeService: ResumeService, public vacancyService: VacancyService, public tokenService: TokenService,
     private formSettingService: FormSettingService,
     public projectService: ProjectService,
-    private popUpErrorCreateService: PopUpErrorCreateService, 
+    private popUpErrorCreateService: PopUpErrorCreateService,
   private popUpChangePasswordService:PopUpChangePasswordService) { }
 
   imagePath: string = '';
@@ -73,6 +76,12 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
   favicon: any;
   showAllResume: boolean = false;
   itemsToShowResume: number = 3;
+  isTablet = false;
+  isMobile = false;
+
+  showResumeArchive: boolean = false;
+  showVacancyArchive: boolean = false;
+
   toggleResumes() {
     this.showAllResume = !this.showAllResume;
     this.itemsToShowResume = this.showAllResume ? Infinity : 3;
@@ -113,6 +122,8 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
     this.itemsToShowProjects = this.showAllProjects ? Infinity : 3;
   }
 
+  tab: 'project' | 'resume' | 'vacancy' = 'project';
+
   ngOnInit(): void {
     this.settingHeaderService.shared = false;
     this.settingHeaderService.post = false;
@@ -140,7 +151,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
         this.isChangePasswordPopupVisible = visible;
       })
     );
-    
+
 
     forkJoin({
       user: this.personalDataService.getCurrentUser().pipe(
@@ -196,6 +207,12 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
       }
     );
 
+    this.updateView(window.innerWidth);
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    this.updateView(event.target.innerWidth);
   }
 
   checkUserData(): void {
@@ -258,7 +275,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  changePassword() { 
+  changePassword() {
     this.popUpChangePasswordService.showPopup();
   }
 
@@ -309,6 +326,16 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
       this.background = '#3a3a3a';
     } else {
       this.background = '#e0e0e0';
+    }
+  }
+
+  updateView(width: number): void {
+    if (width >= 768) {
+      this.isTablet = true;
+      this.isMobile = false;
+    } else {
+      this.isTablet = false;
+      this.isMobile = true;
     }
   }
 

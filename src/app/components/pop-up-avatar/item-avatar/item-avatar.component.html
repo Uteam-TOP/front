@@ -1,8 +1,8 @@
 <div class="container">
   <div class="checkbox-container" *ngIf="default">
-<input 
-    type="checkbox" 
-    (click)="onDefaultAvatarClick($event, avatarSrc)" 
+<input
+    type="checkbox"
+    (click)="onDefaultAvatarClick($event, avatarSrc)"
     [checked]="!fileUrl && selectedAvatar === avatarSrc || isSelected"
       class="custom-checkbox" />
   </div>
@@ -23,7 +23,7 @@
     <!-- Кастомный аватар -->
     <ng-container *ngIf="!default">
       <!-- Input для загрузки файла -->
-      <input type="file" id="custom-avatar-input" accept="image/*" (change)="onFileSelected($event)"
+      <input type="file" id="custom-avatar-input" accept="image/png, image/jpeg" (change)="onFileSelected($event)"
         style="display: none;">
 
       <div (click)="onCustomAvatarClick($event)">

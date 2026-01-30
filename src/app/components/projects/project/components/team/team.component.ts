@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { ParticipantComponent } from './participant/participant.component';
 import { PopUpResponseTeamService } from '../pop-up-response-team/pop-up-response-team.service';
 import { JobComponent } from './job/job.component';
 import { ProjectService } from '../../project.service';
 import { TeamService } from './team.service';
+import {catchError, concatMap, first, map, mergeMap, of, switchMap, take} from "rxjs";
+import {filter} from "rxjs/operators";
+import {PopUpEntryService} from "../../../../pop-up-entry/pop-up-entry.service";
 
 @Component({
   selector: 'app-team',
@@ -21,57 +24,73 @@ export class TeamComponent implements OnInit {
   vacancies: any;
   currentProjectData: any;
   isOwner: boolean = false;
+  projectService = inject(ProjectService);
 
-  constructor(private popUpResponseTeamService: PopUpResponseTeamService, private projectService: ProjectService, private teamService: TeamService) { }
+  constructor(private popUpResponseTeamService: PopUpResponseTeamService, private teamService: TeamService,
+              private popUpEntryService: PopUpEntryService) { }
 
   ngOnInit(): void {
 
-    this.projectService.currentProjectIsOwner$.subscribe((value: boolean) => {
+    this.projectService.currentProjectIsOwner$
+      .subscribe((value: boolean) => {
       this.isOwner = value;
-      console.log('value', value)
     })
 
     this.projectService.currentProjectVacancies$.subscribe((data: any) => {
       this.vacancies = data;
     })
-    this.projectService.currentProjectData$.subscribe((data: any) => {
-      this.currentProjectData = data;
-      if (data != null) {
+    this.projectService.currentProjectData$
+      .pipe(
+        filter(project => !!project && !!project.id),
+        concatMap(currentProjectResult => {
+          return this.projectService.isUserResponded(currentProjectResult.id).pipe(
+            map(userRespondedResult => ({currentProjectResult, userRespondedResult})),
+            catchError(err => {
+              console.error('Ошибка в запросе isUserResponded:', err);
+              return of({ currentProjectResult, userRespondedResult: null });
+            })
+          )
+        })
+      )
+      .subscribe(({currentProjectResult, userRespondedResult}) => {
+      this.currentProjectData = currentProjectResult;
+      console.log('currentProjectData', this.currentProjectData);
+      if (currentProjectResult != null) {
         this.teamService.getTeamProject(this.currentProjectData?.id).subscribe((value: any) => {
           this.itemsList = value;
         })
       }
 
+      this.isOwner = userRespondedResult;
     })
-
-
-
   }
+
+  // checkUserResponded() {
+  //   this.projectService.isUserResponded(this.currentProjectData.id).subscribe((value: any) => {
+  //
+  //   })
+  // }
 
   checkUserInTeam(itemsList: any[]): boolean {
     // Получаем данные пользователя из sessionStorage
-    const userData = sessionStorage.getItem('userData');
-    if (!userData) {
+    const userNickname = localStorage.getItem('userNickname');
+    if (!userNickname) {
       console.warn('Пользователь не авторизован!');
       return false;
     }
 
-    let userId: number;
-    try {
-      userId = JSON.parse(userData).id;
-      console.log('userId', userId)
-    } catch (error) {
-      console.error('Ошибка парсинга userData:', error);
-      return false;
-    }
-
-    // Проверяем, есть ли userId в itemsList
-    return itemsList.some(item => item.user?.id === userId);
+    return itemsList.some(item => item.user?.nickname === userNickname);
   }
 
 
 
   getPopUoP() {
+    let userData = localStorage.getItem('authToken');
+    let userNickname = localStorage.getItem('autuserNicknamehToken');
+    if (!userData && !userNickname) {
+      this.popUpEntryService.showDialog(true, 'Войдите в аккаунт, чтобы присоединиться к команде');
+      return;
+    }
     this.popUpResponseTeamService.showPopup()
   }
 

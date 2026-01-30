@@ -1,0 +1,29 @@
+:host {
+  width: 100%;
+
+  .skeleton-blocks {
+    display: flex;
+    flex-direction: column;
+
+    .skeleton-blocks-container {
+      display: flex;
+      gap: 29px;
+      margin-top: 10px;
+      margin-bottom: 60px;
+      width: 100%;
+    }
+  }
+
+  .wrap {
+    flex-wrap: wrap;
+    padding-right: 40px;
+
+    skeleton-project,
+    skeleton-hackathon,
+    skeleton-resume,
+    skeleton-vacancy {
+      width: 31% !important;
+      flex: auto !important;
+    }
+  }
+}

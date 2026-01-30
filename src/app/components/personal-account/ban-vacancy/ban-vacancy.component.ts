@@ -28,7 +28,6 @@ export class BanVacancyComponent {
   }
 
   getSkills(item: number): string {
-    console.log("item", item)
     switch (item) {
       case 1:
         return 'Junior';
@@ -42,7 +41,6 @@ export class BanVacancyComponent {
   }
 
   getSkillText(item: number): string {
-    console.log("item",)
     switch (item) {
       case 1:
         return 'Jun';

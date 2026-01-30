@@ -1,0 +1,136 @@
+:host {
+  display: flex;
+  width: 100vw;
+  justify-content: flex-end;
+  margin-left: 10%;
+  position: relative;
+}
+
+.app-card-vacancy-link, .app-card-resume-link{
+  text-decoration: none;
+}
+.app-card-vacancy-link {
+  width: 100%;
+}
+
+.swiper-button {
+  border: none;
+  background: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+
+  &.swiper-button-disabled {
+    opacity: 0;
+  }
+
+  &.swiper-prev {
+    left: -6%;
+
+    img {
+      transform: rotate(180deg);
+    }
+  }
+
+  &.swiper-next {
+    right: 14%;
+  }
+}
+
+swiper-slide {
+  margin-left: 0;
+}
+
+skeleton-block {
+  width: 100%;
+  display: block;
+}
+
+.card-container {
+  display: block;
+  height: 100%;
+
+  .card {
+    height: 93%;
+  }
+}
+
+::ng-deep .profile {
+    margin-top: auto !important;
+}
+
+
+@media (min-width: 768px) {
+  .column {
+    display: flex;
+    width: 100vw;
+    justify-content: flex-end;
+    margin-left: 10%;
+  }
+  swiper-container {
+    width: 100%;
+    display: flex;
+  }
+  swiper-slide {
+    max-width: 100%;
+    margin: 0 15px 30px;
+  }
+
+  .card {
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    min-height: 100px;
+    height: auto;
+    box-sizing: border-box;
+    flex: 0 0 auto;         /* фиксируем ширину, чтобы не сжимались */
+    margin: 10px 0;
+  }
+
+  .bottom {
+    margin-top: 70px;
+  }
+
+}
+
+/* For mobile phones */
+@media (max-width: 767px) {
+  :host {
+    margin-left: 3%;
+  }
+
+  .column {
+    width: 100%;
+
+  }
+  swiper-container {
+    width: 100vw;
+    margin-top: 15px;
+    margin-bottom: 40px;
+  }
+
+  swiper-slide a {
+    display: flex;
+    justify-content: center;
+  }
+
+  .card {
+    text-decoration: none;
+    width: 95%;
+    display: flex;
+    box-sizing: border-box;
+  }
+
+  .app-card-vacancy-link {
+    width: 100%;
+  }
+
+  .swiper-button {
+    display: none;
+  }
+
+  skeleton-block {
+    padding: 8px;
+  }
+}

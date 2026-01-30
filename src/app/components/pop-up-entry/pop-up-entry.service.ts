@@ -16,7 +16,10 @@ export class PopUpEntryService {
   accessVerification: boolean = false;
   accessVerificationMessage: string = 'Почта успешно подтверждена';
   confirmAuth: boolean = false;
+  isRegistration: boolean = false;
   private domain = `${environment.apiUrl}`;
+  withMessage: boolean = false;
+  message?: string = '';
 
   getUser(): Observable<any> {
     const token = localStorage.getItem('authToken');
@@ -31,8 +34,10 @@ export class PopUpEntryService {
     return this.http.get(`${this.domain}/admins/rootToken`);
   }
 
-  showDialog() {
+  showDialog(withMessage: boolean = false, message?: string) {
     this.visible = true;
+    this.withMessage = withMessage;
+    this.message = message;
   }
 
   authUesr(data: any): Observable<any> {

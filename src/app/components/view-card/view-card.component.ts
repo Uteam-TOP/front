@@ -13,11 +13,12 @@ import { ResumeService } from '../personal-account/services/resume.service';
 import { PageErrorComponent } from '../page-error/page-error.component';
 import { ErrorViewCardComponent } from './error-view-card/error-view-card.component';
 import { trigger, transition, style, animate } from '@angular/animations';
+import {AvatarPipe} from "../../pipes/avatar.pipe";
 
 @Component({
   selector: 'app-view-vacancy',
   standalone: true,
-  imports: [CommonModule, SkeletonModule, VacancyComponent, ResumeComponent, SkeletonModule, PageErrorComponent, ErrorViewCardComponent],
+  imports: [CommonModule, SkeletonModule, VacancyComponent, ResumeComponent, SkeletonModule, PageErrorComponent, ErrorViewCardComponent, AvatarPipe],
   templateUrl: './view-card.component.html',
   styleUrls: ['./view-card.component.css'],
   animations: [
@@ -79,7 +80,6 @@ export class ViewCardComponent implements OnInit {
       this.viewCardService.getCardData(id, this.typeCard).subscribe(
         (data) => {
           this.dataCard = data;
-          console.log("this.dataCard", this.dataCard)
           this.visibleCard = true;
           this.visibleError = false;
 
@@ -91,7 +91,6 @@ export class ViewCardComponent implements OnInit {
           this.viewCardService.getCurrentUser().subscribe(user => {
             this.currentUser = user;
             this.cdr.detectChanges();
-            console.log("user", user)
           });
         },
         (error) => {
@@ -132,7 +131,7 @@ export class ViewCardComponent implements OnInit {
       return;
     }
     event.preventDefault();
-    this.router.navigate([`/project`, this.dataCard.projectDto.nickname]);
+    this.router.navigate([`/project`, this.dataCard.projectDto.id]);
   }
 
   enter() {
@@ -152,10 +151,18 @@ export class ViewCardComponent implements OnInit {
     event.stopPropagation();
     const userId = localStorage.getItem('userId')
 
-    if (this.typeCard == 'vacancies') {
+    if (this.typeCard == 'vacancy') {
       this.router.navigate([`/myaccount/${userId}/updateVacancy/${id}`]);
     } else {
       this.router.navigate([`/myaccount/${userId}/updateResume/${id}`]);
+    }
+
+  }
+  getImageLink(): string {
+    if (this.dataCard.projectDto) {
+      return this.dataCard.projectDto.avatarLink;
+    } else {
+      return this.dataCard?.user?.imageLink
     }
 
   }

@@ -12,14 +12,13 @@
 }
 
 .contacts {
-    padding-top: 1rem;
-    margin-left: 25px;
+    padding-top: 3rem;
 }
 
 .first-part {
     display: flex;
     flex-direction: row;
-    gap: 3rem;
+    gap: 12px;
 }
 
 
@@ -67,29 +66,30 @@
 
 .fullName {
     font-family: var(--font-Monts);
-    font-weight: 500;
+    font-weight: 600;
     font-size: var(--text16);
     line-height: 117%;
     color: var(--font-color);
 }
 
 .information-user {
-    margin-top: 1rem;
-    font-family: var(--font-Monts);
-    font-weight: 400;
-    font-size: 0.85rem;
-    line-height: 117%;
-    color: var(--font-color);
-    margin-left: 25px;
+  margin-top: 1rem;
+  font-family: var(--font-Monts);
+  font-weight: 400;
+  font-size: 0.85rem;
+  line-height: 117%;
+  color: var(--font-color);
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .personal-details {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin-top: 1rem;
-    color: var(--font-color);
-    margin-left: 25px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  color: var(--font-color);
+  font-size: var(--text14);
+  margin-top: 3px;
 }
 
 p {
@@ -111,7 +111,10 @@ p {
 .contacts {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+  background-color: var(--background-card);
+  border-radius: 25px;
+  gap: 25px;
+  padding: 20px
 }
 
 .chapterCard-title {
@@ -156,24 +159,18 @@ p {
 
 
 .date_registration {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    flex-wrap: wrap;
     font-family: var(--font-Monts);
     font-weight: 500;
     font-size: var(--text12);
     line-height: 117%;
-    color: var(--font-color);
-    margin-right: 25px;
+    margin-top: 3px;
+    color: #8B8B8B;
 }
 
-.date_registration .title {
-    font-family: var(--font-Monts);
-    font-weight: 500;
-    font-size: var(--text12);
-    line-height: 117%;
-    color: var(--font-color);
+.achievements {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
 }
 
 .message-profile {
@@ -209,8 +206,44 @@ p {
 
 .second-path {
     display: flex;
-    flex-direction: row;
-    gap: 24px;
+    flex-direction: column;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  margin-left: 40px;
+
+  .tab {
+    background-color: #50B229;
+    color: white;
+    padding: 7px 40px;
+    border-radius: 10px 10px 0 0;
+    margin-left: -10px;
+    cursor: pointer;
+    z-index: 15;
+
+    span {
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+  .tab-blue {
+    background-color: #806BFF;
+    z-index: 10;
+  }
+
+  .tab-mint {
+    background-color: #23B9B0;
+    z-index: 5;
+  }
+
+  .active {
+    padding: 9px 40px;
+    z-index: 30;
+    margin-top: -3px;
+  }
 }
 
 .container-resume,
@@ -222,20 +255,23 @@ p {
 .title-cards {
     width: 110px;
     font-family: var(--font-Monts);
-    font-weight: 500;
+    font-weight: 600;
     font-size: var(--text14);
     line-height: 117%;
     color: var(--font-color);
     padding: 2rem 0 2rem 2.2rem;
+  text-transform: uppercase;
+  margin-top: 10px !important;
 }
 
 .cards {
     display: flex;
-    flex-direction: column;
     gap: 0.7rem;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .archive-resume,
@@ -257,10 +293,16 @@ p {
 
 .logoImg {
     object-fit: cover;
-    width: 6vw;
-    height: 6vw;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     aspect-ratio: 1 / 1;
+}
+
+.title {
+  font-weight: 700;
+  font-size: var(--text14);
+  margin: 5px 0;
 }
 
 .container-resume-header,
@@ -307,7 +349,7 @@ p {
 
 .menuProfile a {
     flex: 1;
-    background: #e2e2e2;
+    background: var(--button-profile-background);
     border-radius: 2rem;
     padding: 0.8rem 1rem;
     display: flex;
@@ -320,7 +362,9 @@ p {
     font-weight: 500;
     font-size: 0.8rem;
     line-height: 120%;
-    color: #101010;
+    color: var(--button-profile-color);
+    border: var(--button-profile-border)
+
 }
 
 .menuProfile a:hover {
@@ -328,7 +372,7 @@ p {
 }
 
 .block-switchCards {
-    display: flex;
+    display: none;
     justify-content: flex-end;
 }
 
@@ -421,8 +465,64 @@ p {
 }
 
 .app-card-vacancy-link {
-    text-decoration: none;
+  text-decoration: none;
+  flex: 1;
+  min-width: 340px;
+  max-width: 340px;
 }
+
+/* ----------- */
+
+.information {
+  background-color: var(--background-card);
+  padding: 20px 0;
+  border-radius: 25px;
+  flex: 2;
+}
+
+.edit-button {
+  display: flex;
+  justify-content: end;
+  margin: 0 25px;
+  padding-top: 15px
+}
+
+.desktop-edit-profile {
+  background: var(--button-profile-background);
+  border-radius: 300px;
+  padding: 0.7rem 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: 0.8rem;
+  line-height: 120%;
+  color: var(--button-profile-color);
+  border: var(--button-profile-border);
+}
+
+.buttons-mobile {
+  margin: 0 15px 20px 15px;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+::ng-deep .menu_btn {
+  flex-wrap: wrap;
+}
+
 
 @media (max-width: 1198px) {
 
@@ -491,7 +591,9 @@ p {
     }
 
     .cards .app-card-vacancy-link {
-        width: 100%;
+        width: 80%;
+      min-width: 80%;
+      max-width: 80%;
     }
 
     .phone-btns {
@@ -544,7 +646,7 @@ p {
 
     .second-path {
         flex-direction: column;
-        gap: 3rem;
+        gap: 1rem;
     }
 
     .first-part {
@@ -564,7 +666,8 @@ p {
     }
 
     .fullName {
-        font-size: var(--text14);
+      font-size: var(--text16);
+      font-weight: 600;
     }
 
     .information-user {
@@ -609,6 +712,16 @@ p {
         padding: 0.8rem 1rem;
         width: 95%;
         margin: 0 auto;
+    }
+
+    .container-cards {
+      .cards {
+        flex-direction: row;
+        overflow: scroll;
+        scrollbar-width: none;
+        flex-wrap: nowrap;
+      }
+
     }
 }
 

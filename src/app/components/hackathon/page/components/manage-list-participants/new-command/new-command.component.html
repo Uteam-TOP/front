@@ -4,7 +4,7 @@
     </div>
     <div class="content">
         <div class="avatar-wrapper">
-            <img [src]="data.avatarLink" alt="Avatar" class="avatar" />
+            <img [src]="data.avatarLink | avatar" alt="Avatar" class="avatar" />
             <div style="display: flex; flex-direction: column; gap: 5px;">
                 <span class="name">Команда</span>
                 <span class="name">{{data.nickname}}</span>

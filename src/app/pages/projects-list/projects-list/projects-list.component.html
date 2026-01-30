@@ -1,0 +1,7 @@
+@if (projectsList$ | async; as data) {
+  @if (data.length) {
+    <app-list-layer [cards]="data" [type]="'project'"></app-list-layer>
+  }
+} @else {
+  <skeleton-block [type]="'project'" [amount]="9" [wrap]="'wrap'"></skeleton-block>
+}

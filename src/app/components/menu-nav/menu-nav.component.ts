@@ -1,23 +1,22 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
-import { SidebarModule } from 'primeng/sidebar';
-import { SettingHeaderService } from '../setting-header.service';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { TokenService } from '../token.service';
-import { HomeService } from '../home/home.service';
-import { FormSettingService } from '../form/form-setting.service';
-import { Location } from '@angular/common';
-import { PopUpEntryService } from '../pop-up-entry/pop-up-entry.service';
-import { PopUpErrorCreateService } from '../pop-up-error-create/pop-up-error-create.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { MenuNavService } from './menu-nav.service';
-import { environment } from '../../../environment';
-import { AvatarSelectionService } from '../pop-up-avatar/avatar-selection.service';
+import {CommonModule, Location} from '@angular/common';
+import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
+import {SidebarModule} from 'primeng/sidebar';
+import {SettingHeaderService} from '../setting-header.service';
+import {NavigationEnd, NavigationStart, Router, RouterLink} from '@angular/router';
+import {TokenService} from '../token.service';
+import {HomeService} from '../home/home.service';
+import {FormSettingService} from '../form/form-setting.service';
+import {PopUpEntryService} from '../pop-up-entry/pop-up-entry.service';
+import {PopUpErrorCreateService} from '../pop-up-error-create/pop-up-error-create.service';
+import {MenuNavService} from './menu-nav.service';
+import {AvatarSelectionService} from '../pop-up-avatar/avatar-selection.service';
+import {MainMenuComponent} from "../main-menu/main-menu.component";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-menu-nav',
   standalone: true,
-  imports: [CommonModule, SidebarModule],
+  imports: [CommonModule, SidebarModule, MainMenuComponent, RouterLink],
   templateUrl: './menu-nav.component.html',
   styleUrl: './menu-nav.component.css',
 })
@@ -29,14 +28,61 @@ export class MenuNavComponent implements OnInit {
   isAuthenticated!: boolean;
   userAccess: string | null = '';
 
+  showMainMenu: boolean = false;
+
+  private _previousUrl?: string;
+  private _currentUrl?: string;
+  private _routeHistory: string[] = [];
+
+  // Pages where the main menu is displayed
+  showMainMenuFor: string[] = ['/vacancies', '/hackathons', '/projects', '/resumes'];
+
   currentUserLogo: any;
   buttonsConfig: { label: string, class: string, action: () => void }[] = [];
   constructor(private location: Location, public settingHeaderService: SettingHeaderService,
     private router: Router, public tokenService: TokenService, private homeService: HomeService,
     private ngZone: NgZone, private cdr: ChangeDetectorRef, private formSettingService: FormSettingService,
-    private popUpErrorCreateService: PopUpErrorCreateService, private popUpEntryService: PopUpEntryService, 
+    private popUpErrorCreateService: PopUpErrorCreateService, private popUpEntryService: PopUpEntryService,
     public menuNavService: MenuNavService, private avatarSelectionService:AvatarSelectionService
   ) {
+
+    this._routeHistory = [];
+    router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      // @ts-ignore
+      .subscribe((event: NavigationEnd) => {
+        this._setURLs(event);
+      });
+  }
+
+  private _setURLs(event: NavigationEnd): void {
+    this._previousUrl = this._currentUrl;
+    this._currentUrl = event.urlAfterRedirects;
+    this._routeHistory.push(event.urlAfterRedirects);
+  }
+
+  previousUrl() {
+    const substrings = ['resumes', 'vacancies', 'projects', 'hackathons'];
+    let previousUrl = '';
+    const includesOne = substrings.some(substring => {
+      previousUrl = substring;
+      return this._previousUrl?.includes(substring);
+    });
+
+    if (this._currentUrl?.includes('home')) {
+      this.router.navigate(['/']);
+    } else if (includesOne) {
+      this.router.navigate([`/${previousUrl}`]);
+    } else {
+      const userId = localStorage.getItem('userNickname');
+
+      if (userId && this._previousUrl?.includes(userId)) {
+        this.router.navigate([`/${userId}`]);
+      } else {
+        this.location.back();
+      }
+
+    }
   }
 
 
@@ -44,12 +90,13 @@ export class MenuNavComponent implements OnInit {
 
     this.userAccess = localStorage.getItem('USaccess');
 
-
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         if (event.url !== '/') {
           this.settingHeaderService.isSticky = false;
         }
+
+        this.showMainMenu = this.showMainMenuFor.includes(event.url);
       }
     });
     this.menuNavService.getStorageValue().subscribe(value => {
@@ -57,14 +104,13 @@ export class MenuNavComponent implements OnInit {
     });
     this.avatarSelectionService.selectedAvatar$.subscribe((value:any)=>{
       this.currentUserLogo = value;
-      console.log('value',value)
     })
     const savedTheme = localStorage.getItem('theme') || 'light';
     this.toggleTopic(savedTheme);
 
     this.tokenService.isAuthenticated$.subscribe(isAuthenticated => {
       this.ngZone.run(() => {
-        this.currentUserLogo = 
+        this.currentUserLogo =
         this.isAuthenticated = isAuthenticated;
         this.setButtons();
         this.cdr.detectChanges();
@@ -78,17 +124,17 @@ isImageAvatar(logo: any): boolean {
     return false;
   }
   const trimmedLogo = logo.trim();
-  
+
   // Для локальных аватаров (начинаются с image)
   if (trimmedLogo.startsWith('image')) {
     return true;
   }
-  
+
   // Для URL аватаров
   if (trimmedLogo.startsWith('http') && trimmedLogo.includes('image')) {
     return true;
   }
-  
+
   return false;
 }
   navigateTo(path: string) {
@@ -148,6 +194,7 @@ isImageAvatar(logo: any): boolean {
     this.popUpEntryService.isAuth = true;
     this.popUpEntryService.accessVerification = false;
     this.popUpEntryService.confirmAuth = false;
+    this.popUpEntryService.isRegistration = false;
     localStorage.removeItem('confirmAuth');
     localStorage.removeItem('authEmail');
     this.popUpEntryService.showDialog();
@@ -158,6 +205,7 @@ isImageAvatar(logo: any): boolean {
     this.popUpEntryService.isAuth = true;
     this.popUpEntryService.accessVerification = false;
     this.popUpEntryService.confirmAuth = false;
+    this.popUpEntryService.isRegistration = true;
     localStorage.removeItem('confirmAuth');
     localStorage.removeItem('authEmail');
     this.popUpEntryService.showDialog();
@@ -167,7 +215,7 @@ isImageAvatar(logo: any): boolean {
     this.location.back();
   }
 
-  toggle(button: string) {
+  toggle(button:  'vacancy' | 'hackathon' | 'project' | 'resume') {
     this.homeService.typeToggle = button;
     this.activeButton = button;
     this.homeService.toggleType(button);
@@ -194,7 +242,7 @@ isImageAvatar(logo: any): boolean {
     localStorage.setItem('theme', this.activeTopic);
     if (this.activeTopic === 'dark') {
       document.documentElement.style.setProperty('--background', '#333334');
-      document.documentElement.style.setProperty('--background-card', 'rgba(255, 255, 255, 0.1)');
+      document.documentElement.style.setProperty('--background-card', 'rgba(72, 72, 72)');
       document.documentElement.style.setProperty('--card-hover', '#5a4bb8');
       document.documentElement.style.setProperty('--font-color', '#fff');
       document.documentElement.style.setProperty('--background-archive', 'rgba(255, 255, 255, 0.05)');
@@ -210,6 +258,10 @@ isImageAvatar(logo: any): boolean {
       document.documentElement.style.setProperty('--tag-background', 'rgba(243, 243, 243, 0.1)');
       document.documentElement.style.setProperty('--btnClosedFilter-color', 'rgba(227, 227, 230, 0.3)');
       document.documentElement.style.setProperty('--btnClosedFilter-hover', 'rgba(227, 227, 230, 1)');
+      document.documentElement.style.setProperty('--font-color-blue', '#fff');
+      document.documentElement.style.setProperty('--button-profile-background', 'rgba(0, 0, 0, .2)');
+      document.documentElement.style.setProperty('--button-profile-border', '1px solid #806BFF');
+      document.documentElement.style.setProperty('--button-profile-color', '#806BFF');
     } else {
       document.documentElement.style.setProperty('--background', '#f2f2f2');
       document.documentElement.style.setProperty('--background-card', '#fff');
@@ -228,6 +280,10 @@ isImageAvatar(logo: any): boolean {
       document.documentElement.style.setProperty('--tag-background', '#F3F3F3');
       document.documentElement.style.setProperty('--btnClosedFilter-color', 'rgba(51, 51, 52, 0.3)');
       document.documentElement.style.setProperty('--btnClosedFilter-hover', 'rgba(51, 51, 52, 1)');
+      document.documentElement.style.setProperty('--font-color-blue', '#5A4BB8');
+      document.documentElement.style.setProperty('--button-profile-background', '#e2e2e2');
+      document.documentElement.style.setProperty('--button-profile-border', '0px solid #806BFF');
+      document.documentElement.style.setProperty('--button-profile-color', '#101010');
     }
   }
 

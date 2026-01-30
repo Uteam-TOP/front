@@ -15,19 +15,23 @@ export class ScreensaverComponent implements OnInit{
   @Input() detailsList: any;
   avatarLink: string = ''
   isOwner: boolean = false;
+
+  projectData: any;
   constructor(private router: Router, private projectService: ProjectService) { }
-  
+
   ngOnInit(): void {
     this.projectService.currentProjectData$.subscribe((value: any) => {
+      this.projectData = value;
       if (value && value.headerLink) { // Проверяем, что value не null/undefined
         this.setTargetAvata(value.headerLink, 'overlay');
+      }
+      if (value && value.avatarLink) { // Проверяем, что value не null/undefined
         this.avatarLink = value.avatarLink || ''; // Защита от undefined
       }
     });
     this.projectService.currentProjectIsOwner$.subscribe((value: boolean)=>{
       this.isOwner = value;
     })
-
   }
 
   tags = [{ name: 'Стартап', type: 'STARTUP' }, { name: 'Компания', type: 'COMPANY' }, { name: 'Разовый проект', type: 'ONE_TIME_PROJECT' }]
@@ -38,11 +42,8 @@ export class ScreensaverComponent implements OnInit{
   }
 
   getEditProject() {
-    this.projectService.currentProjectData$.subscribe((value: any) => {
-      this.router.navigate(['editProject', value.nickname]);
-      this.projectService.isEditProject = true;
-    })
-
+    this.router.navigate(['editProject', this.projectData.nickname]);
+    this.projectService.isEditProject = true;
   }
 
   setTargetAvata(objectUrl: string, block:string) {

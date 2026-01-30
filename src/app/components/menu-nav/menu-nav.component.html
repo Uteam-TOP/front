@@ -1,4 +1,4 @@
-<div class="content" [ngClass]="{'sticky': settingHeaderService.isSticky}">
+<div class="content" [ngClass]="{'sticky': settingHeaderService.isSticky, 'menu-bg' : showMainMenu}">
     <div class="first-container">
         <a href="">
             <div class="leftContent navBTN">
@@ -23,6 +23,10 @@
                 </svg>
             </div>
         </a>
+
+        <ng-container *ngIf="showMainMenu">
+          <app-main-menu></app-main-menu>
+        </ng-container>
         <div class="rightContent">
             <ng-container *ngIf="settingHeaderService.post">
                 <a (click)="handlePostResume()" class="additionalBtn additional"
@@ -90,13 +94,13 @@
 
     <ng-container *ngIf="settingHeaderService.backbtn">
         <div class="second-container">
-            <div class="leftContent backBtnContent" style="background-color: #5a4bb8;" (click)="goBack()">
+            <div class="leftContent backBtnContent" style="background-color: #5a4bb8;" (click)="previousUrl()">
                 <a class="backBtn"> <svg width="10" height="20" viewBox="0 0 10 20" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path d="M9 1L1 10L9 19" stroke="white" stroke-width="1.4" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                    Назад
+                  Назад
                 </a>
             </div>
         </div>
@@ -154,12 +158,22 @@
                     </button>
                 </div>
             </li>
-            <li (click)="toggle('vacancy')">
-                <a (click)="toggle('vacancy')">
+            <li routerLink="/projects" (click)="this.sidebarVisible = false">
+              <a>
+                Список проектов
+              </a>
+            </li>
+            <li routerLink="/hackathons" (click)="this.sidebarVisible = false">
+              <a>
+                Список хакатонов
+              </a>
+            </li>
+            <li routerLink="/vacancies" (click)="this.sidebarVisible = false">
+                <a>
                     Список вакансий
                 </a>
             </li>
-            <li (click)="toggle('resume')">
+            <li routerLink="/resumes" (click)="this.sidebarVisible = false">
                 <a>
                     Список резюме
                 </a>

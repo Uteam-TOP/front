@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {BehaviorSubject, delay, Observable, Subject, take, takeUntil} from 'rxjs';
 import { environment } from '../../../environment';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class HomeService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  typeToggle: string = 'vacancy';
+  typeToggle: 'vacancy' | 'hackathon' | 'project' | 'resume' = 'vacancy';
   vacancies: any[] = [];
   resumes: any[] = [];
   loading: boolean = true;
@@ -20,8 +20,10 @@ export class HomeService {
   private themeSubject = new BehaviorSubject<string>(localStorage.getItem('theme') || 'light');
   activeTheme$ = this.themeSubject.asObservable();
 
-  private typeToggleSubject = new BehaviorSubject<string>('vacancy');
+  private typeToggleSubject = new BehaviorSubject<'vacancy' | 'hackathon' | 'project' | 'resume'>('vacancy');
   activeTypeToggle$ = this.typeToggleSubject.asObservable();
+
+  private destroy$ = new Subject<void>();
 
 
   private domain = `${environment.apiUrl}`;
@@ -30,10 +32,18 @@ export class HomeService {
     this.themeSubject.next(theme);
   }
 
-  getCardData(type: string): Observable<any> {
+  changeType(type: 'vacancy' | 'hackathon' | 'project' | 'resume') {
+    this.typeToggleSubject.next(type);
+    this.typeToggle = type;
+  }
+
+  getCardData(type: string, page?: number, pageSize?: number): Observable<any> {
     let savedFilters: any = {};
     const filters = sessionStorage.getItem('bodyFilters');
 
+    if (typeof page === 'number') {
+        this.selectPage = page;
+    }
     if (filters) {
       savedFilters = JSON.parse(filters);
     } else {
@@ -43,14 +53,19 @@ export class HomeService {
       this.saveFilters(savedFilters);
     }
 
-    const typeSort = localStorage.getItem('typeSort');
-    const queryParams = `page=${this.selectPage}&size=30&sorts=creationDate_desc`;
+    const size = pageSize ? pageSize : 10;
 
-    return this.http.post(`${this.domain}/main/${type}/getAll?${queryParams}`, savedFilters);
+    const typeSort = localStorage.getItem('typeSort');
+    const queryParams = `page=${this.selectPage}&size=${size}&sorts=creationDate_ASC`;
+
+    return this.http.post(`${this.domain}/main/${type}/getAll?${queryParams}`, savedFilters).pipe( delay(300) );
   }
 
   getVacancies() {
-    this.getCardData('vacancy').subscribe(data => {
+    this.getCardData('vacancy')
+      .pipe(
+        takeUntil(this.destroy$)
+      ).subscribe(data => {
       if (data) {
         const filteredData = data.filter((vacancy: any) => vacancy.visibility !== "BAN");
         if (filteredData.length === 30) {
@@ -61,14 +76,16 @@ export class HomeService {
 
         this.selectPage = this.selectPage + 1;
         this.vacancies = [...this.vacancies, ...filteredData];
-        console.log('vacancies',this.vacancies)
       }
       this.loading = false;
     })
   }
 
   getResumes() {
-    this.getCardData('resume').subscribe(data => {
+    this.getCardData('resume')
+      .pipe(
+        takeUntil(this.destroy$)
+      ).subscribe(data => {
       if (data) {
         const filteredData = data.filter((resume: any) => resume.visibility !== "BAN");
         if (filteredData.length === 30) {
@@ -84,18 +101,19 @@ export class HomeService {
     });
   }
 
-  projects: any;
+  projects: any[] = [];
 
   getProject() {
 
-    this.getCardProjects().subscribe((data: any) => {
+    this.getCardProjects()
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe((data: any) => {
       if (data) {
+        this.projects = [];
         const filteredData = data.filter((project: any) => project.visibility !== "BAN");
-        if (filteredData.length === 30) {
-          this.visibleNextPage = true;
-        } else {
-          this.visibleNextPage = false;
-        }
+        this.visibleNextPage = filteredData.length === 30;
 
         this.selectPage = this.selectPage + 1;
         this.projects = [...this.projects, ...filteredData];
@@ -108,9 +126,13 @@ export class HomeService {
   hackathons: any = [];
 
   gethackathons() {
-    this.getCardHackathons().subscribe((data: any) => {
+    this.getCardHackathons()
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe((data: any) => {
       if (data) {
-        // const filteredData = data.data.filter((project: any) => project.visibility !== "BAN");
+        this.hackathons = [];
         if (data.length === 30) {
           this.visibleNextPage = true;
         } else {
@@ -125,7 +147,31 @@ export class HomeService {
   }
 
 
-  getCardProjects() {
+  getCardProjects(page?: number): Observable<any[]> {
+    if (typeof page === 'number') {
+      this.selectPage = page;
+    }
+
+    const queryParams = `page=${this.selectPage}&size=30&sorts=createdAt_DESC`;
+
+    const token = localStorage.getItem('authToken');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    if (token) {
+      return this.http.post<any[]>(`${this.domain}/main/project/get-by-filter?${queryParams}`, {}, { headers });
+    } else {
+      return this.http.post<any[]>(`${this.domain}/main/project/get-by-filter?${queryParams}`, {});
+    }
+
+  }
+
+    getCardHackathons(page?: number): Observable<any> {
+    if (typeof page === 'number') {
+      this.selectPage = page;
+    }
     const queryParams = `page=${this.selectPage}&size=30`;
 
     const token = localStorage.getItem('authToken');
@@ -135,15 +181,18 @@ export class HomeService {
     });
 
     if (token) {
-      return this.http.post(`${this.domain}/main/project/get-by-filter?${queryParams}`, {}, { headers });
+      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`, { headers }).pipe(delay(300));
     } else {
-      return this.http.post(`${this.domain}/main/project/get-by-filter?${queryParams}`, {});
+      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`,).pipe(delay(300));
     }
 
   }
 
-    getCardHackathons() {
-    const queryParams = `page=${this.selectPage}&size=30`;
+  getNewsData(page: number): Observable<any> {
+    if (typeof page === 'number') {
+      this.selectPage = page;
+    }
+    const queryParams = `page=${this.selectPage}&size=10`;
 
     const token = localStorage.getItem('authToken');
 
@@ -152,14 +201,13 @@ export class HomeService {
     });
 
     if (token) {
-      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`, { headers });
+      return this.http.get(`${this.domain}/main/project/all-posts?${queryParams}`, { headers }).pipe(delay(300));
     } else {
-      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`,);
+      return this.http.get(`${this.domain}/main/project/all-posts?${queryParams}`,).pipe(delay(300));
     }
-
   }
 
-  
+
   nextPage() {
     if (this.typeToggle === 'vacancy') {
       this.getVacancies();
@@ -236,14 +284,14 @@ export class HomeService {
   }
 
   toggleType(type: any) {
-    this.typeToggleSubject.next(type);
+    // this.typeToggleSubject.next(type);
     this.typeToggle = type;
     this.loading = true;
     this.selectPage = 0;
-    this.resumes = [];
-    this.vacancies = [];
-    this.projects = [];
-    this.hackathons = [];
+    // this.resumes = [];
+    // this.vacancies = [];
+    // this.projects = [];
+    // this.hackathons = [];
     if (type === 'vacancy') {
       this.getVacancies();
     }
@@ -256,6 +304,14 @@ export class HomeService {
     if (type === 'hackathon') {
       this.gethackathons();
     }
+    if (type === 'news') {
+
+    }
+  }
+
+  destroyHomeService() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

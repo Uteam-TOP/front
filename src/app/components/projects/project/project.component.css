@@ -52,12 +52,34 @@ p {
     font-size: 14px;
     line-height: 114%;
     text-transform: uppercase;
-    color: #101010;
+    color: var(--font-color);
     cursor: pointer;
+}
+
+#returnToProject svg path {
+  fill: var(--font-color);
 }
 
 #returnToProject:hover span {
     text-decoration: underline;
+}
+
+.title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  color: var(--font-color);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 10px;
+  color: var(--font-color);
 }
 
 

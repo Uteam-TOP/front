@@ -7,7 +7,14 @@ import { AuthGuard } from './components/personal-account/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule)
+    loadChildren: () => {
+      if (localStorage.getItem('isWasAuthenticated')) {
+        return import('./components/home/home.module').then(m => m.HomeModule)
+      } else {
+        return import('./pages/public-lending/public-lending.module').then(m => m.PublicLendingModule)
+      }
+
+    }
   },
   {
     path: 'news',
@@ -15,7 +22,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'lending',
+    path: 'landing',
     loadChildren: () => import('./pages/public-lending/public-lending.module').then(m => m.PublicLendingModule)
   },
   {
@@ -48,6 +55,22 @@ const routes: Routes = [
   },
   {
     path: 'project/:id', loadChildren: () => import('./components/projects/project/project.module').then(m => m.ProjectModule)
+  },
+  {
+    path: 'vacancies',
+    loadChildren: () => import('./pages/vacancies-list/vacancies-list.module').then(m => m.VacanciesListModule)
+  },
+  {
+    path: 'hackathons',
+    loadChildren: () => import('./pages/hackathons-list/hackathons-list.module').then(m => m.HackathonsListModule)
+  },
+  {
+    path: 'resumes',
+    loadChildren: () => import('./pages/resume-list/resume-list.module').then(m => m.ResumeListModule)
+  },
+  {
+    path: 'projects',
+    loadChildren: () => import('./pages/projects-list/projects-list.module').then(m => m.ProjectsListModule)
   },
 
   {

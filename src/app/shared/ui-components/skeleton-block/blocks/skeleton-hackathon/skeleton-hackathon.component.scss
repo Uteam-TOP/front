@@ -1,0 +1,93 @@
+:host {
+  width: 100%;
+  display: block;
+  flex: 1;
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.3rem;
+  background: var(--background-card);
+  width: 100%;
+  margin-bottom: 1rem;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    break-inside: avoid;
+    animation: skeleton-loading 1s linear infinite alternate;
+  }
+}
+
+.skeleton-background {
+  background-size: cover;
+  background-position: center;
+  height: 140px;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  border-radius: 1.3rem 1.3rem 0 0;
+  padding: 12px;
+  background-color: rgb(197, 197, 197);
+  position: relative;
+}
+
+.skeleton-body {
+  padding:12px;
+}
+
+.title-content {
+  width: 100%;
+  height: 29px;
+  background-color: rgb(197, 197, 197);
+  border-radius: 1.3rem;
+  margin: 8px;
+}
+
+.tc2 {
+  width: 60%;
+}
+
+.skeleton-address {
+  display: flex;
+  flex-direction:column;
+  align-items:end;
+}
+
+.adrress1,
+.adrress2 {
+  width: 60%;
+  height: 15px;
+  background-color: rgb(197, 197, 197);
+  border-radius: 1.3rem;
+  margin: 2px;
+}
+
+.adrress1 {
+  width: 30%;
+}
+
+.skeleton-label {
+  width: 60%;
+  height: 17px;
+  background-color: rgb(197, 197, 197);
+  border-radius: 1.3rem;
+}
+
+.skeleton-info-item {
+  width: 100%;
+  height: 19px;
+  background-color: rgb(197, 197, 197);
+  border-radius: 1.3rem;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    opacity: 0.2;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

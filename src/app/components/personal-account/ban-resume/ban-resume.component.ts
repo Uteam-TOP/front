@@ -14,7 +14,6 @@ export class BanResumeComponent implements OnInit {
 
   constructor() { }
   ngOnInit(): void {
-    console.log("cardItem", this.cardItem)
   }
 
   getSkillsColor(item: number): string {
@@ -31,7 +30,6 @@ export class BanResumeComponent implements OnInit {
   }
 
   getSkills(item: number): string {
-    console.log("item", item)
     switch (item) {
       case 1:
         return 'Junior';
@@ -45,7 +43,6 @@ export class BanResumeComponent implements OnInit {
   }
 
   getSkillText(item: number): string {
-    console.log("item",)
     switch (item) {
       case 1:
         return 'Jun';

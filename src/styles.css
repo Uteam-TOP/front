@@ -21,6 +21,8 @@
     --line-item: rgba(255, 255, 255, 0.1);
     /* rgba(0, 0, 0, 0.1) */
     --font-color: #fff;
+    /* #5A4BB8 */
+    --font-color-blue: #5A4BB8;
     /* #101010 */
     --logo-text-color: #fff;
     /* #5a4bb8 */
@@ -37,6 +39,10 @@
     --btnClosedFilter-hover: rgba(227, 227, 230, 1);
     --font-Monts: "Montserrat";
     --second-family: "Comfortaa";
+
+    --button-profile-background: #e2e2e2;
+    --button-profile-border: 0px solid #806BFF;
+    --button-profile-color: #101010;
 
     --subtitle1: 14px;
     --text10: 10px;
@@ -120,8 +126,8 @@
     transition: border-bottom 0.3s ease, color 0.3s ease;
 
     &.active {
-        border-bottom: 1.6px solid #101010;
-        color: #101010;
+        border-bottom: 1.6px solid var(--font-color);
+        color: var(--font-color);
     }
 }
 
@@ -155,6 +161,10 @@ div {
     font-family: var(--font-Monts);
 }
 
+a {
+  text-decoration: none;
+}
+
 
 .work{
     background: var(--tag-background) !important;
@@ -163,5 +173,16 @@ div {
 
 .chapterCard:has(.work) {
     display: none !important;
+}
+
+a,
+button,
+.lg-button {
+  cursor: pointer;
+}
+
+.ng-touched.ng-invalid {
+  border-color: #ff6a00 !important;
+  border-width: 2px !important;
 }
 

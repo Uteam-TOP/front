@@ -1,4 +1,14 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, QueryList, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener, inject,
+  OnDestroy,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
 import { OneSectionComponent } from './sections/one-section/one-section.component';
 import { ThirdSectionComponent } from './sections/third-section/third-section.component';
 import { FourthSectionComponent } from "./sections/fourth-section/fourth-section.component";
@@ -9,6 +19,9 @@ import { SeventhSectionComponent } from "./sections/seventh-section/seventh-sect
 import { LendingFooterButtonComponent } from "./sections/lending-footer-button/lending-footer-button.component";
 import { CommonModule } from '@angular/common';
 import {FooterComponent} from "../../components/footer/footer.component";
+import {HomeService} from "../../components/home/home.service";
+import {Router} from "@angular/router";
+import {INavigateLink} from "../../models/root.interface";
 
 @Component({
   selector: 'app-public-lending',
@@ -16,10 +29,14 @@ import {FooterComponent} from "../../components/footer/footer.component";
   imports: [OneSectionComponent, TwoSectionComponent, ThirdSectionComponent,
     FourthSectionComponent, FifthSectionComponent, SixthSectionComponent, CommonModule, SeventhSectionComponent, FooterComponent],
   templateUrl: './public-lending.component.html',
-  styleUrl: './public-lending.component.css'
+  styleUrl: './public-lending.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PublicLendingComponent implements AfterViewInit, OnDestroy {
   @ViewChildren('section') sections!: QueryList<ElementRef>;
+
+  private homeService = inject(HomeService);
+  private router = inject(Router);
 
   private isScrolling = false;
   currentSection = 0;
@@ -32,6 +49,7 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
   private wheelDeltaAccumulator = 0;
   private readonly wheelDeltaThreshold = 100; // Порог для активации скролла
   private resizeTimeout: any;
+  private scrollSecTimeout: any;
 
   constructor(private cdRef: ChangeDetectorRef) {}
 
@@ -45,7 +63,7 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
       this.sectionsInitialized = true;
       setTimeout(() => {
         this.scrollToSection(0, false);
-        this.cdRef.detectChanges();
+        // this.cdRef.detectChanges();
       });
     });
 
@@ -53,7 +71,7 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
       this.sectionsInitialized = true;
       setTimeout(() => {
         this.scrollToSection(0, false);
-        this.cdRef.detectChanges();
+        // this.cdRef.detectChanges();
       });
     }
   }
@@ -70,7 +88,7 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
   @HostListener('window:wheel', ['$event'])
   onWheel(event: WheelEvent) {
     // Всегда предотвращаем стандартное поведение
-    event.preventDefault();
+    // event.preventDefault();
 
     // Блокируем скролл во время анимации
     if (this.isScrolling || Date.now() - this.lastScrollTime < this.scrollCooldown) {
@@ -123,18 +141,21 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
   @HostListener('window:scroll', ['$event'])
   onScroll(event: Event) {
     // Всегда предотвращаем стандартный скролл
-    event.preventDefault();
+    // event.preventDefault();
+    if (this.scrollSecTimeout) clearTimeout(this.scrollSecTimeout);
+    this.scrollSecTimeout = setTimeout(() => {
 
-    // Игнорируем события скролла, которые мы сами инициируем
-    if (this.isManualScroll) {
-      this.isManualScroll = false;
-      return;
-    }
+      // Игнорируем события скролла, которые мы сами инициируем
+      if (this.isManualScroll) {
+        this.isManualScroll = false;
+        return;
+      }
 
-    // Если скролл вызван не нами, принудительно возвращаем на текущую секцию
-    if (!this.isScrolling) {
-      this.scrollToSection(this.currentSection, false);
-    }
+      // Если скролл вызван не нами, принудительно возвращаем на текущую секцию
+      if (!this.isScrolling) {
+        this.scrollToSection(this.currentSection, false);
+      }
+    }, 250)
   }
 
   @HostListener('window:resize')
@@ -220,5 +241,12 @@ export class PublicLendingComponent implements AfterViewInit, OnDestroy {
     if (this.sectionsInitialized && this.sections) {
       this.scrollToSection(index);
     }
+  }
+
+  goToPage(event: INavigateLink):void {
+    if (event.type) {
+      // this.homeService.toggleType(event.type);
+    }
+    this.router.navigate(event.url);
   }
 }

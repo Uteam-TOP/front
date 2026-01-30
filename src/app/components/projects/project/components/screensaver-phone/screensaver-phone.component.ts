@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 import { ProjectService } from '../../project.service';
 import { CommonModule } from '@angular/common';
 import { SettingHeaderService } from '../../../../setting-header.service';
+import {AvatarPipe} from "../../../../../pipes/avatar.pipe";
+import {PopUpEntryService} from "../../../../pop-up-entry/pop-up-entry.service";
 
 @Component({
   selector: 'app-screensaver-phone',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AvatarPipe],
   templateUrl: './screensaver-phone.component.html',
   styleUrl: './screensaver-phone.component.css'
 })
@@ -17,20 +19,25 @@ export class ScreensaverPhoneComponent implements OnInit {
   avatarLink: string = ''
   isLiked = false;
   isOwner: boolean = false;
+  projectData: any;
+
   constructor(private router: Router, private projectService: ProjectService,
-    private cdr: ChangeDetectorRef, public settingHeaderService:SettingHeaderService) { }
+    private cdr: ChangeDetectorRef, public settingHeaderService:SettingHeaderService,
+              private popUpEntryService: PopUpEntryService) { }
 
   ngOnInit(): void {
     this.projectService.currentProjectData$.subscribe((value: any) => {
+      this.projectData = value;
       if (value && value.headerLink) { // Проверяем, что value не null/undefined
         this.setTargetAvata(value.headerLink, 'overlay');
+      }
+      if (value && value.avatarLink) { // Проверяем, что value не null/undefined
         this.avatarLink = value.avatarLink || ''; // Защита от undefined
       }
     });
-    this.projectService.currentProjectIsOwner$.subscribe((value: boolean) => {
+    this.projectService.currentProjectIsOwner$.subscribe((value: boolean)=>{
       this.isOwner = value;
     })
-
   }
 
   tags = [{ name: 'Стартап', type: 'STARTUP' }, { name: 'Компания', type: 'COMPANY' }, { name: 'Разовый проект', type: 'ONE_TIME_PROJECT' }]
@@ -41,11 +48,8 @@ export class ScreensaverPhoneComponent implements OnInit {
   }
 
   getEditProject() {
-    this.projectService.currentProjectData$.subscribe((value: any) => {
-      this.router.navigate(['editProject', value.nickname]);
-      this.projectService.isEditProject = true;
-    })
-
+    this.router.navigate(['editProject', this.projectData.nickname]);
+    this.projectService.isEditProject = true;
   }
 
   setTargetAvata(objectUrl: string, block: string) {
@@ -60,8 +64,20 @@ export class ScreensaverPhoneComponent implements OnInit {
   toggleLike(event: Event) {
     event.stopPropagation();
     event.preventDefault();
-    this.isLiked = !this.isLiked;
-    this.cdr.detectChanges();
+    let userData = localStorage.getItem('authToken');
+    let userNickname = localStorage.getItem('autuserNicknamehToken');
+    if (!userData && !userNickname) {
+      this.popUpEntryService.showDialog();
+      return;
+    }
+
+    this.projectService.likeProject(this.detailsList.id).subscribe((result) => {
+      this.detailsList.userLike = !this.detailsList.userLike;
+      this.detailsList.likesCount = result;
+      this.cdr.detectChanges();
+    }, error => {
+      console.error('Ошибка при отправке лайка:', error);
+    });
   }
 
 }

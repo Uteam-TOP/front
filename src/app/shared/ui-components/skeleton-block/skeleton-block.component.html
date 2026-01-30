@@ -1,0 +1,22 @@
+<div class="skeleton-blocks">
+  @if (wrap === 'wrap') {
+    <app-skeleton-sort></app-skeleton-sort>
+  }
+  <div class="skeleton-blocks-container" [ngClass]="wrap">
+    @for (block of blocks; track block) {
+      @if (type === 'project') {
+        <skeleton-project></skeleton-project>
+      }
+      @if (type === 'hackathon') {
+        <skeleton-hackathon></skeleton-hackathon>
+      }
+      @if (type === 'vacancy') {
+        <skeleton-vacancy></skeleton-vacancy>
+      }
+      @if (type === 'resume') {
+        <skeleton-resume></skeleton-resume>
+      }
+    }
+  </div>
+
+</div>

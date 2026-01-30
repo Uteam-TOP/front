@@ -1,5 +1,6 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {Component, Inject, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-resume',
@@ -9,12 +10,13 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./resume.component.css']
 })
 export class ResumeComponent  implements OnChanges {
-  
+
   @Input() data: any;
+
+  private router = Inject(Router);
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data']) {
-      console.log('New data received:', changes['data'].currentValue);
     }
   }
 
@@ -44,7 +46,6 @@ export class ResumeComponent  implements OnChanges {
   }
 
   getSkills(item: number): string {
-    console.log("item", item)
     switch (item) {
       case 1:
         return 'Junior';
@@ -58,7 +59,6 @@ export class ResumeComponent  implements OnChanges {
   }
 
   getSkillText(item: number): string {
-    console.log("item",)
     switch (item) {
       case 1:
         return 'Jun';
@@ -84,5 +84,10 @@ export class ResumeComponent  implements OnChanges {
       default:
         return '';
     }
+  }
+
+  viewUser() {
+    const userId = localStorage.getItem('userNickname')
+    this.router.navigate([`/${userId}`]);
   }
 }

@@ -15,18 +15,19 @@
     background: var(--line-item);
     border-radius: 50px;
     margin-left: -10px;
-    padding: 0 10px;
-    width: 600px;
+    padding: 8px;
+    max-width: 650px;
+    width: 60%;
 }
 .circle-text-container svg{
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
 
 
 .text {
     font-family: var(--font-Monts);
     font-weight: 400;
-    font-size: 0.8rem;
+    font-size: 14px;
     line-height: 114%;
     color: var(--font-color);
 }

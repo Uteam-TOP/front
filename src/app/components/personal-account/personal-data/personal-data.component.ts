@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {Component, ElementRef, inject, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { PersonalDataService } from './personal-data.service';
@@ -8,17 +8,19 @@ import { CityOfResidence, User } from './user-interface';
 import { Router } from '@angular/router';
 import { PopUpAvatarComponent } from '../../pop-up-avatar/pop-up-avatar.component';
 import { PopUpAvatarService } from '../../pop-up-avatar/pop-up-avatar.service';
-import { catchError, map, Observable, of, Subscription } from 'rxjs';
+import {catchError, forkJoin, map, Observable, of, Subscription} from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AvatarSelectionService } from '../../pop-up-avatar/avatar-selection.service';
 import { SettingHeaderService } from '../../setting-header.service';
 import { MenuNavService } from '../../menu-nav/menu-nav.service';
 import { forbiddenWordsValidator } from '../../../../validators/forbidden-words.validator';
+import {UserService} from "../../../services/user.service";
+import {TagSelectedLevelComponent} from "../../form-components/tag-selected-level/tag-selected-level.component";
 
 @Component({
   selector: 'app-personal-data',
   standalone: true,
-  imports: [RadioButtonModule, CommonModule, FormsModule, ReactiveFormsModule, AutoCompleteModule, PopUpAvatarComponent],
+  imports: [RadioButtonModule, CommonModule, FormsModule, ReactiveFormsModule, AutoCompleteModule, PopUpAvatarComponent, TagSelectedLevelComponent],
   templateUrl: './personal-data.component.html',
   styleUrls: ['./personal-data.component.css'],
   animations: [
@@ -48,14 +50,25 @@ export class PersonalDataComponent implements OnInit {
   cancel_btn: boolean = false;
   initialFormState: any;
 
+  private userService = inject(UserService);
+
 
   @ViewChildren('formField') formFields!: QueryList<ElementRef>;
 
   private subscription: Subscription = new Subscription();
+  motivations: any[] = [];
+  selectedTags: {
+    id: number;
+    name: string;
+    color: string | null;
+    competenceLevel: string | null;
+    nameEng: string | null;
+    type: string;
+  }[] = [];
 
-  constructor(private fb: FormBuilder, private personalDataService: PersonalDataService,
-    private router: Router, public popUpAvatarService: PopUpAvatarService,
-    private avatarSelectionService: AvatarSelectionService, private settingHeaderService: SettingHeaderService, public menuNavService: MenuNavService) {
+  constructor(private fb: FormBuilder, protected personalDataService: PersonalDataService,
+              private router: Router, public popUpAvatarService: PopUpAvatarService,
+              private avatarSelectionService: AvatarSelectionService, private settingHeaderService: SettingHeaderService, public menuNavService: MenuNavService) {
     this.personalDataForm = this.fb.group({
       name: ['', [Validators.required, forbiddenWordsValidator()]],
       surname: ['', [Validators.required, forbiddenWordsValidator()]],
@@ -67,6 +80,7 @@ export class PersonalDataComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       telegram: [{ value: ''}, [Validators.required,forbiddenWordsValidator()]],
       domain: ['', [Validators.required, forbiddenWordsValidator()]],
+      userSkills: [[]],
     }, { updateOn: 'blur' });
   }
 
@@ -133,12 +147,19 @@ export class PersonalDataComponent implements OnInit {
     this.settingHeaderService.post = true;
     this.settingHeaderService.backbtn = true;
     this.avatarSelectionService.selectedAvatar$.subscribe(selectedAvatar => {
-      this.setAvatar = selectedAvatar
+      if (selectedAvatar) {
+        if (selectedAvatar.includes('message')) {
+          const avatar = JSON.parse(selectedAvatar);
+          this.setAvatar = avatar.message;
+        } else {
+          this.setAvatar = selectedAvatar;
+        }
+      }
     });
 
     this.avatarSelectionService.selectedTypeAvatar$.subscribe(selectedTypeAvatar => {
       this.setTypeAvatar = selectedTypeAvatar
-      this.personalDataForm.get('gender')?.setValue(this.setTypeAvatar?.toUpperCase());
+      // this.personalDataForm.get('gender')?.setValue(this.setTypeAvatar?.toUpperCase());
     });
 
     this.subscription.add(
@@ -159,6 +180,23 @@ export class PersonalDataComponent implements OnInit {
       this.setGender = value;
     });
     // this.toggleDisable()
+
+    this.userService.avatarUpdateTrigger$.subscribe((selectedAvatar: string) => {
+      if (selectedAvatar) {
+        if (selectedAvatar.includes('message')) {
+          const avatar = JSON.parse(selectedAvatar);
+          this.setAvatar = avatar.message;
+        } else {
+          this.setAvatar = selectedAvatar;
+        }
+      }
+    })
+
+    this.personalDataService.getTags('SKILL').subscribe({
+      next: (results) => {
+        this.motivations = results;
+      }
+    });
   }
 
 
@@ -203,6 +241,7 @@ export class PersonalDataComponent implements OnInit {
             email: user.email,
             telegram: user.telegram,
             domain: user.nickname || '',
+            userSkills: user.userSkills || [],
           });
           this.dataCurrentUser = user;
           this.cityOfResidence = user.cityEntityOfResidence || {};
@@ -229,7 +268,6 @@ export class PersonalDataComponent implements OnInit {
       },
       (error) => {
         console.error('Ошибка при загрузке данных пользователя:', error);
-        console.log('error.status', error)
         localStorage.removeItem('userNickname');
         localStorage.removeItem('authToken');
         localStorage.removeItem('fullAccess');
@@ -312,7 +350,7 @@ export class PersonalDataComponent implements OnInit {
   onSubmit() {
     const selectedCity = this.personalDataForm.get('city')?.value;
     const selectedCityControl = this.personalDataForm.get('city');
-  
+
     if (!this.isCityValid(selectedCity)) {
       this.getInputInval(false);
       selectedCityControl?.setErrors({ invalidCity: true });
@@ -331,7 +369,22 @@ export class PersonalDataComponent implements OnInit {
     if (this.personalDataForm.invalid) {
       this.getInputInval(true);
     } else {
+      console.log('this.motivations', this.motivations);
       const formValues = this.personalDataForm.value;
+      console.log('formValues.userSkills', formValues.userSkills);
+      // const getOriginalTag = (name: string) => this.motivations.find(tag => tag.name === name);
+      // const transformTags = (array: any[], type: string) => array.map(tag => ({
+      //   ...tag,
+      //   type: type,
+      //   color: tag.color || null,
+      // }));
+      //
+      // formValues.userSkills =
+      //   transformTags(formValues.userSkills.map((tag: any) => getOriginalTag(tag.name) || tag), 'SKILL');
+      //
+      // formValues.userSkills.forEach((skill: any) => {
+      //   skill.competenceLevel = skill.competenceLevel === 0 ? null : skill.competenceLevel;
+      // });
 
       const user: any = {
         id: 0,
@@ -349,12 +402,11 @@ export class PersonalDataComponent implements OnInit {
         imageLink: this.setAvatar,
         nickname: formValues.domain,
         role: this.dataCurrentUser.role,
-        banned: this.dataCurrentUser.banned
+        banned: this.dataCurrentUser.banned,
+        userSkills: formValues.userSkills
       };
-      console.log("User", user)
       this.personalDataService.updateUser(user).subscribe(
         response => {
-          console.log('response ------ -----',response)
           this.userData();
           localStorage.setItem('userId', formValues.domain);
           localStorage.setItem('userNickname', formValues.domain);
@@ -367,5 +419,9 @@ export class PersonalDataComponent implements OnInit {
         }
       );
     }
+  }
+
+  onTagsChanged(tags: { id: number; name: string; competenceLevel: number | null; type: string, color: string | null }[], formElement: string): void {
+    this.personalDataForm.get(formElement)?.setValue(tags);
   }
 }

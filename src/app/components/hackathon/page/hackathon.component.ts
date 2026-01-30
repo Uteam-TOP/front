@@ -26,10 +26,9 @@ export class HackathonComponent implements OnInit{
 
   ngOnInit(): void {
     this.paramId = this.route.snapshot.paramMap.get('id');
-    console.log('paramId', this.paramId);
 
     this.hackathonService.currentProjectIsOwner$.subscribe((value: boolean) => {
-      
+
       this.isOwner = value;
     });
 

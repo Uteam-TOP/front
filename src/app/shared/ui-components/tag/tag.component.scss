@@ -1,0 +1,52 @@
+.tag {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 31px;
+  gap: 6px;
+  border: 1px solid #806bff;
+  border-radius: 10px;
+  padding: 4px 8px 4px 8px;
+  background: var(--tag-background);
+
+  .with-competence-level {
+    padding-right: 4px !important;
+  }
+
+  .tagText {
+    font-family: var(--font-Monts);
+    font-weight: 400;
+    font-size: 0.7rem;
+    line-height: 120%;
+    color: var(--font-color);
+    margin: 0;
+  }
+
+  .tag-level {
+    margin: 0;
+    padding: 4px 6px;
+    border-radius: 5px;
+    font-family: var(--font-Monts);
+    font-weight: 400;
+    font-size: 0.7rem;
+    line-height: 120%;
+    color: #fff;
+  }
+}
+
+.motivations {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.motivation {
+  border-radius: 50px;
+  padding: 8px 10px;
+
+  font-family: var(--font-Monts);
+  font-weight: 400;
+  font-size: 0.7rem;
+  line-height: 120%;
+  color: #fff;
+}

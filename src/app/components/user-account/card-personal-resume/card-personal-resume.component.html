@@ -25,7 +25,7 @@
                 размещено
             </p>
             <p class="dateValue">
-                {{ cardItem?.creationDate | date: 'dd.MM.yyyy' }} 
+                {{ (cardItem?.creationDate*1000) | date: 'dd.MM.yyyy' }}
             </p>
         </div>
 

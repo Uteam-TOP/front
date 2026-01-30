@@ -91,10 +91,11 @@
                         <div class="container-elements-left-gruopInputs-items-block">
                             <p class="container-elements-left-gruopInputs-items-block-title">Email:</p>
                             <input class="container-elements-left-gruopInputs-items-block-input" type="text"
-                                placeholder="Введите email" formControlName="email" />
+                                placeholder="Введите email" formControlName="email" name="email" />
                             <div *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)"
                                 class="error-message">
                                 <div *ngIf="form.get('email')?.errors?.['required']">Email обязателен.</div>
+                              <div *ngIf="form.get('email')?.errors?.['email']">E-mail введен неправильно.</div>
                             </div>
                         </div>
                         <div class="container-elements-left-gruopInputs-items-block">
@@ -173,6 +174,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="container-elements-left-gruopInputs" style="margin-top: 15px">
+                      <p class="container-elements-left-gruopInputs-title">Стэк технологий:</p>
+                      <div class="container-elements-left-gruopInputs-items">
+                        <app-tag-selected-level [placeholderValue]="'Выберете технологии'"
+                                                formControlName="stack"
+                                                [isLevelAvl]="false"
+                                                (tagsChanged)="onTagsChanged($event, 'stack' )" [service]="personalDataService"></app-tag-selected-level>
+                        <div *ngIf="form.get('stack')?.invalid && form.get('stack')?.touched" class="error-message">
+                          Необходимо выбрать от 1 до 10 технологий
+                        </div>
+                      </div>
+                    </div>
                     <div class="container-elements-left-gruopInputs-items" style="margin-top: 16px;">
                         <div class="container-elements-left-gruopInputs-items-block">
                             <div class="chapter-content chapter-domain"
@@ -209,15 +222,19 @@
                     соответствии с Федеральным законом от 27.07.2006 года №152-ФЗ «О персональных данных», на условиях и
                     для целей, определенных в Согласии на обработку персональных данных
                 </p>
-                <div class="container-elements-right-btnBlock">
-                    <button *ngIf="!projectService.isEditProject" class="container-elements-right-btnBlock-btn"
-                        (click)="submitForm(false)">
-                        Опубликовать
-                    </button>
-                    <button *ngIf="projectService.isEditProject" class="container-elements-right-btnBlock-btn"
-                        (click)="submitForm(true)">
-                        Изменить
-                    </button>
+                <div class="container-elements-right-btnBlock" [ngClass]="{'is-loading': isLoading}">
+                  <div *ngIf="errorMessage"
+                       class="error-message">
+                    <p>{{ errorMessage }}</p>
+                  </div>
+                  <button *ngIf="!projectService.isEditProject" class="container-elements-right-btnBlock-btn"
+                      (click)="submitForm(false)">
+                      Опубликовать
+                  </button>
+                  <button *ngIf="projectService.isEditProject" class="container-elements-right-btnBlock-btn"
+                      (click)="submitForm(true)">
+                      Изменить
+                  </button>
                 </div>
             </div>
         </div>

@@ -31,7 +31,6 @@ export class PersonalVacancyComponent {
   }
 
   getSkills(item: number): string {
-    console.log("item", item)
     switch (item) {
       case 1:
         return 'Junior';
@@ -45,7 +44,6 @@ export class PersonalVacancyComponent {
   }
 
   getSkillText(item: number): string {
-    console.log("item",)
     switch (item) {
       case 1:
         return 'Jun';
@@ -88,7 +86,7 @@ export class PersonalVacancyComponent {
   }
 
   setArchive(event: Event) {
-    event.preventDefault(); 
+    event.preventDefault();
     event.stopPropagation();
     if (this.item) {
       this.vacancyService.toggleResumeArchive(this.item);
@@ -96,7 +94,7 @@ export class PersonalVacancyComponent {
   }
 
   update(event: Event, id: number) {
-    event.preventDefault(); 
+    event.preventDefault();
     event.stopPropagation();
     const userId = localStorage.getItem('userId')
     this.router.navigate([`/myaccount/${userId}/updateVacancy/${id}`]);

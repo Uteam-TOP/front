@@ -71,7 +71,6 @@ export class ScreensaverHackComponent implements OnInit {
   }
 
   getRegistrationStatusText(status: string): string {
-    console.log('status',status)
     switch (status) {
       case 'OPEN': return 'Регистрация открыта';
       case 'CLOSED': return 'Регистрация закончена';

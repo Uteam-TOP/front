@@ -1,0 +1,9 @@
+:host {
+  skeleton-block {
+    padding: 135px 20px 100px;
+    max-width: 1445px;
+    margin: 0 auto;
+    box-sizing: content-box;
+    display: block;
+  }
+}

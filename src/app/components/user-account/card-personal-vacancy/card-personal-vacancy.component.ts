@@ -16,7 +16,7 @@ export class CardPersonalVacancyComponent {
   constructor(private router: Router, private viewCardService: ViewCardService, private vacancyService: VacancyService) { }
 
   @Input() cardItem: any;
-  
+
   getSkillsColor(item: number): string {
     switch (item) {
       case 1:
@@ -31,7 +31,6 @@ export class CardPersonalVacancyComponent {
   }
 
   getSkills(item: number): string {
-    console.log("item", item)
     switch (item) {
       case 1:
         return 'Junior';

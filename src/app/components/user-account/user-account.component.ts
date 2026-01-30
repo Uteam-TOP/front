@@ -11,13 +11,26 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { HomeService } from '../home/home.service';
 import { TokenService } from '../token.service';
 import { PopUpEntryService } from '../pop-up-entry/pop-up-entry.service';
+import {TagComponent} from "../../shared/ui-components/tag/tag.component";
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-user-account',
   standalone: true,
-  imports: [CommonModule, CardPersonalResumeComponent, CardPersonalVacancyComponent, SkeletonModule],
+  imports: [CommonModule, CardPersonalResumeComponent, CardPersonalVacancyComponent, SkeletonModule, TagComponent],
   templateUrl: './user-account.component.html',
-  styleUrl: './user-account.component.css'
+  styleUrl: './user-account.component.css',
+  animations: [
+    trigger('fadeAnimation', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('300ms', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 
 export class UserAccountComponent implements OnInit, OnDestroy {
@@ -41,7 +54,6 @@ export class UserAccountComponent implements OnInit, OnDestroy {
 
     this.settingHeaderService.shared = true;
     this.settingHeaderService.backbtn = true;
-    console.log('userAccount')
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id')!;
       if (this.userId) {
@@ -49,32 +61,32 @@ export class UserAccountComponent implements OnInit, OnDestroy {
       } else {
       }
     });
-    
+
   }
 
 loadData(id: string): void {
     this.userAccountService.getUserData(id).subscribe(
       async (userData) => {
         this.userData = userData;
-        
+
         if (userData.freeLink) {
           this.domainName = this.domainService.setDomain(userData.freeLink);
-  
+
           this.imagePath = await this.domainService.checkImageExists(this.domainName);
         }
-  
+
         this.userAccountService.getVacanciesData(this.userData.id).subscribe(
           (vacancies) => {
-            this.vacancies = vacancies;
+            this.vacancies = vacancies.filter((vacancy: any) => vacancy.user.nickname === this.userId);
           },
           (error) => {
             console.error('Error while fetching vacancies:', error);
           }
         );
-  
+
         this.userAccountService.getResumessData(this.userData.id).subscribe(
           (resumes) => {
-            this.resumes = resumes;
+            this.resumes = resumes.filter((resume: any) => resume.user.nickname === this.userId);
           },
           (error) => {
             console.error('Error while fetching resumes:', error);
@@ -82,7 +94,6 @@ loadData(id: string): void {
         );
       },
       (error) => {
-        console.log('error.status',error)
         if(this.userId == localStorage.getItem('userNickname')) {
           localStorage.removeItem('userNickname');
           localStorage.removeItem('authToken');
@@ -120,5 +131,5 @@ loadData(id: string): void {
     event.preventDefault();
     this.router.navigate([`/${type}`, cardId]);
   }
-  
+
 }
