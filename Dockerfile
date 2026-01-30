@@ -65,4 +65,4 @@ ENV TZ=Europe/Zurich
 EXPOSE 9001
 
 # Команда для запуска Angular приложения с использованием ng serve
-CMD ["ng", "serve", "--configuration=production", "--host", "0.0.0.0", "--port", "9001"]
+CMD ["ng", "serve", "--host", "0.0.0.0", "--port", "9001"]
