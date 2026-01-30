@@ -1,5 +1,5 @@
 export const environment = {
-    //apiUrl: 'https://uteam.top/api',
+    // test 3
     apiUrl: 'https://dev.uteam.top/api',
     url: 'https://dev.uteam.top',
     //apiUrl: 'http://localhost:9091/api',
