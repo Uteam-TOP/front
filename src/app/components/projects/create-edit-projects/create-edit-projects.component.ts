@@ -260,7 +260,6 @@ export class CreateEditProjectsComponent implements OnInit {
 
   submitForm(isEdit: boolean): void {
     this.submitAttempted = true;
-    this.isLoading = true;
 
     Object.keys(this.form.controls).forEach((field) => {
       const control = this.form.get(field);
@@ -268,7 +267,8 @@ export class CreateEditProjectsComponent implements OnInit {
       control?.markAsTouched();
     });
 
-    if (this.form.valid && !this.errorMessage) {
+    if (this.form.valid && !this.errorMessage && !this.isLoading) {
+      this.isLoading = true;
 
       let data = this.form.value
       let newData: {
