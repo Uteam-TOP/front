@@ -57,6 +57,7 @@ RUN npm install -g @angular/cli
 COPY . .
 
 RUN npx ng build
+FROM nginx:alpine
 
 # Устанавливаем переменные окружения
 ARG VERSION_NUMBER_ARG=no-version
@@ -73,8 +74,6 @@ RUN touch /var/run/nginx.pid && \
   chown -R nginx:nginx /var/cache/nginx
 
 USER nginx
-
-FROM nginx:alpine
 
 COPY --from=build /app/dist/ucomand/browser/* /usr/share/nginx/html/
 COPY --from=build /app/src/assets /usr/share/nginx/html/assets
