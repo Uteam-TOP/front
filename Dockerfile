@@ -50,19 +50,17 @@ COPY package.json package-lock.json ./
 # Устанавливаем зависимости
 RUN npm install
 
-# Устанавливаем Angular CLI глобально
-RUN npm install -g @angular/cli
-
 # Копируем остальные файлы проекта в контейнер
 COPY . .
 
-RUN npx ng build
-FROM nginx:alpine
+RUN npm run build
 
 # Устанавливаем переменные окружения
 ARG VERSION_NUMBER_ARG=no-version
 ENV VERSION_NUMBER=$VERSION_NUMBER_ARG
 ENV TZ=Europe/Zurich
+
+FROM nginx:alpine
 
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
 
@@ -81,5 +79,5 @@ COPY --from=build /app/src/assets /usr/share/nginx/html/assets
 # Открываем порт 9001 для доступа к приложению
 EXPOSE 9001
 
-# Команда для запуска Angular приложения с использованием ng serve
+# Команда для запуска nginx
 CMD ["nginx", "-g", "daemon off;"]
