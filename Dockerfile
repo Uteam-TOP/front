@@ -39,7 +39,7 @@
 
 
 # Используем Node.js в качестве базового образа
-FROM node:24-alpine
+FROM node:24-alpine AS build
 
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
@@ -50,19 +50,35 @@ COPY package.json package-lock.json ./
 # Устанавливаем зависимости
 RUN npm install
 
-# Устанавливаем Angular CLI глобально
-RUN npm install -g @angular/cli
-
 # Копируем остальные файлы проекта в контейнер
 COPY . .
+
+RUN npm run build-dev
 
 # Устанавливаем переменные окружения
 ARG VERSION_NUMBER_ARG=no-version
 ENV VERSION_NUMBER=$VERSION_NUMBER_ARG
 ENV TZ=Europe/Zurich
 
+FROM nginx:alpine
+
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY default.conf /etc/nginx/conf.d/default.conf
+
+# RUN touch /var/run/nginx.pid && \
+#  mkdir -p /var/cache/nginx && \
+#  chown -R nginx:nginx /var/run/nginx.pid && \
+#  chown -R nginx:nginx /var/log/nginx && \
+#  chown -R nginx:nginx /etc/nginx/nginx.conf && \
+#  chown -R nginx:nginx /var/cache/nginx
+
+# USER nginx
+
+COPY --from=build /app/dist/ucomand/browser/* /usr/share/nginx/html/
+COPY --from=build /app/src/assets /usr/share/nginx/html/assets
+
 # Открываем порт 8081 для доступа к приложению
 EXPOSE 8081
 
-# Команда для запуска Angular приложения с использованием ng serve
-CMD ["ng", "serve", "--configuration=production", "--host", "0.0.0.0", "--port", "8081"]
+# Команда для запуска nginx
+CMD ["nginx", "-g", "daemon off;"]

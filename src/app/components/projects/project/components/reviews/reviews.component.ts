@@ -5,7 +5,7 @@ import { PersonalDataService } from '../../../../personal-account/personal-data/
 import { ReviewsService } from './reviews.service';
 import { ProjectService } from '../../project.service';
 import { FormsModule } from '@angular/forms';
-import {AvatarPipe} from "../../../../../pipes/avatar.pipe";
+import {AvatarPipe} from "../../../../../shared/pipes/avatar.pipe";
 
 @Component({
   selector: 'app-reviews',

@@ -5,7 +5,7 @@ import {NgClass, NgForOf, NgIf, NgTemplateOutlet} from "@angular/common";
 import {ProjectComponent} from "../../components/home/project/project.component";
 import { ResumeLibraryComponent, VacancyLibraryComponent } from '../../../common-uteam-library';
 import {Router} from "@angular/router";
-import {SortByPipe} from "../../pipes/sort-by.pipe";
+import {SortByPipe} from "../../shared/pipes/sort-by.pipe";
 import {VacancyComponent} from "../../components/view-card/vacancy/vacancy.component";
 import {NotFoundComponent} from "../not-found/not-found.component";
 

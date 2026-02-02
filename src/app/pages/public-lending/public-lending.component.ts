@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 import {FooterComponent} from "../../components/footer/footer.component";
 import {HomeService} from "../../components/home/home.service";
 import {Router} from "@angular/router";
-import {INavigateLink} from "../../models/root.interface";
+import {INavigateLink} from "../../core/models/root.interface";
 
 @Component({
   selector: 'app-public-lending',

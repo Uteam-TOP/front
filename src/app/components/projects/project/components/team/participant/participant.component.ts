@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import {AvatarPipe} from "../../../../../../pipes/avatar.pipe";
+import {AvatarPipe} from "../../../../../../shared/pipes/avatar.pipe";
 
 
 @Component({

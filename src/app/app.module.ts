@@ -12,7 +12,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PopUpErrorCreateComponent } from './components/pop-up-error-create/pop-up-error-create.component';
 import { LendingFooterButtonComponent } from "./pages/public-lending/sections/lending-footer-button/lending-footer-button.component";
 import {MainMenuComponent} from "./components/main-menu/main-menu.component";
-import {authInterceptor} from "./interceptors/auth-token.interceptor";
+import {authInterceptor} from "./core/interceptors/auth-token.interceptor";
 
 @NgModule({
   declarations: [
