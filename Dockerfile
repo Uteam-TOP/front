@@ -56,6 +56,8 @@ RUN npm install -g @angular/cli
 # Копируем остальные файлы проекта в контейнер
 COPY . .
 
+RUN npx ng build
+
 # Устанавливаем переменные окружения
 ARG VERSION_NUMBER_ARG=no-version
 ENV VERSION_NUMBER=$VERSION_NUMBER_ARG
