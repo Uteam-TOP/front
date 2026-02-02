@@ -61,8 +61,17 @@ ARG VERSION_NUMBER_ARG=no-version
 ENV VERSION_NUMBER=$VERSION_NUMBER_ARG
 ENV TZ=Europe/Zurich
 
-RUN npx ng build
-FROM nginx:alpine
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+
+RUN touch /var/run/nginx.pid && \
+  mkdir -p /var/cache/nginx && \
+  chown -R nginx:nginx /var/run/nginx.pid && \
+  chown -R nginx:nginx /var/log/nginx && \
+  chown -R nginx:nginx /etc/nginx/nginx.conf && \
+  chown -R nginx:nginx /var/cache/nginx
+
+USER nginx
+
 COPY --from=build /app/dist/ucomand/browser/* /usr/share/nginx/html/
 COPY --from=build /app/src/assets /usr/share/nginx/html/assets
 
