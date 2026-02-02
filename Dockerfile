@@ -65,6 +65,8 @@ ENV VERSION_NUMBER=$VERSION_NUMBER_ARG
 ENV TZ=Europe/Zurich
 
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
+RUN rm /etc/nginx/conf.d/default.conf
+COPY custom_default.conf /etc/nginx/conf.d/default.conf
 
 RUN touch /var/run/nginx.pid && \
   mkdir -p /var/cache/nginx && \
