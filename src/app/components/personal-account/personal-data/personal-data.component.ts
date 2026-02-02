@@ -14,7 +14,7 @@ import { AvatarSelectionService } from '../../pop-up-avatar/avatar-selection.ser
 import { SettingHeaderService } from '../../setting-header.service';
 import { MenuNavService } from '../../menu-nav/menu-nav.service';
 import { forbiddenWordsValidator } from '../../../../validators/forbidden-words.validator';
-import {UserService} from "../../../services/user.service";
+import {UserService} from "../../../core/services/user.service";
 import {TagSelectedLevelComponent} from "../../form-components/tag-selected-level/tag-selected-level.component";
 
 @Component({

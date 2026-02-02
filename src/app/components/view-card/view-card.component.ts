@@ -13,7 +13,7 @@ import { ResumeService } from '../personal-account/services/resume.service';
 import { PageErrorComponent } from '../page-error/page-error.component';
 import { ErrorViewCardComponent } from './error-view-card/error-view-card.component';
 import { trigger, transition, style, animate } from '@angular/animations';
-import {AvatarPipe} from "../../pipes/avatar.pipe";
+import {AvatarPipe} from "../../shared/pipes/avatar.pipe";
 
 @Component({
   selector: 'app-view-vacancy',

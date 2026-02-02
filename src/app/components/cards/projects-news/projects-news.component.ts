@@ -1,7 +1,7 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
 import {DatePipe, NgOptimizedImage, NgStyle} from "@angular/common";
 import {ProjectService} from "../../projects/project/project.service";
-import {AvatarPipe} from "../../../pipes/avatar.pipe";
+import {AvatarPipe} from "../../../shared/pipes/avatar.pipe";
 import {PopUpEntryService} from "../../pop-up-entry/pop-up-entry.service";
 
 @Component({
