@@ -39,7 +39,7 @@
 
 
 # Используем Node.js в качестве базового образа
-FROM node:24-alpine
+FROM node:24-alpine AS build
 
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
@@ -73,6 +73,8 @@ RUN touch /var/run/nginx.pid && \
   chown -R nginx:nginx /var/cache/nginx
 
 USER nginx
+
+FROM nginx:alpine
 
 COPY --from=build /app/dist/ucomand/browser/* /usr/share/nginx/html/
 COPY --from=build /app/src/assets /usr/share/nginx/html/assets
