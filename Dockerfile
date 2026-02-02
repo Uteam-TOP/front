@@ -30,7 +30,7 @@
 # COPY --from=build /app/dist/ucomand/browser/* /usr/share/nginx/html/
 # COPY --from=build /app/src/assets /usr/share/nginx/html/assets
 
-# EXPOSE 9001
+# EXPOSE 8081
 
 # CMD ["nginx", "-g", "daemon off;"]
 
@@ -77,8 +77,8 @@ COPY default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist/ucomand/browser/* /usr/share/nginx/html/
 COPY --from=build /app/src/assets /usr/share/nginx/html/assets
 
-# Открываем порт 9001 для доступа к приложению
-EXPOSE 9001
+# Открываем порт 8081 для доступа к приложению
+EXPOSE 8081
 
 # Команда для запуска nginx
 CMD ["nginx", "-g", "daemon off;"]
