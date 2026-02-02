@@ -6,7 +6,7 @@ import { ProjectService } from '../../project.service';
 import { FormsModule } from '@angular/forms';
 import { PhotoGridComponent } from '../review-card/photo-grid/photo-grid.component';
 import { TapeService } from './tape.service';
-import {SortByPipe} from "../../../../../pipes/sort-by.pipe";
+import {SortByPipe} from "../../../../../shared/pipes/sort-by.pipe";
 
 @Component({
   selector: 'app-tape',

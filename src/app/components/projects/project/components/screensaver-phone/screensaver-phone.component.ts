@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ProjectService } from '../../project.service';
 import { CommonModule } from '@angular/common';
 import { SettingHeaderService } from '../../../../setting-header.service';
-import {AvatarPipe} from "../../../../../pipes/avatar.pipe";
+import {AvatarPipe} from "../../../../../shared/pipes/avatar.pipe";
 import {PopUpEntryService} from "../../../../pop-up-entry/pop-up-entry.service";
 
 @Component({

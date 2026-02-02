@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { NewCommandService } from './new-command.service';
 import { ManageListParticipantsService } from '../manage-list-participants.service';
 import { HackathonService } from '../../../hackathon.service';
-import {AvatarPipe} from "../../../../../../pipes/avatar.pipe";
+import {AvatarPipe} from "../../../../../../shared/pipes/avatar.pipe";
 
 @Component({
   selector: 'app-new-command',

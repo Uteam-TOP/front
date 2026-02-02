@@ -19,7 +19,7 @@ import {HackathonCadComponent} from "../hackathon-cad/hackathon-cad.component";
 import {VacancyComponent} from "../../view-card/vacancy/vacancy.component";
 import {SkeletonBlockComponent} from "../../../shared/ui-components/skeleton-block/skeleton-block.component";
 import {ProjectsNewsComponent} from "../../cards/projects-news/projects-news.component";
-import {SortByPipe} from "../../../pipes/sort-by.pipe";
+import {SortByPipe} from "../../../shared/pipes/sort-by.pipe";
 import {ProjectService} from "../../projects/project/project.service";
 
 @Component({
@@ -80,6 +80,9 @@ export class HomeSliderComponent implements AfterViewInit, OnInit {
     localStorage.setItem('routeTypeCard', type);
     if (type === 'news') {
       return this.router.createUrlTree(['project', cardValue.project.id]).toString();
+    }
+    if (type === 'project') {
+      return this.router.createUrlTree(['project', cardValue.nickname]).toString();
     }
     return this.router.createUrlTree([route, cardValue.id]).toString();
   }

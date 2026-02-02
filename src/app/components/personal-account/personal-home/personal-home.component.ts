@@ -27,7 +27,7 @@ import { PersonalProjectComponent } from '../personal-project/personal-project.c
 import { ProjectService } from '../services/project.service';
 import { PopUpChangePasswordComponent } from '../../pop-up-change-password/pop-up-change-password.component';
 import { PopUpChangePasswordService } from '../../pop-up-change-password/pop-up-change-password.service';
-import {SortByPipe} from "../../../pipes/sort-by.pipe";
+import {SortByPipe} from "../../../shared/pipes/sort-by.pipe";
 import {UiButtonComponent} from "../../../shared/ui-components/ui-button/ui-button.component";
 import {TagComponent} from "../../../shared/ui-components/tag/tag.component";
 

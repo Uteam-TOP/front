@@ -12,7 +12,7 @@ import { environment } from '../../../environment';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { forbiddenWordsValidator } from '../personal-account/personal-data/errorNameList';
 import { AvatarSelectionService } from '../pop-up-avatar/avatar-selection.service';
-import {TrimOnInputDirective} from "../../directives/trim.directive";
+import {TrimOnInputDirective} from "../../shared/directives/trim.directive";
 
 @Component({
   selector: 'app-pop-up-entry',

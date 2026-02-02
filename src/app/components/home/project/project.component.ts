@@ -4,7 +4,7 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environment';
 import { PopUpEntryService } from '../../pop-up-entry/pop-up-entry.service';
-import {AvatarPipe} from "../../../pipes/avatar.pipe";
+import {AvatarPipe} from "../../../shared/pipes/avatar.pipe";
 import {ProjectService} from "../../projects/project/project.service";
 
 @Component({

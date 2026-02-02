@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {AvatarPipe} from "../../../../../../pipes/avatar.pipe";
+import {AvatarPipe} from "../../../../../../shared/pipes/avatar.pipe";
 
 @Component({
   selector: 'app-commands-item',
