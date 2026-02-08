@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { CardPersonalResumeComponent } from './card-personal-resume/card-personal-resume.component';
 import { CardPersonalVacancyComponent } from './card-personal-vacancy/card-personal-vacancy.component';
 import { SettingHeaderService } from '../setting-header.service';
-import { ViewCardService } from '../view-card/view-card.service';
+import { ViewCardService } from '../../pages/view-card/view-card.service';
 import { DomainService } from '../domain.service';
 import { UserAccountService } from './user-account.service';
 import { ActivatedRoute, Router } from '@angular/router';

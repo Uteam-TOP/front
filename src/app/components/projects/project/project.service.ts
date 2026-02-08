@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import { environment } from '../../../../environment';
+import {IProjectDto, ProjectDto} from "../../../core/models/projectDto";
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +13,15 @@ export class ProjectService {
 
   activeTab: 'aboutProject' | 'tape' | 'myTeam' = 'aboutProject'
   activeTabSubject = new BehaviorSubject<'aboutProject' | 'tape' | 'myTeam'>('aboutProject');
-  public currentActiveTab$: Observable<any> = this.activeTabSubject.asObservable();
+  public currentActiveTab$: Observable<'aboutProject' | 'tape' | 'myTeam'> = this.activeTabSubject.asObservable();
 
-  currentProjectDataSubject = new BehaviorSubject<any>(null);
+  currentProjectDataSubject = new BehaviorSubject<IProjectDto>({} as IProjectDto);
   // Observable for project data
-  public currentProjectData$: Observable<any> = this.currentProjectDataSubject.asObservable();
+  public currentProjectData$: Observable<IProjectDto> = this.currentProjectDataSubject.asObservable();
 
 
   private currentProjectIsOwnerSubject = new BehaviorSubject<boolean>(false);
-  public currentProjectIsOwner$: Observable<any> = this.currentProjectIsOwnerSubject.asObservable();
+  public currentProjectIsOwner$: Observable<boolean> = this.currentProjectIsOwnerSubject.asObservable();
 
   setActiveTab(tab: 'aboutProject' | 'tape' | 'myTeam'): void {
     this.activeTabSubject.next(tab);
@@ -33,10 +34,6 @@ export class ProjectService {
   // Method to get the latest project data
   getCurrentProjectData(): any {
     return this.currentProjectDataSubject.getValue();
-  }
-
-  clearCurrentProjectData(): void {
-    this.currentProjectDataSubject.next(null);
   }
 
   // Метод для изменения поля currentUserAppliedToProject на true
@@ -70,7 +67,6 @@ export class ProjectService {
   }
 
   setCurrentProjectIsOwner(data: boolean): void {
-    console.log('currentProjectIsOwnerSubject', data)
     this.currentProjectIsOwnerSubject.next(data);
   }
 
@@ -81,17 +77,9 @@ export class ProjectService {
 
   isEditProject: boolean = false;
 
-  getCurrentProject(nicknameProject: string | number): Observable<any> {
-    const token = localStorage.getItem('authToken');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+  getCurrentProject(nicknameProject?: string | number | null): Observable<IProjectDto> {
     const idType = !isNaN(nicknameProject as number) ? '' : 'by-nickname/'
-    if(token){
-      return this.http.get<any>(`${environment.apiUrl}/main/project/${idType}${nicknameProject}`, { headers })
-    }else{
-      return this.http.get<any>(`${environment.apiUrl}/main/project/${idType}${nicknameProject}`)
-    }
+    return this.http.get<IProjectDto>(`${environment.apiUrl}/main/project/${idType}${nicknameProject}`)
   }
 
 
@@ -118,7 +106,7 @@ export class ProjectService {
     return this.http.put<any>(`${environment.apiUrl}/${id}/like`, {})
   }
 
-  isUserResponded(projectId: number): Observable<any> {
+  isUserResponded(projectId?: number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/applications/has-current-user-responded-project/${projectId}`)
   }
 

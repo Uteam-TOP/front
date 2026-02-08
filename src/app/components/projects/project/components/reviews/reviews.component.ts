@@ -21,7 +21,7 @@ export class ReviewsComponent implements OnInit {
   projectData: any;
   commentText: any;
   currentUser: any;
-  itemsLisat: any = []
+  itemsLisat: any[] = []
   isTextEntered: boolean = false;
 
   ngOnInit(): void {

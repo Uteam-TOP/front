@@ -7,14 +7,14 @@
             <p class="chapterCard-value" style="margin-top: 0.5rem; width: 90%;">
                 {{ getSpecialization() }}
             </p>
-            <p [ngStyle]="{ 'border-color': getSkillsColor(data.profession.competenceLevel) } " *ngIf="data.profession.competenceLevel"
+            <p [ngStyle]="{ 'border-color': (data().profession.competenceLevel | skills: 'color')} " *ngIf="data().profession.competenceLevel"
                 class="lookingCard-level">
-                {{ getSkills(data.profession?.competenceLevel) }}
+                {{ (data().profession.competenceLevel | skills) }}
             </p>
         </div>
         <div class="lookingCard">
             <p class="chapterCard-value-eng">
-                {{ data?.profession?.nameEng | uppercase }}
+                {{ data().profession.nameEng | uppercase }}
             </p>
         </div>
     </div>
@@ -23,7 +23,6 @@
             Доступность:
         </p>
         <div class="tags">
-            <!-- <ng-container *ngFor="let item of cardItem.skills"> -->
                 <div class="availability" >
                     <p class="tagText">
                         Фриланс/Проект
@@ -34,7 +33,6 @@
                         Фриланс/Проект
                     </p>
                 </div>
-            <!-- </ng-container> -->
         </div>
     </div>
     <div class="chapterCard">
@@ -42,16 +40,16 @@
             Навыки:
         </p>
         <div class="tags">
-            <ng-container *ngFor="let skill of data.skills">
-                <div class="tag" [ngClass]="{ 'with-competence-level': skill.competenceLevel }">
-                    <p class="tagText">
-                        {{skill.name}}
-                    </p>
-                    <p *ngIf="skill.competenceLevel" [ngStyle]="{ 'background': getSkillsColor(skill.competenceLevel) }" class="tag-level">
-                        {{ getSkillText(skill.competenceLevel) }}
-                    </p>
-                </div>
-            </ng-container>
+          @for (skill of data().skills; track skill.id) {
+            <div class="tag" [ngClass]="{ 'with-competence-level': skill.competenceLevel }">
+              <p class="tagText">
+                {{skill.name}}
+              </p>
+              <p *ngIf="skill.competenceLevel" [ngStyle]="{ 'background': (skill.competenceLevel | skills: 'color') }" class="tag-level">
+                {{ (skill.competenceLevel | skills: 'short') }}
+              </p>
+            </div>
+          }
         </div>
     </div>
 
@@ -60,11 +58,11 @@
             Мотивация:
         </p>
         <div class="motivations">
-            <ng-container *ngFor="let motivation of data.motivations">
-                <div class="motivation" [ngStyle]="{ 'background': getMotivationColor(motivation.name) }">
-                    {{ motivation.name || 'Не указана' }}
-                </div>
-            </ng-container>
+          @for (motivation of data().motivations; track motivation.id) {
+            <div class="motivation" [ngStyle]="{ 'background': getMotivationColor(motivation.name) }">
+              {{ motivation.name || 'Не указана' }}
+            </div>
+          }
         </div>
     </div>
 
@@ -73,7 +71,7 @@
             Описание:
         </p>
         <div class="description" style="white-space: pre-wrap;">
-            {{ data.details || 'Нет описания' }}
+            {{ data().details || 'Нет описания' }}
         </div>
     </div>
 
@@ -83,7 +81,7 @@
                 размещено
             </p>
             <p class="dateVacancy dateValue">
-                {{ (data.creationDate*1000) | date: 'dd.MM.yyyy' }}
+                {{ (data().creationDate*1000) | date: 'dd.MM.yyyy' }}
             </p>
         </div>
     </div>

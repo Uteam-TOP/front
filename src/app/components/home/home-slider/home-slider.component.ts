@@ -16,7 +16,7 @@ import { ResumeLibraryComponent, VacancyLibraryComponent } from '../../../../com
 import {SwiperOptions} from "swiper/types";
 import { SwiperContainer } from 'swiper/element';
 import {HackathonCadComponent} from "../hackathon-cad/hackathon-cad.component";
-import {VacancyComponent} from "../../view-card/vacancy/vacancy.component";
+import {VacancyComponent} from "../../cards/vacancy/vacancy.component";
 import {SkeletonBlockComponent} from "../../../shared/ui-components/skeleton-block/skeleton-block.component";
 import {ProjectsNewsComponent} from "../../cards/projects-news/projects-news.component";
 import {SortByPipe} from "../../../shared/pipes/sort-by.pipe";

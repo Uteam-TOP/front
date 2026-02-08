@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { ViewCardService } from '../../view-card/view-card.service';
+import { ViewCardService } from '../../../pages/view-card/view-card.service';
 import { Router } from '@angular/router';
 import { ResumeService } from '../services/resume.service';
 

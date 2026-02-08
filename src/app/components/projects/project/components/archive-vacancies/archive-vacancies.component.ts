@@ -18,7 +18,7 @@ export class ArchiveVacanciesComponent implements OnInit {
   isTablet = false;
   isMobile = false;
   projectData: any;
-  vacancies: any = [];
+  vacancies: any[] = [];
 
   constructor(private router: Router, private formSettingService: FormSettingService, private settingHeaderService: SettingHeaderService, private projectService: ProjectService,) {
 
