@@ -1,44 +1,47 @@
 <div class="container">
-    <app-screensaver [detailsList]="projectData"></app-screensaver>
-    <app-screensaver-phone [detailsList]="projectData"></app-screensaver-phone>
+    <app-screensaver [detailsList]="projectData()"></app-screensaver>
+    <app-screensaver-phone [detailsList]="projectData()"></app-screensaver-phone>
     <div class="container-elements">
         <div class="container-elements-left">
-            <div class="container-elements-left-context" *ngIf="projectService.activeTab !== 'myTeam'">
+            <div class="container-elements-left-context" *ngIf="activeTab() !== 'myTeam'">
                 <div class="container-nav">
-                    <a class="subtitle16caps" [class.active]="projectService.activeTab === 'aboutProject'"
+                    <a class="subtitle16caps" [class.active]="activeTab() === 'aboutProject'"
                         (click)="setActiveTab('aboutProject')">
                         О проекте
                     </a>
-                    <a class="subtitle16caps" [class.active]="projectService.activeTab === 'tape'"
+                    <a class="subtitle16caps" [class.active]="activeTab() === 'tape'"
                         (click)="setActiveTab('tape')">
                         Лента
                     </a>
                 </div>
-                <app-about-project *ngIf="projectService.activeTab == 'aboutProject'"
-                    [detailsList]="detailsListProject"></app-about-project>
-                <ng-container *ngIf="projectService.activeTab == 'tape'">
-                    <app-tape></app-tape>
-                </ng-container>
-            </div>
 
-          @if (projectService.activeTab == 'aboutProject') {
-            <div class="container-elements-left-context" style="white-space: pre-wrap;">
-              <p class="title">Технологии</p>
-              <div class="tags">
-                @if (projectData && projectData.stack.length) {
-                  @for (technology of projectData.stack; track technology.id) {
-                    <app-tag [tag]="technology"></app-tag>
-                  }
-                } @else {
-                  Технологии не указаны
+                @if (activeTab() === 'aboutProject') {
+                  <app-about-project [detailsList]="detailsListProject"></app-about-project>
                 }
-              </div>
-
+                @if (activeTab() === 'tape') {
+                  <app-tape></app-tape>
+                }
             </div>
-          }
+
+            @if (activeTab() === 'aboutProject') {
+                <div class="container-elements-left-context" style="white-space: pre-wrap;">
+                    <p class="title">Технологии</p>
+                    <div class="tags">
+                        @if (projectData(); as data) {
+                            @if (data.stack && data.stack.length) {
+                              @for (technology of data.stack; track technology.id) {
+                                <app-tag [tag]="technology"></app-tag>
+                              }
+                            } @else {
+                              Технологии не указаны
+                            }
+                        }
+                    </div>
+                </div>
+            }
 
 
-            <ng-container *ngIf="projectService.activeTab == 'myTeam'">
+            @if (activeTab() === 'myTeam') {
                 <div style="padding-left: 24px;">
                     <a (click)="setActiveTab('aboutProject')" id="returnToProject">
                         <svg width="32" height="12" viewBox="0 0 32 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -51,27 +54,26 @@
                         </span>
                     </a>
                 </div>
+            }
 
-            </ng-container>
 
-
-            <ng-container *ngIf="projectService.activeTab == 'aboutProject'">
+            @if (activeTab() === 'aboutProject') {
                 <app-vacancies></app-vacancies>
-                <app-archive-vacancies *ngIf="isOwner == true"></app-archive-vacancies>
+                <app-archive-vacancies *ngIf="isOwner()"></app-archive-vacancies>
                 <app-reviews></app-reviews>
-            </ng-container>
+            }
 
-            <ng-container *ngIf="projectService.activeTab == 'myTeam' && isOwner == true">
+            @if (activeTab() ===  'myTeam' && isOwner()) {
                 <app-tab-team></app-tab-team>
-            </ng-container>
+            }
 
         </div>
-        <div class="container-elements-right" *ngIf="projectService.activeTab != 'myTeam'">
-            <app-team></app-team>
-        </div>
-
+        @if (activeTab() !==  'myTeam') {
+            <div class="container-elements-right">
+                <app-team></app-team>
+            </div>
+        }
     </div>
-
 </div>
 
-<app-pop-up-response-team *ngIf="isPopupVisible"></app-pop-up-response-team>
+<app-pop-up-response-team *ngIf="isPopupVisible()"></app-pop-up-response-team>

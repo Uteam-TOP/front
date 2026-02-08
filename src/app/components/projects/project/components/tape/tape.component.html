@@ -41,5 +41,9 @@
     </div>
 
 
-    <app-review-card [visibleFoto]="true" [Item]="itemCard" *ngFor="let itemCard of itemsList | sortBy: 'createdAt'"></app-review-card>
+    @if (itemsList && itemsList.length) {
+        <app-review-card [visibleFoto]="true" [Item]="itemCard" *ngFor="let itemCard of itemsList | sortBy: 'createdAt'"></app-review-card>
+    } @else {
+      <p>Лента новостей пуста</p>
+    }
 </div>

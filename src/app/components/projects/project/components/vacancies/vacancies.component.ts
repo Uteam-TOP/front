@@ -18,7 +18,7 @@ export class VacanciesComponent implements OnInit {
   isTablet = false;
   isMobile = false;
   projectData: any;
-  vacancies: any = [];
+  vacancies: any[] = [];
   isOwner: boolean = false;
   constructor(private router: Router, private formSettingService: FormSettingService, private settingHeaderService: SettingHeaderService, private projectService: ProjectService,) {
 

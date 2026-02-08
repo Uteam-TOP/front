@@ -95,7 +95,7 @@ export class TeamComponent implements OnInit {
   }
 
   setActiveTab() {
-    this.projectService.activeTab = 'myTeam';
+    this.projectService.setActiveTab('myTeam');
   }
 
 

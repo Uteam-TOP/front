@@ -11,15 +11,21 @@
   <div class="container-cards">
     <ng-container *ngIf="isTablet && vacancies">
       <div class="column">
-        <ng-container *ngFor="let item of vacancies; let i = index">
-          <ng-container *ngIf="i % 2 === 0"> <!-- First Column: 0, 2, 4, ... -->
-            <a [href]="getCardUrl(item.id, 'vacancies', 'vacancy')" class="app-card-vacancy-link"
-              (click)="onCardClick($event, item.id, 'vacancy')">
-              <app-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-card>
-            </a>
+        @if (vacancies.length) {
+          <ng-container *ngFor="let item of vacancies; let i = index">
+            <ng-container *ngIf="i % 2 === 0"> <!-- First Column: 0, 2, 4, ... -->
+              <a [href]="getCardUrl(item.id, 'vacancies', 'vacancy')" class="app-card-vacancy-link"
+                 (click)="onCardClick($event, item.id, 'vacancy')">
+                <app-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-card>
+              </a>
+            </ng-container>
           </ng-container>
-        </ng-container>
+
+        } @else {
+          <p class="no-vacancies">Пока нет вакансий</p>
+        }
       </div>
+
 
       <div class="column">
         <ng-container *ngFor="let item of vacancies; let i = index">

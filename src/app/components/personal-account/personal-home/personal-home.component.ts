@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { DomainService } from '../../domain.service';
 import { PersonalDataService } from '../personal-data/personal-data.service';
-import { ViewCardService } from '../../view-card/view-card.service';
+import { ViewCardService } from '../../../pages/view-card/view-card.service';
 import { PersonalHomeService } from './personal-home.service';
 import { catchError, forkJoin, Subscription } from 'rxjs';
 import { PopUpDeleteComponent } from '../../pop-up-delete/pop-up-delete.component';

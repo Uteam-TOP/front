@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { BackgroundImgsComponent } from '../background-imgs/background-imgs.component';
 import { SearchComponent } from './search/search.component';
 import { SortetdFilterComponent } from './sortetd-filter/sortetd-filter.component';
-import { ViewCardService } from '../view-card/view-card.service';
+import { ViewCardService } from '../../pages/view-card/view-card.service';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import { SettingHeaderService } from '../setting-header.service';
 import { HomeService } from './home.service';
