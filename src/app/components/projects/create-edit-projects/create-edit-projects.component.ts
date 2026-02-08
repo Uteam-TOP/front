@@ -8,6 +8,7 @@ import { ProjectService } from '../project/project.service';
 import { forbiddenWordsValidator } from '../../../../validators/forbidden-words.validator';
 import {TagSelectedLevelComponent} from "../../form-components/tag-selected-level/tag-selected-level.component";
 import {PersonalDataService} from "../../personal-account/personal-data/personal-data.service";
+import {IProjectDto} from "../../../core/models/projectDto";
 
 @Component({
   selector: 'app-create-edit-projects',
@@ -52,7 +53,7 @@ export class CreateEditProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
-    this.projectService.currentProjectData$.subscribe((value: any) => {
+    this.projectService.currentProjectData$.subscribe((value: IProjectDto) => {
       this.projectData = value;
     })
     this.route.data.subscribe((data) => {
@@ -62,10 +63,10 @@ export class CreateEditProjectsComponent implements OnInit {
           this.ProjectData(this.projectData.nickname);
         } else {
           const paramNickName = this.route.snapshot.paramMap.get('nickname');
-          if (paramNickName) {
+          if (paramNickName && data['nickname']) {
             this.projectService.getCurrentProject(paramNickName).subscribe(data => {
               this.projectService.setCurrentProjectData(data);
-              this.ProjectData(data.nickname);
+              this.ProjectData(data['nickname']);
             });
 
           }
@@ -182,7 +183,7 @@ export class CreateEditProjectsComponent implements OnInit {
     });
   }
 
-  ProjectData(nicknameProject: string) {
+  ProjectData(nicknameProject?: string) {
     this.projectService.getCurrentProject(nicknameProject).subscribe(
       (user: any) => {
 

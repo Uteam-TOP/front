@@ -33,6 +33,11 @@
 
 
     <div class="container-items">
+      @if (itemsLisat.length) {
         <app-review-card [Item]="itemCard" *ngFor="let itemCard of itemsLisat"></app-review-card>
+      } @else {
+        <p>Еще никто не комментировал</p>
+      }
+
     </div>
 </div>

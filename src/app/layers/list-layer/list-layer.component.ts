@@ -6,7 +6,7 @@ import {ProjectComponent} from "../../components/home/project/project.component"
 import { ResumeLibraryComponent, VacancyLibraryComponent } from '../../../common-uteam-library';
 import {Router} from "@angular/router";
 import {SortByPipe} from "../../shared/pipes/sort-by.pipe";
-import {VacancyComponent} from "../../components/view-card/vacancy/vacancy.component";
+import {VacancyComponent} from "../../components/cards/vacancy/vacancy.component";
 import {NotFoundComponent} from "../not-found/not-found.component";
 
 @Component({
