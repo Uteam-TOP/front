@@ -1,4 +1,4 @@
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { NewCommandService } from './new-command.service';
 import { ManageListParticipantsService } from '../manage-list-participants.service';
@@ -8,7 +8,7 @@ import {AvatarPipe} from "../../../../../../shared/pipes/avatar.pipe";
 @Component({
   selector: 'app-new-command',
   standalone: true,
-    imports: [CommonModule, AvatarPipe],
+    imports: [AvatarPipe],
   templateUrl: './new-command.component.html',
   styleUrl: './new-command.component.css'
 })

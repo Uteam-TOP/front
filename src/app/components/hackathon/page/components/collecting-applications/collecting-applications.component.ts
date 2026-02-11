@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-collecting-applications',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './collecting-applications.component.html',
   styleUrl: './collecting-applications.component.css'
 })

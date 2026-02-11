@@ -1,4 +1,4 @@
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HackathonService } from '../../hackathon.service';
@@ -8,7 +8,7 @@ import { ManageListParticipantsService } from './manage-list-participants.servic
 @Component({
   selector: 'app-manage-list-participants',
   standalone: true,
-  imports: [CommonModule, NewCommandComponent],
+  imports: [NewCommandComponent],
   templateUrl: './manage-list-participants.component.html',
   styleUrl: './manage-list-participants.component.css', 
   providers: [DatePipe ]

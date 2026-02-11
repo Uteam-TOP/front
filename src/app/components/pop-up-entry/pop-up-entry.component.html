@@ -1,155 +1,98 @@
-<div class="popup-overlay" *ngIf="popUpEntryService.visible" (click)="closePopUp()">
-  <div class="popup" (click)="$event.stopPropagation()">
-    <div class="close-button" (click)="closePopUp()">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 5L18 18M5.0002 18L18 5" stroke="#333334" stroke-opacity="0.3" stroke-width="1.4"
-          stroke-linecap="round" />
-      </svg>
-    </div>
-    <!-- <ng-content>
-      <p class="popup-login-title">Войти в аккаунт</p>
-      <p class="popup-telegram-auth">Авторизация через Telegram</p>
-      <a *ngIf="!telegramWidgetLoaded" class="popup-login-link" (click)="loadTelegramWidget()">Войти</a>
-
-      <div id="telegram-login"></div>
-      <a *ngIf="userAuthenticated" (click)="clearCookies()">войти с другого аккаунта</a>
-       <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
-    </ng-content> -->
-
-    <ng-content>
-      <div style="display: flex;
+@if (popUpEntryService.visible) {
+  <div class="popup-overlay" (click)="closePopUp()">
+    <div class="popup" (click)="$event.stopPropagation()">
+      <div class="close-button" (click)="closePopUp()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 5L18 18M5.0002 18L18 5" stroke="#333334" stroke-opacity="0.3" stroke-width="1.4"
+            stroke-linecap="round" />
+        </svg>
+      </div>
+      @if (!popUpEntryService.confirmAuth && !popUpEntryService.accessVerification) {
+        <div style="display: flex;
     flex-direction: column;
     width: 100%;
-    align-items: center;" *ngIf="!popUpEntryService.confirmAuth && !popUpEntryService.accessVerification">
-        <form [formGroup]="authForm" autocomplete="off" style="width: 100%;">
-          <p class="message">
-            @if (popUpEntryService.withMessage && popUpEntryService.message) {
-              {{ popUpEntryService.message }}
-            } @else if (!popUpEntryService.isRegistration) {
-              Введите e-mail, чтобы войти
-            } @else {
-              Введите e-mail, чтобы зарегистрироваться
-            }
-          </p>
-          <div class="input-group" style="    width: 100%;">
-            <label for="email" class="text10opac05">Почта:</label>
-            <input #formField
-               trimOnInput
-               type="text"
-               id="email"
-               formControlName="email"
-               placeholder="Введите почту"
-               autocomplete="off"
+    align-items: center;">
+          <form [formGroup]="authForm" autocomplete="off" style="width: 100%;">
+            <p class="message">
+              @if (popUpEntryService.withMessage && popUpEntryService.message) {
+                {{ popUpEntryService.message }}
+              } @else if (!popUpEntryService.isRegistration) {
+                Введите e-mail, чтобы войти
+              } @else {
+                Введите e-mail, чтобы зарегистрироваться
+              }
+            </p>
+            <div class="input-group" style="    width: 100%;">
+              <label for="email" class="text10opac05">Почта:</label>
+              <input #formField
+                trimOnInput
+                type="text"
+                id="email"
+                formControlName="email"
+                placeholder="Введите почту"
+                autocomplete="off"
                [ngClass]="{'invalid': authForm.get('email')?.invalid && (authForm.get('email')?.dirty &&
                   isError || authForm.get('email')?.touched && isError)}">
-            <div
-              *ngIf="authForm.get('email')?.invalid && (authForm.get('email')?.dirty || authForm.get('email')?.touched)"
-              class="error-message">
-              <div *ngIf="authForm.get('email')?.errors?.['required']">почта обязательна для заполнения.</div>
+              @if (authForm.get('email')?.invalid && (authForm.get('email')?.dirty || authForm.get('email')?.touched)) {
+                <div class="error-message">
+                  @if (authForm.get('email')?.errors?.['required']) {
+                    <div>почта обязательна для заполнения.</div>
+                  }
+                </div>
+              }
+              @if (authForm.get('email')?.errors?.['forbiddenWords']) {
+                <div class="error-message">
+                  Запрещённые слова:
+                  @for (word of authForm.get('email')?.errors?.['forbiddenWords']; track word) {
+                    <span>{{ word }},</span>
+                  }
+                </div>
+              }
+              @if (errorMessage) {
+                <p class="error-message">{{ errorMessage }}</p>
+              }
             </div>
-            <div *ngIf="authForm.get('email')?.errors?.['forbiddenWords']" class="error-message">
-              Запрещённые слова: <span *ngFor="let word of authForm.get('email')?.errors?.['forbiddenWords']">{{
-                word }},
-              </span>
-            </div>
-            <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
-          </div>
-<!--          <div class="input-group" *ngIf="popUpEntryService.isAuth == false">-->
-<!--            <label for="telegram" class="text10opac05">Телеграм:</label>-->
-<!--            <input #formField-->
-<!--               type="text"-->
-<!--               id="telegram"-->
-<!--               formControlName="telegram"-->
-<!--               placeholder="Введите телеграм"-->
-<!--               autocomplete="off"-->
-<!--               [ngClass]="{'invalid': authForm.get('telegram')?.invalid &&-->
-<!--               (authForm.get('telegram')?.dirty && isError || authForm.get('telegram')?.touched && isError)}">-->
-<!--            <div-->
-<!--              *ngIf="authForm.get('telegram')?.invalid &&-->
-<!--              (authForm.get('telegram')?.dirty || authForm.get('telegram')?.touched)"-->
-<!--              class="error-message">-->
-<!--              <div *ngIf="authForm.get('telegram')?.errors?.['required']">Телеграм обязательна для заполнения.</div>-->
-<!--            </div>-->
-<!--            <div *ngIf="authForm.get('telegram')?.errors?.['forbiddenWords']" class="error-message">-->
-<!--              Запрещённые слова: <span *ngFor="let word of authForm.get('telegram')?.errors?.['forbiddenWords']">{{-->
-<!--                word }},-->
-<!--              </span>-->
-<!--            </div>-->
-<!--          </div>-->
-          <!-- <div class="input-group" *ngIf="popUpEntryService.isAuth == false">
-            <label for="nickname" class="text10opac05">Никнейм:</label>
-            <input #formField type="text" id="nickname" formControlName="nickname" placeholder="Введите никнейм"
-              autocomplete="off"
-              [ngClass]="{'invalid': authForm.get('nickname')?.invalid && (authForm.get('nickname')?.dirty && isError || authForm.get('nickname')?.touched && isError)}">
-            <div
-              *ngIf="authForm.get('nickname')?.invalid && (authForm.get('nickname')?.dirty || authForm.get('nickname')?.touched)"
-              class="error-message">
-              <div *ngIf="authForm.get('nickname')?.errors?.['required']">Никнейм обязательна для заполнения.</div>
-            </div>
-            <div *ngIf="authForm.get('nickname')?.errors?.['forbiddenWords']" class="error-message">
-              Запрещённые слова: <span *ngFor="let word of authForm.get('nickname')?.errors?.['forbiddenWords']">{{
-                word }},
-              </span>
-            </div>
-          </div> -->
-          <!-- <div class="input-group">
-            <label for="password" class="text10opac05">Пароль:</label>
-            <input #formField type="text" id="password" formControlName="password" placeholder="Введите почту"
-              autocomplete="off"
-              [ngClass]="{'invalid': authForm.get('password')?.invalid && (authForm.get('password')?.dirty && isError || authForm.get('password')?.touched && isError)}">
-            <div
-              *ngIf="authForm.get('password')?.invalid && (authForm.get('password')?.dirty || authForm.get('password')?.touched)"
-              class="error-message">
-              <div *ngIf="authForm.get('password')?.errors?.['required']">Пароль обязательна для заполнения.</div>
-            </div>
-            <div *ngIf="authForm.get('password')?.errors?.['forbiddenWords']" class="error-message">
-              Запрещённые слова: <span *ngFor="let word of authForm.get('password')?.errors?.['forbiddenWords']">{{
-                word }},
-              </span>
-            </div>
-          </div> -->
-          <a *ngIf="!telegramWidgetLoaded" class="popup-login-link" style="margin-top: 16px; width: 100%;"
-             (click)="authUser()">
-            @if (!popUpEntryService.isRegistration) {
-              Войти
-            } @else {
-              Зарегистрироваться
+            @if (!telegramWidgetLoaded) {
+              <a class="popup-login-link"
+                 [ngClass]="{'blocked-button' : isLoading}"
+                 style="margin-top: 16px; width: 100%;"
+                 (click)="authUser()">
+                @if (!popUpEntryService.isRegistration) {
+                  Войти
+                } @else {
+                  Зарегистрироваться
+                }
+              </a>
             }
-          </a>
-        </form>
-      </div>
-
-      <div style="display: flex; flex-direction: column; gap: 3rem;"
-        *ngIf="popUpEntryService.confirmAuth && !popUpEntryService.accessVerification">
-        <div style="text-align: center;">Введите 6-значный код из письма</div>
-
-        <div style="display: flex; justify-content: center; gap: 7px;">
-          <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
-            (input)="moveFocus($event, 1)" #digit1>
-          <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
-            (input)="moveFocus($event, 2)" (keydown.backspace)="moveFocus($event, 0, 'delete')" #digit2>
-          <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
-            (input)="moveFocus($event, 3)" (keydown.backspace)="moveFocus($event, 1, 'delete')" #digit3>
-          <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
-            (input)="moveFocus($event, 4)" (keydown.backspace)="moveFocus($event, 2, 'delete')" #digit4>
-          <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
-            (input)="moveFocus($event, 5)" (keydown.backspace)="moveFocus($event, 3, 'delete')" #digit5>
-          <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
-            (input)="moveFocus($event, 6)" (keydown.backspace)="moveFocus($event, 4, 'delete')" #digit6>
+          </form>
         </div>
-        <div style="text-align: center; font-size: 14px; color: #666; margin-top: -2rem;">
-          Письмо может попасть в папку «Спам» — проверьте её
-        </div>
-        <!-- <button class="popup-login-link" (click)="verifyCode()">Подтвердить</button> -->
-        <!-- <a class="popup-login-link" (click)="closePopUp()">Закрыть</a> -->
-      </div>
+      }
+      @if (popUpEntryService.confirmAuth && !popUpEntryService.accessVerification) {
+        <div style="display: flex; flex-direction: column; gap: 3rem;">
+          <div style="text-align: center;">Введите 6-значный код из письма</div>
+          <div style="display: flex; justify-content: center; gap: 7px;">
+            <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
+              (input)="moveFocus($event, 1)" #digit1>
+            <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
+              (input)="moveFocus($event, 2)" (keydown.backspace)="moveFocus($event, 0, 'delete')" #digit2>
+            <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
+              (input)="moveFocus($event, 3)" (keydown.backspace)="moveFocus($event, 1, 'delete')" #digit3>
+            <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
+              (input)="moveFocus($event, 4)" (keydown.backspace)="moveFocus($event, 2, 'delete')" #digit4>
+            <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
+              (input)="moveFocus($event, 5)" (keydown.backspace)="moveFocus($event, 3, 'delete')" #digit5>
+            <input type="number" maxlength="1" class="code" style="width: 40px; text-align: center;"
+              (input)="moveFocus($event, 6)" (keydown.backspace)="moveFocus($event, 4, 'delete')" #digit6>
+          </div>
 
-      <!-- <div style="display: flex;
-      flex-direction: column; gap: 3rem;     margin-top: 16px;"
-        *ngIf="popUpEntryService.confirmAuth && popUpEntryService.accessVerification">
-        {{popUpEntryService.accessVerificationMessage}}
-        <a class="popup-login-link"  (click)="getLoginForm()">Войти</a>
-      </div> -->
-    </ng-content>
+          <div style="text-align: center; font-size: 14px; color: #666; margin-top: -2rem;">
+            @if (errorMessageConfirm) {
+              <p class="error-message error-message-confirm">{{ errorMessageConfirm }}</p>
+            }
+            Письмо может попасть в папку «Спам» — проверьте её
+          </div>
+        </div>
+      }
+    </div>
   </div>
-</div>
+}

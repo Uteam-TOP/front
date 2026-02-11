@@ -5,7 +5,7 @@ import { SettingHeaderService } from '../../components/setting-header.service';
 import { TokenService } from '../../components/token.service';
 import { DomainService } from '../../components/domain.service';
 import { PopUpEntryService } from '../../components/pop-up-entry/pop-up-entry.service';
-import { CommonModule } from '@angular/common';
+
 import { SkeletonModule } from 'primeng/skeleton';
 import { ResumeComponent } from '../../components/cards/resume/resume.component';
 import { VacancyComponent } from '../../components/cards/vacancy/vacancy.component';
@@ -20,7 +20,7 @@ import {catchError, map, of} from "rxjs";
 @Component({
   selector: 'app-view-vacancy',
   standalone: true,
-  imports: [CommonModule, SkeletonModule, VacancyComponent, ResumeComponent, SkeletonModule, ErrorViewCardComponent],
+  imports: [SkeletonModule, VacancyComponent, ResumeComponent, SkeletonModule, ErrorViewCardComponent],
   templateUrl: './view-card.component.html',
   styleUrls: ['./view-card.component.css'],
   animations: [

@@ -1,13 +1,12 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {NgClass, NgIf} from "@angular/common";
+import { NgClass } from "@angular/common";
 
 @Component({
   selector: 'ui-button',
   standalone: true,
   imports: [
-    NgIf,
     NgClass
-  ],
+],
   templateUrl: './ui-button.component.html',
   styleUrl: './ui-button.component.scss'
 })

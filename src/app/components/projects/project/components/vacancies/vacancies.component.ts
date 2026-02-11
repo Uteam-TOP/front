@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CardComponent } from './card/card.component';
@@ -9,7 +9,7 @@ import { ProjectService } from '../../project.service';
 @Component({
   selector: 'app-vacancies',
   standalone: true,
-  imports: [CommonModule, CardComponent],
+  imports: [CardComponent],
   templateUrl: './vacancies.component.html',
   styleUrl: './vacancies.component.css'
 })

@@ -1,20 +1,25 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {inject, Injectable} from '@angular/core';
+import {BehaviorSubject, first, forkJoin} from 'rxjs';
 import { NewPeopleService } from '../new-people/new-people.service';
 import { ProjectService } from '../../../project.service';
+import {MyTeamService} from "../mu-team/my-team.service";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PopUpService {
 
+  private projectService = inject(ProjectService);
+  private myTeamService = inject(MyTeamService);
+  private router = inject(Router);
 
   private visibleSubject = new BehaviorSubject<boolean>(false);
   visible$ = this.visibleSubject.asObservable();
 
 
-  constructor(private http: HttpClient, private newPeopleService: NewPeopleService, private projectService: ProjectService) { }
+  constructor(private http: HttpClient, private newPeopleService: NewPeopleService) { }
 
 
   showPopup() {
@@ -57,13 +62,30 @@ export class PopUpService {
     const dataProject = this.projectService.getCurrentProjectData();
 
     if (dataProject && dataProject.id && item && item.id) {
-      this.newPeopleService.setApplication(dataProject.id, item.id).subscribe((value: any) => {
-        console.log("value", value);
-        this.hidePopup();
+      forkJoin({
+        members: this.myTeamService.teamMembers$.pipe(first()),
+        newMembers: this.newPeopleService.setApplication(dataProject.id, item.id)
+      }).subscribe({
+        next: (value) => {
+          console.log("members", value);
+          value.members.push(value.newMembers);
+          this.myTeamService.updateTeamMembers(value.members);
+          this.hidePopup();
+        }
+      })
+      this.myTeamService.teamMembers$.subscribe(teamMembers => {
+        console.log('teamMembers', teamMembers);
       });
     } else {
       console.warn("DataProject or item is not set");
     }
+
+
+      // this.newPeopleService.setApplication(dataProject.id, item.id).subscribe((value: any) => {
+      //   this.myTeamService.updateTeamMembers(value);
+      //   this.hidePopup();
+      //   this.router.navigate([`/project/${dataProject.nickname}`]);
+      // });
   }
 
 }

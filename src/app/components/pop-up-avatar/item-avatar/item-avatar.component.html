@@ -1,45 +1,46 @@
 <div class="container">
-  <div class="checkbox-container" *ngIf="default">
-<input
-    type="checkbox"
-    (click)="onDefaultAvatarClick($event, avatarSrc)"
-    [checked]="!fileUrl && selectedAvatar === avatarSrc || isSelected"
-      class="custom-checkbox" />
-  </div>
+  @if (default) {
+    <div class="checkbox-container">
+      <input
+        type="checkbox"
+        (click)="onDefaultAvatarClick($event, avatarSrc)"
+        [checked]="!fileUrl && selectedAvatar === avatarSrc || isSelected"
+        class="custom-checkbox" />
+    </div>
+  }
 
-  <div class="checkbox-container" *ngIf="!default">
-    <input type="checkbox" (click)="onCustomAvatarClick($event)" [checked]="fileUrl && isSelected"
-      class="custom-checkbox" />
-  </div>
+  @if (!default) {
+    <div class="checkbox-container">
+      <input type="checkbox" (click)="onCustomAvatarClick($event)" [checked]="fileUrl && isSelected"
+        class="custom-checkbox" />
+    </div>
+  }
 
   <div class="image-container">
     <!-- Стандартный аватар -->
-    <ng-container *ngIf="default">
+    @if (default) {
       <div (click)="onDefaultAvatarClick($event, avatarSrc)">
         <img [src]="'assets/avatars/' + avatarSrc + '.png'" alt="avatar" class="avatar-image">
       </div>
-    </ng-container>
+    }
 
     <!-- Кастомный аватар -->
-    <ng-container *ngIf="!default">
+    @if (!default) {
       <!-- Input для загрузки файла -->
       <input type="file" id="custom-avatar-input" accept="image/png, image/jpeg" (change)="onFileSelected($event)"
         style="display: none;">
-
       <div (click)="onCustomAvatarClick($event)">
         <div class="custom-avatar-container">
-          <ng-container *ngIf="fileUrl && !default; else placeholder">
+          @if (fileUrl && !default) {
             <img [src]="fileUrl" alt="custom avatar" class="avatar-image">
-          </ng-container>
-
-          <ng-template #placeholder>
+          } @else {
             <div class="avatar-placeholder">
               <span>+</span>
               <small>Загрузить фото</small>
             </div>
-          </ng-template>
+          }
         </div>
       </div>
-    </ng-container>
+    }
   </div>
 </div>

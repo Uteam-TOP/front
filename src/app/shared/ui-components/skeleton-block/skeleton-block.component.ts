@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
-import {DatePipe, NgClass, NgForOf, NgIf, UpperCasePipe} from "@angular/common";
+import { DatePipe, NgClass, UpperCasePipe } from "@angular/common";
 import {SkeletonProjectComponent} from "./blocks/skeleton-project/skeleton-project.component";
 import {SkeletonHackathonComponent} from "./blocks/skeleton-hackathon/skeleton-hackathon.component";
 import {SkeletonSortComponent} from "../skeleton-ui/skeleton-sort/skeleton-sort.component";

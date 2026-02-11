@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, forwardRef, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotivationsService } from './motivations.service';
@@ -6,7 +6,7 @@ import { MotivationsService } from './motivations.service';
 @Component({
   selector: 'app-motivations',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './motivations.component.html',
   styleUrl: './motivations.component.css',
   providers: [

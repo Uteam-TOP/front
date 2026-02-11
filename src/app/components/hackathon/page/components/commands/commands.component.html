@@ -1,6 +1,8 @@
 <div class="label">
-    Команды:
+  Команды:
 </div>
 <div class="container">
-    <app-commands-item *ngFor="let item of dataHackathon?.teams" [item]="item"></app-commands-item>
+  @for (item of dataHackathon?.teams; track item) {
+    <app-commands-item [item]="item"></app-commands-item>
+  }
 </div>

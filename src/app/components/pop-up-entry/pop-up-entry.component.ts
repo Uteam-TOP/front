@@ -25,6 +25,8 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
 
   authForm: FormGroup;
   isError: boolean = false;
+  isLoading: boolean = false;
+  errorMessageConfirm: string = '';
 
   constructor(
     public popUpEntryService: PopUpEntryService,
@@ -59,6 +61,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
 
   authUser() {
 
+    this.isLoading = true;
     const formData = this.authForm.value;
     formData.email = formData.email.trim();
     const data = { ...formData };
@@ -76,6 +79,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
     //   })
     // } else {
     this.popUpEntryService.signUpUesr(data).subscribe((response: any) => {
+      this.isLoading = true;
       this.popUpEntryService.confirmAuth = true;
 
       localStorage.setItem('confirmAuth', 'true');
@@ -339,6 +343,14 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
       //     localStorage.setItem('userNickname', response.nickname);
       //     this.userAuthenticated = true;
       //     this.login_user();
+    }, (error) => {
+      this.errorMessageConfirm = 'Неверный код';
+      this.digit1.nativeElement.value = '';
+      this.digit2.nativeElement.value = '';
+      this.digit3.nativeElement.value = '';
+      this.digit4.nativeElement.value = '';
+      this.digit5.nativeElement.value = '';
+      this.digit6.nativeElement.value = '';
     })
 
   }

@@ -1,13 +1,13 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { PopUpResponseTeamService } from './pop-up-response-team.service';
-import { CommonModule } from '@angular/common';
+
 import { ActiveResumesComponent } from './active-resumes/active-resumes.component';
 import { FormsModule } from '@angular/forms';
 import { ProjectService } from '../../project.service';
 @Component({
   selector: 'app-pop-up-response-team',
   standalone: true,
-  imports: [CommonModule, ActiveResumesComponent, FormsModule],
+  imports: [ActiveResumesComponent, FormsModule],
   templateUrl: './pop-up-response-team.component.html',
   styleUrl: './pop-up-response-team.component.css'
 })

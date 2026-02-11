@@ -1,12 +1,12 @@
 import { Component, ElementRef, HostListener, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { HomeService } from '../../home.service';
 
 @Component({
   selector: 'app-sorting',
   standalone: true,
-  imports: [CommonModule, OverlayPanelModule],
+  imports: [OverlayPanelModule],
   templateUrl: './sorting.component.html',
   styleUrls: ['./sorting.component.css'],
   encapsulation: ViewEncapsulation.None

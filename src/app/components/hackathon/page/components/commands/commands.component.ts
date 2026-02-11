@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { CommandsItemComponent } from './commands-item/commands-item.component';
 import { CommandsService } from './commands.service';
@@ -7,7 +7,7 @@ import { HackathonService } from '../../hackathon.service';
 @Component({
   selector: 'app-commandsHack',
   standalone: true,
-  imports: [CommonModule, CommandsItemComponent],
+  imports: [CommandsItemComponent],
   templateUrl: './commands.component.html',
   styleUrl: './commands.component.css'
 })

@@ -1,102 +1,106 @@
 <div class="card">
-    <div class="background"
-        [ngStyle]="{'background-image': 'linear-gradient(rgba(16, 16, 16, 0.6), rgba(16, 16, 16, 0.6)), url(' + cardItem.headerLink + ')'}">
-        <div class="header-content">
-            <span class="type-badge">{{ getTypeName(cardItem.type) }}</span>
-<!--            <a class="like" (click)="toggleLike($event)">-->
-<!--                <img src="assets/icons/icon-like.svg" alt="like" />-->
-<!--            </a>-->
-        </div>
-    </div>
+  <div class="background"
+    [ngStyle]="{'background-image': 'linear-gradient(rgba(16, 16, 16, 0.6), rgba(16, 16, 16, 0.6)), url(' + cardItem.headerLink + ')'}">
+    <div class="header-content">
+      <span class="type-badge">{{ getTypeName(cardItem.type) }}</span>
+      <!--            <a class="like" (click)="toggleLike($event)">-->
+      <!--                <img src="assets/icons/icon-like.svg" alt="like" />-->
+    <!--            </a>-->
+  </div>
+</div>
 
 
-    <div class="body">
+<div class="body">
 
-        <div class="title-container">
-            <ng-container *ngIf="cardItem.avatarLink">
+  <div class="title-container">
+    @if (cardItem.avatarLink) {
                 <img [src]="cardItem.avatarLink | avatar" alt="avatar" style="    width: 85px;
                 height: 85px;
                 border-radius: 50%;">
-            </ng-container>
-            <ng-container *ngIf="!cardItem.avatarLink">
-                <img [src]="'assets/avatars/default.png'" alt="avatar">
-            </ng-container>
-            <p class="title">
-                {{cardItem.title | uppercase }}
-            </p>
-        </div>
-        <div class="description text12">
-            {{cardItem.summary}}
-        </div>
+    }
+    @if (!cardItem.avatarLink) {
+      <img [src]="'assets/avatars/default.png'" alt="avatar">
+    }
+    <p class="title">
+      {{cardItem.title | uppercase }}
+    </p>
+  </div>
+  <div class="description text12">
+    {{cardItem.summary}}
+  </div>
 
-        <div class="vacancies">
-            <ng-container *ngIf="cardItem.vacancies.length > 0">
-                <p class="text12" style="margin-bottom: 8px; margin-top: 16px; padding-left: 8px;">
-                    {{cardItem.vacancies.length}} открытых вакансий:</p>
-
-                <ng-container *ngFor="let item of cardItem.vacancies.slice(0, 2)" (click)="viewJob($event, item.id)">
-                    <div class="vacanciesItem" style="margin-bottom: 8px;">
-                        <span class="text12" style="font-weight: 600;">{{item?.profession?.name}}</span>
-                        <p [ngStyle]="{ 'border-color': getSkillsColor(item.profession?.competenceLevel) }"
-                            class="lookingCard-level" *ngIf="item?.profession?.competenceLevel">
-                            {{ getSkills(item.profession?.competenceLevel) }}
-                        </p>
-                    </div>
-                </ng-container>
-
-                <div style="width: 100%;
+  <div class="vacancies">
+    @if (cardItem.vacancies.length > 0) {
+      <p class="text12" style="margin-bottom: 8px; margin-top: 16px; padding-left: 8px;">
+      {{cardItem.vacancies.length}} открытых вакансий:</p>
+      @for (item of cardItem.vacancies.slice(0, 2); track item) {
+        <ng-container (click)="viewJob($event, item.id)">
+          <div class="vacanciesItem" style="margin-bottom: 8px;">
+            <span class="text12" style="font-weight: 600;">{{item?.profession?.name}}</span>
+            @if (item?.profession?.competenceLevel) {
+              <p [ngStyle]="{ 'border-color': getSkillsColor(item.profession?.competenceLevel) }"
+                class="lookingCard-level">
+                {{ getSkills(item.profession?.competenceLevel) }}
+              </p>
+            }
+          </div>
+        </ng-container>
+      }
+      @if (cardItem.vacancies.length > 2) {
+<div style="width: 100%;
                             display: flex;
                             flex-direction: row-reverse;
-                            margin-top: 10px;" *ngIf="cardItem.vacancies.length > 2">
-                    <p class="text12" style=" margin: 0;">
-                        Еще
-                    </p>
-                </div>
+                            margin-top: 10px;">
+          <p class="text12" style=" margin: 0;">
+            Еще
+          </p>
+        </div>
+      }
+    }
 
-            </ng-container>
 
-
-            <ng-container *ngIf="cardItem.vacancies.length == 0">
-                <!-- <p class="text12">Нет открытых вакансий.</p> -->
+    @if (cardItem.vacancies.length == 0) {
+      <!-- <p class="text12">Нет открытых вакансий.</p> -->
                 <span class="text12" style="    font-weight: 600;
                 display: flex;
                 margin-top: 16px;
                 align-items: center;
                 height: 100%;">
-                    У проекта пока нет открытых вакансий, но вы можете написать админу, и удача вам улыбнется.
-                </span>
-            </ng-container>
-        </div>
+        У проекта пока нет открытых вакансий, но вы можете написать админу, и удача вам улыбнется.
+      </span>
+    }
+  </div>
 
-        <div class="commands">
-            <p class="text12">Команда:</p>
-            <ng-container *ngIf="cardItem.team.length > 0">
-                <div class="team-container">
-                    <div *ngFor="let item of cardItem.team" (click)="viewUser($event, item.user?.nickname)"
-                        class="team-member">
-
-                        <ng-container *ngIf="item.user.imageLink">
-                            <img [src]="item.user.imageLink | avatar" alt="avatar" class="avatar">
-                        </ng-container>
-                        <ng-container *ngIf="!item.user.imageLink">
-                            <img [src]="'assets/avatars/default.png'" alt="avatar" class="avatar">
-                        </ng-container>
-                    </div>
-                </div>
-            </ng-container>
-
-        </div>
-      <div class="card-footer">
-        <div class="date-container">
-          <p class="date">размещено {{ (cardItem.createdAt*1000) | date:'dd.MM.yyyy' }}</p>
-        </div>
-        <div class="social-buttons">
-          <div class="like" (click)="toggleLike($event)">
-            <p>{{ cardItem.likesCount }}</p>
-            <img src="/assets/icons/like.png" alt="like" />
+  <div class="commands">
+    <p class="text12">Команда:</p>
+    @if (cardItem.team.length > 0) {
+      <div class="team-container">
+        @for (item of cardItem.team; track item) {
+          <div (click)="viewUser($event, item.user?.nickname)"
+            class="team-member">
+            @if (item.user.imageLink) {
+              <img [src]="item.user.imageLink | avatar" alt="avatar" class="avatar">
+            }
+            @if (!item.user.imageLink) {
+              <img [src]="'assets/avatars/default.png'" alt="avatar" class="avatar">
+            }
           </div>
-        </div>
+        }
       </div>
+    }
 
+  </div>
+  <div class="card-footer">
+    <div class="date-container">
+      <p class="date">размещено {{ (cardItem.createdAt*1000) | date:'dd.MM.yyyy' }}</p>
     </div>
+    <div class="social-buttons">
+      <div class="like" (click)="toggleLike($event)">
+        <p>{{ cardItem.likesCount }}</p>
+        <img src="/assets/icons/like.png" alt="like" />
+      </div>
+    </div>
+  </div>
+
+</div>
 </div>

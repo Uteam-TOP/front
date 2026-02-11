@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SettingHeaderService } from '../../../setting-header.service';
@@ -7,7 +7,7 @@ import { HomeService } from '../../home.service';
 @Component({
   selector: 'app-search-input-phone',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './search-input-phone.component.html',
   styleUrl: './search-input-phone.component.css'
 })

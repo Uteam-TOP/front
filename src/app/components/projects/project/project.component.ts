@@ -3,7 +3,7 @@ import { TeamComponent } from './components/team/team.component';
 import { VacanciesComponent } from './components/vacancies/vacancies.component';
 import { AboutProjectComponent } from './components/about-project/about-project.component';
 import { ProjectService } from './project.service';
-import { CommonModule } from '@angular/common';
+
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { PopUpResponseTeamService } from './components/pop-up-response-team/pop-up-response-team.service';
 import { PopUpResponseTeamComponent } from './components/pop-up-response-team/pop-up-response-team.component';
@@ -22,7 +22,7 @@ import {toSignal} from "@angular/core/rxjs-interop";
 @Component({
   selector: 'app-project',
   standalone: true,
-  imports: [CommonModule, ScreensaverPhoneComponent, TabTeamComponent, TeamComponent, AboutProjectComponent, VacanciesComponent, ReviewsComponent, PopUpResponseTeamComponent, TapeComponent, ScreensaverComponent, ArchiveVacanciesComponent, TagComponent],
+  imports: [ScreensaverPhoneComponent, TabTeamComponent, TeamComponent, AboutProjectComponent, VacanciesComponent, ReviewsComponent, PopUpResponseTeamComponent, TapeComponent, ScreensaverComponent, ArchiveVacanciesComponent, TagComponent],
   templateUrl: './project.component.html',
   styleUrl: './project.component.css'
 })

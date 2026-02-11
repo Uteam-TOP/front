@@ -9,36 +9,45 @@
   [enabled]="isDesktop"
   [navigation]="navigation">
   @if (items.length) {
-    <swiper-slide
-      *ngFor="let item of items | sortBy: type === 'vacancy' || type === 'resume' ? 'creationDate' : 'createdAt'; let i = index">
-      <a [routerLink]="getCardUrl(item, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
-         (click)="onCardClick($event, item.id, type)" class="card-container">
-        <ng-container *ngIf="type === 'project'">
-          <app-project class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-project>
-        </ng-container>
-
-        <ng-container *ngIf="type === 'news'">
-          <app-projects-news class="card" [newsItem]="item" *ngIf="item.visibility != 'BAN'"></app-projects-news>
-        </ng-container>
-
-        <ng-container *ngIf="type === 'vacancy'">
-          <app-vacancy [data]="item" class="card" *ngIf="item.visibility != 'BAN'"></app-vacancy>
-        </ng-container>
-
-        <ng-container *ngIf="type === 'resume'">
-          <lib-resume class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'" [visibleSections]="resumeVisibleSections"> </lib-resume>
-        </ng-container>
-
-        <ng-container *ngIf="type === 'hackathon'">
-          <app-hackathon-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-hackathon-card>
-        </ng-container>
-
-      </a>
-    </swiper-slide>
+    @for (item of items | sortBy: type === 'vacancy' || type === 'resume' ? 'creationDate' : 'createdAt'; track item; let i = $index) {
+      <swiper-slide
+        >
+        <a [routerLink]="getCardUrl(item, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
+          (click)="onCardClick($event, item.id, type)" class="card-container">
+          @if (type === 'project') {
+            @if (item.visibility != 'BAN') {
+              <app-project class="card" [cardItem]="item"></app-project>
+            }
+          }
+          @if (type === 'news') {
+            @if (item.visibility != 'BAN') {
+              <app-projects-news class="card" [newsItem]="item"></app-projects-news>
+            }
+          }
+          @if (type === 'vacancy') {
+            @if (item.visibility != 'BAN') {
+              <app-vacancy [data]="item" class="card"></app-vacancy>
+            }
+          }
+          @if (type === 'resume') {
+            @if (item.visibility != 'BAN') {
+              <lib-resume class="card" [cardItem]="item" [visibleSections]="resumeVisibleSections"> </lib-resume>
+            }
+          }
+          @if (type === 'hackathon') {
+            @if (item.visibility != 'BAN') {
+              <app-hackathon-card class="card" [cardItem]="item"></app-hackathon-card>
+            }
+          }
+        </a>
+      </swiper-slide>
+    }
   } @else {
-    <swiper-slide  *ngFor="let item of emptyCards; let i = index">
-      <skeleton-block [type]="type" [amount]="1"></skeleton-block>
-    </swiper-slide>
+    @for (item of emptyCards; track item; let i = $index) {
+      <swiper-slide >
+        <skeleton-block [type]="type" [amount]="1"></skeleton-block>
+      </swiper-slide>
+    }
   }
 
 </swiper-container>
