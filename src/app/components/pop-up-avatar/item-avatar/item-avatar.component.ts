@@ -1,12 +1,12 @@
 import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import { AvatarSelectionService } from '../avatar-selection.service';
-import { CommonModule } from '@angular/common';
+
 import {UserService} from "../../../core/services/user.service";
 
 @Component({
   selector: 'app-item-avatar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './item-avatar.component.html',
   styleUrl: './item-avatar.component.css'
 })

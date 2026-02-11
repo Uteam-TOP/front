@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, forwardRef, Input, Output, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -13,7 +13,7 @@ interface Tag {
 @Component({
   selector: 'app-tag-selector',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './tag-selector.component.html',
   styleUrls: ['./tag-selector.component.css'],
   providers: [

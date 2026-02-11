@@ -9,14 +9,18 @@
       class="tag-input"
       [placeholder]="getSelectedTagsText() || 'Выбрать'"
       [ngModel]="value"
-    />
+      />
 
-    <ng-container *ngIf="showTagBlock && selectedTags.length < maxTags">
-      <div *ngIf="tags.length > 0;" class="tag-block" >
-        <div *ngFor="let tag of tags" (click)="selectTag(tag)">
-          {{ tag.name }}
+    @if (showTagBlock && selectedTags.length < maxTags) {
+      @if (tags.length > 0;) {
+        <div class="tag-block" >
+          @for (tag of tags; track tag) {
+            <div (click)="selectTag(tag)">
+              {{ tag.name }}
+            </div>
+          }
         </div>
-      </div>
-    </ng-container>
+      }
+    }
   </div>
 </div>

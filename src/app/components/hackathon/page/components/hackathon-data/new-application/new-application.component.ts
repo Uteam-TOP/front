@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { ProjectComponent } from './project/project.component';
 import { FormSettingService } from '../../../../../form/form-setting.service';
@@ -11,7 +11,7 @@ import { NewApplicationService } from './new-application.service';
 @Component({
   selector: 'app-new-application',
   standalone: true,
-  imports: [CommonModule, ProjectComponent, ResumePersonComponent],
+  imports: [ProjectComponent, ResumePersonComponent],
   templateUrl: './new-application.component.html',
   styleUrl: './new-application.component.css'
 })

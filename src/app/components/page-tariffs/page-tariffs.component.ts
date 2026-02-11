@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { CardTariffsComponent } from './card-tariffs/card-tariffs.component';
 import { item } from './card-tariffs/card-tariffs.interface';
@@ -8,7 +8,7 @@ import { CardDefaultTariffsComponent } from './card-default-tariffs/card-default
 @Component({
   selector: 'app-page-tariffs',
   standalone: true,
-  imports: [CommonModule, CardTariffsComponent, CardDefaultTariffsComponent],
+  imports: [CardTariffsComponent, CardDefaultTariffsComponent],
   templateUrl: './page-tariffs.component.html',
   styleUrl: './page-tariffs.component.css'
 })

@@ -1,98 +1,102 @@
 <div class="card">
-    <p class="title">
-        {{ data().title }}
+  <p class="title">
+    {{ data().title }}
+  </p>
+  <div class="chapterCard">
+    <p class="chapterCard-title" style="margin-bottom: 0;">
+      Ищу:
     </p>
-    <div class="chapterCard">
-        <p class="chapterCard-title" style="margin-bottom: 0;">
-            Ищу:
+    <div class="lookingCard">
+      <p class="chapterCard-value" style="margin-top: 0.5rem; width: 90%;">
+        {{ data().profession.name | uppercase }}
+      </p>
+      @if (data().profession.competenceLevel) {
+        <p [ngStyle]="{ 'border-color': (data().profession.competenceLevel | skills: 'color') }" class="lookingCard-level">
+          {{ (data().profession.competenceLevel | skills) }}
         </p>
-        <div class="lookingCard">
-            <p class="chapterCard-value" style="margin-top: 0.5rem; width: 90%;">
-                {{ data().profession.name | uppercase }}
-            </p>
-            <p [ngStyle]="{ 'border-color': (data().profession.competenceLevel | skills: 'color') }" class="lookingCard-level" *ngIf="data().profession.competenceLevel">
-                {{ (data().profession.competenceLevel | skills) }}
-            </p>
-        </div>
-        <div class="lookingCard">
-            <p class="chapterCard-value-eng" >
-                {{ data().profession.nameEng | uppercase }}
-            </p>
-        </div>
+      }
     </div>
-    <div class="chapterCard">
-        <p class="chapterCard-title" style="margin-bottom: 0.5rem;">
-            Работа:
-        </p>
-        <div class="tags">
-            <div class="work" >
-                <p class="workText">
-                    Фриланс/Проект
-                </p>
-            </div>
-            <div class="work" >
-                <p class="workText">
-                    Фриланс/Проект
-                </p>
-            </div>
-        </div>
+    <div class="lookingCard">
+      <p class="chapterCard-value-eng" >
+        {{ data().profession.nameEng | uppercase }}
+      </p>
     </div>
-    <div class="chapterCard">
-        <p class="chapterCard-title" style="margin-bottom: 0.5rem;">
-            Навыки:
+  </div>
+  <div class="chapterCard">
+    <p class="chapterCard-title" style="margin-bottom: 0.5rem;">
+      Работа:
+    </p>
+    <div class="tags">
+      <div class="work" >
+        <p class="workText">
+          Фриланс/Проект
         </p>
-        <div class="tags">
-          @for (skill of data().skills; track skill.id) {
-            <div class="tag" [ngClass]="{ 'with-competence-level': skill.competenceLevel }">
-              <p class="tagText">
-                {{skill.name}}
-              </p>
-              <p *ngIf="skill.competenceLevel" [ngStyle]="{ 'background': (skill.competenceLevel | skills: 'color') }" class="tag-level">
-                {{ (skill.competenceLevel | skills: 'short') }}
-              </p>
-            </div>
-          }
-        </div>
-    </div>
-    <div class="chapterCard">
-        <p class="chapterCard-title" style="margin-bottom: 0.5rem;">
-            Мотивация:
-        </p>
-        <div class="motivations">
-          @for (motivation of data().motivations; track motivation.id) {
-            <div class="motivation" [ngStyle]="{ 'background': getMotivationColor(motivation.name) }">
-              {{ motivation.name }}
-            </div>
-          }
-        </div>
-    </div>
-    @if (data().minPayment && hasPaymentMotivation()) {
-      <div class="chapterCard">
-        <p class="chapterCard-title" style="margin-bottom: 0.5rem;">
-          Оплата:
-        </p>
-        <div class="description">
-          от {{ data().minPayment }}₽
-        </div>
       </div>
-    }
-    <div class="chapterCard">
-        <p class="chapterCard-title" style="margin-bottom: 0.5rem;">
-            Описание:
+      <div class="work" >
+        <p class="workText">
+          Фриланс/Проект
         </p>
-        <div class="description" style="white-space: pre-wrap;">
-            {{ data().details }}
-        </div>
+      </div>
     </div>
-    <div class="profile">
-        <div class="rightProfileChapter">
-            <p class="dateVacancy dateTitle">
-                размещено:
+  </div>
+  <div class="chapterCard">
+    <p class="chapterCard-title" style="margin-bottom: 0.5rem;">
+      Навыки:
+    </p>
+    <div class="tags">
+      @for (skill of data().skills; track skill.id) {
+        <div class="tag" [ngClass]="{ 'with-competence-level': skill.competenceLevel }">
+          <p class="tagText">
+            {{skill.name}}
+          </p>
+          @if (skill.competenceLevel) {
+            <p [ngStyle]="{ 'background': (skill.competenceLevel | skills: 'color') }" class="tag-level">
+              {{ (skill.competenceLevel | skills: 'short') }}
             </p>
-            <p class="dateVacancy dateValue">
-                {{ (data().creationDate*1000)| date: 'dd.MM.yyyy' }}
-            </p>
+          }
         </div>
+      }
     </div>
+  </div>
+  <div class="chapterCard">
+    <p class="chapterCard-title" style="margin-bottom: 0.5rem;">
+      Мотивация:
+    </p>
+    <div class="motivations">
+      @for (motivation of data().motivations; track motivation.id) {
+        <div class="motivation" [ngStyle]="{ 'background': getMotivationColor(motivation.name) }">
+          {{ motivation.name }}
+        </div>
+      }
+    </div>
+  </div>
+  @if (data().minPayment && hasPaymentMotivation()) {
+    <div class="chapterCard">
+      <p class="chapterCard-title" style="margin-bottom: 0.5rem;">
+        Оплата:
+      </p>
+      <div class="description">
+        от {{ data().minPayment }}₽
+      </div>
+    </div>
+  }
+  <div class="chapterCard">
+    <p class="chapterCard-title" style="margin-bottom: 0.5rem;">
+      Описание:
+    </p>
+    <div class="description" style="white-space: pre-wrap;">
+      {{ data().details }}
+    </div>
+  </div>
+  <div class="profile">
+    <div class="rightProfileChapter">
+      <p class="dateVacancy dateTitle">
+        размещено:
+      </p>
+      <p class="dateVacancy dateValue">
+        {{ (data().creationDate*1000)| date: 'dd.MM.yyyy' }}
+      </p>
+    </div>
+  </div>
 
 </div>

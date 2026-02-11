@@ -86,7 +86,7 @@ export class TeamComponent implements OnInit {
 
   getPopUoP() {
     let userData = localStorage.getItem('authToken');
-    let userNickname = localStorage.getItem('autuserNicknamehToken');
+    let userNickname = localStorage.getItem('userNickname');
     if (!userData && !userNickname) {
       this.popUpEntryService.showDialog(true, 'Войдите в аккаунт, чтобы присоединиться к команде');
       return;

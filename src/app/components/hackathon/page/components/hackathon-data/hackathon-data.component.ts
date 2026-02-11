@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { NewApplicationComponent } from './new-application/new-application.component';
 import { HackathonService } from '../../hackathon.service';
@@ -6,7 +6,7 @@ import { HackathonService } from '../../hackathon.service';
 @Component({
   selector: 'app-hackathon-data',
   standalone: true,
-  imports: [CommonModule, NewApplicationComponent],
+  imports: [NewApplicationComponent],
   templateUrl: './hackathon-data.component.html',
   styleUrl: './hackathon-data.component.css'
 })

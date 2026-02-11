@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ArchiveItemComponent } from './archive-item/archive-item.component';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { ProjectService } from '../../project.service';
 @Component({
   selector: 'app-archive-vacancies',
   standalone: true,
-  imports: [CommonModule, ArchiveItemComponent],
+  imports: [ArchiveItemComponent],
   templateUrl: './archive-vacancies.component.html',
   styleUrl: './archive-vacancies.component.css'
 })

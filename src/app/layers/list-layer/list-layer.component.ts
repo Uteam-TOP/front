@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject, Input, OnInit} from '@angular/core';
 import {UiButtonComponent} from "../../shared/ui-components/ui-button/ui-button.component";
 import {HackathonCadComponent} from "../../components/home/hackathon-cad/hackathon-cad.component";
-import {NgClass, NgForOf, NgIf, NgTemplateOutlet} from "@angular/common";
+import { NgClass, NgTemplateOutlet } from "@angular/common";
 import {ProjectComponent} from "../../components/home/project/project.component";
 import { ResumeLibraryComponent, VacancyLibraryComponent } from '../../../common-uteam-library';
 import {Router} from "@angular/router";
@@ -15,13 +15,12 @@ import {NotFoundComponent} from "../not-found/not-found.component";
   imports: [
     UiButtonComponent,
     HackathonCadComponent,
-    NgIf,
     ProjectComponent,
     ResumeLibraryComponent,
     ResumeLibraryComponent,
     VacancyComponent,
     NotFoundComponent
-  ],
+],
   templateUrl: './list-layer.component.html',
   styleUrl: './list-layer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

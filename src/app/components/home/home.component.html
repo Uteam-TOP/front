@@ -23,9 +23,9 @@
 
           <h3 class="title-blue">Новости проектов</h3>
           <div class="column">
-              <app-home-slider [items]="news" [type]="'news'"></app-home-slider>
+            <app-home-slider [items]="news" [type]="'news'"></app-home-slider>
           </div>
-          <div class="slider-footer">
+          <div class="slider-footer slider-footer-news">
             <a routerLink="/projects"><ui-button [text]="'Все новости'" [type]="'arrow'"></ui-button></a>
           </div>
         </div>
@@ -39,7 +39,7 @@
         <div class="container" #vacancies>
           <h3>Вакансии</h3>
           <div class="column">
-              <app-home-slider [items]="homeService.vacancies" [type]="'vacancy'"></app-home-slider>
+            <app-home-slider [items]="homeService.vacancies" [type]="'vacancy'"></app-home-slider>
           </div>
           <div class="slider-footer">
             <a routerLink="/vacancies"><ui-button [text]="'Все вакансии'" [type]="'arrow'"></ui-button></a>
@@ -67,34 +67,40 @@
     </div>
 
     <!-- ***************************** hackathon ********************************** -->
-<!--    <ng-container>-->
-<!--      <div class="container" #hackathons>-->
-<!--        <h3>Хакатоны</h3>-->
-<!--        <div class="column">-->
-<!--          <app-home-slider [items]="homeService.hackathons" [type]="'hackathon'"></app-home-slider>-->
-<!--        </div>-->
-<!--        <div class="slider-footer">-->
-<!--          <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>-->
+    <!--    <ng-container>-->
+    <!--      <div class="container" #hackathons>-->
+    <!--        <h3>Хакатоны</h3>-->
+    <!--        <div class="column">-->
+    <!--          <app-home-slider [items]="homeService.hackathons" [type]="'hackathon'"></app-home-slider>-->
+  <!--        </div>-->
+  <!--        <div class="slider-footer">-->
+  <!--          <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>-->
 <!--        </div>-->
 <!--      </div>-->
 <!--    </ng-container>-->
-    <!-- ***************************** close hackathon ********************************** -->
+<!-- ***************************** close hackathon ********************************** -->
 
-    <div class="nextPage">
-      <a *ngIf="homeService.visibleNextPage" (click)="nextPage()">
-        Показать еще
-      </a>
-    </div>
+<div class="nextPage">
+  @if (homeService.visibleNextPage) {
+    <a (click)="nextPage()">
+      Показать еще
+    </a>
+  }
+</div>
 
 
-    <p *ngIf="homeService?.vacancies?.length === 0 && homeService?.typeToggle === 'vacancy' && !homeService.loading"
-       class="messageError">
-      Нет доступных вакансий по вашему запросу. Попробуйте изменить фильтры или параметры поиска.
-    </p>
-    <p *ngIf="homeService?.resumes?.length === 0 && homeService?.typeToggle === 'resume'  && !homeService.loading"
-       class="messageError">
-      Нет доступных резюме по вашему запросу. Попробуйте изменить фильтры или параметры поиска.
-    </p>
-  </div>
+@if (homeService.vacancies.length === 0 && homeService.typeToggle === 'vacancy' && !homeService.loading) {
+  <p
+    class="messageError">
+    Нет доступных вакансий по вашему запросу. Попробуйте изменить фильтры или параметры поиска.
+  </p>
+}
+@if (homeService.resumes.length === 0 && homeService.typeToggle === 'resume'  && !homeService.loading) {
+  <p
+    class="messageError">
+    Нет доступных резюме по вашему запросу. Попробуйте изменить фильтры или параметры поиска.
+  </p>
+}
+</div>
 </div>
 <app-search-input-phone></app-search-input-phone>

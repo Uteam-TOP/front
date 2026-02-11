@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import {AvatarPipe} from "../../../../../../shared/pipes/avatar.pipe";
@@ -7,7 +7,7 @@ import {AvatarPipe} from "../../../../../../shared/pipes/avatar.pipe";
 @Component({
   selector: 'app-participant',
   standalone: true,
-  imports: [CommonModule, AvatarPipe],
+  imports: [AvatarPipe],
   templateUrl: './participant.component.html',
   styleUrl: './participant.component.css'
 })

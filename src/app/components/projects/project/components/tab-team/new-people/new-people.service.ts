@@ -11,43 +11,15 @@ export class NewPeopleService {
   constructor(private http: HttpClient) { }
 
   getNewPeopleService(id: string): Observable<any> {
-    const token = localStorage.getItem('authToken');
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-
-    return this.http.post<any>(`${environment.apiUrl}/main/project/${id}/applications/getByFilter?page=0&size=100`, {}, {headers})
-
+    return this.http.post<any>(`${environment.apiUrl}/main/project/${id}/applications/getByFilter?page=0&size=100`, {})
   }
 
-
-
-  
-
-
-
   setNewPeopleDecline(id: string): Observable<any> {
-    const token = localStorage.getItem('authToken');
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.delete<any>(`${environment.apiUrl}/applications/${id}/decline`, { headers })
-
+    return this.http.delete<any>(`${environment.apiUrl}/applications/${id}/decline`)
   }
 
   setApplication(projectId: any, applicationId: any) {
-    const token = localStorage.getItem('authToken');
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.post<any>(`${environment.apiUrl}/projects/${projectId}/teamMembers?applicationId=${applicationId}`, { }, {headers})
-
+    return this.http.post<any>(`${environment.apiUrl}/projects/${projectId}/teamMembers?applicationId=${applicationId}`, { })
   }
 
 }

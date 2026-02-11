@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationItemComponent } from './notification-item/notification-item.component';
-import { CommonModule } from '@angular/common';
+
 import { SettingHeaderService } from '../setting-header.service';
 
 @Component({
   selector: 'app-notification',
   standalone: true,
-  imports: [CommonModule, NotificationItemComponent],
+  imports: [NotificationItemComponent],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.css'
 })

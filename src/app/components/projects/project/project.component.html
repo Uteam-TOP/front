@@ -1,79 +1,84 @@
 <div class="container">
-    <app-screensaver [detailsList]="projectData()"></app-screensaver>
-    <app-screensaver-phone [detailsList]="projectData()"></app-screensaver-phone>
-    <div class="container-elements">
-        <div class="container-elements-left">
-            <div class="container-elements-left-context" *ngIf="activeTab() !== 'myTeam'">
-                <div class="container-nav">
-                    <a class="subtitle16caps" [class.active]="activeTab() === 'aboutProject'"
-                        (click)="setActiveTab('aboutProject')">
-                        О проекте
-                    </a>
-                    <a class="subtitle16caps" [class.active]="activeTab() === 'tape'"
-                        (click)="setActiveTab('tape')">
-                        Лента
-                    </a>
-                </div>
-
-                @if (activeTab() === 'aboutProject') {
-                  <app-about-project [detailsList]="detailsListProject"></app-about-project>
-                }
-                @if (activeTab() === 'tape') {
-                  <app-tape></app-tape>
-                }
-            </div>
-
-            @if (activeTab() === 'aboutProject') {
-                <div class="container-elements-left-context" style="white-space: pre-wrap;">
-                    <p class="title">Технологии</p>
-                    <div class="tags">
-                        @if (projectData(); as data) {
-                            @if (data.stack && data.stack.length) {
-                              @for (technology of data.stack; track technology.id) {
-                                <app-tag [tag]="technology"></app-tag>
-                              }
-                            } @else {
-                              Технологии не указаны
-                            }
-                        }
-                    </div>
-                </div>
-            }
-
-
-            @if (activeTab() === 'myTeam') {
-                <div style="padding-left: 24px;">
-                    <a (click)="setActiveTab('aboutProject')" id="returnToProject">
-                        <svg width="32" height="12" viewBox="0 0 32 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M0.505025 5.50503C0.231658 5.77839 0.231658 6.22161 0.505025 6.49497L4.9598 10.9497C5.23316 11.2231 5.67638 11.2231 5.94975 10.9497C6.22311 10.6764 6.22311 10.2332 5.94975 9.9598L1.98995 6L5.94975 2.0402C6.22311 1.76684 6.22311 1.32362 5.94975 1.05025C5.67638 0.776886 5.23316 0.776886 4.9598 1.05025L0.505025 5.50503ZM31 6.7C31.3866 6.7 31.7 6.3866 31.7 6C31.7 5.6134 31.3866 5.3 31 5.3V6.7ZM1 6.7H31V5.3H1V6.7Z"
-                                fill="#101010" />
-                        </svg>
-                        <span >
-                            вернуться к проекту
-                        </span>
-                    </a>
-                </div>
-            }
-
-
-            @if (activeTab() === 'aboutProject') {
-                <app-vacancies></app-vacancies>
-                <app-archive-vacancies *ngIf="isOwner()"></app-archive-vacancies>
-                <app-reviews></app-reviews>
-            }
-
-            @if (activeTab() ===  'myTeam' && isOwner()) {
-                <app-tab-team></app-tab-team>
-            }
-
+  <app-screensaver [detailsList]="projectData()"></app-screensaver>
+  <app-screensaver-phone [detailsList]="projectData()"></app-screensaver-phone>
+  <div class="container-elements">
+    <div class="container-elements-left">
+      @if (activeTab() !== 'myTeam') {
+        <div class="container-elements-left-context">
+          <div class="container-nav">
+            <a class="subtitle16caps" [class.active]="activeTab() === 'aboutProject'"
+              (click)="setActiveTab('aboutProject')">
+              О проекте
+            </a>
+            <a class="subtitle16caps" [class.active]="activeTab() === 'tape'"
+              (click)="setActiveTab('tape')">
+              Лента
+            </a>
+          </div>
+          @if (activeTab() === 'aboutProject') {
+            <app-about-project [detailsList]="detailsListProject"></app-about-project>
+          }
+          @if (activeTab() === 'tape') {
+            <app-tape></app-tape>
+          }
         </div>
-        @if (activeTab() !==  'myTeam') {
-            <div class="container-elements-right">
-                <app-team></app-team>
-            </div>
+      }
+
+      @if (activeTab() === 'aboutProject') {
+        <div class="container-elements-left-context" style="white-space: pre-wrap;">
+          <p class="title">Технологии</p>
+          <div class="tags">
+            @if (projectData(); as data) {
+              @if (data.stack && data.stack.length) {
+                @for (technology of data.stack; track technology.id) {
+                  <app-tag [tag]="technology"></app-tag>
+                }
+              } @else {
+                Технологии не указаны
+              }
+            }
+          </div>
+        </div>
+      }
+
+
+      @if (activeTab() === 'myTeam') {
+        <div style="padding-left: 24px;">
+          <a (click)="setActiveTab('aboutProject')" id="returnToProject">
+            <svg width="32" height="12" viewBox="0 0 32 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0.505025 5.50503C0.231658 5.77839 0.231658 6.22161 0.505025 6.49497L4.9598 10.9497C5.23316 11.2231 5.67638 11.2231 5.94975 10.9497C6.22311 10.6764 6.22311 10.2332 5.94975 9.9598L1.98995 6L5.94975 2.0402C6.22311 1.76684 6.22311 1.32362 5.94975 1.05025C5.67638 0.776886 5.23316 0.776886 4.9598 1.05025L0.505025 5.50503ZM31 6.7C31.3866 6.7 31.7 6.3866 31.7 6C31.7 5.6134 31.3866 5.3 31 5.3V6.7ZM1 6.7H31V5.3H1V6.7Z"
+                fill="#101010" />
+            </svg>
+            <span >
+              вернуться к проекту
+            </span>
+          </a>
+        </div>
+      }
+
+
+      @if (activeTab() === 'aboutProject') {
+        <app-vacancies></app-vacancies>
+        @if (isOwner()) {
+          <app-archive-vacancies></app-archive-vacancies>
         }
+        <app-reviews></app-reviews>
+      }
+
+      @if (activeTab() ===  'myTeam' && isOwner()) {
+        <app-tab-team></app-tab-team>
+      }
+
     </div>
+    @if (activeTab() !==  'myTeam') {
+      <div class="container-elements-right">
+        <app-team></app-team>
+      </div>
+    }
+  </div>
 </div>
 
-<app-pop-up-response-team *ngIf="isPopupVisible()"></app-pop-up-response-team>
+@if (isPopupVisible()) {
+  <app-pop-up-response-team></app-pop-up-response-team>
+}

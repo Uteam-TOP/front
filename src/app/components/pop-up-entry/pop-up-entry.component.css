@@ -94,6 +94,10 @@ input {
     background: #5A4BB8;
 }
 
+.error-message-confirm {
+  text-align: center;
+}
+
 @media (max-width: 987px) {
     .popup-login-link {
         width: 100%;

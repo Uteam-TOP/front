@@ -1,4 +1,4 @@
-import {CommonModule, Location} from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import {ChangeDetectorRef, Component, NgZone, OnInit} from '@angular/core';
 import {SidebarModule} from 'primeng/sidebar';
 import {SettingHeaderService} from '../setting-header.service';

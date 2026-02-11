@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormSettingService } from '../form/form-setting.service';
 import { Router } from '@angular/router';
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-background-imgs',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './background-imgs.component.html',
   styleUrl: './background-imgs.component.css'
 })

@@ -1,10 +1,14 @@
 <div class="content">
-    <app-desktop-type class="desktop-only" *ngIf="showTypes && !tokenService.getToken()"></app-desktop-type>
-    <app-phone-type class="phone-only" *ngIf="showTypes && !tokenService.getToken()"></app-phone-type>
+  @if (showTypes && !tokenService.getToken()) {
+    <app-desktop-type class="desktop-only"></app-desktop-type>
+  }
+  @if (showTypes && !tokenService.getToken()) {
+    <app-phone-type class="phone-only"></app-phone-type>
+  }
 
-    <div class="search" [ngClass]="{'sticky-background': settingHeaderService.isSticky}">
-        <div class="search-container">
-            <app-search ></app-search>
-        </div>
+  <div class="search" [ngClass]="{'sticky-background': settingHeaderService.isSticky}">
+    <div class="search-container">
+      <app-search ></app-search>
     </div>
+  </div>
 </div>

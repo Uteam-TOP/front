@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PopupDeleteComponent } from '../popup-delete/popup-delete.component';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { CollectingApplicationsComponent } from '../collecting-applications/collecting-applications.component';
 import { HackathonService } from '../../hackathon.service';
@@ -8,7 +8,7 @@ import { HackathonService } from '../../hackathon.service';
 @Component({
   selector: 'app-settings-admin',
   standalone: true,
-  imports: [CommonModule, PopupDeleteComponent, CollectingApplicationsComponent],
+  imports: [PopupDeleteComponent, CollectingApplicationsComponent],
   templateUrl: './settings-admin.component.html',
   styleUrl: './settings-admin.component.css'
 })

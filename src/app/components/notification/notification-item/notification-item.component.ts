@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -11,7 +11,7 @@ interface item {
 @Component({
   selector: 'app-notification-item',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './notification-item.component.html',
   styleUrl: './notification-item.component.css',
   animations: [

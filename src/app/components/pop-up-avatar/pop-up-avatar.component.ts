@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopUpAvatarService } from './pop-up-avatar.service';
 import { ItemAvatarComponent } from './item-avatar/item-avatar.component';
-import { CommonModule } from '@angular/common';
+
 import { AvatarSelectionService } from './avatar-selection.service';
 import { HttpHeaders } from '@angular/common/http';
 import { take } from 'rxjs';
@@ -11,7 +11,7 @@ import { PersonalDataService } from '../personal-account/personal-data/personal-
 @Component({
   selector: 'app-pop-up-avatar',
   standalone: true,
-  imports: [CommonModule, ItemAvatarComponent],
+  imports: [ItemAvatarComponent],
   templateUrl: './pop-up-avatar.component.html',
   styleUrl: './pop-up-avatar.component.css'
 })

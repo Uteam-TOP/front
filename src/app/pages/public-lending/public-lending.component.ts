@@ -17,7 +17,7 @@ import { TwoSectionComponent } from './sections/two-section/two-section.componen
 import { SixthSectionComponent } from "./sections/sixth-section/sixth-section.component";
 import { SeventhSectionComponent } from "./sections/seventh-section/seventh-section.component";
 import { LendingFooterButtonComponent } from "./sections/lending-footer-button/lending-footer-button.component";
-import { CommonModule } from '@angular/common';
+
 import {FooterComponent} from "../../components/footer/footer.component";
 import {HomeService} from "../../components/home/home.service";
 import {Router} from "@angular/router";
@@ -26,8 +26,7 @@ import {INavigateLink} from "../../core/models/root.interface";
 @Component({
   selector: 'app-public-lending',
   standalone: true,
-  imports: [OneSectionComponent, TwoSectionComponent, ThirdSectionComponent,
-    FourthSectionComponent, FifthSectionComponent, SixthSectionComponent, CommonModule, SeventhSectionComponent, FooterComponent],
+  imports: [OneSectionComponent, TwoSectionComponent, ThirdSectionComponent, FourthSectionComponent, FifthSectionComponent, SixthSectionComponent, SeventhSectionComponent, FooterComponent],
   templateUrl: './public-lending.component.html',
   styleUrl: './public-lending.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush

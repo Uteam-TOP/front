@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-popup-delete',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './popup-delete.component.html',
   styleUrl: './popup-delete.component.css'
 })
