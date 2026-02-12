@@ -4,6 +4,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { PopUpEntryService } from './components/pop-up-entry/pop-up-entry.service';
 import { AvatarSelectionService } from './components/pop-up-avatar/avatar-selection.service';
 import {Router} from "@angular/router";
+import {UserService} from "./core/services/user.service";
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   title = 'uteam';
   isVisibleFilter: boolean = false;
   router = inject(Router);
+  userService = inject(UserService);
+
   constructor(public settingHeaderService: SettingHeaderService, public popUpEntryService: PopUpEntryService,
       private avatarSelectionService:AvatarSelectionService,private el: ElementRef) {
 
@@ -62,13 +65,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     if (accessToken) {
-      this.popUpEntryService.getUser().subscribe(
+      this.userService.getCurrentUser().subscribe(
         (data) => {
-          this.avatarSelectionService.selectAvatar(data.imageLink)
-          if (data.banned == false) {
-            localStorage.setItem('USaccess', 'we26b502b2fe32e69046810717534b32d');
-          } else {
-            localStorage.setItem('USaccess', 'b326b5062b2f0e69046810717534cb09');
+          if (data) {
+            this.avatarSelectionService.selectAvatar(data.imageLink)
+            if (data.banned == false) {
+              localStorage.setItem('USaccess', 'we26b502b2fe32e69046810717534b32d');
+            } else {
+              localStorage.setItem('USaccess', 'b326b5062b2f0e69046810717534cb09');
+            }
           }
         },
         (error) => {

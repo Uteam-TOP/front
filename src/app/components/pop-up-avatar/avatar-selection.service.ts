@@ -16,8 +16,10 @@ export class AvatarSelectionService {
   private selectedTypeAvatarSubject = new BehaviorSubject<string | null>(null);
   selectedTypeAvatar$ = this.selectedTypeAvatarSubject.asObservable();
 
-  selectAvatar(avatar: string): void {
-    this.selectedAvatarSubject.next(avatar);
+  selectAvatar(avatar?: string | null): void {
+    if (avatar) {
+      this.selectedAvatarSubject.next(avatar);
+    }
   }
 
   selectGender(typeAvatar: string) {

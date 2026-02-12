@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {BehaviorSubject, catchError, Observable, of} from "rxjs";
+import {BehaviorSubject, catchError, map, Observable, of} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {TokenService} from "../../components/token.service";
 import {environment} from "../../../environment";
@@ -15,17 +15,16 @@ export class UserService {
   private avatarUpdateTrigger = new BehaviorSubject<string>('');
   avatarUpdateTrigger$ = this.avatarUpdateTrigger.asObservable();
 
+  private userData = new BehaviorSubject<UserDto>({} as UserDto);
+  userData$ = this.userData.asObservable();
+
   updateAvatar(data: string) {
     this.avatarUpdateTrigger.next(data);
   }
 
   getCurrentUser(): Observable<UserDto | null> {
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-      return of(null);
-    }
-
     return this.http.get<UserDto>(`${environment.apiUrl}/secured/users/currentUser`).pipe(
+      map((res) => {this.userData.next(res);console.log('res', res); return res}),
       catchError(() => {
         this.tokenService.clearToken()
         return of(null);
