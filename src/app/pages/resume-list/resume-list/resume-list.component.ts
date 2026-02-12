@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ListLayerComponent} from "../../../layers/list-layer/list-layer.component";
 import {HomeService} from "../../../components/home/home.service";
-import {AsyncPipe, NgIf} from "@angular/common";
+import { AsyncPipe } from "@angular/common";
 import {Observable} from "rxjs";
 import {SkeletonBlockComponent} from "../../../shared/ui-components/skeleton-block/skeleton-block.component";
 

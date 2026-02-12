@@ -2,7 +2,6 @@
   display: flex;
   width: 100vw;
   justify-content: flex-end;
-  margin-left: 10%;
   position: relative;
 }
 
@@ -52,12 +51,14 @@ skeleton-block {
   height: 100%;
 
   .card {
-    height: 93%;
+    height: 100%;
   }
 }
 
 ::ng-deep .profile {
-    margin-top: auto !important;
+  margin-top: auto !important;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 

@@ -2,7 +2,9 @@
   <p class="tagText">
     {{tag.name}}
   </p>
-  <p *ngIf="tag.competenceLevel" [ngStyle]="{ 'background': getTagColor(tag.competenceLevel) }" class="tag-level">
-    {{ getTagText(tag.competenceLevel) }}
-  </p>
+  @if (tag.competenceLevel) {
+    <p [ngStyle]="{ 'background': getTagColor(tag.competenceLevel) }" class="tag-level">
+      {{ getTagText(tag.competenceLevel) }}
+    </p>
+  }
 </div>

@@ -18,10 +18,10 @@ export class ActiveResumesComponent implements OnInit{
       this.isSelected = selectedResume === this.cardItem.id;
     });
   }
-  
+
   isSelected: boolean = false;
   @Input() cardItem: any;
-  
+
   getSkillsColor(item: number): string {
     switch (item) {
       case 1:
@@ -34,7 +34,7 @@ export class ActiveResumesComponent implements OnInit{
         return '';
     }
   }
-  
+
   getSkills(item: number): string {
     console.log("item", item)
     switch (item) {
@@ -52,7 +52,8 @@ export class ActiveResumesComponent implements OnInit{
 
   viewCard(resume: any) {
     this.popUpResponseTeamService.selectResume(this.cardItem);
+    this.isSelected = !this.isSelected;
   }
 
-  
+
 }

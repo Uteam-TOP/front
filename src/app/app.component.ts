@@ -1,8 +1,9 @@
-import { Component, ElementRef } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, OnInit} from '@angular/core';
 import { SettingHeaderService } from './components/setting-header.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { PopUpEntryService } from './components/pop-up-entry/pop-up-entry.service';
 import { AvatarSelectionService } from './components/pop-up-avatar/avatar-selection.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -20,32 +21,34 @@ import { AvatarSelectionService } from './components/pop-up-avatar/avatar-select
     ])
   ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'uteam';
   isVisibleFilter: boolean = false;
+  router = inject(Router);
   constructor(public settingHeaderService: SettingHeaderService, public popUpEntryService: PopUpEntryService,
       private avatarSelectionService:AvatarSelectionService,private el: ElementRef) {
 
   }
 
-ngAfterViewInit(): void {
-  const observer = new MutationObserver(() => {
-    const cards: NodeListOf<HTMLElement> = document.querySelectorAll('.chapterCard');
-    cards.forEach(card => {
-      const titleEl = card.querySelector('.chapterCard-title');
-      if (titleEl && titleEl.textContent?.trim().includes('Доступность')) {
-        card.style.display = 'none';
-      }
+  ngAfterViewInit(): void {
+    const observer = new MutationObserver(() => {
+      const cards: NodeListOf<HTMLElement> = document.querySelectorAll('.chapterCard');
+      cards.forEach(card => {
+        const titleEl = card.querySelector('.chapterCard-title');
+        if (titleEl && titleEl.textContent?.trim().includes('Доступность')) {
+          card.style.display = 'none';
+        }
+      });
     });
-  });
 
-  observer.observe(document.body, { childList: true, subtree: true });
-}
+    observer.observe(document.body, { childList: true, subtree: true });
+  }
 
   ngOnInit() {
 
     const confirmAuth = localStorage.getItem('confirmAuth');
     const savedEmail = localStorage.getItem('authEmail');
+    const accessToken = localStorage.getItem('authToken');
 
     if (confirmAuth === 'true' && savedEmail) {
 
@@ -58,15 +61,22 @@ ngAfterViewInit(): void {
 
     }
 
-    this.popUpEntryService.getUser().subscribe(
-      (data) => {
-        this.avatarSelectionService.selectAvatar(data.imageLink)
-        if (data.banned == false) {
-          localStorage.setItem('USaccess', 'we26b502b2fe32e69046810717534b32d');
-        } else {
-          localStorage.setItem('USaccess', 'b326b5062b2f0e69046810717534cb09');
-        }
-      })
+    if (accessToken) {
+      this.popUpEntryService.getUser().subscribe(
+        (data) => {
+          this.avatarSelectionService.selectAvatar(data.imageLink)
+          if (data.banned == false) {
+            localStorage.setItem('USaccess', 'we26b502b2fe32e69046810717534b32d');
+          } else {
+            localStorage.setItem('USaccess', 'b326b5062b2f0e69046810717534cb09');
+          }
+        },
+        (error) => {
+          localStorage.removeItem('authToken');
+          window.location.reload();
+        })
+    }
+
     this.settingHeaderService.isFilterState$.subscribe(value => {
       this.isVisibleFilter = value;
 

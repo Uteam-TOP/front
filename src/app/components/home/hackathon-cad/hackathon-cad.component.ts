@@ -49,12 +49,12 @@ export class HackathonCadComponent {
       'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
       'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
     ];
-    
+
     const d = new Date(date);
     const day = d.getDate();
     const month = months[d.getMonth()];
     const year = d.getFullYear();
-  
+
     return `${day} ${month}`;
   }
 
@@ -62,7 +62,7 @@ export class HackathonCadComponent {
     event.stopPropagation();
     event.preventDefault();
     let userData = localStorage.getItem('authToken');
-    let userNickname = localStorage.getItem('autuserNicknamehToken');
+    let userNickname = localStorage.getItem('userNickname');
     if (!userData && !userNickname) {
       this.popUpEntryService.showDialog();
       return;

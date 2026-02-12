@@ -10,9 +10,12 @@
     background: var(--background-card-account);
     border: 4px solid #a7eb2000;
     width: 100%;
+    cursor: pointer;
 }
 
-
+.is-selected {
+  border: 4px solid var(--logo-background-color);
+}
 
 p {
     margin: 0;
@@ -21,7 +24,7 @@ p {
 .Specialization {
     display: flex;
     flex-direction: column;
-   
+
 }
 
 .title {
@@ -103,7 +106,7 @@ p {
 }
 
 .checkbox-container {
-    display: flex;
+    display: none;
     justify-content: flex-end;
     padding-right: 5px;
 }

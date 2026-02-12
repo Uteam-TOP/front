@@ -55,6 +55,10 @@ input {
     stroke-opacity: 0.6;
 }
 
+.close-button svg path {
+    stroke: var(--font-color);
+}
+
 .popup-login-title {
     font-family: var(--font-Monts);
     font-weight: 700;
@@ -94,6 +98,19 @@ input {
     background: #5A4BB8;
 }
 
+.error-message-confirm {
+  text-align: center;
+}
+
+.confirm-title {
+  text-align: center;
+  color: var(--font-color);
+}
+
+.confirm-info {
+  color: var(--font-color);
+  opacity: 0.6;
+}
 @media (max-width: 987px) {
     .popup-login-link {
         width: 100%;
@@ -178,6 +195,7 @@ input {
     font-weight: 500;
     font-size: 15px;
     line-height: 140%;
+    color: var(--font-color);
 }
 
 .input-group input::placeholder,
@@ -196,6 +214,7 @@ input {
     height: 50px;
     border: none;
     border-radius: 10px;
+    color: var(--font-color);
 }
 
 

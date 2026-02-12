@@ -1,145 +1,153 @@
 <div class="main">
 
-    <app-background-imgs style=" width: 100%; z-index: -1; position: absolute; opacity: 0.6;"
-        class="backgroundImgs"></app-background-imgs>
-    <div class="container">
-        <div class="title">
-            <P>
-              UTeam.top - Платформа, созданная для разработчиков, фаундеров и IT-энтузиастов, которые хотят запускать
-              собственные проекты, находить единомышленников и развивать свои стартапы быстрее.
-              <br><br>
-              Мы строим экосистему, где каждый может превратить идею в работающий продукт — с нуля или вместе с командой.
-            </P>
-        </div>
+  <app-background-imgs style=" width: 100%; z-index: -1; position: absolute; opacity: 0.6;"
+  class="backgroundImgs"></app-background-imgs>
+  <div class="container">
+    <div class="title">
+      <P>
+      UTeam.top - Платформа, созданная для разработчиков, фаундеров и IT-энтузиастов, которые хотят запускать
+      собственные проекты, находить единомышленников и развивать свои стартапы быстрее.
+      <br><br>
+      Мы строим экосистему, где каждый может превратить идею в работающий продукт — с нуля или вместе с командой.
+    </P>
+  </div>
+</div>
+<div class="overlay-top-right" style="margin-top: 38px;">
+  <div class="tags-wrapper">
+    <div class="tags-list" ngClass='scroll-left'>
+      @for (item of tagsList; track item) {
+        <p class="tag">
+          {{ item }}
+        </p>
+      }
+      @for (item of tagsList; track item) {
+        <p class="tag">
+          {{ item }}
+        </p>
+      }
     </div>
-    <div class="overlay-top-right" style="margin-top: 38px;">
-        <div class="tags-wrapper">
-            <div class="tags-list" ngClass='scroll-left'>
-                <p class="tag" *ngFor="let item of tagsList">
-                    {{ item }}
-                </p>
-                <p class="tag" *ngFor="let item of tagsList">
-                    {{ item }}
-                </p>
-            </div>
-        </div>
+  </div>
+</div>
+<div class="overlay-top-right" style="margin-top: 10px;">
+  <div class="tags-wrapper">
+    <div class="tags-list" ngClass='scroll-right'>
+      @for (item of tagsList; track item) {
+        <p class="tag">
+          {{ item }}
+        </p>
+      }
+      @for (item of tagsList; track item) {
+        <p class="tag">
+          {{ item }}
+        </p>
+      }
     </div>
-    <div class="overlay-top-right" style="margin-top: 10px;">
-        <div class="tags-wrapper">
-            <div class="tags-list" ngClass='scroll-right'>
-                <p class="tag" *ngFor="let item of tagsList">
-                    {{ item }}
-                </p>
-                <p class="tag" *ngFor="let item of tagsList">
-                    {{ item }}
-                </p>
-            </div>
+  </div>
+</div>
+
+
+<div class="container container_chapter" style="margin-top: 100px;">
+  <div class="aboutUs">
+    <p class="destiny-title">Наша миссия</p>
+    <p class="section-text">
+      Мы помогаем IT-специалистам и создателям проектов объединяться,
+      обмениваться знаниями, вести публичное развитие своих продуктов и находить команду для реализации самых смелых идей.
+    </p>
+  </div>
+</div>
+
+<div class="container container_chapter" style="margin-top: 100px;">
+  <div class="aboutUs">
+    <p class="destiny-title">Что мы создаем</p>
+    <div class="blocks-container">
+      <div class="blocks-container__block bg-green">
+        <div class="blocks-container__text">
+          <h3>Стартапы и проекты</h3>
+          <ul>
+            <li>Создание карточек проектов</li>
+            <li>Описание стека, задач и стадии развития</li>
+            <li>Поиск команды — бесплатно или на коммерческой основе</li>
+            <li>Возможность делиться обновлениями через ленту проекта</li>
+          </ul>
         </div>
-    </div>
 
-
-    <div class="container container_chapter" style="margin-top: 100px;">
-        <div class="aboutUs">
-            <p class="destiny-title">Наша миссия</p>
-            <p class="section-text">
-              Мы помогаем IT-специалистам и создателям проектов объединяться,
-              обмениваться знаниями, вести публичное развитие своих продуктов и находить команду для реализации самых смелых идей.
-            </p>
-        </div>
-    </div>
-
-    <div class="container container_chapter" style="margin-top: 100px;">
-      <div class="aboutUs">
-        <p class="destiny-title">Что мы создаем</p>
-        <div class="blocks-container">
-          <div class="blocks-container__block bg-green">
-            <div class="blocks-container__text">
-              <h3>Стартапы и проекты</h3>
-              <ul>
-                <li>Создание карточек проектов</li>
-                <li>Описание стека, задач и стадии развития</li>
-                <li>Поиск команды — бесплатно или на коммерческой основе</li>
-                <li>Возможность делиться обновлениями через ленту проекта</li>
-              </ul>
-            </div>
-
-            <div class="image-container">
-              <img src="assets/about/startups.png" alt="startups" />
-            </div>
-          </div>
-
-          <div class="blocks-container__block bg-mint">
-            <div class="blocks-container__text">
-              <h3>Система наград и достижений</h3>
-              <p>
-                За участие в жизни платформы, вклад в проекты и победы в хакатонах пользователи и команды получают:
-              </p>
-              <ul>
-                <li>ачивки</li>
-                <li>статусные отметки</li>
-                <li>видимые в профиле награды</li>
-              </ul>
-              <p>Всё это повышает доверие и помогает выделять талантливых участников.</p>
-            </div>
-            <div class="image-container">
-              <img src="assets/about/rewards.png" alt="rewards" />
-            </div>
-
-          </div>
-
-          <div class="blocks-container__block bg-lilac">
-            <div class="blocks-container__text">
-              <h3>Лента активности</h3>
-              <p>
-                Пользователи, проекты и команды публикуют обновления:
-              </p>
-              <ul>
-                <li><span>релизы</span></li>
-                <li><span>изменения в функционале</span></li>
-                <li>набор в команду</li>
-                <li>отчёты о развитии</li>
-              </ul>
-              <p>Всё это формирует живую, динамичную экосистему.</p>
-            </div>
-
-            <div class="image-container">
-              <img src="assets/about/active.png" alt="active" />
-            </div>
-          </div>
-
-          <div class="blocks-container__block bg-blue">
-            <div class="blocks-container__text">
-              <h3>Хакатоны</h3>
-              <p>
-                UTEAM.TOP предоставляет:
-              </p>
-              <ul>
-                <li>площадку для проведения хакатонов
-                </li>
-                <li>страницы мероприятий</li>
-                <li>регистрацию участников и проектов</li>
-                <li>отображение команд, идей и результатов</li>
-                <li>блок победителей и номинаций</li>
-              </ul>
-              <p>Все награды автоматически отображаются в профилях пользователей и проектов.</p>
-            </div>
-
-            <div class="image-container">
-              <img src="assets/about/hackhathons.png" alt="hackathons" />
-            </div>
-          </div>
-
+        <div class="image-container">
+          <img src="assets/about/startups.png" alt="startups" />
         </div>
       </div>
+
+      <div class="blocks-container__block bg-mint">
+        <div class="blocks-container__text">
+          <h3>Система наград и достижений</h3>
+          <p>
+            За участие в жизни платформы, вклад в проекты и победы в хакатонах пользователи и команды получают:
+          </p>
+          <ul>
+            <li>ачивки</li>
+            <li>статусные отметки</li>
+            <li>видимые в профиле награды</li>
+          </ul>
+          <p>Всё это повышает доверие и помогает выделять талантливых участников.</p>
+        </div>
+        <div class="image-container">
+          <img src="assets/about/rewards.png" alt="rewards" />
+        </div>
+
+      </div>
+
+      <div class="blocks-container__block bg-lilac">
+        <div class="blocks-container__text">
+          <h3>Лента активности</h3>
+          <p>
+            Пользователи, проекты и команды публикуют обновления:
+          </p>
+          <ul>
+            <li><span>релизы</span></li>
+            <li><span>изменения в функционале</span></li>
+            <li>набор в команду</li>
+            <li>отчёты о развитии</li>
+          </ul>
+          <p>Всё это формирует живую, динамичную экосистему.</p>
+        </div>
+
+        <div class="image-container">
+          <img src="assets/about/active.png" alt="active" />
+        </div>
+      </div>
+
+      <div class="blocks-container__block bg-blue">
+        <div class="blocks-container__text">
+          <h3>Хакатоны</h3>
+          <p>
+            UTEAM.TOP предоставляет:
+          </p>
+          <ul>
+            <li>площадку для проведения хакатонов
+            </li>
+            <li>страницы мероприятий</li>
+            <li>регистрацию участников и проектов</li>
+            <li>отображение команд, идей и результатов</li>
+            <li>блок победителей и номинаций</li>
+          </ul>
+          <p>Все награды автоматически отображаются в профилях пользователей и проектов.</p>
+        </div>
+
+        <div class="image-container">
+          <img src="assets/about/hackhathons.png" alt="hackathons" />
+        </div>
+      </div>
+
     </div>
+  </div>
+</div>
 
 
-    <div class="container container_chapter" style="margin-top: 50px;">
-<!--        <div class="chapter">-->
-<!--            <div class="chapter-content">-->
-<!--                <div class="destiny">-->
-<!--                    <p class="destiny-title">-->
-<!--                        Предназначена для:-->
+<div class="container container_chapter" style="margin-top: 50px;">
+  <!--        <div class="chapter">-->
+  <!--            <div class="chapter-content">-->
+  <!--                <div class="destiny">-->
+  <!--                    <p class="destiny-title">-->
+  <!--                        Предназначена для:-->
 <!--                    </p>-->
 <!--                    <div class="destiny-chapter">-->
 <!--                        <div class="destiny-content" style="width: 70%;">-->
@@ -201,47 +209,49 @@
 <!--                </div>-->
 <!--            </div>-->
 <!--        </div>-->
-        <p class="destiny-title" style="padding: 5rem 0px 0px 0;">
-            Зачем мы это делаем:
-        </p>
-        <p class="section-text">Мы видим, что многим IT-специалистам сложно:</p>
+<p class="destiny-title" style="padding: 5rem 0px 0px 0;">
+  Зачем мы это делаем:
+</p>
+<p class="section-text">Мы видим, что многим IT-специалистам сложно:</p>
 
+</div>
+<div style="display: flex; flex-direction: column; gap:1rem; margin-bottom: 3rem;">
+  @for (item of itemLineList; track item) {
+    <app-line-item [value]="item.value" [width]="item.width" [color]="item.color"
+      [stroke]="item.stroke" [border]="item.border">
+    </app-line-item>
+  }
+  <div class="tasks-solution-container">
+    <div class="tasks-solution">
+      <p>UTEAM.TOP решает все эти задачи в одном месте.</p>
     </div>
-    <div style="display: flex; flex-direction: column; gap:1rem; margin-bottom: 3rem;">
-        <app-line-item *ngFor="let item of itemLineList" [value]="item.value" [width]="item.width" [color]="item.color"
-            [stroke]="item.stroke" [border]="item.border">
-        </app-line-item>
-      <div class="tasks-solution-container">
-        <div class="tasks-solution">
-          <p>UTEAM.TOP решает все эти задачи в одном месте.</p>
-        </div>
+  </div>
+
+  <div class="our-destination-container">
+    <div class="our-destination">
+      <div class="our-destination-title">
+        <p>Наша цель</p>
       </div>
-
-      <div class="our-destination-container">
-        <div class="our-destination">
-          <div class="our-destination-title">
-            <p>Наша цель</p>
-          </div>
-          <div class="our-destination-text">
-            <p>Сформировать крупнейшее русскоязычное сообщество IT-создателей, где сотни проектов запускаются, получают поддержку, набирают команды и выходят на рынок.
-              <br><br>
-              Мы хотим, чтобы каждый разработчик, дизайнер, продакт или предприниматель мог сказать:
-              “UTEAM.TOP помог мне создать то, что раньше казалось невозможным.”</p>
-          </div>
-        </div>
-
+      <div class="our-destination-text">
+        <p>Сформировать крупнейшее русскоязычное сообщество IT-создателей, где сотни проектов запускаются, получают поддержку, набирают команды и выходят на рынок.
+          <br><br>
+          Мы хотим, чтобы каждый разработчик, дизайнер, продакт или предприниматель мог сказать:
+        “UTEAM.TOP помог мне создать то, что раньше казалось невозможным.”</p>
       </div>
     </div>
-    <div class="container container_chapter container_chapter-team">
-        <div class="team-container">
-            <p class="team-title">Наша команда:</p>
-            <a class="team-member">CEO</a>
-            <a class="team-member">Frontend Developer</a>
-            <a class="team-member">Backend Developer</a>
-            <a class="team-member" href="https://www.behance.net/KseniyaEliseevaUX">Design Ksenia Eliseeva</a>
-          <a class="team-member">Design Irina Morozova</a>
-        </div>
 
-    </div>
+  </div>
+</div>
+<div class="container container_chapter container_chapter-team">
+  <div class="team-container">
+    <p class="team-title">Наша команда:</p>
+    <a class="team-member">CEO</a>
+    <a class="team-member">Frontend Developer</a>
+    <a class="team-member">Backend Developer</a>
+    <a class="team-member" href="https://www.behance.net/KseniyaEliseevaUX">Design Ksenia Eliseeva</a>
+    <a class="team-member">Design Irina Morozova</a>
+  </div>
+
+</div>
 
 </div>

@@ -84,6 +84,9 @@
 
 .body {
     padding: 12px;
+    display: flex;
+    flex-direction: column;
+    height: 74%;
 
     .title-container {
         display: flex;
@@ -162,6 +165,7 @@
 
     .commands {
         height: 68.05px;
+        margin-top: auto;
 
         .team-container {
             display: flex;

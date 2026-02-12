@@ -22,6 +22,8 @@ export class TapeComponent {
   commentText: any;
   currentProjectData: any;
   itemsList: any;
+  isError: boolean = false;
+  symbolsLength: number = 700;
 
   constructor(private personalDataService: PersonalDataService, private projectService: ProjectService, private tapeService: TapeService) { }
 
@@ -40,8 +42,6 @@ export class TapeComponent {
         this.tapeService.setItemsList(data);
       })
     })
-
-
   }
 
   getDataUser(){
@@ -61,6 +61,7 @@ export class TapeComponent {
 
   checkInput(value: string): void {
     this.isTextEntered = value.trim().length > 0; // Если есть текст, показываем кнопки
+    this.isError = this.commentText.length > this.symbolsLength;
   }
 
   clearText(): void {

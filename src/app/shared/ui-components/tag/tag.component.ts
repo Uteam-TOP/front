@@ -1,14 +1,13 @@
 import {Component, Input} from '@angular/core';
-import {NgClass, NgIf, NgStyle} from "@angular/common";
+import { NgClass, NgStyle } from "@angular/common";
 
 @Component({
   selector: 'app-tag',
   standalone: true,
   imports: [
-    NgIf,
     NgClass,
     NgStyle
-  ],
+],
   templateUrl: './tag.component.html',
   styleUrl: './tag.component.scss'
 })

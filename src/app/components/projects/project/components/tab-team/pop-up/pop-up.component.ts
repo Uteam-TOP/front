@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PopUpService } from './pop-up.service';
 
 @Component({
   selector: 'app-pop-up',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './pop-up.component.html',
   styleUrl: './pop-up.component.css'
 })

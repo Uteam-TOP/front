@@ -8,6 +8,7 @@
  * Do not edit the class manually.
  */
 import { CityDto } from './cityDto';
+import {ITagDto} from "./tagDto";
 
 
 export interface UserDto {
@@ -34,6 +35,7 @@ export interface UserDto {
     banReason?: string;
     employmentStatus?: UserDto.EmploymentStatusEnum;
     activityStatus?: UserDto.ActivityStatusEnum;
+    userSkills?: ITagDto[];
 }
 export namespace UserDto {
     export const GenderEnum = {

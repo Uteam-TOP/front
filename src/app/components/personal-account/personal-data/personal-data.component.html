@@ -7,18 +7,17 @@
       <div class="content-column">
         <div class="chapter-content avatar" (click)="getAvatar()">
           <div class="icon">
-            <ng-container *ngIf="setAvatar">
-              <ng-container *ngIf="setAvatar.startsWith('https'); else localImage">
+            @if (setAvatar) {
+              @if (setAvatar.startsWith('https')) {
                 <img [src]="setAvatar" class="logoImg" style="width: 90px;">
-              </ng-container>
-              <ng-template #localImage>
+              } @else {
                 <img [src]="'assets/avatars/' + setAvatar + '.png'" class="logoImg" style="width: 90px;">
-              </ng-template>
-            </ng-container>
+              }
+            }
 
-            <ng-container *ngIf="!setAvatar">
+            @if (!setAvatar) {
               <img [src]="'assets/avatars/default.png'" alt="avatar">
-            </ng-container>
+            }
 
           </div>
           <div class="title">
@@ -34,209 +33,266 @@
               <input #formField type="text" id="name" formControlName="name" placeholder="Введите имя"
                 autocomplete="off"
                 [ngClass]="{'invalid': personalDataForm.get('name')?.invalid && (personalDataForm.get('name')?.dirty && isError || personalDataForm.get('name')?.touched && isError)}">
-              <div
-                *ngIf="personalDataForm.get('name')?.invalid && (personalDataForm.get('name')?.dirty || personalDataForm.get('name')?.touched)"
-                class="error-message">
-                <div *ngIf="personalDataForm.get('name')?.errors?.['required']">Имя обязательно для заполнения.</div>
-              </div>
-              <div *ngIf="personalDataForm.get('name')?.errors?.['forbiddenWords']" class="error-message">
-                Запрещённые слова: <span
-                  *ngFor="let word of personalDataForm.get('name')?.errors?.['forbiddenWords']">{{ word }},
-                </span>
-              </div>
-            </div>
-            <div class="input-group">
-              <label for="surname" class="text10opac05">Фамилия:</label>
-              <input #formField type="text" id="surname" formControlName="surname" placeholder="Введите фамилию"
-                autocomplete="off"
-                [ngClass]="{'invalid': personalDataForm.get('surname')?.invalid && (personalDataForm.get('surname')?.dirty && isError || personalDataForm.get('surname')?.touched && isError)}">
-              <div
-                *ngIf="personalDataForm.get('surname')?.invalid && (personalDataForm.get('surname')?.dirty || personalDataForm.get('surname')?.touched)"
-                class="error-message">
-                <div *ngIf="personalDataForm.get('surname')?.errors?.['required']">Фамилия обязательна для заполнения.
+              @if (personalDataForm.get('name')?.invalid && (personalDataForm.get('name')?.dirty || personalDataForm.get('name')?.touched)) {
+                <div
+                  class="error-message">
+                  @if (personalDataForm.get('name')?.errors?.['required']) {
+                    <div>Имя обязательно для заполнения.</div>
+                  }
                 </div>
+              }
+              @if (personalDataForm.get('name')?.errors?.['forbiddenWords']) {
+                <div class="error-message">
+                  Запрещённые слова: @for (word of personalDataForm.get('name')?.errors?.['forbiddenWords']; track word) {
+                  <span
+                    >{{ word }},
+                  </span>
+                }
               </div>
-              <div *ngIf="personalDataForm.get('surname')?.errors?.['forbiddenWords']" class="error-message">
-                Запрещённые слова: <span
-                  *ngFor="let word of personalDataForm.get('surname')?.errors?.['forbiddenWords']">{{ word }},
-                </span>
-              </div>
-            </div>
-            <div class="input-group">
-              <label for="age" class="text10opac05">Возраст:</label>
-              <input #formField type="text" id="age" formControlName="age" placeholder="Введите возраст"
-                autocomplete="off"
-                [ngClass]="{'invalid': personalDataForm.get('age')?.invalid && (personalDataForm.get('age')?.dirty && isError || personalDataForm.get('age')?.touched && isError)}">
+            }
+          </div>
+          <div class="input-group">
+            <label for="surname" class="text10opac05">Фамилия:</label>
+            <input #formField type="text" id="surname" formControlName="surname" placeholder="Введите фамилию"
+              autocomplete="off"
+              [ngClass]="{'invalid': personalDataForm.get('surname')?.invalid && (personalDataForm.get('surname')?.dirty && isError || personalDataForm.get('surname')?.touched && isError)}">
+            @if (personalDataForm.get('surname')?.invalid && (personalDataForm.get('surname')?.dirty || personalDataForm.get('surname')?.touched)) {
               <div
-                *ngIf="personalDataForm.get('age')?.invalid && (personalDataForm.get('age')?.dirty || personalDataForm.get('age')?.touched)"
                 class="error-message">
-                <div *ngIf="personalDataForm.get('age')?.errors?.['required']">Возраст обязателен для заполнения.</div>
+                @if (personalDataForm.get('surname')?.errors?.['required']) {
+                  <div>Фамилия обязательна для заполнения.
+                  </div>
+                }
               </div>
+            }
+            @if (personalDataForm.get('surname')?.errors?.['forbiddenWords']) {
+              <div class="error-message">
+                Запрещённые слова: @for (word of personalDataForm.get('surname')?.errors?.['forbiddenWords']; track word) {
+                <span
+                  >{{ word }},
+                </span>
+              }
             </div>
-            <div class="text10opac05">Пол:</div>
-            <div style="display: flex; flex-direction: row; gap: 3rem">
-              <div style="display: flex; gap: 1rem;">
-                <p-radioButton class="genderValue" name="gender" value="MALE" formControlName="gender"
-                  inputId="male"></p-radioButton>
-                <label class="ml-2 genderlabel" for="male">Мужской</label>
-              </div>
-              <div style="display: flex; gap: 1rem;">
-                <p-radioButton class="genderValue" name="gender" value="FEMALE" formControlName="gender"
-                  inputId="female"></p-radioButton>
-                <label class="ml-2 genderlabel" for="female">Женский</label>
-              </div>
-            </div>
-            <div *ngIf="personalDataForm.get('gender')?.invalid && personalDataForm.get('gender')?.touched"
+          }
+        </div>
+        <div class="input-group">
+          <label for="age" class="text10opac05">Возраст:</label>
+          <input #formField type="text" id="age" formControlName="age" placeholder="Введите возраст"
+            autocomplete="off"
+            [ngClass]="{'invalid': personalDataForm.get('age')?.invalid && (personalDataForm.get('age')?.dirty && isError || personalDataForm.get('age')?.touched && isError)}">
+          @if (personalDataForm.get('age')?.invalid && (personalDataForm.get('age')?.dirty || personalDataForm.get('age')?.touched)) {
+            <div
               class="error-message">
-              Пол обязателен для заполнения.
+              @if (personalDataForm.get('age')?.errors?.['required']) {
+                <div>Возраст обязателен для заполнения.</div>
+              }
             </div>
-            <div class="input-group">
-              <label class="text10opac05" for="city">Город:</label>
-              <p-autoComplete #cityField id="city" formControlName="city" [suggestions]="filteredCities"
-                (completeMethod)="filterCities($event)" (onSelect)="onCitySelect($event)" field="name"
-                placeholder="Введите город" [emptyMessage]="'Города не найдены'"
-                [ngClass]="{'invalid': personalDataForm.get('city')?.invalid && (personalDataForm.get('city')?.dirty && isError || personalDataForm.get('city')?.touched && isError)}" />
-              <div
-                *ngIf="personalDataForm.get('city')?.invalid && (personalDataForm.get('city')?.dirty || personalDataForm.get('city')?.touched)"
-                class="error-message">
-                <div *ngIf="personalDataForm.get('city')?.errors?.['required']">Город обязателен для заполнения.</div>
-                <div *ngIf="personalDataForm.get('city')?.errors?.['invalidCity']">Выберите город из списка
-                  предложенных.</div>
-              </div>
-            </div>
+          }
+        </div>
+        <div class="text10opac05">Пол:</div>
+        <div style="display: flex; flex-direction: row; gap: 3rem">
+          <div style="display: flex; gap: 1rem;">
+            <p-radioButton class="genderValue" name="gender" value="MALE" formControlName="gender"
+            inputId="male"></p-radioButton>
+            <label class="ml-2 genderlabel" for="male">Мужской</label>
+          </div>
+          <div style="display: flex; gap: 1rem;">
+            <p-radioButton class="genderValue" name="gender" value="FEMALE" formControlName="gender"
+            inputId="female"></p-radioButton>
+            <label class="ml-2 genderlabel" for="female">Женский</label>
           </div>
         </div>
-        <div class="chapter">
-          <div class="chapter-title">Кейсы:</div>
-          <div class="chapter-content">
-            <div class="input-group">
-              <label class="text10opac05" for="portfolio">Любая ссылка на ваши работы:</label>
-              <input type="text" id="portfolio" formControlName="freeLink" placeholder="Поле ввода" autocomplete="off">
-              <div
-                *ngIf="personalDataForm.get('freeLink')?.invalid && (personalDataForm.get('freeLink')?.dirty || personalDataForm.get('freeLink')?.touched)"
-                class="error-message">
-
-              </div>
-              <div *ngIf="personalDataForm.get('freeLink')?.errors?.['forbiddenWords']" class="error-message">
-                Запрещённые слова: <span
-                  *ngFor="let word of personalDataForm.get('freeLink')?.errors?.['forbiddenWords']">{{ word }},
-                </span>
-              </div>
+        @if (personalDataForm.get('gender')?.invalid && personalDataForm.get('gender')?.touched) {
+          <div
+            class="error-message">
+            Пол обязателен для заполнения.
+          </div>
+        }
+        <div class="input-group">
+          <label class="text10opac05" for="city">Город:</label>
+          <p-autoComplete #cityField id="city" formControlName="city" [suggestions]="filteredCities"
+            (completeMethod)="filterCities($event)" (onSelect)="onCitySelect($event)" field="name"
+            placeholder="Введите город" [emptyMessage]="'Города не найдены'"
+            [ngClass]="{'invalid': personalDataForm.get('city')?.invalid && (personalDataForm.get('city')?.dirty && isError || personalDataForm.get('city')?.touched && isError)}" />
+          @if (personalDataForm.get('city')?.invalid && (personalDataForm.get('city')?.dirty || personalDataForm.get('city')?.touched)) {
+            <div
+              class="error-message">
+              @if (personalDataForm.get('city')?.errors?.['required']) {
+                <div>Город обязателен для заполнения.</div>
+              }
+              @if (personalDataForm.get('city')?.errors?.['invalidCity']) {
+                <div>Выберите город из списка
+                предложенных.</div>
+              }
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="content-column">
-        <div class="chapter">
-          <div class="chapter-title">Напишите о себе и своем опыте:</div>
-          <div class="chapter-content">
-            <div class="input-group">
-              <label class="text10opac05" for="about_me">О себе:</label>
-              <textarea #formField id="about_me" formControlName="aboutMe" placeholder="Введите информацию о себе"
-                autocomplete="off"
-                [ngClass]="{'invalid': personalDataForm.get('aboutMe')?.invalid  && (personalDataForm.get('aboutMe')?.dirty && isError || personalDataForm.get('aboutMe')?.touched && isError )}"></textarea>
-
-              <div
-                *ngIf="personalDataForm.get('aboutMe')?.invalid && (personalDataForm.get('aboutMe')?.dirty || personalDataForm.get('aboutMe')?.touched )"
-                class="error-message">
-                Не должно превышать 700 символов
-              </div>
-              <div *ngIf="personalDataForm.get('aboutMe')?.errors?.['forbiddenWords']" class="error-message">
-                Запрещённые слова: <span
-                  *ngFor="let word of personalDataForm.get('aboutMe')?.errors?.['forbiddenWords']">{{ word }},
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="chapter">
-          <div class="chapter-title">Контактные данные:</div>
-          <div class="chapter-content">
-            <div class="input-group">
-              <label class="text10opac05" for="email">Email:</label>
-              <input #formField type="text" id="email" formControlName="email" placeholder="Введите email "
-                autocomplete="off"
-                [ngClass]="{'invalid': personalDataForm.get('email')?.invalid && (personalDataForm.get('email')?.dirty && isError || personalDataForm.get('email')?.touched && isError)}">
-              <div
-                *ngIf="personalDataForm.get('email')?.invalid && (personalDataForm.get('email')?.dirty  || personalDataForm.get('email')?.touched )"
-                class="error-message">
-                <div *ngIf="personalDataForm.get('email')?.errors?.['required']">Email обязателен для заполнения.</div>
-                <div *ngIf="personalDataForm.get('email')?.errors?.['email']">Введите корректный email.</div>
-              </div>
-            </div>
-            <div class="input-group">
-              <label class="text10opac05" for="telegram">Telegram:</label>
-              <input #formField type="text" id="telegram" formControlName="telegram" placeholder="Введите telegram"
-                autocomplete="off" (blur)="normalizeTelegram()"
-                [ngClass]="{'invalid': personalDataForm.get('telegram')?.invalid && (personalDataForm.get('telegram')?.dirty && isError || personalDataForm.get('telegram')?.touched && isError)}">
-              <div
-                *ngIf="personalDataForm.get('telegram')?.invalid && (personalDataForm.get('telegram')?.dirty || personalDataForm.get('telegram')?.touched )"
-                class="error-message">
-                <div *ngIf="personalDataForm.get('telegram')?.errors?.['required']">Telegram обязателен для заполнения.
-                </div>
-              </div>
-              <div *ngIf="personalDataForm.get('telegram')?.errors?.['forbiddenWords']" class="error-message">
-                Запрещённые слова: <span
-                  *ngFor="let word of personalDataForm.get('telegram')?.errors?.['forbiddenWords']">{{ word }},
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="chapter">
-          <div class="chapter-title">Навыки:</div>
-          <div class="chapter-content">
-            <app-tag-selected-level [placeholderValue]="'Выберете навыки'"
-                                    formControlName="userSkills"
-                                    (tagsChanged)="onTagsChanged($event, 'userSkills' )" [service]="personalDataService"></app-tag-selected-level>
-            <div *ngIf="personalDataForm.get('userSkills')?.invalid && personalDataForm.get('userSkills')?.touched" class="error-message">
-              Необходимо выбрать от 1 до 10 навыков
-            </div>
-          </div>
-        </div>
-
-        <div class="chapter">
-          <div class="chapter-title">Ссылка на аккаунт Uteam:</div>
-          <div class="chapter-content chapter-domain">
-            <p class="domain">uteam.top/</p>
-            <input #formField type="text" id="domain" formControlName="domain" placeholder="Поле ввода"
-              [ngClass]="{'invalid': personalDataForm.get('domain')?.hasError('forbiddenWords') && isError}">
-            <!-- [disabled]="isDisabled" -->
-            <!-- <a (click)="toggleDisable()" >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M11 5H6C5.46957 5 4.96086 5.21072 4.58579 5.58579C4.21071 5.96086 4 6.46957 4 7V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H17C17.5304 20 18.0391 19.7893 18.4142 19.4142C18.7893 19.0391 19 18.5304 19 18V13M17.586 3.586C17.7705 3.39498 17.9912 3.24262 18.2352 3.1378C18.4792 3.03298 18.7416 2.97781 19.0072 2.9755C19.2728 2.97319 19.5361 3.0238 19.7819 3.12436C20.0277 3.22492 20.251 3.37343 20.4388 3.56121C20.6266 3.749 20.7751 3.9723 20.8756 4.21809C20.9762 4.46389 21.0268 4.72725 21.0245 4.9928C21.0222 5.25836 20.967 5.5208 20.8622 5.76481C20.7574 6.00882 20.605 6.22951 20.414 6.414L11.828 15H9V12.172L17.586 3.586Z"
-                  stroke="#806BFF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </a> -->
-
-          </div>
-          <div *ngIf="personalDataForm.get('domain')?.hasError('forbiddenWords')">
-            <p class="error-message">Данный логин занят.</p>
-          </div>
-          <div *ngIf="personalDataForm.get('domain')?.errors?.['forbiddenWords']" class="error-message">
-            Запрещённые слова: <span *ngFor="let word of personalDataForm.get('domain')?.errors?.['forbiddenWords']">{{
-              word }},
-            </span>
-          </div>
-        </div>
-        <div class="chapter">
-          <div class="approval">
-            <label for="approval">Нажимая на кнопку «Сохранить», я даю свое согласие на обработку моих персональных
-              данных, в соответствии с Федеральным законом от 27.07.2006 года №152-ФЗ «О персональных данных», на
-              условиях и для целей, определенных в Согласии на обработку персональных данных</label>
-
-          </div>
-        </div>
-        <div class="btns">
-          <button *ngIf="cancel_btn" class="btnError" type="submit" (click)="onCancel()">Отмена</button>
-          <button class="btnSave" type="submit" (click)="onSubmit()">Сохранить</button>
+          }
         </div>
       </div>
     </div>
-  </form>
+    <div class="chapter">
+      <div class="chapter-title">Кейсы:</div>
+      <div class="chapter-content">
+        <div class="input-group">
+          <label class="text10opac05" for="portfolio">Любая ссылка на ваши работы:</label>
+          <input type="text" id="portfolio" formControlName="freeLink" placeholder="Поле ввода" autocomplete="off">
+          @if (personalDataForm.get('freeLink')?.invalid && (personalDataForm.get('freeLink')?.dirty || personalDataForm.get('freeLink')?.touched)) {
+            <div
+              class="error-message">
+            </div>
+          }
+          @if (personalDataForm.get('freeLink')?.errors?.['forbiddenWords']) {
+            <div class="error-message">
+              Запрещённые слова: @for (word of personalDataForm.get('freeLink')?.errors?.['forbiddenWords']; track word) {
+              <span
+                >{{ word }},
+              </span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content-column">
+  <div class="chapter">
+    <div class="chapter-title">Напишите о себе и своем опыте:</div>
+    <div class="chapter-content">
+      <div class="input-group">
+        <label class="text10opac05" for="about_me">О себе:</label>
+        <textarea #formField id="about_me" formControlName="aboutMe" placeholder="Введите информацию о себе"
+          autocomplete="off"
+        [ngClass]="{'invalid': personalDataForm.get('aboutMe')?.invalid  && (personalDataForm.get('aboutMe')?.dirty && isError || personalDataForm.get('aboutMe')?.touched && isError )}"></textarea>
+
+        @if (personalDataForm.get('aboutMe')?.invalid && (personalDataForm.get('aboutMe')?.dirty || personalDataForm.get('aboutMe')?.touched )) {
+          <div
+            class="error-message">
+            Не должно превышать 700 символов
+          </div>
+        }
+        @if (personalDataForm.get('aboutMe')?.errors?.['forbiddenWords']) {
+          <div class="error-message">
+            Запрещённые слова: @for (word of personalDataForm.get('aboutMe')?.errors?.['forbiddenWords']; track word) {
+            <span
+              >{{ word }},
+            </span>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>
+<div class="chapter">
+  <div class="chapter-title">Контактные данные:</div>
+  <div class="chapter-content">
+    <div class="input-group">
+      <label class="text10opac05" for="email">Email:</label>
+      <input #formField type="text" id="email" formControlName="email" placeholder="Введите email "
+        autocomplete="off"
+        [ngClass]="{'invalid': personalDataForm.get('email')?.invalid && (personalDataForm.get('email')?.dirty && isError || personalDataForm.get('email')?.touched && isError)}">
+      @if (personalDataForm.get('email')?.invalid && (personalDataForm.get('email')?.dirty  || personalDataForm.get('email')?.touched )) {
+        <div
+          class="error-message">
+          @if (personalDataForm.get('email')?.errors?.['required']) {
+            <div>Email обязателен для заполнения.</div>
+          }
+          @if (personalDataForm.get('email')?.errors?.['email']) {
+            <div>Введите корректный email.</div>
+          }
+        </div>
+      }
+    </div>
+    <div class="input-group">
+      <label class="text10opac05" for="telegram">Telegram:</label>
+      <input #formField type="text" id="telegram" formControlName="telegram" placeholder="Введите telegram"
+        autocomplete="off" (blur)="normalizeTelegram()"
+        [ngClass]="{'invalid': personalDataForm.get('telegram')?.invalid && (personalDataForm.get('telegram')?.dirty && isError || personalDataForm.get('telegram')?.touched && isError)}">
+      @if (personalDataForm.get('telegram')?.invalid && (personalDataForm.get('telegram')?.dirty || personalDataForm.get('telegram')?.touched )) {
+        <div
+          class="error-message">
+          @if (personalDataForm.get('telegram')?.errors?.['required']) {
+            <div>Telegram обязателен для заполнения.
+            </div>
+          }
+        </div>
+      }
+      @if (personalDataForm.get('telegram')?.errors?.['forbiddenWords']) {
+        <div class="error-message">
+          Запрещённые слова: @for (word of personalDataForm.get('telegram')?.errors?.['forbiddenWords']; track word) {
+          <span
+            >{{ word }},
+          </span>
+        }
+      </div>
+    }
+  </div>
+</div>
+</div>
+
+<div class="chapter">
+  <div class="chapter-title">Навыки:</div>
+  <div class="chapter-content">
+    <app-tag-selected-level [placeholderValue]="'Выберете навыки'"
+      formControlName="userSkills"
+    (tagsChanged)="onTagsChanged($event, 'userSkills' )" [service]="personalDataService"></app-tag-selected-level>
+    @if (personalDataForm.get('userSkills')?.invalid && personalDataForm.get('userSkills')?.touched) {
+      <div class="error-message">
+        Необходимо выбрать от 1 до 10 навыков
+      </div>
+    }
+  </div>
+</div>
+
+<div class="chapter">
+  <div class="chapter-title">Ссылка на аккаунт Uteam:</div>
+  <div class="chapter-content chapter-domain">
+    <p class="domain">uteam.top/</p>
+    <input #formField type="text" id="domain" formControlName="domain" placeholder="Поле ввода"
+      [ngClass]="{'invalid': personalDataForm.get('domain')?.hasError('forbiddenWords') && isError}">
+    <!-- [disabled]="isDisabled" -->
+    <!-- <a (click)="toggleDisable()" >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M11 5H6C5.46957 5 4.96086 5.21072 4.58579 5.58579C4.21071 5.96086 4 6.46957 4 7V18C4 18.5304 4.21071 19.0391 4.58579 19.4142C4.96086 19.7893 5.46957 20 6 20H17C17.5304 20 18.0391 19.7893 18.4142 19.4142C18.7893 19.0391 19 18.5304 19 18V13M17.586 3.586C17.7705 3.39498 17.9912 3.24262 18.2352 3.1378C18.4792 3.03298 18.7416 2.97781 19.0072 2.9755C19.2728 2.97319 19.5361 3.0238 19.7819 3.12436C20.0277 3.22492 20.251 3.37343 20.4388 3.56121C20.6266 3.749 20.7751 3.9723 20.8756 4.21809C20.9762 4.46389 21.0268 4.72725 21.0245 4.9928C21.0222 5.25836 20.967 5.5208 20.8622 5.76481C20.7574 6.00882 20.605 6.22951 20.414 6.414L11.828 15H9V12.172L17.586 3.586Z"
+        stroke="#806BFF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </a> -->
+
+</div>
+@if (personalDataForm.get('domain')?.hasError('forbiddenWords')) {
+  <div>
+    <p class="error-message">Данный логин занят.</p>
+  </div>
+}
+@if (personalDataForm.get('domain')?.errors?.['forbiddenWords']) {
+  <div class="error-message">
+    Запрещённые слова: @for (word of personalDataForm.get('domain')?.errors?.['forbiddenWords']; track word) {
+    <span>{{
+      word }},
+    </span>
+  }
+</div>
+}
+</div>
+<div class="chapter">
+  <div class="approval">
+    <label for="approval">Нажимая на кнопку «Сохранить», я даю свое согласие на обработку моих персональных
+      данных, в соответствии с Федеральным законом от 27.07.2006 года №152-ФЗ «О персональных данных», на
+    условиях и для целей, определенных в Согласии на обработку персональных данных</label>
+
+  </div>
+</div>
+<div class="btns">
+  @if (cancel_btn) {
+    <button class="btnError" type="submit" (click)="onCancel()">Отмена</button>
+  }
+  <button class="btnSave" type="submit" (click)="onSubmit()">Сохранить</button>
+</div>
+</div>
+</div>
+</form>
 </div>
 
 
-<app-pop-up-avatar *ngIf="isPopupVisible" [gender]="setGender" [serverSelectedAvatar]="setAvatar"></app-pop-up-avatar>
+@if (isPopupVisible) {
+  <app-pop-up-avatar [gender]="setGender" [serverSelectedAvatar]="setAvatar"></app-pop-up-avatar>
+}

@@ -8,7 +8,7 @@ import {
   Input, OnInit,
   ViewChild
 } from '@angular/core';
-import {NgForOf, NgIf} from "@angular/common";
+
 import {Router, RouterLink} from "@angular/router";
 import {Navigation} from "swiper/modules";
 import {ProjectComponent} from "../project/project.component";
@@ -26,8 +26,6 @@ import {ProjectService} from "../../projects/project/project.service";
   selector: 'app-home-slider',
   standalone: true,
   imports: [
-    NgForOf,
-    NgIf,
     ProjectComponent,
     VacancyLibraryComponent,
     ResumeLibraryComponent,
@@ -37,7 +35,7 @@ import {ProjectService} from "../../projects/project/project.service";
     ProjectsNewsComponent,
     SortByPipe,
     RouterLink
-  ],
+],
   templateUrl: './home-slider.component.html',
   styleUrl: './home-slider.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -26,7 +26,7 @@ export class ProjectsNewsComponent {
     event.stopPropagation();
 
     let userData = localStorage.getItem('authToken');
-    let userNickname = localStorage.getItem('autuserNicknamehToken');
+    let userNickname = localStorage.getItem('userNickname');
     if (!userData && !userNickname) {
       this.popUpEntryService.showDialog();
       return;
@@ -35,6 +35,8 @@ export class ProjectsNewsComponent {
     this.projectService.likePost(id).subscribe((res) => {
       if (res) {
         this.newsItem.likesCount = res;
+      } else {
+        this.newsItem.likesCount = this.newsItem.likesCount - 1;
       }
     })
   }

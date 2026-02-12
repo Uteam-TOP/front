@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { ScreensaverHackComponent } from './components/screensaver/screensaver.component';
 import { HackathonDataComponent } from './components/hackathon-data/hackathon-data.component';
@@ -12,7 +12,7 @@ import { ManageListParticipantsComponent } from './components/manage-list-partic
 @Component({
   selector: 'app-hackathon',
   standalone: true,
-  imports: [CommonModule, ScreensaverHackComponent, HackathonDataComponent, CommandsHackComponent, PartyComponent, SettingsAdminComponent, ManageListParticipantsComponent],
+  imports: [ScreensaverHackComponent, HackathonDataComponent, CommandsHackComponent, PartyComponent, SettingsAdminComponent, ManageListParticipantsComponent],
   templateUrl: './hackathon.component.html',
   styleUrl: './hackathon.component.css'
 })

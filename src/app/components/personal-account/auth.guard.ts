@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     const token = localStorage.getItem('authToken');
     const nick = localStorage.getItem('userNickname');
-    if (!token && nick) {
+    if (!token) {
       this.tokenService.clearToken()
       localStorage.removeItem('userNickname');
       this.router.navigate(['/']); // Перенаправляем на главную страницу, если токена нет

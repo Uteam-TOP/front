@@ -65,7 +65,7 @@ export class ScreensaverPhoneComponent implements OnInit {
     event.stopPropagation();
     event.preventDefault();
     let userData = localStorage.getItem('authToken');
-    let userNickname = localStorage.getItem('autuserNicknamehToken');
+    let userNickname = localStorage.getItem('userNickname');
     if (!userData && !userNickname) {
       this.popUpEntryService.showDialog();
       return;

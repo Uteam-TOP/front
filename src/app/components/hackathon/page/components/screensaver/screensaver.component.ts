@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HackathonService } from '../../hackathon.service';
@@ -6,7 +6,7 @@ import { HackathonService } from '../../hackathon.service';
 @Component({
   selector: 'app-screensaver',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './screensaver.component.html',
   styleUrl: './screensaver.component.css'
 })

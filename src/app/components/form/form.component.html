@@ -1,118 +1,141 @@
 <div class="container" @fadeAnimation>
-    <form [formGroup]="form" (ngSubmit)="submit()" style="margin-top: 110px;">
-        <div class="creation">
-            <p class="creation-title">создание {{ typeForm }}</p>
+  <form [formGroup]="form" (ngSubmit)="submit()" style="margin-top: 110px;">
+    <div class="creation">
+      <p class="creation-title">создание {{ typeForm }}</p>
+    </div>
+
+    <div class="content">
+      @if (typeForm === 'вакансии') {
+        <div class="firstRow">
+          <div class="stage">
+            <p class="stage-title">Заголовок:</p>
+            <textarea formControlName="title" placeholder="Напишите заголовок"
+            (input)="adjustHeight($event)" (paste)="adjustHeight($event)"></textarea>
+            @if (form.get('title')?.invalid && form.get('title')?.touched && form.get('title')?.value) {
+              <div
+                class="error-message">
+                Заголовок обязателен
+              </div>
+            }
+            @if (form.get('title')?.errors?.['maxlength']) {
+              <div class="error-message">
+                Заголовок не должно превышать 100 символов
+              </div>
+            }
+            @if (form.get('title')?.errors?.['forbiddenWords']) {
+              <div class="error-message">
+                Запрещённые слова: @for (word of form.get('title')?.errors?.['forbiddenWords']; track word) {
+                <span>{{ word }}, </span>
+              }
+            </div>
+          }
         </div>
+      </div>
+    }
 
-        <div class="content">
-            <ng-container *ngIf="typeForm === 'вакансии'">
-                <div class="firstRow">
-                    <div class="stage">
-                        <p class="stage-title">Заголовок:</p>
-                        <textarea formControlName="title" placeholder="Напишите заголовок"
-                            (input)="adjustHeight($event)" (paste)="adjustHeight($event)"></textarea>
+    <div class="secondRow">
+      <div class="stage">
+        <p class="stage-title">Специализация:</p>
+        <app-tag-selected-level [placeholderValue]="'Выберете специализацию'"
+          [maxTags]="1" [type]="'PROFESSION'" formControlName="profession"
+        (tagsChanged)="onTagsChanged($event, 'profession')" [service]="formSettingService"></app-tag-selected-level>
+        @if (form.get('profession')?.invalid && form.get('profession')?.touched) {
+          <div
+            class="error-message">
+            Необходимо выбрать специализацию
+          </div>
+        }
+      </div>
 
-                        <div *ngIf="form.get('title')?.invalid && form.get('title')?.touched && form.get('title')?.value"
-                            class="error-message">
-                            Заголовок обязателен
-                        </div>
-                        <div *ngIf="form.get('title')?.errors?.['maxlength']" class="error-message">
-                            Заголовок не должно превышать 100 символов
-                        </div>
-                        <div *ngIf="form.get('title')?.errors?.['forbiddenWords']" class="error-message">
-                            Запрещённые слова: <span *ngFor="let word of form.get('title')?.errors?.['forbiddenWords']">{{ word }}, </span>
-                        </div>
-                    </div>
-                </div>
-            </ng-container>
+      <div class="stage">
+        <p class="stage-title">Навыки:</p>
+        <app-tag-selected-level [placeholderValue]="'Выберете навыки'"
+          formControlName="skills"
+        (tagsChanged)="onTagsChanged($event, 'skills' )" [service]="formSettingService"></app-tag-selected-level>
+        @if (form.get('skills')?.invalid && form.get('skills')?.touched) {
+          <div class="error-message">
+            Необходимо выбрать от 1 до 10 навыков
+          </div>
+        }
+      </div>
 
-            <div class="secondRow">
-                <div class="stage">
-                    <p class="stage-title">Специализация:</p>
-                    <app-tag-selected-level [placeholderValue]="'Выберете специализацию'"
-                        [maxTags]="1" [type]="'PROFESSION'" formControlName="profession"
-                        (tagsChanged)="onTagsChanged($event, 'profession')" [service]="formSettingService"></app-tag-selected-level>
-                    <div *ngIf="form.get('profession')?.invalid && form.get('profession')?.touched"
-                        class="error-message">
-                        Необходимо выбрать специализацию
-                    </div>
-                </div>
-
-                <div class="stage">
-                    <p class="stage-title">Навыки:</p>
-                    <app-tag-selected-level [placeholderValue]="'Выберете навыки'"
-                        formControlName="skills"
-                        (tagsChanged)="onTagsChanged($event, 'skills' )" [service]="formSettingService"></app-tag-selected-level>
-                    <div *ngIf="form.get('skills')?.invalid && form.get('skills')?.touched" class="error-message">
-                        Необходимо выбрать от 1 до 10 навыков
-                    </div>
-                </div>
-
-                <div class="stage" class="three-stages" style="flex: 1;">
-                    <div class="three-stage">
-                        <p class="stage-title">Мотивация:</p>
-                        <app-motivations (tagsChanged)="onMotivationsChanged($event)"
-                        (paymentChanged)="onPaymentAmountChange($event)" [payment]="setPaymentAmount"
-                            formControlName="motivations" [isPayment]="isPayment"></app-motivations>
-                        <div *ngIf="form.get('motivations')?.invalid && form.get('motivations')?.touched"
-                            class="error-message">
-                            Необходимо выбрать один или несколько вариантов
-                        </div>
-                    </div>
-                    <!-- <ng-container *ngIf="formSettingService.isheading">
-                        <div class="paul">
-                            <p class="stage-title">Пол:</p>
-                            <div class="paul-stage">
-                                <div style="display: flex; gap: 1rem; align-items: center;">
-                                    <p-radioButton formControlName="gender" value="Male" inputId="paul1"
-                                        class="paulValue"></p-radioButton>
-                                    <label for="paul1" class="ml-2" style="font-size: 0.8rem;">Мужской</label>
-                                </div>
-
-                                <div style="display: flex; gap: 1rem; align-items: center;">
-                                    <p-radioButton formControlName="gender" value="Female" inputId="paul2"
-                                        class="paulValue"></p-radioButton>
-                                    <label for="paul2" class="ml-2" style="font-size: 0.8rem;">Женский</label>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container> -->
-                </div>
+      <div class="stage" class="three-stages" style="flex: 1;">
+        <div class="three-stage">
+          <p class="stage-title">Мотивация:</p>
+          <app-motivations (tagsChanged)="onMotivationsChanged($event)"
+            (paymentChanged)="onPaymentAmountChange($event)" [payment]="setPaymentAmount"
+          formControlName="motivations" [isPayment]="isPayment"></app-motivations>
+          @if (form.get('motivations')?.invalid && form.get('motivations')?.touched) {
+            <div
+              class="error-message">
+              Необходимо выбрать один или несколько вариантов
+            </div>
+          }
+        </div>
+        <!-- <ng-container *ngIf="formSettingService.isheading">
+        <div class="paul">
+          <p class="stage-title">Пол:</p>
+          <div class="paul-stage">
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <p-radioButton formControlName="gender" value="Male" inputId="paul1"
+              class="paulValue"></p-radioButton>
+              <label for="paul1" class="ml-2" style="font-size: 0.8rem;">Мужской</label>
             </div>
 
-            <div class="thirdRow">
-                <div class="stage" style="flex: 2;">
-                    <p class="stage-title">Описание:</p>
-                    <textarea formControlName="details" placeholder="Поле ввода"></textarea>
-                    <div *ngIf="form.get('details')?.invalid && form.get('details')?.touched">
-                        <div *ngIf="form.get('details')?.errors?.['required']" class="error-message">
-                            Необходимо заполнить поле
-                        </div>
-                        <div *ngIf="form.get('details')?.errors?.['maxlength']" class="error-message">
-                            Описание не должно превышать 700 символов
-                        </div>
-                        <div *ngIf="form.get('details')?.errors?.['forbiddenWords']" class="error-message">
-                            Запрещённые слова: <span *ngFor="let word of form.get('details')?.errors?.['forbiddenWords']">{{ word }}, </span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="stage container-btns">
-                  <div class="error-message">
-                    {{ this.errorMessage }}
-                  </div>
-                  <a class="createBtn" (click)="submit()" style="color: #ffffff;">Опубликовать</a>
-                  <div class="secondBtns">
-                      <ng-container *ngIf="isEditMode">
-                          <a class="deleteBtn" style="color: #000000;" (click)="deleteCard()">Удалить</a>
-                      </ng-container>
-
-                  </div>
-                </div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+              <p-radioButton formControlName="gender" value="Female" inputId="paul2"
+              class="paulValue"></p-radioButton>
+              <label for="paul2" class="ml-2" style="font-size: 0.8rem;">Женский</label>
             </div>
+          </div>
         </div>
-    </form>
+      </ng-container> -->
+    </div>
+  </div>
+
+  <div class="thirdRow">
+    <div class="stage" style="flex: 2;">
+      <p class="stage-title">Описание:</p>
+      <textarea formControlName="details" placeholder="Поле ввода"></textarea>
+      @if (form.get('details')?.invalid && form.get('details')?.touched) {
+        <div>
+          @if (form.get('details')?.errors?.['required']) {
+            <div class="error-message">
+              Необходимо заполнить поле
+            </div>
+          }
+          @if (form.get('details')?.errors?.['maxlength']) {
+            <div class="error-message">
+              Описание не должно превышать 700 символов
+            </div>
+          }
+          @if (form.get('details')?.errors?.['forbiddenWords']) {
+            <div class="error-message">
+              Запрещённые слова: @for (word of form.get('details')?.errors?.['forbiddenWords']; track word) {
+              <span>{{ word }}, </span>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+
+
+  <div class="stage container-btns">
+    <div class="error-message">
+      {{ this.errorMessage }}
+    </div>
+    <a class="createBtn" (click)="submit()" style="color: #ffffff;">Опубликовать</a>
+    <div class="secondBtns">
+      @if (isEditMode) {
+        <a class="deleteBtn" style="color: #000000;" (click)="deleteCard()">Удалить</a>
+      }
+
+    </div>
+  </div>
+</div>
+</div>
+</form>
 </div>
 
 <app-save-changes-popup (deleteDraftEvent)="clearDraft()"></app-save-changes-popup>

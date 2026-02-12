@@ -1,3 +1,5 @@
 <app-mu-team></app-mu-team>
 <app-new-people></app-new-people>
-<app-pop-up *ngIf="isVisible"></app-pop-up>
+@if (isVisible) {
+  <app-pop-up></app-pop-up>
+}

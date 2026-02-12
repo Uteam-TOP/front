@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewCardComponent } from '../review-card/review-card.component';
-import { CommonModule } from '@angular/common';
+
 import { PersonalDataService } from '../../../../personal-account/personal-data/personal-data.service';
 import { ReviewsService } from './reviews.service';
 import { ProjectService } from '../../project.service';
@@ -10,7 +10,7 @@ import {AvatarPipe} from "../../../../../shared/pipes/avatar.pipe";
 @Component({
   selector: 'app-reviews',
   standalone: true,
-  imports: [CommonModule, ReviewCardComponent, FormsModule, AvatarPipe],
+  imports: [ReviewCardComponent, FormsModule, AvatarPipe],
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.css'
 })

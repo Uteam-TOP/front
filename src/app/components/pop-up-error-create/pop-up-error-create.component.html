@@ -1,4 +1,5 @@
-<div class="popup-overlay" *ngIf="popUpErrorCreateService.visible" (click)="closePopUp()">
+@if (popUpErrorCreateService.visible) {
+  <div class="popup-overlay" (click)="closePopUp()">
     <div class="popup" (click)="$event.stopPropagation()">
       <div class="close-button" (click)="closePopUp()">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -8,7 +9,7 @@
       <ng-content>
         <p class="popup-login-title">Для создания Резюме или Вакансии необходимо заполнить информацию в "Мой аккаунт"</p>
         <a class="popup-login-link" (click)="proceed()">Перейти</a>
-      </ng-content>  
+      </ng-content>
     </div>
   </div>
-  
+}

@@ -28,12 +28,12 @@
 .btnSend {
     border-radius: 300px;
     padding: 8px 12px;
-    background: #e2e2e2;
+    background: #9280fa;
     cursor: pointer;
     font-weight: 400;
     font-size: 14px;
     line-height: 129%;
-    color: #101010;
+    color: #fff;
 }
 
 .btnSend:hover {
@@ -90,6 +90,12 @@ textarea:active {
     width: 100%;
     display: flex;
     align-items: center;
+
+    svg {
+        path {
+          stroke: var(--font-color);
+        }
+    }
 }
 
 .btnUpload {
@@ -116,4 +122,25 @@ textarea:active {
 
 .btnUpload:hover img {
     opacity: 1;
+}
+
+.blocked {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.error-message {
+  margin: 0;
+  text-align: right;
+
+  p {
+    font-size: 12px;
+    color: #a94442;
+    margin: 0;
+  }
+}
+
+.empty-list {
+  color: var(--font-color);
+  opacity: 0.8;
 }

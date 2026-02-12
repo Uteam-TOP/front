@@ -67,7 +67,7 @@ export class ProjectComponent {
     event.stopPropagation();
     event.preventDefault();
     let userData = localStorage.getItem('authToken');
-    let userNickname = localStorage.getItem('autuserNicknamehToken');
+    let userNickname = localStorage.getItem('userNickname');
     if (!userData && !userNickname) {
       this.popUpEntryService.showDialog(true, 'Войдите, чтобы иметь возможность оценивать посты');
       return;

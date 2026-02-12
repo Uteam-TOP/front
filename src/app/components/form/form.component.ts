@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+
+import {ChangeDetectorRef, Component, effect, HostListener, inject, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { MotivationsComponent } from '../form-components/motivations/motivations.component';
 import { TagSelectorComponent } from '../form-components/tag-selector/tag-selector.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -14,12 +14,14 @@ import { SaveChangesPopupService } from './save-changes-popup/save-changes-popup
 import { trigger, transition, style, animate } from '@angular/animations';
 import { filter } from 'rxjs/operators';
 import { forbiddenWordsValidator } from '../../../validators/forbidden-words.validator';
+import {UserService} from "../../core/services/user.service";
+import {UserDto} from "../../core/models/userDto";
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-form',
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     TagSelectorComponent,
@@ -27,7 +29,7 @@ import { forbiddenWordsValidator } from '../../../validators/forbidden-words.val
     RadioButtonModule,
     TagSelectedLevelComponent,
     SaveChangesPopupComponent
-  ],
+],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
   animations: [
@@ -45,6 +47,8 @@ import { forbiddenWordsValidator } from '../../../validators/forbidden-words.val
 export class FormComponent implements OnInit {
   @ViewChild(MotivationsComponent) motivationsComponent!: MotivationsComponent;
   @ViewChild(TagSelectedLevelComponent) tagSelectedLevelComponent!: TagSelectedLevelComponent;
+
+  private userService = inject(UserService);
 
   form!: FormGroup;
   selectedTags: {
@@ -66,6 +70,7 @@ export class FormComponent implements OnInit {
   isPayment: boolean = false;
   errorMessage: string = '';
   title: string = '';
+  currentUser = toSignal(this.userService.getCurrentUser());
 
   private readonly FORM_STORAGE_KEY = 'formData';
 
@@ -92,6 +97,12 @@ export class FormComponent implements OnInit {
       } else {
         this.initializeForm();
         this.loadFormDataFromStorage();
+      }
+    });
+
+    effect(() => {
+      if (this.currentUser() && this.currentUser()?.userSkills && this.typeForm === 'резюме') {
+        this.form.get('skills')?.setValue(this.currentUser()?.userSkills);
       }
     });
 

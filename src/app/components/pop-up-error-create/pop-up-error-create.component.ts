@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopUpErrorCreateService } from './pop-up-error-create.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-pop-up-error-create',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './pop-up-error-create.component.html',
   styleUrl: './pop-up-error-create.component.css'
 })
