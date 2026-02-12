@@ -351,6 +351,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
       this.digit4.nativeElement.value = '';
       this.digit5.nativeElement.value = '';
       this.digit6.nativeElement.value = '';
+      this.digit1.nativeElement.focus();
     })
 
   }

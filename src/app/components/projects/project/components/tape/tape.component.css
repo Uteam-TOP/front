@@ -90,6 +90,12 @@ textarea:active {
     width: 100%;
     display: flex;
     align-items: center;
+
+    svg {
+        path {
+          stroke: var(--font-color);
+        }
+    }
 }
 
 .btnUpload {
@@ -132,4 +138,9 @@ textarea:active {
     color: #a94442;
     margin: 0;
   }
+}
+
+.empty-list {
+  color: var(--font-color);
+  opacity: 0.8;
 }
