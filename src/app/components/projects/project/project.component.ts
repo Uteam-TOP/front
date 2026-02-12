@@ -79,6 +79,7 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setActiveTab('aboutProject');
     if (this.tokenService.getToken()) {
       // ✅ Теперь ждем загрузки `projectData` перед вызовом `getCurrentUser`
       combineLatest([

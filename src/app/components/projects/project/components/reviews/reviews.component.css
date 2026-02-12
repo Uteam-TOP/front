@@ -20,6 +20,11 @@ p {
     display: flex;
     flex-direction: column;
     gap: 32px;
+
+    p {
+        color: var(--font-color);
+        opacity: 0.8;
+    }
 }
 
 

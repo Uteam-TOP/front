@@ -22,10 +22,13 @@
   </div>
 
   <div class="navigation-dots">
-    @for (section of sections.toArray(); track section; let i = $index) {
-      <button [class.active]="i === currentSection"
-      (click)="goToSection(i)" class="dot"></button>
+    @if (sections) {
+      @for (section of sections.toArray(); track section; let i = $index) {
+        <button [class.active]="i === currentSection"
+                (click)="goToSection(i)" class="dot"></button>
+      }
     }
+
   </div>
 
   <app-footer/>
