@@ -20,13 +20,21 @@
       </div>
     }
     @if (!isCurrect) {
-      <p class="popup-subtitle">Прикрепите актуальное резюме</p>
+      <p class="popup-subtitle">Выберите актуальное резюме</p>
     }
     @if (!isCurrect) {
       <div class="popup-resumes">
-        @for (itemResume of popUpResponseTeamService.filterResumes('EVERYBODY', resumesList) ; track itemResume) {
-          <app-active-resumes [cardItem]="itemResume" ></app-active-resumes>
+        @if (popUpResponseTeamService.filterResumes('EVERYBODY', resumesList); as resumes) {
+          @for (itemResume of resumes; track itemResume) {
+            <app-active-resumes [cardItem]="itemResume" ></app-active-resumes>
+          }
+        } @else {
+          <p>У вас нет резюме</p>
         }
+
+        <div class="add-resume">
+          <ui-button [text]="'Добавить резюме'" [type]="'arrow'" [routerLink]="['/', currentUser()?.nickname, 'account', 'newResume']"></ui-button>
+        </div>
       </div>
     }
     @if (!isCurrect) {

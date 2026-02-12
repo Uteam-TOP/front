@@ -85,7 +85,7 @@ const routes: Routes = [
   {
     path: 'error/:id', component: PageErrorComponent
   },
-  { path: '**', redirectTo: '/error' }
+  // { path: '**', redirectTo: '/error' }
 ];
 
 // Define extra options separately
