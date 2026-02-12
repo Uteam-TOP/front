@@ -59,8 +59,22 @@ skeleton-block {
   margin-top: auto !important;
   padding-top: 1rem;
   margin-bottom: 1rem;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
 }
 
+::ng-deep .rightProfileChapter {
+  display: flex;
+  flex-direction: row !important;
+  margin-top: 5px;
+  gap: 5px !important;
+  align-self: flex-end;
+}
+
+::ng-deep .rightProfileChapter p {
+  margin: 0 !important;
+}
 
 @media (min-width: 768px) {
   .column {
