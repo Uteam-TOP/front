@@ -120,7 +120,7 @@ textarea::placeholder {
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
-    overflow-y: auto; 
+    overflow-y: auto;
 }
 app-active-resumes{
     width: 48%;
@@ -128,16 +128,20 @@ app-active-resumes{
 
 .popup-resumes::-webkit-scrollbar {
     width: 5px;
-    background-color: transparent; 
+    background-color: transparent;
 }
 
 .popup-resumes::-webkit-scrollbar-thumb {
     background: #806bff;
-    border-radius: 4px; 
+    border-radius: 4px;
 }
 
 .popup-resumes::-webkit-scrollbar-thumb:hover {
     background: #806bff;
+}
+
+.add-resume {
+  margin: 10px 0
 }
 
 .popup-cancel {
@@ -234,7 +238,7 @@ app-active-resumes{
     app-active-resumes{
         width: 100%;
     }
-    
+
 }
 
 /* Адаптивность для очень маленьких экранов, например, смартфонов */
