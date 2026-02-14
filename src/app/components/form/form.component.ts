@@ -70,6 +70,7 @@ export class FormComponent implements OnInit {
   isPayment: boolean = false;
   errorMessage: string = '';
   title: string = '';
+  submitAttempted = false;
   currentUser = toSignal(this.userService.getCurrentUser());
 
   private readonly FORM_STORAGE_KEY = 'formData';
@@ -257,6 +258,7 @@ export class FormComponent implements OnInit {
   }
 
   submit(): void {
+    this.submitAttempted = true;
     if (this.form.invalid) {
       Object.keys(this.form.controls).forEach(control => {
         const formControl = this.form.get(control);

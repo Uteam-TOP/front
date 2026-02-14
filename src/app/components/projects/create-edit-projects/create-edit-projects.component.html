@@ -245,7 +245,7 @@
 <div class="container-elements-left-gruopInputs" style="margin-top: 15px">
   <p class="container-elements-left-gruopInputs-title">Стэк технологий:</p>
   <div class="container-elements-left-gruopInputs-items">
-    <app-tag-selected-level [placeholderValue]="'Выберете технологии'"
+    <app-tag-selected-level [placeholderValue]="'Выберите технологии'"
       formControlName="stack"
       [isLevelAvl]="false"
     (tagsChanged)="onTagsChanged($event, 'stack' )" [service]="personalDataService"></app-tag-selected-level>
@@ -303,6 +303,12 @@
     <div
       class="error-message">
       <p>{{ errorMessage }}</p>
+    </div>
+  }
+  @if (form.invalid && form.touched && submitAttempted) {
+    <div
+      class="error-message">
+      <p>Заполнены не все поля</p>
     </div>
   }
   @if (!projectService.isEditProject) {

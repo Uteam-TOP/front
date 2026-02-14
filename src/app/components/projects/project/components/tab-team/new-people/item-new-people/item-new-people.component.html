@@ -56,7 +56,7 @@ background: #fff;">
     <div class="action">
       <div class="tag-selector" style="width: 100%;">
         <label for="">Назначьте роль </label>
-        <app-tag-selector [type]="'PROFESSION'" [placeholderValue]="'Выберете специализацию'"
+        <app-tag-selector [type]="'PROFESSION'" [placeholderValue]="'Выберите специализацию'"
           (click)="scrollToSelectorProfessions()" [maxTags]="1"
           (tagsChanged)="onTagsChanged($event,'profession')"
         [service]="sortetdFilterService"></app-tag-selector>

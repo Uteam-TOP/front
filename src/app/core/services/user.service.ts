@@ -24,11 +24,7 @@ export class UserService {
 
   getCurrentUser(): Observable<UserDto | null> {
     return this.http.get<UserDto>(`${environment.apiUrl}/secured/users/currentUser`).pipe(
-      map((res) => {this.userData.next(res);console.log('res', res); return res}),
-      catchError(() => {
-        this.tokenService.clearToken()
-        return of(null);
-      })
+      map((res) => {this.userData.next(res);console.log('res', res); return res})
     );
   }
 }

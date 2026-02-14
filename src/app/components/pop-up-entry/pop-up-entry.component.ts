@@ -79,7 +79,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
     //   })
     // } else {
     this.popUpEntryService.signUpUesr(data).subscribe((response: any) => {
-      this.isLoading = true;
+      this.isLoading = false;
       this.popUpEntryService.confirmAuth = true;
 
       localStorage.setItem('confirmAuth', 'true');
@@ -89,6 +89,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
       // this.userAuthenticated = true;
       // this.login_user();
     }, (error) => {
+      this.isLoading = false;
       this.errorMessage = error.error.details;
     })
     // }
