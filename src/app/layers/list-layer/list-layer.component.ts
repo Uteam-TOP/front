@@ -1,11 +1,8 @@
-import {ChangeDetectionStrategy, Component, inject, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostListener, inject, Input, OnInit} from '@angular/core';
 import {UiButtonComponent} from "../../shared/ui-components/ui-button/ui-button.component";
-import {HackathonCadComponent} from "../../components/home/hackathon-cad/hackathon-cad.component";
-import { NgClass, NgTemplateOutlet } from "@angular/common";
 import {ProjectComponent} from "../../components/home/project/project.component";
-import { ResumeLibraryComponent, VacancyLibraryComponent } from '../../../common-uteam-library';
+import { ResumeLibraryComponent, } from '../../../common-uteam-library';
 import {Router} from "@angular/router";
-import {SortByPipe} from "../../shared/pipes/sort-by.pipe";
 import {VacancyComponent} from "../../components/cards/vacancy/vacancy.component";
 import {NotFoundComponent} from "../not-found/not-found.component";
 
@@ -14,7 +11,6 @@ import {NotFoundComponent} from "../not-found/not-found.component";
   standalone: true,
   imports: [
     UiButtonComponent,
-    HackathonCadComponent,
     ProjectComponent,
     ResumeLibraryComponent,
     ResumeLibraryComponent,
@@ -31,10 +27,21 @@ export class ListLayerComponent implements OnInit {
 
   private router = inject(Router);
 
+  isMobile = false;
+
   resumeVisibleSections: string[] = ['profession', 'availability', 'skills', 'motivations', 'profile']
 
   public sortBy = 'createdAt';
   public sortType: 'desc' | 'asc' = 'desc';
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    this.updateView(event.target.innerWidth);
+  }
+
+  constructor() {
+    this.updateView(window.innerWidth);
+  }
 
   ngOnInit() {
     this.sortBy = this.type === 'vacancy' || this.type === 'resume' ? 'creationDate' : 'createdAt';
@@ -73,10 +80,20 @@ export class ListLayerComponent implements OnInit {
   getColumns(): any[][] {
     const columns: any[][] = [[], [], []];
     this.cards.forEach((card, index) => {
-      const columnIndex = index % 3;
+      let columnIndex = this.isMobile ? 0 : index % 3;
       columns[columnIndex].push(card);
     })
 
     return columns;
+  }
+
+  updateView(width: number): void {
+    if (width >= 1024) {
+      this.isMobile = false;
+    } else if (width >= 768 && width < 1024) {
+      this.isMobile = false;
+    } else {
+      this.isMobile = true;
+    }
   }
 }

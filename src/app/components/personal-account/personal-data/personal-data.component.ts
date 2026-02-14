@@ -66,6 +66,8 @@ export class PersonalDataComponent implements OnInit {
     type: string;
   }[] = [];
 
+  submitAttempted = false;
+
   constructor(private fb: FormBuilder, protected personalDataService: PersonalDataService,
               private router: Router, public popUpAvatarService: PopUpAvatarService,
               private avatarSelectionService: AvatarSelectionService, private settingHeaderService: SettingHeaderService, public menuNavService: MenuNavService) {
@@ -348,6 +350,7 @@ export class PersonalDataComponent implements OnInit {
   @ViewChild('formField') cityField!: ElementRef;
 
   onSubmit() {
+    this.submitAttempted = true;
     const selectedCity = this.personalDataForm.get('city')?.value;
     const selectedCityControl = this.personalDataForm.get('city');
 

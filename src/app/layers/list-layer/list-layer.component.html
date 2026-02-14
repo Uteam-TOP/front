@@ -27,7 +27,7 @@
           @for (item of column; track item.id) {
             <div class="card-item">
               <a [href]="getCardUrl(item.id, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
-                (click)="onCardClick($event, item.id, type)">
+                 (click)="onCardClick($event, item.id, type)">
 
                 @if (type === 'project') {
                   @if (item.visibility != 'BAN') {
@@ -46,39 +46,12 @@
                     <lib-resume class="card" [cardItem]="item" [visibleSections]="resumeVisibleSections"> </lib-resume>
                   }
                 }
-
-                <!--              <ng-container *ngIf="type === 'hackathon'">-->
-                <!--                <app-hackathon-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-hackathon-card>-->
-              <!--              </ng-container>-->
-            </a>
-          </div>
-        }
-      </div>
-    }
-    <!--    <div class="card-item"  *ngFor="let item of cards | sortBy: sortBy : sortType  let i = index" [ngClass]="getColumnClass(i)">-->
-    <!--      <a [href]="getCardUrl(item.id, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"-->
-    <!--         (click)="onCardClick($event, item.id, type)">-->
-
-    <!--        <ng-container *ngIf="type === 'project'">-->
-    <!--          <app-project class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-project>-->
-  <!--        </ng-container>-->
-
-  <!--        <ng-container *ngIf="type === 'vacancy'">-->
-  <!--          <lib-vacancy class="card"  [cardItem]="item" *ngIf="item.visibility != 'BAN'"></lib-vacancy>-->
-<!--        </ng-container>-->
-
-<!--        <ng-container *ngIf="type === 'resume'">-->
-<!--          <lib-resume class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'" [visibleSections]="resumeVisibleSections"> </lib-resume>-->
-<!--        </ng-container>-->
-
-<!--        <ng-container *ngIf="type === 'hackathon'">-->
-<!--          <app-hackathon-card class="card" [cardItem]="item" *ngIf="item.visibility != 'BAN'"></app-hackathon-card>-->
-<!--        </ng-container>-->
-<!--      </a>-->
-<!--    </div>-->
-</div>
-}
-
-
+              </a>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
 </div>
 

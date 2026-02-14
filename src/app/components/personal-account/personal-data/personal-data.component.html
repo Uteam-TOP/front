@@ -231,7 +231,7 @@
 <div class="chapter">
   <div class="chapter-title">Навыки:</div>
   <div class="chapter-content">
-    <app-tag-selected-level [placeholderValue]="'Выберете навыки'"
+    <app-tag-selected-level [placeholderValue]="'Выберите навыки'"
       formControlName="userSkills"
     (tagsChanged)="onTagsChanged($event, 'userSkills' )" [service]="personalDataService"></app-tag-selected-level>
     @if (personalDataForm.get('userSkills')?.invalid && personalDataForm.get('userSkills')?.touched) {
@@ -281,6 +281,12 @@
 
   </div>
 </div>
+  @if (personalDataForm.invalid && personalDataForm.touched && submitAttempted) {
+    <div
+      class="error-message">
+      <p>Заполнены не все поля</p>
+    </div>
+  }
 <div class="btns">
   @if (cancel_btn) {
     <button class="btnError" type="submit" (click)="onCancel()">Отмена</button>
