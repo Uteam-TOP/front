@@ -1,6 +1,4 @@
-.first-part {
 
-}
 
 p {
   background: rgb(197, 197, 197);
@@ -273,6 +271,14 @@ p {
   background: rgb(197, 197, 197);
   border-radius: 1.3rem;
 }
+
+
+@media (max-width: 768px) {
+  .first-part {
+    flex-direction: column;
+  }
+}
+
 
 @keyframes skeleton-loading {
   0% {
