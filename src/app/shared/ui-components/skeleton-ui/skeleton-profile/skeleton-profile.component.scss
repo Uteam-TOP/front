@@ -1,0 +1,284 @@
+.first-part {
+
+}
+
+p {
+  background: rgb(197, 197, 197);
+  height: 20px;
+  border-radius: 16px;
+}
+.container {
+  margin: 0 auto !important;
+  animation: skeleton-loading 1s linear infinite alternate;
+  padding-top: 30px
+}
+
+.logo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgb(197, 197, 197);
+
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.contacts {
+  padding-top: 3rem;
+}
+
+.information {
+  background-color: var(--background-card);
+  padding: 20px 0;
+  border-radius: 25px;
+  flex: 2;
+}
+
+.contacts {
+  flex: 1;
+}
+
+.skeleton-tag {
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.title {
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: var(--text12);
+  line-height: 140%;
+  color: var(--font-color);
+}
+
+.titleActive {
+  color: #fff !important;
+}
+
+.archiveMessage {
+  color: #959292 !important;
+}
+
+.ProfileChapter {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding: 1rem 2rem 0px 25px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.fullName {
+  font-family: var(--font-Monts);
+  font-weight: 600;
+  font-size: var(--text16);
+  line-height: 117%;
+  color: var(--font-color);
+}
+
+.information-user {
+  margin-top: 1rem;
+  font-family: var(--font-Monts);
+  font-weight: 400;
+  font-size: 0.85rem;
+  line-height: 117%;
+  color: var(--font-color);
+  margin-left: 25px;
+  margin-right: 25px;
+
+  p {
+    margin-bottom: 5px
+  }
+  .title {
+    width: 100px
+  }
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .3rem;
+
+  .tag {
+    min-height: 31px;
+    width: 120px;
+    background: rgb(197, 197, 197);
+    height: 100%;
+    border-radius: 16px;
+  }
+}
+
+.edit-button {
+  height: 39px;
+  width: 145px;
+  background: #c5c5c5;
+  border-radius: 16px;
+  align-self: self-end;
+  justify-self: flex-end;
+  margin-right: 25px;
+  margin-top: 20px;
+}
+
+.personal-details {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  color: var(--font-color);
+  font-size: var(--text14);
+  margin-top: 3px;
+}
+
+p {
+  margin: 0;
+}
+
+.location,
+.age {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  font-family: var(--font-Monts);
+  font-weight: 400;
+  font-size: 0.85rem;
+  line-height: 117%;
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-card);
+  border-radius: 25px;
+  gap: 25px;
+  padding: 20px
+}
+
+.chapterCard-title {
+  margin-bottom: 0.5rem;
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: var(--text12);
+  line-height: 117%;
+  color: var(--font-color);
+}
+
+.contacts-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 20px;
+  padding: 6px 12px 6px 8px;
+  background: #e2e2e2;
+
+}
+
+.contacts-item:hover {
+  background: #B9AEFF;
+}
+
+
+.contacts-item img {
+  object-fit: contain;
+}
+
+.contacts-item p {
+  margin: 0;
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 120%;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #101010;
+}
+
+
+.date_registration {
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: var(--text12);
+  line-height: 117%;
+  margin-top: 3px;
+  color: #8B8B8B;
+}
+
+.achievements {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+
+  img {
+    background: rgb(197, 197, 197);
+    border-radius: 50%;
+  }
+}
+
+.message-profile {
+  border: 1px solid #fff25f;
+  border-radius: 20px;
+  padding: 24px;
+  background: #FFF25F;
+}
+
+.title-message {
+  margin: 0;
+  margin-bottom: 1rem;
+  font-family: var(--font-Monts);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 117%;
+  text-transform: uppercase;
+  color: #101010;
+}
+
+.text-message {
+  width: 75%;
+  margin: 0;
+  font-family: var(--font-Monts);
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 117%;
+  color: #101010;
+}
+
+.container-vacancy-header {
+  background: rgb(197, 197, 197);
+  height: 40px;
+  border-radius: 16px;
+  width: 100px;
+}
+.container-vacancy {
+  background: var(--background-card);
+  padding: 20px;
+}
+
+.cards {
+  padding: 0;
+}
+
+.app-card-vacancy-link {
+  height: 132px;
+  max-width: 340px !important;
+  min-width: 330px !important;
+  background: rgb(197, 197, 197);
+  border-radius: 1.3rem;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}

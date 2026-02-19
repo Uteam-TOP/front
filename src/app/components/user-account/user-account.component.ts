@@ -13,11 +13,14 @@ import { TokenService } from '../token.service';
 import { PopUpEntryService } from '../pop-up-entry/pop-up-entry.service';
 import {TagComponent} from "../../shared/ui-components/tag/tag.component";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {
+  SkeletonProfileComponent
+} from "../../shared/ui-components/skeleton-ui/skeleton-profile/skeleton-profile.component";
 
 @Component({
   selector: 'app-user-account',
   standalone: true,
-  imports: [CommonModule, CardPersonalResumeComponent, CardPersonalVacancyComponent, SkeletonModule, TagComponent],
+  imports: [CommonModule, CardPersonalResumeComponent, CardPersonalVacancyComponent, SkeletonModule, TagComponent, SkeletonProfileComponent],
   templateUrl: './user-account.component.html',
   styleUrl: './user-account.component.css',
   animations: [
@@ -49,6 +52,7 @@ export class UserAccountComponent implements OnInit, OnDestroy {
   background: string = '';
   imagePath: string = '';
   domainName: string = '';
+  isLoading = true;
 
   async ngOnInit(): Promise<void> {
 
@@ -67,6 +71,10 @@ export class UserAccountComponent implements OnInit, OnDestroy {
 loadData(id: string): void {
     this.userAccountService.getUserData(id).subscribe(
       async (userData) => {
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 500)
+
         this.userData = userData;
 
         if (userData.freeLink) {

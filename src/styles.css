@@ -8,7 +8,7 @@
     /* #f2f2f2 */
     --background-card: rgba(255, 255, 255, 0.1);
     /* #fff */
-    --card-hover: #5a4bb8;
+    --card-hover: #7870b8;
     /* #a6eb20 */
     --background-card-account: #5a4bb8;
     /* #fff */
@@ -43,6 +43,7 @@
     --button-profile-background: #e2e2e2;
     --button-profile-border: 0px solid #806BFF;
     --button-profile-color: #101010;
+    --green: #42c54e;
 
     --subtitle1: 14px;
     --text10: 10px;

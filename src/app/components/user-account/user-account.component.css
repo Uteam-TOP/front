@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 75%;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 30px;
   box-sizing: border-box;
   gap: 2rem;
 
@@ -259,7 +259,7 @@ p {
   font-weight: 600;
   font-size: var(--text14);
   line-height: 117%;
-  color: var(--font-color);
+  color: white;
   padding: 2rem 0 2rem 2.2rem;
   text-transform: uppercase;
   margin-top: 10px !important;
@@ -273,6 +273,11 @@ p {
   padding-bottom: 1rem;
   flex-direction: row;
   flex-wrap: wrap;
+
+  p {
+    color: #eaeaea;
+    margin: 0px 0 20px 20px;
+  }
 }
 
 .archive-resume,
@@ -324,7 +329,7 @@ p {
   margin-right: 2rem;
   max-width: 200px;
   height: 38px;
-  background: #84dd2c;
+  background: var(--green);
 
   font-family: var(--font-Monts);
   font-weight: 500;
@@ -444,7 +449,7 @@ p {
   height: 44px;
   gap: 0.5rem;
   border-radius: 30px;
-  background: #84DD2C;
+  background: var(--green);
   padding: 1rem;
   font-family: var(--font-Monts);
   font-weight: 500;
@@ -454,7 +459,7 @@ p {
 }
 
 .additionalBtn:hover {
-  background: #5A4BB8;
+  background: var(--card-hover);
 }
 
 

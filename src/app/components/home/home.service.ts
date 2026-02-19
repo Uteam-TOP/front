@@ -53,7 +53,7 @@ export class HomeService {
       this.saveFilters(savedFilters);
     }
 
-    const size = pageSize ? pageSize : 10;
+    const size = pageSize ? pageSize : 100;
 
     const typeSort = localStorage.getItem('typeSort');
     const queryParams = `page=${this.selectPage}&size=${size}&sorts=creationDate_ASC`;

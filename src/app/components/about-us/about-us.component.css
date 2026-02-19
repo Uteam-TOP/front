@@ -114,7 +114,7 @@ body {
     height: 100%;
     border-radius: 20px;
     padding: 24px;
-    background: #5a4bb8;
+    background: var(--card-hover);
 }
 
 .appeal-title-content {
@@ -245,7 +245,7 @@ body {
 }
 
 .team-member:hover {
-    color: #84dd2c;
+    color: var(--green);
 }
 
 
@@ -490,7 +490,7 @@ body {
 .our-destination {
   max-width: 1140px;
   display: flex;
-  background-color: #5A4BB8;
+  background-color: var(--card-hover);
   border-radius: 300px 60px 60px 300px;
   padding: 12px;
   gap: 32px;

@@ -41,7 +41,7 @@
 }
 
 .close-button:hover svg path {
-    stroke: #402abb; 
+    stroke: #402abb;
     stroke-opacity: 0.6;
 }
 
@@ -67,7 +67,7 @@
 .popup-login-link {
     border-radius: 30px;
     padding: 16px;
-    background: #84dd2c;
+    background: var(--green);
     width: 374px;
     display: flex;
     align-items: center;
@@ -81,7 +81,7 @@
 }
 
 .popup-login-link:hover{
-    background: #5A4BB8;
+    background: var(--card-hover);
 }
 
 @media (max-width: 987px) {

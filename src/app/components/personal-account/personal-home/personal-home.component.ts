@@ -1,4 +1,4 @@
-import {Component, HostListener, OnDestroy, OnInit} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import { SettingHeaderService } from '../../setting-header.service';
 import { ArchiveResumeComponent } from '../archive-resume/archive-resume.component';
 import { ArchiveVacancyComponent } from '../archive-vacancy/archive-vacancy.component';
@@ -30,11 +30,14 @@ import { PopUpChangePasswordService } from '../../pop-up-change-password/pop-up-
 import {SortByPipe} from "../../../shared/pipes/sort-by.pipe";
 import {UiButtonComponent} from "../../../shared/ui-components/ui-button/ui-button.component";
 import {TagComponent} from "../../../shared/ui-components/tag/tag.component";
+import {
+  SkeletonProfileComponent
+} from "../../../shared/ui-components/skeleton-ui/skeleton-profile/skeleton-profile.component";
 
 @Component({
   selector: 'app-personal-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, PersonalVacancyComponent, PersonalResumeComponent, ArchiveResumeComponent, ArchiveVacancyComponent, PopUpDeleteComponent, PopUpExitComponent, BanResumeComponent, BanVacancyComponent, PopUpChangePasswordComponent, PersonalProjectComponent, SortByPipe, UiButtonComponent, TagComponent],
+  imports: [CommonModule, RouterLink, PersonalVacancyComponent, PersonalResumeComponent, ArchiveResumeComponent, ArchiveVacancyComponent, PopUpDeleteComponent, PopUpExitComponent, BanResumeComponent, BanVacancyComponent, PopUpChangePasswordComponent, PersonalProjectComponent, SortByPipe, UiButtonComponent, TagComponent, SkeletonProfileComponent],
   templateUrl: './personal-home.component.html',
   styleUrl: './personal-home.component.css',
   animations: [
@@ -47,7 +50,8 @@ import {TagComponent} from "../../../shared/ui-components/tag/tag.component";
         animate('300ms', style({ opacity: 0 }))
       ])
     ])
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class PersonalHomeComponent implements OnInit, OnDestroy {
 
@@ -78,6 +82,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
   itemsToShowResume: number = 3;
   isTablet = false;
   isMobile = false;
+  isLoading = true;
 
   showResumeArchive: boolean = false;
   showVacancyArchive: boolean = false;
@@ -125,6 +130,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
   tab: 'project' | 'resume' | 'vacancy' = 'project';
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.settingHeaderService.shared = false;
     this.settingHeaderService.post = false;
     this.settingHeaderService.backbtn = true;
@@ -176,10 +182,12 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
       )
     }).subscribe(
       ({ user, vacancies, resumes }) => {
+
         if (user && user.nickname && user.id) {
           this.dataCurrentUser = user;
           this.vacanciesData = vacancies;
           this.resumesData = resumes;
+          this.isLoading = false;
           this.checkUserData();
           this.visiblePage = true;
           this.domainName = this.domainService.setDomainWithZone(user.freeLink);

@@ -265,7 +265,7 @@ isImageAvatar(logo: any): boolean {
     } else {
       document.documentElement.style.setProperty('--background', '#f2f2f2');
       document.documentElement.style.setProperty('--background-card', '#fff');
-      document.documentElement.style.setProperty('--card-hover', '#a6eb20');
+      document.documentElement.style.setProperty('--card-hover', '#5a4bb8');
       document.documentElement.style.setProperty('--font-color', '#101010');
       document.documentElement.style.setProperty('--background-archive', '#e2e2e2');
       document.documentElement.style.setProperty('--card-archive', '#fff');

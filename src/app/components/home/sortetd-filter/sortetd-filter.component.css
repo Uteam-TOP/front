@@ -143,7 +143,7 @@
 .search-btn {
     border-radius: 2.5rem;
     padding: 15px 80px;
-    background: #84dd2c;
+    background: var(--green);
     border: none;
     margin: 0;
 

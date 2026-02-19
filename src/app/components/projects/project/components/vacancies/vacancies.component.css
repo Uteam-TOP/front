@@ -22,7 +22,7 @@ p {
     padding: 12px;
     width: 161px;
     height: 38px;
-    background: #84dd2c;
+    background: var(--green);
     color: #fff;
 }
 

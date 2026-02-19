@@ -269,7 +269,7 @@
 }
 
 .card:hover {
-    border: 4px solid #84DD2C;
+    border: 4px solid var(--green);
     color: #010101;
 }
 
