@@ -36,6 +36,7 @@ export class UserPathComponent {
       const authToken = localStorage.getItem('authToken');
 
       if (!authToken) {
+        this.isLoading = false;
         this.router.navigateByUrl(`/${this.userNick}/profile`);
         return;
       }
@@ -50,7 +51,6 @@ export class UserPathComponent {
             const nick = localStorage.getItem('userNickname');
 
             if (token && nick) {
-              console.log('ewerwerwerr')
               if (!this.router.url.startsWith(`/${this.userNick}/account`)) {
                 this.router.navigateByUrl(`/${this.userNick}/account`);
               }
@@ -69,8 +69,8 @@ export class UserPathComponent {
           }
         );
       } else {
-        this.router.navigateByUrl(`/${this.userNick}/profile`);
         this.isLoading = false;
+        this.router.navigateByUrl(`/${this.userNick}/profile`);
       }
     });
   }

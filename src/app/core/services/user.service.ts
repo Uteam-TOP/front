@@ -23,8 +23,14 @@ export class UserService {
   }
 
   getCurrentUser(): Observable<UserDto | null> {
-    return this.http.get<UserDto>(`${environment.apiUrl}/secured/users/currentUser`).pipe(
-      map((res) => {this.userData.next(res);console.log('res', res); return res})
-    );
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      return this.http.get<UserDto>(`${environment.apiUrl}/secured/users/currentUser`).pipe(
+        map((res) => {this.userData.next(res);console.log('res', res); return res})
+      );
+    } else {
+      return of(null);
+    }
+
   }
 }
