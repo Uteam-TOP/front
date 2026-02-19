@@ -22,8 +22,22 @@
     skeleton-hackathon,
     skeleton-resume,
     skeleton-vacancy {
-      width: 31% !important;
+      width: 31%;
       flex: auto !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    skeleton-project,
+    skeleton-hackathon,
+    skeleton-resume,
+    skeleton-vacancy {
+      width: 100% !important;
+      flex: auto !important;
+    }
+
+    .skeleton-blocks-container {
+      flex-direction: column;
     }
   }
 }
