@@ -10,11 +10,11 @@
 }
 
 .menu-bg {
-  background: #5A4BB8;
+  background: var(--card-hover);
 }
 
 .sticky {
-    background: #5A4BB8;
+    background: var(--card-hover);
 }
 
 
@@ -189,7 +189,7 @@ a {
     border-radius: 2.5rem;
     padding: 16px;
     border: none;
-    background: #84dd2c;
+    background: var(--green);
 
     font-family: var(--font-Monts);
     font-weight: 500;
@@ -199,7 +199,7 @@ a {
 }
 
 .grnBtn:hover {
-    background: #5A4BB8;
+    background: var(--card-hover);
 }
 
 
@@ -226,7 +226,7 @@ a {
     height: 44px;
     gap: 0.5rem;
     border-radius: 30px;
-    background: #84DD2C;
+    background: var(--green);
     padding: 1rem;
     font-family: var(--font-Monts);
     font-weight: 500;
@@ -236,7 +236,7 @@ a {
 }
 
 .additionalBtn:hover {
-    background: #5A4BB8;
+    background:var(--card-hover);
 }
 
 .backBtn {
@@ -259,12 +259,12 @@ a {
 }
 
 .navBTN .nav-circle {
-    fill: #84DD2C;
+    fill: var(--green);
     /* Новый цвет при наведении */
 }
 
 .navBTN:hover .nav-circle {
-    fill: #5A4BB8;
+    fill: var(--card-hover);
     /* Новый цвет при наведении */
 }
 
@@ -295,7 +295,7 @@ a {
     }
 
     .second-container .leftContent {
-        background-color: #84DD2C !important;
+        background-color: var(--green) !important;
         width: 100%;
         border-radius: 0;
         justify-content: space-between;

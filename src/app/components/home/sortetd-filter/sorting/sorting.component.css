@@ -126,7 +126,7 @@
 .search-btn {
     border-radius: 2.5rem;
     padding: 15px 30px;
-    background: #84dd2c;
+    background: var(--green);
     border: none;
     margin: 0;
 
@@ -160,7 +160,7 @@
     flex-direction: row;
     align-items: flex-end;
     gap: 2rem;
- 
+
 }
 
 

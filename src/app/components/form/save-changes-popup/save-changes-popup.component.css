@@ -56,7 +56,7 @@ p {
     flex: 1;
     border-radius: 30px;
     padding: 16px;
-    background: #84dd2c;
+    background: var(--green);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,7 +68,7 @@ p {
 }
 
 .popup-delete-draft:hover {
-    background: #5A4BB8;
+    background: var(--card-hover);
 }
 
 .btns {

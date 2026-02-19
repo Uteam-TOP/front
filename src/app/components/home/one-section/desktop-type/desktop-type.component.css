@@ -85,7 +85,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    
+
     gap: 0.5rem;
     border-radius: 30px;
     padding: 1rem;
@@ -98,7 +98,7 @@
 
 
 .btnNewResume {
-    background: #84dd2c;
+    background: var(--green);
     width: 198px;
 }
 
@@ -113,7 +113,7 @@
 }
 
 .btnNewVacancy:hover {
-    background: #84dd2c
+    background: var(--green)
 }
 
 @media (max-width: 1199.98px) {
@@ -131,13 +131,13 @@
         margin-left: 15rem;
         margin-top: 2rem;
     }
-    
+
 }
 @media (min-width: 1899.98px) {
     .info-subtext {
         font-size: 5.1rem;
     }
-    
+
 }
 
 h2 {

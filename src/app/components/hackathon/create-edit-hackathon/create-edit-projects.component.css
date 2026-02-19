@@ -22,7 +22,7 @@ textarea {
     resize: none;
     overflow: hidden;
   }
-  
+
 .overlay {
     position: absolute;
     top: 0;
@@ -205,7 +205,7 @@ textarea::placeholder {
     border-radius: 30px;
     padding: 16px;
     width: 100%;
-    background: #84dd2c;
+    background: var(--green);
     color: #fff;
     border: none;
 }
@@ -248,7 +248,7 @@ textarea::placeholder {
 
     .content{
         right: -20px;
-        
+
     }
 }
 
@@ -259,6 +259,6 @@ textarea::placeholder {
     }
     .content{
         right: 0;
-        
+
     }
 }

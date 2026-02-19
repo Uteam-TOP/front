@@ -1,0 +1,28 @@
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    margin: 40px auto 0;
+    box-sizing: border-box;
+    gap: 2rem;
+    position: relative;
+    z-index: 5;
+  }
+
+  .first-part {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .cards {
+    display: flex;
+    gap: .7rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 15px;
+  }
