@@ -1,30 +1,42 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TypeProjectComponent } from '../../../pages/hackathon/create-edit-hackathon/type-project/type-project.component';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CreateEditProjectsService } from './create-edit-projects.service';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {PaginatorModule} from "primeng/paginator";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {
+  TypeProjectComponent
+} from "./type-project/type-project.component";
+import {ActivatedRoute, Router} from "@angular/router";
+import {
+  CreateEditProjectsService
+} from "../../../components/hackathon/create-edit-hackathon/create-edit-projects.service";
+import {HackathonService} from "../../../components/hackathon/page/hackathon.service";
 import { forbiddenWordsValidator } from '../../../../validators/forbidden-words.validator';
-import { HackathonService } from '../page/hackathon.service';
+import {NgClass} from "@angular/common";
 
 @Component({
-  selector: 'app-create-edit-projects',
+  selector: 'app-create-edit-hackathon',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, TypeProjectComponent],
-  templateUrl: './create-edit-projects.component.html',
-  styleUrl: './create-edit-projects.component.css'
+  imports: [
+    PaginatorModule,
+    ReactiveFormsModule,
+    TypeProjectComponent,
+    NgClass
+  ],
+  templateUrl: './create-edit-hackathon.component.html',
+  styleUrl: './create-edit-hackathon.component.scss'
 })
-export class CreateEditProjectsComponent implements OnInit {
-
+export class CreateEditHackathonComponent {
   form!: FormGroup;
   submitAttempted = false;
   isError: boolean = false;
   oldNickname: string = '';
   cancel_btn: boolean = false;
   projectData: any = null;
+
+
+
   constructor(private fb: FormBuilder, private router: Router,
-    private createEditProjectsService: CreateEditProjectsService,
-    private route: ActivatedRoute, private hackathonService: HackathonService) {
+              private createEditProjectsService: CreateEditProjectsService,
+              private route: ActivatedRoute, private hackathonService: HackathonService) {
 
   }
   onTextAreaInput(event: Event, minHeight = 98) {
@@ -302,5 +314,4 @@ export class CreateEditProjectsComponent implements OnInit {
     //   }
     // })
   }
-
 }

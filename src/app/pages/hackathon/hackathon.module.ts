@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HackathonRoutingModule } from './hackathon.routing.module';
+import {HackathonRoutingModule} from "./hackathon-routing.module";
 
 
 
@@ -11,4 +11,4 @@ import { HackathonRoutingModule } from './hackathon.routing.module';
     HackathonRoutingModule
   ]
 })
-export class HackathonModules { }
+export class HackathonModule { }
