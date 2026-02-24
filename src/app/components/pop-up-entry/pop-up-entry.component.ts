@@ -292,8 +292,8 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('digit6') digit6!: ElementRef;
 
   moveFocus(code: string, nextField: number, type?: string) {
-    // code > 1 ? code = event.data.slice(0, 1) : event.target.value;
-    const codeElement = Number(code);
+    (code as unknown as number) > 1 ? code = code.slice(0, 1) : code;
+    // const codeElement = Number(code);
 
     if (type && type === 'delete') {
       switch (nextField) {
@@ -305,7 +305,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     }
 
-    if (codeElement >= 1 || type === 'delete') {
+    if (code.length >= 1 || type === 'delete') {
       switch (nextField) {
         case 0: this.digit1.nativeElement.focus(); break;
         case 1: this.digit2.nativeElement.focus(); break;
@@ -320,6 +320,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
   }
 
   onPasteCode(event: Event) {
+    console.log(event);
     setTimeout(() => {
       const code: string = this.digit1.nativeElement.value
       if (code) {

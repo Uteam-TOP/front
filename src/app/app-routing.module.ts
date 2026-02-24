@@ -40,11 +40,15 @@ const routes: Routes = [
   {
     path: 'editProject/:nickname', loadChildren: () => import('./components/projects/create-edit-projects/create-edit-projects.module').then(m => m.CreateEditProjectsModule), data: { edit: true }
   },
+  // {
+  //   path: 'editHackathon/:nickname', loadChildren: () => import('./components/hackathon/create-edit-hackathon/create-edit-projects.module').then(m => m.CreateEditHackathonModule), data: { edit: true }
+  // },
+  // {
+  //   path: 'hackathon/:id', loadChildren: () => import('./components/hackathon/page/hackathon.module').then(m => m.HackathonModule)
+  // },
+
   {
-    path: 'editHackathon/:nickname', loadChildren: () => import('./components/hackathon/create-edit-hackathon/create-edit-projects.module').then(m => m.CreateEditHackathonModule), data: { edit: true }
-  },
-  {
-    path: 'hackathon/:id', loadChildren: () => import('./components/hackathon/page/hackathon.module').then(m => m.HackathonModule)
+    path: 'hackathon', loadChildren: () => import('./pages/hackathon/hackathon.module').then(m => m.HackathonModule)
   },
 
   {
