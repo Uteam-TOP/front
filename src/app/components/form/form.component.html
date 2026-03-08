@@ -36,7 +36,7 @@
     <div class="secondRow">
       <div class="stage">
         <p class="stage-title">Специализация:</p>
-        <app-tag-selected-level [placeholderValue]="'Выберете специализацию'"
+        <app-tag-selected-level [placeholderValue]="'Выберите специализацию'"
           [maxTags]="1" [type]="'PROFESSION'" formControlName="profession"
         (tagsChanged)="onTagsChanged($event, 'profession')" [service]="formSettingService"></app-tag-selected-level>
         @if (form.get('profession')?.invalid && form.get('profession')?.touched) {
@@ -49,7 +49,7 @@
 
       <div class="stage">
         <p class="stage-title">Навыки:</p>
-        <app-tag-selected-level [placeholderValue]="'Выберете навыки'"
+        <app-tag-selected-level [placeholderValue]="'Выберите навыки'"
           formControlName="skills"
         (tagsChanged)="onTagsChanged($event, 'skills' )" [service]="formSettingService"></app-tag-selected-level>
         @if (form.get('skills')?.invalid && form.get('skills')?.touched) {
@@ -125,6 +125,12 @@
     <div class="error-message">
       {{ this.errorMessage }}
     </div>
+    @if (form.invalid && submitAttempted) {
+      <div
+        class="error-message">
+        <p>Заполнены не все поля</p>
+      </div>
+    }
     <a class="createBtn" (click)="submit()" style="color: #ffffff;">Опубликовать</a>
     <div class="secondBtns">
       @if (isEditMode) {

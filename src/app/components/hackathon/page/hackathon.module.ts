@@ -11,4 +11,4 @@ import { HackathonRoutingModule } from './hackathon.routing.module';
     HackathonRoutingModule
   ]
 })
-export class HackathonModule { }
+export class HackathonModules { }

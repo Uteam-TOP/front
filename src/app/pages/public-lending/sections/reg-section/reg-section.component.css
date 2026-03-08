@@ -3,7 +3,7 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background: #5a4bb8;
+    background: var(--card-hover);
 }
 
 /* Общие стили для псевдоэлементов */
@@ -138,18 +138,18 @@
         height: 70vw;
         left: -8vw;
     }
-    
+
     .background-container .center-image {
         width: 65vw;
         height: 65vw;
         top: 70%;
     }
-    
+
     .logo-overlay {
         width: 35vw;
         left: 38%;
     }
-    
+
     .slogan {
         font-size: 2rem;
         right: 7%;
@@ -164,14 +164,14 @@
         left: -20vw;
         top: 35%;
     }
-    
+
     .background-container .center-image {
         width: 80vw;
         height: 80vw;
         left: 50%;
         top: 65%;
     }
-    
+
     .background-container::after {
         width: 70vw;
         height: 65vw;
@@ -186,7 +186,7 @@
 
     .block_container {
         display: grid;
-        grid-template-columns: 1fr;   
+        grid-template-columns: 1fr;
     }
     .block_left {
         display: flex;
@@ -203,4 +203,4 @@
     .tests {
         padding: 5px 5px;
     }
-} 
+}

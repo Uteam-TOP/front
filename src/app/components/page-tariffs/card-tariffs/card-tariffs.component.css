@@ -118,7 +118,7 @@
     border: none;
     border-radius: 30px;
     padding: 16px;
-    background: #84dd2c;
+    background: var(--green);
 
     font-family: var(--font-Monts);
     font-weight: 500;

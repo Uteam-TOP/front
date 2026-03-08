@@ -56,7 +56,7 @@ background: #fff;">
     <div class="action">
       <div class="tag-selector" style="width: 100%;">
         <label for="">Назначьте роль </label>
-        <app-tag-selector [type]="'PROFESSION'" [placeholderValue]="'Выберете специализацию'"
+        <app-tag-selector [type]="'PROFESSION'" [placeholderValue]="'Выберите специализацию'"
           (click)="scrollToSelectorProfessions()" [maxTags]="1"
           (tagsChanged)="onTagsChanged($event,'profession')"
         [service]="sortetdFilterService"></app-tag-selector>
@@ -88,7 +88,7 @@ color: #101010;" (click)="setDecline()" >Отклонить</a>
 ;
 align-items: center;
 justify-content: center;
-            background: #84dd2c;
+            background: var(--green);
             font-weight: 500;
 font-size: 12px;
 line-height: 117%;

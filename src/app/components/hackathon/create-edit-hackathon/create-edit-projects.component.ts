@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TypeProjectComponent } from './type-project/type-project.component';
+import { TypeProjectComponent } from '../../../pages/hackathon/create-edit-hackathon/type-project/type-project.component';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateEditProjectsService } from './create-edit-projects.service';

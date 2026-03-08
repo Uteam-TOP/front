@@ -210,7 +210,7 @@ textarea::placeholder {
     border-radius: 30px;
     padding: 16px;
     width: 100%;
-    background: #84dd2c;
+    background: var(--green);
     color: #fff;
     border: none;
 }

@@ -281,7 +281,7 @@ input:disabled, textarea:disabled, select:disabled {
     flex: 1;
     border-radius: 30px;
     padding: 16px;
-    background: #84dd2c;
+    background: var(--green);
     border: none;
 
     font-family: var(--font-Monts);
@@ -359,7 +359,7 @@ input:disabled, textarea:disabled, select:disabled {
 @media (max-width: 1198px) {
     .container {
         z-index: 1;
-        margin-top: 120px;
+        margin-top: 30px;
     }
 }
 

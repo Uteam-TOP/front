@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import {Component, EventEmitter, forwardRef, Input, OnInit, output, Output, SimpleChanges} from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotivationsService } from './motivations.service';
 
@@ -21,26 +21,27 @@ export class MotivationsComponent implements OnInit {
 
 
   constructor(private motivationsService: MotivationsService) {
-    // this.motivationsService.getTags().subscribe((data: any) => { 
+    // this.motivationsService.getTags().subscribe((data: any) => {
     //   this.tagsList = data
     // })
   }
-  
+
   // tagsList!: { id: number, name: string, color: string,competenceLevel: string|null, nameEng: string|null, type: string }[] ;
   ngOnChanges(changes: SimpleChanges) {
     if (changes['payment'] || changes['isPayment']) {
       this.paymentAmount = this.payment;
     }
   }
-  
+
   ngOnInit(): void {
- 
+
   }
   isPaymentInputVisible: boolean = false;
   @Input() isPayment: boolean = false;
   paymentAmount: number = 0;
   @Input() payment!: number;
   @Output() paymentChanged = new EventEmitter<number>();
+  // paymentChanged = output<number>();
   tagsList: { id: number, name: string, color: string | null, competenceLevel: string | null, nameEng: string | null, type: string }[] = [
     {
       "id": 1,

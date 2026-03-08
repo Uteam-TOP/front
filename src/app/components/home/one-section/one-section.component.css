@@ -11,7 +11,7 @@
 .search {
     width: 100%;
     padding: 1.5rem 0;
-    background: #5A4BB8;
+    background: var(--card-hover);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,7 +24,7 @@ app-search.sticky {
     position: fixed;
     top: 0;
     padding: 1rem 0;
-    background: #5A4BB8;
+    background: var(--card-hover);
     z-index: 10;
 }
 
@@ -33,7 +33,7 @@ app-search.sticky {
 }
 
 app-search:not(.sticky) {
-    background: #5A4BB8;
+    background: var(--card-hover);
 }
 
 

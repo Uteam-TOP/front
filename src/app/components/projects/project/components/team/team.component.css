@@ -42,7 +42,7 @@
     width: 100%;
     border-radius: 30px;
     padding: 14px 16px;
-    background: #84dd2c;
+    background: var(--green);
 
     font-family: var(--font-Monts);
     font-weight: 500;
@@ -52,7 +52,7 @@
 }
 
 .container-users-btn:hover {
-    background: #5A4BB8;
+    background: var(--card-hover);
 }
 
 .disable-users-btn {
@@ -85,7 +85,7 @@
     text-align: center;
     border-radius: 30px;
     padding: 14px 16px;
-    background: #84dd2c;
+    background: var(--green);
     font-weight: 400;
     font-size: 14px;
     line-height: 129%;
@@ -96,5 +96,5 @@
 }
 
 #myTeam:hover {
-    background: #5A4BB8;
+    background: var(--card-hover);
 }

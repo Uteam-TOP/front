@@ -79,7 +79,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
     //   })
     // } else {
     this.popUpEntryService.signUpUesr(data).subscribe((response: any) => {
-      this.isLoading = true;
+      this.isLoading = false;
       this.popUpEntryService.confirmAuth = true;
 
       localStorage.setItem('confirmAuth', 'true');
@@ -89,6 +89,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
       // this.userAuthenticated = true;
       // this.login_user();
     }, (error) => {
+      this.isLoading = false;
       this.errorMessage = error.error.details;
     })
     // }
@@ -290,8 +291,9 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
   @ViewChild('digit5') digit5!: ElementRef;
   @ViewChild('digit6') digit6!: ElementRef;
 
-  moveFocus(event: any, nextField: number, type?: string) {
-    event.target.value.length > 1 ? event.target.value = event.data.slice(0, 1) : event.target.value;
+  moveFocus(code: string, nextField: number, type?: string) {
+    (code as unknown as number) > 1 ? code = code.slice(0, 1) : code;
+    // const codeElement = Number(code);
 
     if (type && type === 'delete') {
       switch (nextField) {
@@ -303,7 +305,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     }
 
-    if (event.target.value.length >= 1 || type === 'delete') {
+    if (code.length >= 1 || type === 'delete') {
       switch (nextField) {
         case 0: this.digit1.nativeElement.focus(); break;
         case 1: this.digit2.nativeElement.focus(); break;
@@ -315,6 +317,22 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
       }
     }
 
+  }
+
+  onPasteCode(event: Event) {
+    console.log(event);
+    setTimeout(() => {
+      const code: string = this.digit1.nativeElement.value
+      if (code) {
+        code.split('').forEach((item: string, index: number) => {
+          const inputName = `digit${index+1}`;
+          if ((this as any)[inputName]) {
+            (this as any)[inputName].nativeElement.value = item;
+          }
+        })
+      }
+      this.verifyCode()
+    }, 0);
   }
 
   verifyCode() {

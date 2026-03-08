@@ -186,7 +186,7 @@ textarea {
 
 .createBtn {
     padding: 16px;
-    background: #84dd2c;
+    background: var(--green);
     color: var(--font-color);
 }
 

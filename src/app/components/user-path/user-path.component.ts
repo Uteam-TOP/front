@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import { AuthService } from '../personal-account/auth-service.service';
 import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TokenService } from '../token.service';
+import {
+  SkeletonProfileComponent
+} from "../../shared/ui-components/skeleton-ui/skeleton-profile/skeleton-profile.component";
 
 @Component({
   selector: 'app-user-path',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, SkeletonProfileComponent],
   templateUrl: './user-path.component.html',
-  styleUrl: './user-path.component.css'
+  styleUrl: './user-path.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class UserPathComponent {
 
@@ -17,6 +21,7 @@ export class UserPathComponent {
   userCurrentNick!: string;
   isCurrentUser: boolean = false;
   paramsSubscription!: Subscription;
+  isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +36,7 @@ export class UserPathComponent {
       const authToken = localStorage.getItem('authToken');
 
       if (!authToken) {
+        this.isLoading = false;
         this.router.navigateByUrl(`/${this.userNick}/profile`);
         return;
       }
@@ -40,11 +46,11 @@ export class UserPathComponent {
       if (this.userNick === storedNickname) {
         this.authService.getCurrentUser().subscribe(
           (user: any) => {
-            this.userCurrentNick = user.nickname;
+            this.isLoading = false;
             const token = localStorage.getItem('authToken');
             const nick = localStorage.getItem('userNickname');
 
-            if (this.userNick === this.userCurrentNick && token && nick) {
+            if (token && nick) {
               if (!this.router.url.startsWith(`/${this.userNick}/account`)) {
                 this.router.navigateByUrl(`/${this.userNick}/account`);
               }
@@ -63,6 +69,7 @@ export class UserPathComponent {
           }
         );
       } else {
+        this.isLoading = false;
         this.router.navigateByUrl(`/${this.userNick}/profile`);
       }
     });

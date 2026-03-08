@@ -9,7 +9,7 @@
     font-weight: 600;
     font-size: 24px;
     line-height: 120%;
-    color: #5a4bb8;
+    color: var(--card-hover);
 }
 
 
@@ -41,7 +41,7 @@
     border-radius: 300px;
     height: 40px;
     padding: 8px 12px;
-    background: #84dd2c;
+    background: var(--green);
     font-weight: 500;
     font-size: 16px;
     line-height: 112%;

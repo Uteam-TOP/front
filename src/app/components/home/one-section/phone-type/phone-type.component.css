@@ -137,7 +137,7 @@ img {
 }
 
 .btnNewResume {
-    background: #84dd2c;
+    background: var(--green);
 }
 
 .btnNewResume:hover {
@@ -149,7 +149,7 @@ img {
 }
 
 .btnNewVacancy:hover {
-    background: #84dd2c;
+    background: var(--green);
 }
 
 @media (max-width: 400px) {

@@ -266,7 +266,7 @@
 }
 
 .card:hover {
-    border: 4px solid #84DD2C;
+    border: 4px solid var(--green);
     color: #010101;
 }
 
@@ -277,7 +277,7 @@
 .card:hover .chapterCard_title,
 .card:hover .chapterCard_value,
 .card:hover .tagText,
-/* .card:hover .motivation, 
+/* .card:hover .motivation,
 .card:hover .dateVacancy,
 .card:hover .dateTitle,
 .card:hover .dateValue,
@@ -285,7 +285,7 @@
 .card:hover .value,
 .card:hover .designation,
 .card:hover .menu_btn a {
-    color: #010101; 
+    color: #010101;
 } */
 
 p {

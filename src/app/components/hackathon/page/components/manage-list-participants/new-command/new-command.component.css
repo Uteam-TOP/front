@@ -58,7 +58,7 @@
 #add {
     border-radius: 30px;
     padding: 12px;
-    background: #84dd2c;
+    background: var(--green);
     font-weight: 500;
     font-size: 12px;
     line-height: 117%;
