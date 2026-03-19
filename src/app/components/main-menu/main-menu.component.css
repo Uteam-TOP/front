@@ -111,7 +111,7 @@
 
   .switch-menu {
     width: 56%;
-    min-width: 710px;
+    min-width: 880px;
   }
 
   @media (max-width: 900px) {

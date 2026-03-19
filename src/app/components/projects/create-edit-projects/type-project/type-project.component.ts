@@ -1,5 +1,15 @@
 
-import { Component, EventEmitter, forwardRef, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewEncapsulation
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 interface Tag {
@@ -22,7 +32,9 @@ interface Tag {
       useExisting: forwardRef(() => TypeProjectComponent),
       multi: true
     }
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
+
 })
 export class TypeProjectComponent implements ControlValueAccessor, OnChanges, OnInit {
   tags: Tag[] = [
@@ -30,7 +42,7 @@ export class TypeProjectComponent implements ControlValueAccessor, OnChanges, On
     { id: 2, name: 'Компания', nameEng: '', competenceLevel: null, type: 'COMPANY' },
     { id: 3, name: 'Разовый проект', nameEng: '', competenceLevel: null, type: 'ONE_TIME_PROJECT' },
   ];
-  
+
   @Input() maxTags: number = 1;
   @Output() tagsChanged = new EventEmitter<Tag>();
   value: string = '';

@@ -14,7 +14,7 @@ import { AdDto } from './adDto';
 
 
 export interface IProjectDto {
-    id?: number;
+    id: number;
     nickname?: string;
     telegram?: string;
     email?: string;

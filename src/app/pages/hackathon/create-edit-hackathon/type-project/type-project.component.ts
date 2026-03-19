@@ -26,11 +26,11 @@ interface Tag {
 })
 export class TypeProjectComponent implements ControlValueAccessor, OnChanges, OnInit {
   tags: Tag[] = [
-    { id: 1, name: 'ОНЛАЙН', nameEng: '', competenceLevel: null, type: 'STARTUP' },
-    { id: 2, name: 'ОФФЛАЙН', nameEng: '', competenceLevel: null, type: 'COMPANY' },
-    { id: 3, name: 'ОНЛАЙН + ОФФЛАЙН', nameEng: '', competenceLevel: null, type: 'ONE_TIME_PROJECT' },
+    { id: 1, name: 'ОНЛАЙН', nameEng: '', competenceLevel: null, type: 'ONLINE' },
+    { id: 2, name: 'ОФФЛАЙН', nameEng: '', competenceLevel: null, type: 'OFFLINE' },
+    { id: 3, name: 'ОНЛАЙН + ОФФЛАЙН', nameEng: '', competenceLevel: null, type: 'ONLINE+OFFLINE' },
   ];
-  
+
   @Input() maxTags: number = 1;
   @Output() tagsChanged = new EventEmitter<Tag>();
   value: string = '';

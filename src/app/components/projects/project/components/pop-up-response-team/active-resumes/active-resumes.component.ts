@@ -11,6 +11,9 @@ import { PopUpResponseTeamService } from '../pop-up-response-team.service';
 })
 export class ActiveResumesComponent implements OnInit{
 
+  isSelected: boolean = false;
+  @Input() cardItem: any;
+
   constructor(private popUpResponseTeamService: PopUpResponseTeamService) { }
 
   ngOnInit(): void {
@@ -18,9 +21,6 @@ export class ActiveResumesComponent implements OnInit{
       this.isSelected = selectedResume === this.cardItem.id;
     });
   }
-
-  isSelected: boolean = false;
-  @Input() cardItem: any;
 
   getSkillsColor(item: number): string {
     switch (item) {

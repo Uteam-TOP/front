@@ -47,8 +47,12 @@
 
   @if (itemsList && itemsList.length) {
     @for (itemCard of itemsList | sortBy: 'createdAt'; track itemCard) {
-      <app-review-card [visibleFoto]="true" [Item]="itemCard"></app-review-card>
+      <div [id]="itemCard.id">
+        <app-review-card [visibleFoto]="true" [Item]="itemCard"></app-review-card>
+      </div>
     }
+
+    <div id="werwer"></div>
   } @else {
     <p class="empty-list">Лента новостей пуста</p>
   }

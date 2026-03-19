@@ -1,0 +1,21 @@
+<div class="error-message">
+  @if (formElement(); as formInput) {
+    @if (formInput.invalid && (formInput.dirty || formInput.touched)) {
+      @if (formInput.errors?.['required']) {
+        <div>{{ inputName() }} обязательно.</div>
+      }
+      @if (formInput.errors?.['maxlength']) {
+        <div>
+          {{ inputName() }} не должно превышать 200 символов.
+        </div>
+      }
+    }
+    @if (formInput.errors?.['forbiddenWords']) {
+        Запрещённые слова: @for (word of formInput.errors?.['forbiddenWords']; track word) {
+        <span>{{ word }},</span>
+      }
+    }
+  } @else {
+    {{ inputName() }}
+  }
+</div>

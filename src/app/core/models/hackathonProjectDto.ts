@@ -8,12 +8,12 @@
  * Do not edit the class manually.
  */
 import {IProjectDto, ProjectDto} from './projectDto';
-import { HackathonDto } from './hackathonDto';
+import {HackathonDto, IHackathonDto} from './hackathonDto';
 
 
 export interface HackathonProjectDto {
     id?: number;
-    hackathon?: HackathonDto;
+    hackathon?: IHackathonDto;
     project?: IProjectDto;
     createdAt?: string;
 }

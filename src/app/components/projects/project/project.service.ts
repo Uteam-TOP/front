@@ -23,6 +23,9 @@ export class ProjectService {
   private currentProjectIsOwnerSubject = new BehaviorSubject<boolean>(false);
   public currentProjectIsOwner$: Observable<boolean> = this.currentProjectIsOwnerSubject.asObservable();
 
+  private selectedPost = new BehaviorSubject<string | null>(null);
+  public selectedPost$: Observable<string | null> = this.selectedPost.asObservable();
+
   setActiveTab(tab: 'aboutProject' | 'tape' | 'myTeam'): void {
     this.activeTabSubject.next(tab);
   }
@@ -108,6 +111,10 @@ export class ProjectService {
 
   isUserResponded(projectId?: number): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/applications/has-current-user-responded-project/${projectId}`)
+  }
+
+  scrollToPost(postId: string) {
+    this.selectedPost.next(postId);
   }
 
 

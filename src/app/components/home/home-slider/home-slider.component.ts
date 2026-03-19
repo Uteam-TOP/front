@@ -21,6 +21,7 @@ import {SkeletonBlockComponent} from "../../../shared/ui-components/skeleton-blo
 import {ProjectsNewsComponent} from "../../cards/projects-news/projects-news.component";
 import {SortByPipe} from "../../../shared/pipes/sort-by.pipe";
 import {ProjectService} from "../../projects/project/project.service";
+import {PostDto} from "../../../core/models/postDto";
 
 @Component({
   selector: 'app-home-slider',
@@ -85,13 +86,13 @@ export class HomeSliderComponent implements AfterViewInit, OnInit {
     return this.router.createUrlTree([route, cardValue.id]).toString();
   }
 
-  onCardClick(event: MouseEvent, cardId: any, type: string): void {
+  onCardClick(event: MouseEvent, card: PostDto, type: string): void {
     if (event.button === 1 || event.ctrlKey || event.metaKey) {
       return;
     }
     if (type === 'news') {
-      // this.router.navigate([`/project`, cardId]);
-      this.projectService.setActiveTab('tape');
+      void this.router.navigate([`/project`, card.project?.nickname, 'post', card.id]);
+      // this.projectService.setActiveTab('tape');
     } else {
       this.projectService.setActiveTab('aboutProject');
     }

@@ -1,0 +1,36 @@
+@if (data(); as data) {
+  <div class="item">
+    <div class="date">
+      {{ formatDate(data.createdAt) }}
+    </div>
+    <div class="content">
+      <div class="avatar-wrapper">
+        <img [src]="data.project.avatarLink | avatar" alt="Avatar" class="avatar" />
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+          <span class="name">Команда</span>
+          <span class="name">{{data.project.title}}</span>
+        </div>
+      </div>
+      <div class="countPerson">
+        {{data.project.team?.length}}
+        <br>
+        участников
+      </div>
+      <div class="btns">
+        <ui-button
+          [size]="'small'"
+          [type]="'grey'"
+          (click)="rejectCommand(data.id)">
+          Отклонить
+        </ui-button>
+        <ui-button
+          [size]="'small'"
+          [type]="'green'"
+          (click)="addCommand(data)">
+          + Добавить
+        </ui-button>
+      </div>
+    </div>
+  </div>
+
+}

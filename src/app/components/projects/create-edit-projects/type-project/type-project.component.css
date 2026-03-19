@@ -1,4 +1,4 @@
-.container{
+.select-container {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -21,13 +21,13 @@
 }
 
 .tag-input:focus {
-    border: 1px solid #e2e2e2  !important; 
+    border: 1px solid #e2e2e2  !important;
     outline: none;
 }
 .tag-input::placeholder {
     font-family: var(--font-Monts);
     font-weight: 400;
-    font-size: 0.8rem; 
+    font-size: 0.8rem;
     line-height: 140%;
 }
 .tag-block {
@@ -39,7 +39,7 @@
     padding: 16px 12px;
     border: 1px solid #e2e2e2;
     border-radius: 1rem;
-    position: absolute; 
+    position: absolute;
     top: 100%;
     left: 0;
     background: white;
@@ -47,7 +47,7 @@
     margin-top: 0.5rem;
     max-height: calc(12 * 1.5rem + 12px + 12px);
     overflow-y: auto;
-    z-index: 1000; 
+    z-index: 1000;
 }
 /* Стили для всего скроллбара */
 .tag-block::-webkit-scrollbar {
@@ -116,4 +116,3 @@
     padding: 0 10px;
     margin: 0;
   }
-  

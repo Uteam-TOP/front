@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import {CommonModule, ViewportScroller} from '@angular/common';
+import {Component, ElementRef, inject, OnInit, Renderer2} from '@angular/core';
 import { ReviewCardComponent } from '../review-card/review-card.component';
 import { PersonalDataService } from '../../../../personal-account/personal-data/personal-data.service';
 import { ProjectService } from '../../project.service';
@@ -15,7 +15,10 @@ import {SortByPipe} from "../../../../../shared/pipes/sort-by.pipe";
   templateUrl: './tape.component.html',
   styleUrl: './tape.component.css'
 })
-export class TapeComponent {
+export class TapeComponent implements OnInit {
+
+  private renderer = inject(Renderer2);
+  private elRef = inject(ElementRef);
 
   currentUser: any;
   isTextEntered: boolean = false;
@@ -41,6 +44,26 @@ export class TapeComponent {
       this.tapeService.getTapes(data.id).subscribe((data: any) => {
         this.tapeService.setItemsList(data);
       })
+    })
+
+    this.projectService.selectedPost$.subscribe((post: any) => {
+      if (post) {
+        console.log('post', post);
+        setTimeout(() => {
+          const element = this.elRef.nativeElement.querySelector(`[id="${post}"]`);
+          if (element) {
+            element.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+              inline: 'nearest'
+            });
+            this.renderer.addClass(element, 'highlight');
+          } else {
+            console.error('Элемент с id="target-id" не найден!');
+          }
+        }, 100)
+
+      }
     })
   }
 

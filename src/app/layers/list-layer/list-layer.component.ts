@@ -2,9 +2,13 @@ import {ChangeDetectionStrategy, Component, HostListener, inject, Input, OnInit}
 import {UiButtonComponent} from "../../shared/ui-components/ui-button/ui-button.component";
 import {ProjectComponent} from "../../components/home/project/project.component";
 import { ResumeLibraryComponent, } from '../../../common-uteam-library';
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {VacancyComponent} from "../../components/cards/vacancy/vacancy.component";
 import {NotFoundComponent} from "../not-found/not-found.component";
+import {HackathonCadComponent} from "../../components/home/hackathon-cad/hackathon-cad.component";
+import {ProjectsNewsComponent} from "../../components/cards/projects-news/projects-news.component";
+import {PostDto} from "../../core/models/postDto";
+import {ProjectService} from "../../components/projects/project/project.service";
 
 @Component({
   selector: 'app-list-layer',
@@ -15,17 +19,21 @@ import {NotFoundComponent} from "../not-found/not-found.component";
     ResumeLibraryComponent,
     ResumeLibraryComponent,
     VacancyComponent,
-    NotFoundComponent
-],
+    NotFoundComponent,
+    HackathonCadComponent,
+    ProjectsNewsComponent,
+    RouterLink
+  ],
   templateUrl: './list-layer.component.html',
   styleUrl: './list-layer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ListLayerComponent implements OnInit {
   @Input() cards: any[] = [];
-  @Input() type: 'project' | 'vacancy' | 'resume' | 'hackathon' = 'project';
+  @Input() type: 'project' | 'vacancy' | 'resume' | 'hackathon' | 'news' = 'project';
 
   private router = inject(Router);
+  private projectService = inject(ProjectService);
 
   isMobile = false;
 
@@ -65,12 +73,15 @@ export class ListLayerComponent implements OnInit {
     return this.router.createUrlTree([route, cardValue]).toString();
   }
 
-  onCardClick(event: MouseEvent, cardId: any, type: string): void {
+  onCardClick(event: MouseEvent, card: any, type: string): void {
     if (event.button === 1 || event.ctrlKey || event.metaKey) {
       return;
     }
-    event.preventDefault();
-    this.router.navigate([`/${type}`, cardId]);
+    if (type === 'news') {
+      void this.router.navigate([`/project`, card.project?.nickname, 'post', card.id]);
+    } else {
+      void this.router.navigate([type, card.nickname ? card.nickname : card.id]);
+    }
   }
 
   getColumnClass(index: number): string {

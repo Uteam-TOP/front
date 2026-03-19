@@ -42,7 +42,7 @@ app-search:not(.sticky) {
     z-index: 11;
 }
 
-/* styles.css */
+/* styles.scss */
 .desktop-only {
     display: none;
 }

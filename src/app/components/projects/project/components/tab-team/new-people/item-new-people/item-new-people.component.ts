@@ -88,6 +88,7 @@ export class ItemNewPeopleComponent {
   }
 
   setApplication(){
+    this.item['profession'] = this.value.name;
     this.popUpService.setTitle('действительно хотите добавить пользователя в команду проекта?');
     this.popUpService.setItem(this.item);
     this.popUpService.showPopup();

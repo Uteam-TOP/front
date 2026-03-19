@@ -17,11 +17,6 @@ const routes: Routes = [
     }
   },
   {
-    path: 'news',
-    redirectTo: '',
-    pathMatch: 'full'
-  },
-  {
     path: 'landing',
     loadChildren: () => import('./pages/public-lending/public-lending.module').then(m => m.PublicLendingModule)
   },
@@ -75,6 +70,10 @@ const routes: Routes = [
   {
     path: 'projects',
     loadChildren: () => import('./pages/projects-list/projects-list.module').then(m => m.ProjectsListModule)
+  },
+  {
+    path: 'news',
+    loadChildren: () => import('./pages/news-list/news-list.module').then(m => m.NewsListModule)
   },
 
   {

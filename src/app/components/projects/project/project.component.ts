@@ -18,6 +18,7 @@ import { TokenService } from '../../token.service';
 import {combineLatest, map, of} from 'rxjs';
 import {TagComponent} from "../../../shared/ui-components/tag/tag.component";
 import {toSignal} from "@angular/core/rxjs-interop";
+import {ViewportScroller} from "@angular/common";
 
 @Component({
   selector: 'app-project',
@@ -57,6 +58,13 @@ export class ProjectComponent implements OnInit {
     { initialValue: '' }
   );
 
+  private postId: Signal<string | number | null> = toSignal(
+    this.route.paramMap.pipe(
+      map(params => Number(params.get('postId')))
+    ),
+    { initialValue: 0 }
+  );
+
   projectData = toSignal(this.projectService.getCurrentProject(this.paramId()));
   detailsListProject: { 'title': string, 'context': string }[] | null = null;
   isOwner = toSignal(this.projectService.currentProjectIsOwner$, { requireSync: true });
@@ -79,7 +87,16 @@ export class ProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setActiveTab('aboutProject');
+
+    if (this.postId()) {
+      const id: string | number | null = this.postId();
+      if (id) {
+        console.log('asdasdas')
+        this.goToPost(id.toString());
+      }
+    } else {
+      this.setActiveTab('aboutProject');
+    }
     if (this.tokenService.getToken()) {
       // ✅ Теперь ждем загрузки `projectData` перед вызовом `getCurrentUser`
       combineLatest([
@@ -151,6 +168,14 @@ export class ProjectComponent implements OnInit {
 
   setActiveTab(tab: 'aboutProject' | 'tape') {
     this.projectService.setActiveTab(tab);
+  }
+
+  goToPost(postId: string) {
+    this.setActiveTab('tape');
+    setTimeout(() => {
+      this.projectService.scrollToPost(postId);
+    }, 500)
+
   }
 
   toggleTagBlock(show: boolean) {

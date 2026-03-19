@@ -61,8 +61,8 @@ export class HomeService {
     return this.http.post(`${this.domain}/main/${type}/getAll?${queryParams}`, savedFilters).pipe( delay(300) );
   }
 
-  getVacancies() {
-    this.getCardData('vacancy')
+  getVacancies(pageSize: number) {
+    this.getCardData('vacancy', 0, pageSize)
       .pipe(
         takeUntil(this.destroy$)
       ).subscribe(data => {
@@ -81,8 +81,8 @@ export class HomeService {
     })
   }
 
-  getResumes() {
-    this.getCardData('resume')
+  getResumes(pageSize: number) {
+    this.getCardData('resume', 0, pageSize)
       .pipe(
         takeUntil(this.destroy$)
       ).subscribe(data => {
@@ -174,46 +174,25 @@ export class HomeService {
     }
     const queryParams = `page=${this.selectPage}&size=30`;
 
-    const token = localStorage.getItem('authToken');
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    if (token) {
-      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`, { headers }).pipe(delay(300));
-    } else {
-      return this.http.get(`${this.domain}/main/hackathons?${queryParams}`,).pipe(delay(300));
-    }
-
+    return this.http.get(`${this.domain}/main/hackathons?${queryParams}`,).pipe(delay(300));
   }
 
-  getNewsData(page: number): Observable<any> {
+  getNewsData(page: number, size: number = 10): Observable<any> {
     if (typeof page === 'number') {
       this.selectPage = page;
     }
-    const queryParams = `page=${this.selectPage}&size=10`;
+    const queryParams = `page=${this.selectPage}&size=${size}`;
 
-    const token = localStorage.getItem('authToken');
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    if (token) {
-      return this.http.get(`${this.domain}/main/project/all-posts?${queryParams}`, { headers }).pipe(delay(300));
-    } else {
-      return this.http.get(`${this.domain}/main/project/all-posts?${queryParams}`,).pipe(delay(300));
-    }
+    return this.http.get(`${this.domain}/main/project/all-posts?${queryParams}`,).pipe(delay(300));
   }
 
 
   nextPage() {
     if (this.typeToggle === 'vacancy') {
-      this.getVacancies();
+      this.getVacancies(10);
     }
     if (this.typeToggle === 'resume') {
-      this.getResumes();
+      this.getResumes(10);
     }
   }
 
@@ -222,10 +201,10 @@ export class HomeService {
     this.vacancies = [];
     this.resumes = [];
     if (this.typeToggle === 'vacancy') {
-      this.getVacancies();
+      this.getVacancies(100);
     }
     if (this.typeToggle === 'resume') {
-      this.getResumes();
+      this.getResumes(100);
     }
   }
 
@@ -259,10 +238,10 @@ export class HomeService {
     this.vacancies = [];
     this.projects = [];
     if (this.typeToggle === 'vacancy') {
-      this.getVacancies();
+      this.getVacancies(100);
     }
     if (this.typeToggle === 'resume') {
-      this.getResumes();
+      this.getResumes(100);
     }
 
   }
@@ -275,10 +254,10 @@ export class HomeService {
   loadData() {
     // this.toggleSortDirection();
     if (this.typeToggle === 'vacancy') {
-      this.getVacancies();
+      this.getVacancies(10);
     }
     if (this.typeToggle === 'resume') {
-      this.getResumes();
+      this.getResumes(10);
     }
     this.loading = false;
   }
@@ -293,10 +272,10 @@ export class HomeService {
     // this.projects = [];
     // this.hackathons = [];
     if (type === 'vacancy') {
-      this.getVacancies();
+      this.getVacancies(10);
     }
     if (type === 'resume') {
-      this.getResumes();
+      this.getResumes(10);
     }
     if (type === 'project') {
       this.getProject();

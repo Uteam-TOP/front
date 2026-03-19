@@ -1,0 +1,41 @@
+@if (detailsList(); as detailsList) {
+  <div class="background-container">
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="details-container">
+      </div>
+      <div class="header-content">
+        @if (detailsList) {
+          <p class="header-name-project" >
+            {{ getRegistrationStatusText(detailsList.registrationStatus) }}
+          </p>
+        }
+      </div>
+      <div class="dateAndContacts">
+        <div class="date">
+          <!-- <p class="date-title">
+          создан
+        </p>
+        <p class="date-value">
+          {{ detailsList?.createdAt | date:'dd.MM.yyyy' }}
+        </p> -->
+        </div>
+        <div class="contacts">
+          <p class="contacts-title">
+            Контакты:
+          </p>
+          <div class="contacts-btns">
+            <a class="contacts-item" [href]="detailsList?.customLink" target="_blank">
+              <img src="assets/icons/web.svg" alt="web" />
+              <p>веб сайт</p>
+            </a>
+            <a class="contacts-item" [href]="'https://t.me/' + detailsList?.telegram" target="_blank">
+              <img src="assets/icons/tg.svg" alt="tg" />
+              <p>Telegram</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}
