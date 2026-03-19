@@ -182,8 +182,8 @@ export class SortetdFilterComponent implements OnInit {
         "EVERYBODY"
       ]
     });
-    this.homeService.getVacancies();
-    this.homeService.getResumes();
+    this.homeService.getVacancies(100);
+    this.homeService.getResumes(100);
     this.visible = false;
     this.parsedFilters = false;
   }
@@ -213,8 +213,8 @@ export class SortetdFilterComponent implements OnInit {
 
     this.homeService.selectPage = 0;
     this.homeService.saveFilters(dataToSubmit);
-    this.homeService.getVacancies();
-    this.homeService.getResumes();
+    this.homeService.getVacancies(100);
+    this.homeService.getResumes(100);
     this.parsedFilters = true;
     this.closeDialog();
   }

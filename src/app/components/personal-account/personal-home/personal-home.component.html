@@ -267,6 +267,9 @@
       <div class="tab tab-mint" [ngClass]="{'active' : tab === 'vacancy'}" (click)="tab = 'vacancy'">
         <span>Вакансии</span> ({{vacancyService.filterVacancies('EVERYBODY').length}})
       </div>
+<!--      <div class="tab tab-mint" [ngClass]="{'active' : tab === 'vacancy'}" (click)="tab = 'hackathon'">-->
+<!--        <span>Хакатоны</span> ({{vacancyService.filterVacancies('EVERYBODY').length}})-->
+<!--      </div>-->
     </div>
   }
 

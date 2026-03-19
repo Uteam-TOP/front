@@ -51,7 +51,7 @@ import {SkeletonBlockComponent} from "../../shared/ui-components/skeleton-block/
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('projects') ProjectsDiv!: ElementRef;
-  // @ViewChild('hackathons') HackathonsDiv!: ElementRef;
+  @ViewChild('hackathons') HackathonsDiv!: ElementRef;
   @ViewChild('vacancies') VacanciesDiv!: ElementRef;
   @ViewChild('resumes') ResumesDiv!: ElementRef;
 
@@ -98,33 +98,33 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.windowHeight = window.innerHeight;
       this.boundingRectProjects = this.ProjectsDiv.nativeElement.getBoundingClientRect();
-      // this.boundingRectHackathons = this.HackathonsDiv.nativeElement.getBoundingClientRect();
+      this.boundingRectHackathons = this.HackathonsDiv.nativeElement.getBoundingClientRect();
       this.boundingRectVacancy = this.VacanciesDiv.nativeElement.getBoundingClientRect();
       this.boundingRectResumes = this.ResumesDiv.nativeElement.getBoundingClientRect();
+      if (!this.homeService.vacancies.length) {
+        this.homeService.toggleType('vacancy');
+      }
 
       if (this.boundingRectProjects && this.boundingRectProjects.top >= 0 && this.boundingRectProjects.bottom - 500 <= this.windowHeight) {
         this.homeService.typeToggle = 'project';
       }
 
-      // if (this.boundingRectHackathons && this.boundingRectHackathons.top >= 0 && this.boundingRectHackathons.bottom - 500 <= this.windowHeight) {
-      //   if (!this.homeService.hackathons.length && !this.homeService.loading) {
-      //     this.homeService.toggleType('hackathon');
-      //   }
-      //   this.homeService.typeToggle = 'hackathon';
-      // }
-
       if (this.boundingRectVacancy && this.boundingRectVacancy.top >= 0 && this.boundingRectVacancy.bottom - 500 <= this.windowHeight) {
-        if (!this.homeService.vacancies.length && !this.homeService.loading) {
-          this.homeService.toggleType('vacancy');
+        if (!this.homeService.resumes.length) {
+          this.homeService.toggleType('resume');
         }
         this.homeService.typeToggle = 'vacancy';
       }
 
       if (this.boundingRectResumes && this.boundingRectResumes.top >= 0 && this.boundingRectResumes.bottom - 400 <= this.windowHeight) {
-        if (!this.homeService.resumes.length && !this.homeService.loading) {
-          this.homeService.toggleType('resume');
+        if (!this.homeService.hackathons.length) {
+          this.homeService.toggleType('hackathon');
         }
         this.homeService.typeToggle = 'resume';
+      }
+
+      if (this.boundingRectHackathons && this.boundingRectHackathons.top >= 0 && this.boundingRectHackathons.bottom - 500 <= this.windowHeight) {
+        this.homeService.typeToggle = 'hackathon';
       }
 
     }, 30)
@@ -145,6 +145,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.homeService.getNewsData(0).subscribe(data => {
        this.news = data;
     })
+
   }
 
   ngAfterViewInit() {
@@ -152,8 +153,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
       let element;
       if (value === 'vacancy') {
         element = this.VacanciesDiv.nativeElement;
-      // } else if (value === 'hackathon') {
-      //   element = this.HackathonsDiv.nativeElement;
+      } else if (value === 'hackathon') {
+        element = this.HackathonsDiv.nativeElement;
       } else if (value === 'project') {
         element = this.ProjectsDiv.nativeElement;
       } else if (value === 'resume') {

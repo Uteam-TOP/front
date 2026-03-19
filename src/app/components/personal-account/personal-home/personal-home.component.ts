@@ -1,4 +1,4 @@
-import {Component, HostListener, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import { SettingHeaderService } from '../../setting-header.service';
 import { ArchiveResumeComponent } from '../archive-resume/archive-resume.component';
 import { ArchiveVacancyComponent } from '../archive-vacancy/archive-vacancy.component';
@@ -33,6 +33,7 @@ import {TagComponent} from "../../../shared/ui-components/tag/tag.component";
 import {
   SkeletonProfileComponent
 } from "../../../shared/ui-components/skeleton-ui/skeleton-profile/skeleton-profile.component";
+import {HackathonService} from "../../../core/services/hackathon.service";
 
 @Component({
   selector: 'app-personal-home',
@@ -57,6 +58,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   private subscriptionExit: Subscription = new Subscription();
+  private hackathonService = inject(HackathonService);
   isPopupVisible: boolean = false;
   isExitPopupVisible: boolean = false;
   isChangePasswordPopupVisible: boolean = false;
@@ -127,7 +129,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
     this.itemsToShowProjects = this.showAllProjects ? Infinity : 3;
   }
 
-  tab: 'project' | 'resume' | 'vacancy' = 'project';
+  tab: 'project' | 'resume' | 'vacancy' | 'hackathon' = 'project';
 
   ngOnInit(): void {
     this.isLoading = true;

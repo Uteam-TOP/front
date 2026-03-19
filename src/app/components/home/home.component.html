@@ -17,7 +17,7 @@
           <div class="column">
             <app-home-slider [items]="homeService.projects" [type]="'project'"></app-home-slider>
           </div>
-          <div class="slider-footer">
+          <div class="slider-footer slider-footer-projects">
             <a routerLink="/projects"><ui-button [text]="'Все проекты'" [type]="'arrow'"></ui-button></a>
           </div>
 
@@ -26,7 +26,7 @@
             <app-home-slider [items]="news" [type]="'news'"></app-home-slider>
           </div>
           <div class="slider-footer slider-footer-news">
-            <a routerLink="/projects"><ui-button [text]="'Все новости'" [type]="'arrow'"></ui-button></a>
+            <a routerLink="/news"><ui-button [text]="'Все новости'" [type]="'arrow'"></ui-button></a>
           </div>
         </div>
       </ng-container>
@@ -52,7 +52,7 @@
 
       <!-- ***************************** resume ********************************** -->
       <ng-container>
-        <div class="container" style="margin-bottom: 115px" #resumes>
+        <div class="container" #resumes>
           <h3>Резюме</h3>
           <div class="column">
             <app-home-slider [items]="homeService.resumes" [type]="'resume'"></app-home-slider>
@@ -64,21 +64,23 @@
       </ng-container>
 
       <!-- ***************************** close resume ********************************** -->
+
+      <!-- ***************************** hackathon ********************************** -->
+      <ng-container>
+        <div class="container" #hackathons>
+          <h3>Хакатоны</h3>
+          <div class="column">
+            <app-home-slider [items]="homeService.hackathons" [type]="'hackathon'"></app-home-slider>
+          </div>
+          <div class="slider-footer">
+            <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>
+          </div>
+        </div>
+      </ng-container>
+      <!-- ***************************** close hackathon ********************************** -->
     </div>
 
-    <!-- ***************************** hackathon ********************************** -->
-    <!--    <ng-container>-->
-    <!--      <div class="container" #hackathons>-->
-    <!--        <h3>Хакатоны</h3>-->
-    <!--        <div class="column">-->
-    <!--          <app-home-slider [items]="homeService.hackathons" [type]="'hackathon'"></app-home-slider>-->
-  <!--        </div>-->
-  <!--        <div class="slider-footer">-->
-  <!--          <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </ng-container>-->
-<!-- ***************************** close hackathon ********************************** -->
+
 
 <div class="nextPage">
   @if (homeService.visibleNextPage) {

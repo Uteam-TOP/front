@@ -1,16 +1,26 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, ViewChild} from '@angular/core';
 import {PaginatorModule} from "primeng/paginator";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {
-  TypeProjectComponent
-} from "./type-project/type-project.component";
+import {TypeProjectComponent} from "./type-project/type-project.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {
   CreateEditProjectsService
 } from "../../../components/hackathon/create-edit-hackathon/create-edit-projects.service";
-import {HackathonService} from "../../../components/hackathon/page/hackathon.service";
-import { forbiddenWordsValidator } from '../../../../validators/forbidden-words.validator';
-import {NgClass} from "@angular/common";
+import {forbiddenWordsValidator} from '../../../../validators/forbidden-words.validator';
+import {DatePipe, NgClass} from "@angular/common";
+import {InputErrorComponent} from "../../../shared/ui-components/input-error/input-error.component";
+import {MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {
+  MatDatepickerModule,
+  MatDatepickerToggle,
+  MatDateRangeInput,
+  MatDateRangePicker
+} from "@angular/material/datepicker";
+import {HackathonService} from "../../../core/services/hackathon.service";
+import {IHackathonDto} from "../../../core/models/hackathonDto";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-create-edit-hackathon',
@@ -19,30 +29,49 @@ import {NgClass} from "@angular/common";
     PaginatorModule,
     ReactiveFormsModule,
     TypeProjectComponent,
-    NgClass
+    NgClass,
+    InputErrorComponent,
+    MatFormField,
+    MatDatepickerToggle,
+    MatDateRangeInput,
+    MatDateRangePicker,
+    MatLabel,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule
   ],
+  providers: [DatePipe],
   templateUrl: './create-edit-hackathon.component.html',
   styleUrl: './create-edit-hackathon.component.scss'
 })
 export class CreateEditHackathonComponent {
+
+  private hackathonService = inject(HackathonService);
   form!: FormGroup;
   submitAttempted = false;
   isError: boolean = false;
   oldNickname: string = '';
   cancel_btn: boolean = false;
   projectData: any = null;
+  isLoading = false;
+  imageLink: any;
+  errorMessages: string = '';
 
-
+  private id = toSignal(
+    this.route.paramMap.pipe(
+      map(params => Number(params.get('id')))
+    ),
+    { initialValue: 0 }
+  );
 
   constructor(private fb: FormBuilder, private router: Router,
               private createEditProjectsService: CreateEditProjectsService,
-              private route: ActivatedRoute, private hackathonService: HackathonService) {
+              private route: ActivatedRoute) {
 
   }
   onTextAreaInput(event: Event, minHeight = 98) {
     const textarea = event.target as HTMLTextAreaElement;
     textarea.style.height = 'auto'; // Сбрасываем высоту, чтобы она могла адаптироваться
-
 
     // Используем scrollHeight, чтобы установить высоту в зависимости от содержимого
     const newHeight = Math.max(textarea.scrollHeight, minHeight);
@@ -50,23 +79,16 @@ export class CreateEditHackathonComponent {
     textarea.style.height = `${newHeight}px`; // Устанавливаем высоту в зависимости от содержимого
   }
 
-
-
   ngOnInit(): void {
     this.initializeForm();
-    // this.projectService.currentProjectData$.subscribe((value: any) => {
-    //   this.projectData = value;
-    // })
-    let paramId = this.route.snapshot.paramMap.get('nickname');
+    let paramId = this.route.snapshot.paramMap.get('id');
 
     if (paramId) this.ProjectData(paramId);
-
   }
 
   onInputChange(event: any) {
     let value = event.target.value;
 
-    // Если поле пустое или первый символ не @, добавляем его
     if (!value.startsWith('@')) {
       value = '@' + value.replace(/^@+/, ''); // Убираем лишние @ в начале
       event.target.value = value; // Обновляем отображение в input
@@ -79,19 +101,18 @@ export class CreateEditHackathonComponent {
       nickname: ['', [Validators.required, forbiddenWordsValidator()]],
       customLink: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
-      focus: ['', [Validators.required]],
       format: ['', [Validators.required]],
-      hackathonLink: ['', [Validators.required]],
-      imageLink: ['', [Validators.required]],
       location: ['', [Validators.required]],
       organizer: ['', [Validators.required]],
       participationConditions: ['', [Validators.required]],
       prizePool: ['', [Validators.required]],
+      registrationStartDate: ['', [Validators.required]],
       registrationDeadline: ['', [Validators.required]],
-      registrationStatus: ['', [Validators.required]],
       shortDescription: ['', [Validators.required]],
       startDate: ['', [Validators.required]],
       telegram: ['', [Validators.required]],
+      targetAudience: ['', [Validators.required]],
+      focus: ['', [Validators.required]],
     });
   }
 
@@ -109,8 +130,7 @@ export class CreateEditHackathonComponent {
       this.fileLogoInput.nativeElement.click();
     }
   }
-  headerImg: any;
-  avatarImg: any;
+
   // Общая функция для изменения изображения
   onImageChange(event: Event, target: 'background' | 'logo'): void {
     const input = event.target as HTMLInputElement;
@@ -133,7 +153,7 @@ export class CreateEditHackathonComponent {
           backgroundContainer.style.backgroundSize = 'cover';
           backgroundContainer.style.backgroundPosition = 'center';
         }
-        this.headerImg = file;
+        this.imageLink = file;
         this.isLogoImageSelected = true;
       } else if (target === 'logo') {
         const logoContainer = document.querySelector('.container-elements-left-iconBlock-img') as HTMLElement;
@@ -143,7 +163,6 @@ export class CreateEditHackathonComponent {
           logoContainer.style.backgroundRepeat = 'no-repeat';
           logoContainer.style.backgroundPosition = 'center';
         }
-        this.avatarImg = file;
         this.isLogoImageSelected = true;
       }
 
@@ -168,30 +187,32 @@ export class CreateEditHackathonComponent {
 
   ProjectData(nicknameProject: string) {
     this.hackathonService.getCurrentHackathon(nicknameProject).subscribe(
-      (user: any) => {
-        this.projectData = user;
+      (hackathon: IHackathonDto) => {
+        this.projectData = hackathon;
         this.form.patchValue({
-          title: user.title || '',
-          customLink: user.customLink || '',
-          endDate: user.endDate || '',
-          focus: user.focus || '',
-          telegram: user.telegram ? '@' + user.telegram.replace(/^@+/, '') : '',
-          format: user.format || '',
-          hackathonLink: user.hackathonLink || '',
-          imageLink: user.imageLink,
-          nickname: user.nickname,
-          location: user.location,
-          organizer: user.organizer,
-          participationConditions: user.participationConditions,
-          prizePool: user.prizePool,
-          registrationDeadline: user.registrationDeadline,
-          registrationStatus: user.registrationStatus,
-          shortDescription: user.shortDescription,
-          startDate: user.startDate,
+          title: hackathon.title || '',
+          customLink: hackathon.customLink || '',
+          startDate: new Date(hackathon.startDate * 1000) || '',
+          endDate: new Date(hackathon.endDate * 1000) || '',
+          registrationDeadline: new Date(hackathon.registrationDeadline * 1000) || '',
+          registrationStartDate: new Date(hackathon.registrationStartDate * 1000) || '',
+          focus: hackathon.focus || '',
+          telegram: hackathon.telegram ? '@' + hackathon.telegram.replace(/^@+/, '') : '',
+          format: hackathon.format || '',
+          hackathonLink: hackathon.hackathonLink || '',
+          imageLink: hackathon.imageLink,
+          nickname: hackathon.nickname,
+          location: hackathon.location,
+          organizer: hackathon.organizer,
+          participationConditions: hackathon.participationConditions,
+          prizePool: hackathon.prizePool,
+          registrationStatus: hackathon.registrationStatus,
+          shortDescription: hackathon.shortDescription,
+          targetAudience: hackathon.targetAudience,
         });
 
-        if (user.nickname) {
-          this.oldNickname = user.nickname;
+        if (hackathon.nickname) {
+          this.oldNickname = hackathon.nickname;
         }
         this.form.get('nickname')?.valueChanges.subscribe(value => {
           if (value !== this.oldNickname && value.length > 0) {
@@ -231,8 +252,23 @@ export class CreateEditHackathonComponent {
     this.form.get(field)?.setValue(tags);
   }
 
-  submitForm(isEdit: boolean): void {
+  formatDate(date: string): string {
+    const dateObject = new Date(date);
+    const year = dateObject.getFullYear();
+    const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+    const day = dateObject.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  submitForm(): void {
+    const isEdit = !!this.projectData;
     this.submitAttempted = true;
+    this.isLoading = true;
+
+    this.form.value.startDate = this.formatDate(this.form.value.startDate);
+    this.form.value.endDate = this.formatDate(this.form.value.endDate);
+    this.form.value.registrationStartDate = this.formatDate(this.form.value.registrationStartDate);
+    this.form.value.registrationDeadline = this.formatDate(this.form.value.registrationDeadline);
 
     Object.keys(this.form.controls).forEach((field) => {
       const control = this.form.get(field);
@@ -241,64 +277,45 @@ export class CreateEditHackathonComponent {
     });
 
     if (this.form.valid) {
-      console.log('Форма отправлена:', this.form.value);
-
-      let data = this.form.value
-      let newData: {
-        id?: any;
-        title: any;
-        summary: any;
-        type: any;
-        email: any;
-        telegram: any;
-        description: any;
-        developmentStage: any;
-        tasks: any;
-        nickname: any;
-      } = {
+      let data = this.form.getRawValue();
+      let newData: IHackathonDto = {
+        ...data,
         title: data.title || '',
-        summary: data.summary || '',
-        type: data.type?.type || '',
-        email: data.email || '',
+        format: data.format?.type || '',
         telegram: data.telegram ? data.telegram.startsWith('@') ? data.telegram.slice(1) : data.telegram : '',
-        description: data.description ? data.description.replace(/\r?\n/g, '\n') : '',
-        developmentStage: data.developmentStage ? data.developmentStage.replace(/\r?\n/g, '\n') : '',
-        tasks: data.tasks ? data.tasks.replace(/\r?\n/g, '\n') : '',
+        shortDescription: data.shortDescription ? data.shortDescription.replace(/\r?\n/g, '\n') : '',
         nickname: data.nickname || '',
+        registrationSuspended: true,
+        registrationStatus: "OPEN"
       };
+
       if (isEdit) {
-        newData.id = this.projectData.id;
-        this.createEditProjectsService.setEditProject(newData).subscribe((data: any) => {
-          // this.projectService.setCurrentProjectData(data);
-          if (this.headerImg) {
-            this.setAvatar(this.headerImg, 'header');
+        newData.id = this.id();
+        this.hackathonService.editHackathon(newData, this.id()).subscribe((data: any) => {
+          if (this.imageLink) {
+            this.setAvatar(this.imageLink, 'image');
           }
-          if (this.avatarImg) {
-            this.setAvatar(this.headerImg, 'avatar');
-          }
-          this.router.navigate(['project', data.nickname]);
+          void this.router.navigate(['project', data.nickname]);
         })
       } else {
-        this.createEditProjectsService.setNewProject(newData).subscribe((data: any) => {
-          // this.projectService.setCurrentProjectData(data);
-          if (this.headerImg) {
-            this.setAvatar(this.headerImg, 'header');
-          }
-          if (this.avatarImg) {
-            this.setAvatar(this.headerImg, 'avatar');
+        this.hackathonService.createHackathon(newData).subscribe((data: any) => {
+          if (this.imageLink) {
+            this.setAvatar(this.imageLink, 'image');
           }
           this.router.navigate(['project', data.nickname]);
         })
       }
-
-
-
     } else {
-      console.log('Форма содержит ошибки:', this.form.errors);
+      this.isLoading = false;
+      Object.keys(this.form.controls).forEach(key => {
+        const controlErrors = this.form.get(key)!.errors;
+        console.log('Поле:', key, 'Ошибки:', controlErrors);
+        if (controlErrors != null && controlErrors['required']) {
+          this.errorMessages = 'Заполнены не все обязательные поля';
+        }
+      });
     }
   }
-
-
 
   hasError(field: string, error: string): boolean {
     const control = this.form.get(field);

@@ -227,23 +227,9 @@ swiper-container {
     padding-top: 60px;
   }
 
-  /* .app-card-vacancy-link {
-    width: 100%;
+  .slider-footer {
+    padding-top: 0;
   }
-  .card-container{
-      display: flex;
-      gap: 1rem;
-      flex-direction: column;
-}
-
-.card {
-  text-decoration: none;
-  width: 80vw;
-  display: flex;
-  min-height: 100px;
-  height: auto;
-  box-sizing: border-box;
-  } */
 
   .container {
     &::before {

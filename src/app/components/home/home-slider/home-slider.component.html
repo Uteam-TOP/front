@@ -13,7 +13,7 @@
       <swiper-slide
         >
         <a [routerLink]="getCardUrl(item, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
-          (click)="onCardClick($event, item.id, type)" class="card-container">
+          (click)="onCardClick($event, item, type)" class="card-container">
           @if (type === 'project') {
             @if (item.visibility != 'BAN') {
               <app-project class="card" [cardItem]="item"></app-project>

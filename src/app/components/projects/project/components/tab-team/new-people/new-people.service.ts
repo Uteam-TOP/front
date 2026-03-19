@@ -18,8 +18,8 @@ export class NewPeopleService {
     return this.http.delete<any>(`${environment.apiUrl}/applications/${id}/decline`)
   }
 
-  setApplication(projectId: any, applicationId: any) {
-    return this.http.post<any>(`${environment.apiUrl}/projects/${projectId}/teamMembers?applicationId=${applicationId}`, { })
+  setApplication(projectId: any, applicationId: any, data: any) {
+    return this.http.post<any>(`${environment.apiUrl}/projects/${projectId}/teamMembers?applicationId=${applicationId}`, data)
   }
 
 }

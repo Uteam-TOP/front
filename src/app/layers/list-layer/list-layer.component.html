@@ -1,7 +1,4 @@
 <div class="list-container">
-  @if (type === 'hackathon') {
-    <app-not-found></app-not-found>
-  } @else {
     <div class="list-manage">
       <div class="list-manage__sort">
         <img src="assets/icons/sort.svg" alt="Сортировка">
@@ -26,8 +23,8 @@
         <div class="list-cards-col">
           @for (item of column; track item.id) {
             <div class="card-item">
-              <a [href]="getCardUrl(item.id, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
-                 (click)="onCardClick($event, item.id, type)">
+              <a [routerLink]="getCardUrl(item, type, type)" [class]="type === 'resume' ? 'app-card-resume-link' : 'app-card-vacancy-link'"
+                 (click)="onCardClick($event, item, type)" class="card-container">
 
                 @if (type === 'project') {
                   @if (item.visibility != 'BAN') {
@@ -46,12 +43,23 @@
                     <lib-resume class="card" [cardItem]="item" [visibleSections]="resumeVisibleSections"> </lib-resume>
                   }
                 }
+
+                @if (type === 'hackathon') {
+                  @if (item.visibility != 'BAN') {
+                    <app-hackathon-card [cardItem]="item"></app-hackathon-card>
+                  }
+                }
+
+                @if (type === 'news') {
+                  @if (item.visibility != 'BAN') {
+                    <app-projects-news [newsItem]="item"></app-projects-news>
+                  }
+                }
               </a>
             </div>
           }
         </div>
       }
     </div>
-  }
 </div>
 

@@ -35,7 +35,7 @@ export class MenuNavComponent implements OnInit {
   private _routeHistory: string[] = [];
 
   // Pages where the main menu is displayed
-  showMainMenuFor: string[] = ['/vacancies', '/hackathons', '/projects', '/resumes'];
+  showMainMenuFor: string[] = ['/vacancies', '/hackathons', '/projects', '/resumes', '/news'];
 
   currentUserLogo: any;
   buttonsConfig: { label: string, class: string, action: () => void }[] = [];
@@ -243,7 +243,7 @@ isImageAvatar(logo: any): boolean {
     if (this.activeTopic === 'dark') {
       document.documentElement.style.setProperty('--background', '#333334');
       document.documentElement.style.setProperty('--background-card', 'rgba(72, 72, 72)');
-      document.documentElement.style.setProperty('--card-hover', '#5a4bb8');
+      document.documentElement.style.setProperty('--card-hover', '#3c356e');
       document.documentElement.style.setProperty('--font-color', '#fff');
       document.documentElement.style.setProperty('--background-archive', 'rgba(255, 255, 255, 0.05)');
       document.documentElement.style.setProperty('--card-archive', 'rgba(255, 255, 255, 0.1)');
@@ -262,6 +262,7 @@ isImageAvatar(logo: any): boolean {
       document.documentElement.style.setProperty('--button-profile-background', 'rgba(0, 0, 0, .2)');
       document.documentElement.style.setProperty('--button-profile-border', '1px solid #806BFF');
       document.documentElement.style.setProperty('--button-profile-color', '#806BFF');
+      document.documentElement.style.setProperty('--elements-bg', '#4a3e8e');
     } else {
       document.documentElement.style.setProperty('--background', '#f2f2f2');
       document.documentElement.style.setProperty('--background-card', '#fff');
@@ -284,6 +285,7 @@ isImageAvatar(logo: any): boolean {
       document.documentElement.style.setProperty('--button-profile-background', '#e2e2e2');
       document.documentElement.style.setProperty('--button-profile-border', '0px solid #806BFF');
       document.documentElement.style.setProperty('--button-profile-color', '#101010');
+      document.documentElement.style.setProperty('--elements-bg', '#806bff');
     }
   }
 

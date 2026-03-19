@@ -86,15 +86,7 @@ export class HackathonService {
   page: any = 'home';
 
   getCurrentHackathon(nicknameProject: string): Observable<any> {
-    const token = localStorage.getItem('authToken');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    if(token){
-      return this.http.get<any>(`${environment.apiUrl}/hackathons/byNickname/${nicknameProject}`, { headers })
-    }else{
-      return this.http.get<any>(`${environment.apiUrl}/hackathons/byNickname/${nicknameProject}`)
-    }
+    return this.http.get<any>(`${environment.apiUrl}/hackathons/${nicknameProject}`)
   }
 
 

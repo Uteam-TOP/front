@@ -1,1 +1,20 @@
-<p>hackathon-page works!</p>
+<div class="container">
+  @if (hackathonService.page == 'home') {
+    @if (hackathonData(); as data) {
+      <app-hackathon-screensaver [detailsList]="data"></app-hackathon-screensaver>
+      <app-hackathon-data [dataHackathon]="data"></app-hackathon-data>
+      @if (isAdmin()) {
+        <app-settings-admin [hackathonProjects]="hackathonProjects()"></app-settings-admin>
+      }
+      <div class="people">
+        <app-commandsHack [projects]="hackathonProjects()"></app-commandsHack>
+        <app-party [members]="wishingMembers()"></app-party>
+      </div>
+    }
+  }
+
+
+  @if (hackathonService.page == 'manage') {
+    <app-manage-list-participants [commands]="hackathonProjects()" [members]="wishingMembers()"></app-manage-list-participants>
+  }
+</div>

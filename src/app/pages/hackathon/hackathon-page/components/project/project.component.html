@@ -1,0 +1,14 @@
+@if (item) {
+  <div class="container" (click)="onAvatarClick($event, item.id)" [ngClass]="{'is-selected' : isSelected}" >
+    <div class="checkbox-container">
+      <input type="checkbox" [checked]="isSelected" class="custom-checkbox" />
+    </div>
+    <div class="image-container">
+      <img [src]="item.avatarLink | avatar" alt="avatar">
+      <div style="display: flex; flex-direction: column; gap: 5px;">
+        <span class="name">Команда</span>
+        <span class="name">{{item.title}}</span>
+      </div>
+    </div>
+  </div>
+}

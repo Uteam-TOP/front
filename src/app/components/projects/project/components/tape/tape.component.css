@@ -144,3 +144,9 @@ textarea:active {
   color: var(--font-color);
   opacity: 0.8;
 }
+
+.highlight {
+  background: #eef2f7;
+  padding: 7px;
+  border-radius: 10px;
+}

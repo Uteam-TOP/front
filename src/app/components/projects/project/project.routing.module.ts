@@ -6,6 +6,9 @@ const routes: Routes = [
   {
     path: '', component: ProjectComponent,
   },
+  {
+    path: 'post/:postId', component: ProjectComponent,
+  },
   { path: '**', redirectTo: '/error' }
 
 ];

@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {HackathonRoutingModule} from "./hackathon-routing.module";
-
-
+import {HackathonComponent} from "./hackathon.component";
+import {RouterOutlet} from "@angular/router";
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    HackathonComponent
+  ],
   imports: [
     CommonModule,
-    HackathonRoutingModule
+    HackathonRoutingModule,
+    RouterOutlet
   ]
 })
 export class HackathonModule { }
