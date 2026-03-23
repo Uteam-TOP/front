@@ -31,9 +31,14 @@
 }
 
 .container:hover {
-    box-shadow: 2px 4px 8px 0 rgba(40, 40, 40, 0.1); 
+    box-shadow: 2px 4px 8px 0 rgba(40, 40, 40, 0.1);
 }
 
 .container:hover .avatar {
-    transform: scale(1.1); 
+    transform: scale(1.1);
+}
+
+.user-name {
+  font-size: 12px;
+  font-weight: 600;
 }

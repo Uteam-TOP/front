@@ -8,13 +8,14 @@ import { PopUpErrorCreateService } from '../../../../../components/pop-up-error-
 import { ResumePersonComponent } from '../resume-person/resume-person.component';
 import { NewApplicationService } from './new-application.service';
 import {HackathonService} from "../../../../../core/services/hackathon.service";
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {IProjectDto} from "../../../../../core/models/projectDto";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {ProjectService} from "../project/project.service";
 import {IHackathonDto} from "../../../../../core/models/hackathonDto";
 import {ResumePersonService} from "../resume-person/resume-person.service";
 import {UserService} from "../../../../../core/services/user.service";
+import {SuccessModalComponent} from "../../../../../shared/modals/success-modal/success-modal.component";
 
 @Component({
   selector: 'app-new-application',
@@ -34,7 +35,7 @@ export class NewApplicationComponent implements OnInit {
   private projectService = inject(ProjectService);
   private resumePersonService = inject(ResumePersonService);
   private userService = inject(UserService);
-
+  private dialog = inject(MatDialog);
 
   isPopupOpen = false;
   isPopupsSuccessOpen = false;
@@ -99,7 +100,7 @@ export class NewApplicationComponent implements OnInit {
       }
       if (this.data.hackathon.id) {
         this.hackathonService.addProjectToHackathon(this.data.hackathon.id, addProjectData).subscribe(data => {
-          console.log(data);
+          this.openSuccessModal();
         });
       }
     } else {
@@ -112,16 +113,22 @@ export class NewApplicationComponent implements OnInit {
       }
       if (this.data.hackathon.id) {
         this.hackathonService.addWishingMember(this.data.hackathon.id, addResumeData).subscribe(data => {
-          console.log(data);
+          this.openSuccessModal();
         });
       }
     }
   }
 
-  closePopupSuccess() {
-    this.isPopupsSuccessOpen = false;
-    this.isPopupOpen = false;
-    this.dialogRef.close();
+  openSuccessModal() {
+    let dialogRef = this.dialog.open(SuccessModalComponent, {
+      height: '250px',
+      width: '450px',
+      data: {title: 'ЗАЯВКА ОТПРАВЛЕНА!', text: 'Ожидайте подтверждения от организатора хакатона'},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dialogRef.close();
+    })
   }
 
   handlePostProject(): void {

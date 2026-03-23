@@ -15,7 +15,7 @@ import {
 } from "./components/settings-admin/settings-admin.component";
 import {ActivatedRoute} from "@angular/router";
 import {toSignal} from "@angular/core/rxjs-interop";
-import {map, switchMap} from "rxjs";
+import {delay, map, of, switchMap} from "rxjs";
 import {HackathonService} from "../../../core/services/hackathon.service";
 import {UserService} from "../../../core/services/user.service";
 
@@ -62,7 +62,6 @@ export class HackathonPageComponent implements OnInit {
           this.hackathonProjects.set(data);
         })
         this.hackathonService.getAllWishingMembers(hackathonId).subscribe(data => {
-          console.log('wishingMembers', data);
           this.wishingMembers.set(data);
         })
       }
@@ -82,15 +81,50 @@ export class HackathonPageComponent implements OnInit {
       this.isAdmin.set(result);
     })
 
-    if (this.paramId) {
-      // this.hackathonService.getCurrentHackathon(this.paramId).subscribe((dataProject: any) => {
-      //   this.hackathonService.setCurrentProjectData(dataProject);
-      //   this.projectData = dataProject;
-      // });
-    }
+    this.hackathonService.updateHackathon$.pipe(
+      delay(1000),
+      switchMap(updatedData => {
+        if (updatedData) {
+          if (updatedData.operation === 'add') {
+            if (updatedData.type === 'project') {
+              return this.hackathonService.getAllHackathonProjects(updatedData.hackathonId).pipe(
+                map(hackathonProjects => ({updatedData, items: hackathonProjects}))
+              )
+            } else {
+              return this.hackathonService.getAllWishingMembers(updatedData.hackathonId).pipe(
+                map(hackathonMembers => ({updatedData, items: hackathonMembers}))
+              )
+            }
+          } else {
+            return of({updatedData, items: []});
+          }
+        } else {
+          return of(null);
+        }
+      })
+    ).subscribe((data: any) => {
+      if (data) {
 
-    // console.log(this.wishingMembers());
-    console.log(this.hackathonProjects());
-
+        if (data.items.length) {
+          if (data.updatedData.type === 'project') {
+            this.hackathonProjects.set(data.items);
+          } else {
+            this.wishingMembers.set(data.items);
+          }
+        } else {
+          if (data.updatedData.type === "project") {
+            if (data.updatedData.operation === "delete") {
+              console.log('datadata2', data);
+              this.hackathonProjects.update(commands => commands.filter(command => command.id !== data.updatedData.id))
+            }
+          }
+          if (data.updatedData.type === "member") {
+            if (data.updatedData.operation === "delete") {
+              this.wishingMembers.update(members => members.filter((member: { id: any; }) => member.id !== data.updatedData.id))
+            }
+          }
+        }
+      }
+    })
   }
 }

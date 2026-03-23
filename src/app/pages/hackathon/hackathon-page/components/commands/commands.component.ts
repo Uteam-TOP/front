@@ -10,7 +10,8 @@ export interface IHackathonProject {
   id: number;
   createdAt: number;
   hackathon: IHackathonDto,
-  project: IProjectDto
+  project: IProjectDto,
+  hackathonProjectStatus: string
 }
 
 @Component({

@@ -1,10 +1,8 @@
-import {Component, input} from '@angular/core';
+import {Component, input, output} from '@angular/core';
 import {AvatarPipe} from "../../../../../../shared/pipes/avatar.pipe";
 import {UiButtonComponent} from "../../../../../../shared/ui-components/ui-button/ui-button.component";
 import {IHackathonProject} from "../../commands/commands.component";
 import {DatePipe} from "@angular/common";
-import {ManageListParticipantsService} from "../manage-list-participants.service";
-import {HackathonService} from "../../../../../../components/hackathon/page/hackathon.service";
 
 @Component({
   selector: 'app-participant-card',
@@ -21,6 +19,9 @@ export class ParticipantCardComponent {
   isAwaiting = input<boolean>(true);
   type = input<'command' | 'member'>('command');
 
+  onReject  = output<number>();
+  onAdd = output<IHackathonProject>();
+
   constructor(private datePipe: DatePipe) { }
 
   formatDate(date: any): string {
@@ -32,11 +33,11 @@ export class ParticipantCardComponent {
 
   }
 
-  rejectCommand(id: any) {
-
+  rejectCommand(id: number) {
+    this.onReject.emit(id);
   }
 
-  addCommand(data: any) {
-
+  addCommand(data: IHackathonProject) {
+    this.onAdd.emit(data);
   }
 }

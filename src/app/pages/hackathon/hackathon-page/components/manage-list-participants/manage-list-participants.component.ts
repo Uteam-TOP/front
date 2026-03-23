@@ -1,11 +1,13 @@
 import { DatePipe } from '@angular/common';
-import {Component, inject, input, OnInit} from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, effect, inject, input, model, OnInit} from '@angular/core';
 import { ManageListParticipantsService } from './manage-list-participants.service';
 import {HackathonService} from "../../../../../core/services/hackathon.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {IHackathonProject} from "../commands/commands.component";
 import {ParticipantCardComponent} from "./participant-card/participant-card.component";
+import {MatDialog} from "@angular/material/dialog";
+import {SuccessModalComponent} from "../../../../../shared/modals/success-modal/success-modal.component";
+import {result} from "lodash";
 
 @Component({
   selector: 'app-manage-list-participants',
@@ -17,18 +19,30 @@ import {ParticipantCardComponent} from "./participant-card/participant-card.comp
 })
 export class ManageListParticipantsComponent implements OnInit {
   private hackathonService = inject(HackathonService);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
+  private dialog = inject(MatDialog);
 
-  commands = input.required<IHackathonProject[]>();
+  commands = model.required<IHackathonProject[]>();
   members = input.required<any[]>();
-
-  constructor(public manageListParticipantsService: ManageListParticipantsService) { }
-
   data = toSignal(this.hackathonService.currentHackathonData$);
 
+  requestCommands: IHackathonProject[] = [];
+  requestMembers: any[] = [];
+
+  confirmedCommands: IHackathonProject[] = [];
+  confirmedMembers: any[] = [];
+
+  constructor(public manageListParticipantsService: ManageListParticipantsService) {
+    effect(() => {
+      const commands = this.commands();
+      if (commands.length) {
+        this.confirmedCommands = commands.filter(item => item?.hackathonProjectStatus === 'APPROVED');
+        this.requestCommands = commands.filter(item => item?.hackathonProjectStatus === null);
+      }
+    });
+  }
+
+
   ngOnInit(): void {
-    console.log('test');
     if (this.data()) {
       const data = this.data();
 
@@ -62,13 +76,34 @@ export class ManageListParticipantsComponent implements OnInit {
         });
       }
     }
+  }
 
+  rejectProject(id: number) {
+    this.hackathonService.deleteProjectToHackathon(id, this.data()?.id).subscribe(result => {
+      this.openDialog('Заявка отклонена')
+    });
+  }
 
-
+  acceptProject(data: IHackathonProject) {
+    data.hackathonProjectStatus = 'APPROVED';
+    const hackathonId = this.data()?.id as number;
+    this.hackathonService.updateProjectOfHackathon(hackathonId, data).subscribe(result=> {
+      this.openDialog('Заявка принята');
+    })
   }
 
   closeManage() {
     this.hackathonService.page = 'home'
+  }
+
+  openDialog(title: string, text: string = '') {
+    let dialogRef = this.dialog.open(SuccessModalComponent, {
+      height: '200px',
+      width: '400px',
+      data: {title, text},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {})
   }
 
 }

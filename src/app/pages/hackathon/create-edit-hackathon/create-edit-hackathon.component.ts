@@ -52,7 +52,7 @@ export class CreateEditHackathonComponent {
   isError: boolean = false;
   oldNickname: string = '';
   cancel_btn: boolean = false;
-  projectData: any = null;
+  projectData: IHackathonDto = {} as IHackathonDto;
   isLoading = false;
   imageLink: any;
   errorMessages: string = '';
@@ -173,7 +173,7 @@ export class CreateEditHackathonComponent {
 
   setAvatar(file: any, endpoint: string): void {
     const formData = new FormData();
-    formData.append('avatar', file);
+    formData.append('file', file);
 
     this.createEditProjectsService.setAvatar(formData, endpoint, this.projectData.id).subscribe({
       next: (response) => {
@@ -290,19 +290,23 @@ export class CreateEditHackathonComponent {
       };
 
       if (isEdit) {
-        newData.id = this.id();
-        this.hackathonService.editHackathon(newData, this.id()).subscribe((data: any) => {
+        newData.id = this.projectData.id;
+        this.hackathonService.editHackathon(newData, this.projectData.id).subscribe((data: any) => {
           if (this.imageLink) {
             this.setAvatar(this.imageLink, 'image');
           }
-          void this.router.navigate(['project', data.nickname]);
+          setTimeout(() => {
+            void this.router.navigate(['hackathon', data.nickname]);
+          }, 1000)
         })
       } else {
         this.hackathonService.createHackathon(newData).subscribe((data: any) => {
           if (this.imageLink) {
             this.setAvatar(this.imageLink, 'image');
           }
-          this.router.navigate(['project', data.nickname]);
+          setTimeout(() => {
+            void this.router.navigate(['hackathon', data.nickname]);
+          }, 1000)
         })
       }
     } else {

@@ -16,15 +16,16 @@
       новые заявки от команд
     </div>
     <div class="new-commands">
-      @if (commands(); as teamRequests) {
-        @if (teamRequests.length) {
-          @for (item of teamRequests; track item) {
-            <app-participant-card [data]="item"
-            ></app-participant-card>
-          }
-        } @else {
-          <p>Заявок нет.</p>
+      @if (requestCommands.length) {
+        @for (item of requestCommands; track item) {
+          <app-participant-card
+            [data]="item"
+            (onReject)="rejectProject($event)"
+            (onAdd)="acceptProject($event)"
+          ></app-participant-card>
         }
+      } @else {
+        <p>Заявок нет.</p>
       }
     </div>
 
@@ -39,7 +40,17 @@
       список команд
     </div>
     <div class="new-commands">
-      <p>Команд пока нет.</p>
+      @if (confirmedCommands.length) {
+        @for (item of confirmedCommands; track item) {
+          <app-participant-card
+            [data]="item"
+            (onReject)="rejectProject($event)"
+            [isAwaiting]="false"
+          ></app-participant-card>
+        }
+      } @else {
+        <p>Заявок нет.</p>
+      }
     </div>
 
     <div class="block-title">
