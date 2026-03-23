@@ -273,6 +273,12 @@ textarea::placeholder {
   }
 }
 
+.is-loading {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+
 
 @media (max-width: 361px) {
   .container-elements-left-text {

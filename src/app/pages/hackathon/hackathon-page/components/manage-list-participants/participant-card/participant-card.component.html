@@ -17,18 +17,21 @@
         участников
       </div>
       <div class="btns">
-        <ui-button
-          [size]="'small'"
-          [type]="'grey'"
-          (click)="rejectCommand(data.id)">
-          Отклонить
-        </ui-button>
-        <ui-button
-          [size]="'small'"
-          [type]="'green'"
-          (click)="addCommand(data)">
-          + Добавить
-        </ui-button>
+        @if (isAwaiting()) {
+          <ui-button
+            [size]="'small'"
+            [type]="'grey'"
+            (click)="rejectCommand(data.id)">
+            Отклонить
+          </ui-button>
+          <ui-button
+            [size]="'small'"
+            [type]="'green'"
+            (click)="addCommand(data)">
+            + Добавить
+          </ui-button>
+        }
+
       </div>
     </div>
   </div>

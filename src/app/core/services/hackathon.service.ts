@@ -6,6 +6,7 @@ import {IHackathonDto} from "../models/hackathonDto";
 import {IHackathonTeamMemberDto} from "../models/hackathonTeamMemberDto";
 import {IUserRoles, UserDto} from "../models/userDto";
 import {IProjectDto} from "../models/projectDto";
+import {IHackathonProject} from "../../pages/hackathon/hackathon-page/components/commands/commands.component";
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,13 @@ export class HackathonService {
   page: any = 'home';
 
   private currentHackathonIsOwnerSubject = new BehaviorSubject<boolean>(false);
-  public currentHackathonIsOwner$: Observable<any> = this.currentHackathonIsOwnerSubject.asObservable();
+  public currentHackathonIsOwner$: Observable<boolean> = this.currentHackathonIsOwnerSubject.asObservable();
 
   private currentHackathonDataSubject = new BehaviorSubject<IHackathonDto>({} as IHackathonDto);
   public currentHackathonData$: Observable<IHackathonDto> = this.currentHackathonDataSubject.asObservable();
+
+  private updateHackathonSubject = new BehaviorSubject<any>(null);
+  public updateHackathon$: Observable<any> = this.updateHackathonSubject.asObservable();
 
   constructor() { }
 
@@ -28,6 +32,17 @@ export class HackathonService {
 
   setCurrentHackathonData(data: IHackathonDto): void {
     this.currentHackathonDataSubject.next(data);
+  }
+
+  updateHackathon(
+    type: 'member' | 'project',
+    operation: 'add' | 'delete',
+    data: any,
+    id: number = 0,
+    hackathonId: number = 0,
+  ): void {
+    const dataObj = {type, id, operation, data, hackathonId};
+    this.updateHackathonSubject.next(dataObj);
   }
 
   setCurrentHackathonOwner(data: IHackathonDto): void {
@@ -54,7 +69,7 @@ export class HackathonService {
     return this.http.post<any>(`${environment.apiUrl}/hackathons/add`, data)
   }
 
-  editHackathon(data: IHackathonDto, id: number | string): Observable<any> {
+  editHackathon(data: IHackathonDto, id?: number): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/hackathons/update/${id}`, data)
   }
 
@@ -76,6 +91,17 @@ export class HackathonService {
 
   addProjectToHackathon(hackathonId: number, data: {hackathon: IHackathonDto, project: IProjectDto}): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/hackathon-projects/${hackathonId}/add-project`, data)
+      .pipe(map(data => this.updateHackathon('project', 'add', data, data.project.id, hackathonId)))
+  }
+
+  updateProjectOfHackathon(hackathonId: number, data: IHackathonProject): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/hackathon-projects/${hackathonId}/update-project?hackathonProjectStatus=${data.hackathonProjectStatus}`, data)
+      .pipe(map(data => this.updateHackathon('project', 'add', data, data.project.id, hackathonId)))
+  }
+
+  deleteProjectToHackathon(projectId: number, hackathonId?: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/hackathon-projects/${projectId}`)
+      .pipe(map(data => this.updateHackathon('project', 'delete', {}, projectId)))
   }
 
   /* Hackathon Participant Will */
@@ -86,5 +112,6 @@ export class HackathonService {
 
   addWishingMember(hackathonId: number, data: any): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/hackathon-wishing/${hackathonId}/add-member`, data)
+      .pipe(map(data => this.updateHackathon('member', 'add', data, data.id, hackathonId)))
   }
 }

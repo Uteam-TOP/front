@@ -33,6 +33,10 @@
     z-index: 1 !important;
 }
 
+::ng-deep .mat-mdc-dialog-surface {
+  border-radius: 20px
+}
+
 
 /* Адаптивные стили для мобильных устройств */
 @media (max-width: 768px) {

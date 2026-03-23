@@ -25,7 +25,7 @@ export class SettingsAdminComponent {
 
   constructor() {
     effect(() => {
-      this.waitingCounts = this.hackathonProjects().length;
+      this.waitingCounts = this.hackathonProjects().filter((project: any) => project.hackathonProjectStatus === null).length;
     });
   }
 
