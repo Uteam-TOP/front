@@ -35,13 +35,14 @@ export class HackathonDataComponent implements OnInit{
     }
   }
 
-  formatRussianDate(date: Date | string): string {
+  formatRussianDate(date: number): string {
+    console.log('date', date);
     const months = [
       'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
       'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
     ];
 
-    const d = new Date(date);
+    const d = new Date((date*1000));
     const day = d.getDate();
     const month = months[d.getMonth()];
     const year = d.getFullYear();

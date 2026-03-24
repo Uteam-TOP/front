@@ -261,9 +261,11 @@ export class CreateEditHackathonComponent {
   }
 
   submitForm(): void {
-    const isEdit = !!this.projectData;
+    const isEdit = !!this.projectData.id;
     this.submitAttempted = true;
     this.isLoading = true;
+
+    console.log('this.projectData', isEdit, this.projectData);
 
     this.form.value.startDate = this.formatDate(this.form.value.startDate);
     this.form.value.endDate = this.formatDate(this.form.value.endDate);
