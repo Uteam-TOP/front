@@ -1,9 +1,19 @@
-<div class="container">
+@if (item(); as item) {
+  <div class="container" [ngClass]="{'blocked-button': item.hackathonProjectStatus !== 'APPROVED'}">
     <div class="avatar-wrapper">
-        <img [src]="item.avatarLink | avatar" alt="Avatar" class="avatar" />
-        <div style="display: flex; flex-direction: column; gap: 5px;">
-            <span class="name">Команда</span>
-            <span class="name">{{item.title}}</span>
-        </div>
+      <img [src]="item.project.avatarLink | avatar" alt="Avatar" class="avatar" />
+      <div style="display: flex; flex-direction: column; gap: 5px;">
+        @if (item.hackathonProjectStatus === 'APPROVED') {
+          <span class="name">Команда</span>
+          <span class="name">{{item.project.title}}</span>
+        } @else {
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <span class="name">Команда {{item.project.title}} </span>
+            <span class="name">ожидает одобрения</span>
+          </div>
+        }
+      </div>
     </div>
-</div>
+  </div>
+
+}

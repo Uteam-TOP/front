@@ -1,6 +1,7 @@
 import {RouterModule, Routes} from "@angular/router";
 import {NgModule} from "@angular/core";
 import {HackathonComponent} from "./hackathon.component";
+import {AuthGuard} from "../../components/personal-account/auth.guard";
 
 const routes: Routes = [
   {
@@ -14,11 +15,13 @@ const routes: Routes = [
       },
       {
         path: 'create',
-        loadComponent: () => import('./create-edit-hackathon/create-edit-hackathon.component').then(m => m.CreateEditHackathonComponent)
+        loadComponent: () => import('./create-edit-hackathon/create-edit-hackathon.component').then(m => m.CreateEditHackathonComponent),
+        canActivate: [AuthGuard]
       },
       {
         path: 'edit/:id',
-        loadComponent: () => import('./create-edit-hackathon/create-edit-hackathon.component').then(m => m.CreateEditHackathonComponent)
+        loadComponent: () => import('./create-edit-hackathon/create-edit-hackathon.component').then(m => m.CreateEditHackathonComponent),
+        canActivate: [AuthGuard]
       },
       {
         path: ':id',

@@ -1,15 +1,18 @@
-import { Component, Input } from '@angular/core';
+import {Component, input, Input} from '@angular/core';
 import {AvatarPipe} from "../../../../../../shared/pipes/avatar.pipe";
+import {NgClass} from "@angular/common";
+import {IHackathonProject} from "../commands.component";
 
 @Component({
   selector: 'app-commands-item',
   standalone: true,
-    imports: [
-        AvatarPipe
-    ],
+  imports: [
+    AvatarPipe,
+    NgClass
+  ],
   templateUrl: './commands-item.component.html',
   styleUrl: './commands-item.component.css'
 })
 export class CommandsItemComponent {
-  @Input() item: any;
+  item = input.required<IHackathonProject>()
 }
