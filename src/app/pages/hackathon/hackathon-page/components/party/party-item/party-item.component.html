@@ -1,21 +1,29 @@
-<div class="container">
+@if (item) {
+  <div class="container" [ngClass]="{'blocked-button' : item.hackathonProjectStatus === 'SUBMITTED'}">
     <div class="avatar-wrapper">
-        <img [src]="item.user.imageLink | avatar" alt="Avatar" class="avatar" />
-        <div style="
+      <img [src]="item.user?.imageLink | avatar" alt="Avatar" class="avatar" />
+      <div style="
             display: flex;
             flex-direction: column;
             gap: 5px;
             justify-content: space-between;">
-            <div class="user-name"
-                style="display: flex; flex-wrap: wrap; flex-direction: column; justify-content: flex-end; margin-bottom: 2px;">
-                <p class="fullName" style="margin: 0;">
-                    {{item?.user?.lastName}}
-                </p>
-                <p class="fullName" style="margin: 0;">
-                    {{item?.user?.firstName}}
-                </p>
-            </div>
-            <span class="profession">Администратор</span>
+        <div class="user-name"
+             style="display: flex; flex-wrap: wrap; flex-direction: column; justify-content: flex-end; margin-bottom: 2px;">
+          <p class="fullName" style="margin: 0;">
+            {{item.user?.lastName}}
+          </p>
+          <p class="fullName" style="margin: 0;">
+            {{item.user?.firstName}}
+          </p>
         </div>
+        @if (item.hackathonProjectStatus === 'SUBMITTED') {
+          <span class="profession">ожидает одобрения</span>
+        } @else {
+          <span class="profession">{{item.resume?.profession?.name}}</span>
+        }
+
+      </div>
     </div>
-</div>
+  </div>
+}
+

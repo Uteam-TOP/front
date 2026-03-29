@@ -1,0 +1,17 @@
+<div class="popup">
+  <span class="close" mat-dialog-close>&times;</span>
+  <div class="popup-content">
+    <p id="title">
+      {{data.title}}
+    </p>
+    @if (data.text) {
+      <p>
+        {{data.text}}
+      </p>
+    }
+    <div class="popup-buttons">
+      <span [mat-dialog-close]="true"><ui-button [type]="'green'" [size]="'large'">Да</ui-button></span>
+      <span mat-dialog-close><ui-button [type]="'grey'" [size]="'large'">Нет</ui-button></span>
+    </div>
+  </div>
+</div>

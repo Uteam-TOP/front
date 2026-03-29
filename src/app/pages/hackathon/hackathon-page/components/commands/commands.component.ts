@@ -3,16 +3,7 @@ import {Component, effect, input, OnInit} from '@angular/core';
 import { CommandsItemComponent } from './commands-item/commands-item.component';
 import { CommandsService } from './commands.service';
 import { HackathonService } from '../../../../../components/hackathon/page/hackathon.service';
-import {IHackathonDto} from "../../../../../core/models/hackathonDto";
-import {IProjectDto} from "../../../../../core/models/projectDto";
-
-export interface IHackathonProject {
-  id: number;
-  createdAt: number;
-  hackathon: IHackathonDto,
-  project: IProjectDto,
-  hackathonProjectStatus: string
-}
+import {IHackathonProject} from "../../../../../core/models/hackathons";
 
 @Component({
   selector: 'app-commandsHack',

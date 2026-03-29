@@ -17,7 +17,7 @@
     margin-top: 18px;
 }
 
-#btn {
+.btn {
     display: flex;
     align-items: center;
     border-radius: 300px;
@@ -29,6 +29,10 @@
     line-height: 120%;
     color: #101010;
     cursor: pointer;
+
+  img {
+    margin-right: 10px;
+  }
 }
 
 

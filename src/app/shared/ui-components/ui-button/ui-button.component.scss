@@ -34,7 +34,7 @@
       background: var(--green);
       color: white;
       height: auto;
-      padding: 9px 26px !important;
+      padding: 9px 26px;
     }
 
     &.type-green-border {
@@ -48,6 +48,11 @@
     &.type-grey {
       background: rgba(226, 226, 226, 1);
       color: rgba(16, 16, 16, 1);
+    }
+
+    &.type-red {
+      background: #e84e4e;
+      color: white;
     }
 
     .icon-arrow {

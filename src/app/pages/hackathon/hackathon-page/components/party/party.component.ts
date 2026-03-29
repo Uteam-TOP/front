@@ -4,6 +4,7 @@ import { PartyItemComponent } from './party-item/party-item.component';
 import { PartyService } from './party.service';
 import { HackathonService } from '../../../../../components/hackathon/page/hackathon.service';
 import {IHackathonTeamMemberDto} from "../../../../../core/models/hackathonTeamMemberDto";
+import {IHackathonMember} from "../../../../../core/models/hackathons";
 
 @Component({
   selector: 'app-party',
@@ -14,7 +15,7 @@ import {IHackathonTeamMemberDto} from "../../../../../core/models/hackathonTeamM
 })
 export class PartyComponent implements OnInit{
 
-  members = input<IHackathonTeamMemberDto[]>()
+  members = input<IHackathonMember[]>()
 
   constructor(){}
 

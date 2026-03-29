@@ -1,0 +1,46 @@
+<div class="content">
+  <span class="title">{{ hackathon().title }}</span>
+  <div class="closed">
+    <a (click)="closeNominationsForm()">
+      <img src="assets/icons/arrow_button_b.svg" alt="arrow" />
+      вернуться
+    </a>
+  </div>
+
+  <div class="block-title">создать номинации</div>
+
+  <div class="container">
+    <form>
+      <div class="container-elements">
+        <div class="container-elements-full">
+          <div class="container-elements-full-gruopInputs">
+            @for (control of controls; track $index; let i = $index) {
+              <div class="container-elements-full-gruopInputs-items" [formGroup]="$any(control)">
+                <div class="container-elements-full-gruopInputs-items-block">
+                  <p class="container-elements-full-gruopInputs-items-block-title">
+                    Название номинации или приза:
+                  </p>
+                  <input class="container-elements-full-gruopInputs-items-block-input" type="text"
+                         placeholder="Введите название номинации" formControlName="name" />
+                  <app-input-error [formElement]="control.get('name')" [inputName]="'Название'"></app-input-error>
+                </div>
+                <div class="container-elements-full-gruopInputs-items-block">
+                  <p class="container-elements-full-gruopInputs-items-block-title">
+                    Пояснение:
+                  </p>
+                  <input class="container-elements-full-gruopInputs-items-block-input" type="text"
+                         placeholder="Введите пояснение" formControlName="description" />
+                  <app-input-error [formElement]="control.get('description')" [inputName]="'Пояснение'"></app-input-error>
+                </div>
+              </div>
+            }
+
+            <div class="buttons">
+              <ui-button [type]="'grey'" [size]="'large'" (click)="submitForm()">Сохранить</ui-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

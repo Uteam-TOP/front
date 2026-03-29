@@ -36,7 +36,6 @@ export class HackathonDataComponent implements OnInit{
   }
 
   formatRussianDate(date: number): string {
-    console.log('date', date);
     const months = [
       'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
       'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'

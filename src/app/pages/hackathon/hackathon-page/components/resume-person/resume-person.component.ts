@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {Component, EventEmitter, inject, input, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, inject, input, Input, Output} from '@angular/core';
 import {ResumePersonService} from "./resume-person.service";
 import {resumeVacancyDto} from "../../../../../core/models/resumeVacancyDto";
 
@@ -8,7 +8,8 @@ import {resumeVacancyDto} from "../../../../../core/models/resumeVacancyDto";
   standalone: true,
   imports: [CommonModule],
   templateUrl: './resume-person.component.html',
-  styleUrl: './resume-person.component.css'
+  styleUrl: './resume-person.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResumePersonComponent {
 

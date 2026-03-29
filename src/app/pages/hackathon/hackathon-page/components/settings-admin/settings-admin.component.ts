@@ -1,4 +1,4 @@
-import {Component, effect, inject, input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, effect, inject, input} from '@angular/core';
 import { PopupDeleteComponent } from '../popup-delete/popup-delete.component';
 
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
@@ -10,7 +10,8 @@ import {HackathonService} from "../../../../../core/services/hackathon.service";
   standalone: true,
   imports: [PopupDeleteComponent, CollectingApplicationsComponent, RouterLink],
   templateUrl: './settings-admin.component.html',
-  styleUrl: './settings-admin.component.css'
+  styleUrl: './settings-admin.component.css',
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingsAdminComponent {
   private hackathonService = inject(HackathonService);
@@ -31,6 +32,10 @@ export class SettingsAdminComponent {
 
   openManage() {
     this.hackathonService.page = 'manage'
+  }
+
+  openNominationsForm() {
+    this.hackathonService.page = 'nominations-form'
   }
 
   // getWaitingCounts(): number {

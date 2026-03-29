@@ -32,6 +32,19 @@
     line-height: 120%;
     color: #fff;
   }
+
+}
+
+.level-border {
+  margin: 0;
+  border: 2px solid #fad305;
+  padding: 4px 6px;
+  border-radius: 5px;
+  font-family: var(--font-Monts);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 100%;
+  color: var(--font-color);
 }
 
 .motivations {

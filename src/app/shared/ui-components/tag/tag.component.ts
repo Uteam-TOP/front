@@ -13,6 +13,7 @@ import { NgClass, NgStyle } from "@angular/common";
 })
 export class TagComponent {
   @Input() tag: any;
+  @Input() type?: 'default' | 'lvl' = 'default';
 
   getTagText(item: number): string {
     switch (item) {
@@ -22,6 +23,19 @@ export class TagComponent {
         return 'Mdl';
       case 3:
         return 'Snr';
+      default:
+        return '';
+    }
+  }
+
+  getTagTextFull(item: number): string {
+    switch (item) {
+      case 1:
+        return 'Junior';
+      case 2:
+        return 'Middle';
+      case 3:
+        return 'Senior';
       default:
         return '';
     }
