@@ -17,7 +17,7 @@ export interface IHackathonDto {
     imageLink?: string;
     shortDescription?: string;
     format: HackathonDto.FormatEnum;
-    startDate: any;
+    startDate: number;
     endDate: any;
     registrationStartDate?: any;
     registrationDeadline: any;
@@ -32,17 +32,12 @@ export interface IHackathonDto {
     customLink?: string;
     telegram?: string;
     registrationStatus: HackathonDto.RegistrationStatusEnum;
-    createdAt?: string;
+    createdAt: number;
     hasApplied?: boolean;
     avatarLink?: string;
     creator: UserDto;
 }
 
-export enum RoleEnum {
-  Admin  = 'HACKATHON_ADMIN',
-  Moderator  = 'HACKATHON_PROJECT_ADMIN',
-  User  = 'HACKATHON_USER',
-}
 export namespace HackathonDto {
     export const FormatEnum = {
         Online: 'ONLINE',

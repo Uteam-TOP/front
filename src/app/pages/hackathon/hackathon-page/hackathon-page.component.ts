@@ -1,5 +1,5 @@
-import {Component, effect, inject, OnInit, signal} from '@angular/core';
-import {CommandsHackComponent, IHackathonProject} from "./components/commands/commands.component";
+import {ChangeDetectionStrategy, Component, effect, inject, OnInit, signal} from '@angular/core';
+import {CommandsHackComponent} from "./components/commands/commands.component";
 import {
     HackathonDataComponent
 } from "./components/hackathon-data/hackathon-data.component";
@@ -18,6 +18,8 @@ import {toSignal} from "@angular/core/rxjs-interop";
 import {delay, map, of, switchMap} from "rxjs";
 import {HackathonService} from "../../../core/services/hackathon.service";
 import {UserService} from "../../../core/services/user.service";
+import {IHackathonProject} from "../../../core/models/hackathons";
+import {CreateEditNominationsComponent} from "./components/create-edit-nominations/create-edit-nominations.component";
 
 @Component({
   selector: 'app-hackathon-page',
@@ -29,9 +31,11 @@ import {UserService} from "../../../core/services/user.service";
     PartyComponent,
     ScreensaverHackComponent,
     SettingsAdminComponent,
+    CreateEditNominationsComponent,
   ],
   templateUrl: './hackathon-page.component.html',
-  styleUrl: './hackathon-page.component.scss'
+  styleUrl: './hackathon-page.component.scss',
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HackathonPageComponent implements OnInit {
 

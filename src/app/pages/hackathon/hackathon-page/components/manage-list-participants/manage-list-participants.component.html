@@ -17,11 +17,13 @@
     </div>
     <div class="new-commands">
       @if (requestCommands.length) {
-        @for (item of requestCommands; track item) {
+        @for (item of requestCommands; track item.id) {
           <app-participant-card
             [data]="item"
-            (onReject)="rejectProject($event)"
-            (onAdd)="acceptProject($event)"
+            [type]="'team'"
+            [isAwaiting]="true"
+            (onRejectTeam)="rejectProject($event)"
+            (onAddTeam)="acceptProject($event)"
           ></app-participant-card>
         }
       } @else {
@@ -33,7 +35,20 @@
       новые заявки от участников
     </div>
     <div class="new-commands">
-      <p>Заявок нет.</p>
+      @if (requestMembers.length) {
+        @for (item of requestMembers; track item) {
+          <app-participant-card
+            [data]="item"
+            [type]="'member'"
+            [isAwaiting]="true"
+            (onRejectMember)="rejectMember($event)"
+            (onAddMember)="addMember($event)"
+          ></app-participant-card>
+        }
+      } @else {
+        <p>Заявок нет.</p>
+      }
+
     </div>
 
     <div class="block-title">
@@ -44,8 +59,7 @@
         @for (item of confirmedCommands; track item) {
           <app-participant-card
             [data]="item"
-            (onReject)="rejectProject($event)"
-            [isAwaiting]="false"
+            (onRejectTeam)="rejectProject($event)"
           ></app-participant-card>
         }
       } @else {
@@ -57,7 +71,20 @@
       список участников
     </div>
     <div class="new-commands">
-      <p>Участников пока нет.</p>
+      @if (confirmedMembers.length) {
+        @for (item of confirmedMembers; track item) {
+          <app-participant-card
+            [data]="item"
+            [type]="'member'"
+            (onRejectMember)="rejectMember($event)"
+            (onSetModerator)="setModerator($event)"
+            (onRemoveModerator)="removeModerator($event)"
+          ></app-participant-card>
+        }
+      } @else {
+        <p>Участников пока нет.</p>
+      }
+
     </div>
   </div>
 }

@@ -4,6 +4,7 @@ import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../../../environment';
 import { PopUpEntryService } from '../../pop-up-entry/pop-up-entry.service';
+import {IHackathonDto} from "../../../core/models/hackathonDto";
 
 @Component({
   selector: 'app-hackathon-card',
@@ -14,26 +15,15 @@ import { PopUpEntryService } from '../../pop-up-entry/pop-up-entry.service';
 })
 export class HackathonCadComponent {
 
-  @Input() cardItem: any;
-  isLiked = false;
+  @Input() cardItem: IHackathonDto = {} as IHackathonDto;
 
-  constructor(private router: Router,
-    private http: HttpClient,
-    private cdr: ChangeDetectorRef,
-    private popUpEntryService: PopUpEntryService) { }
+  constructor() { }
 
   type: any[] = [
     { name: 'Стартап', type: 'STARTUP' },
     { name: 'Компания', type: 'COMPANY' },
     { name: 'Разовый проект', type: 'ONE_TIME_PROJECT' },
   ];
-
-  getTypeName(type: string): string {
-    const found = this.type.find(item => item.type === type);
-    return found ? found.name : 'Неизвестный тип';
-  }
-
-
 
   getFormatText(format: string): string {
     switch(format) {
@@ -44,54 +34,4 @@ export class HackathonCadComponent {
     }
   }
 
-  formatRussianDate(date: Date | string): string {
-    const months = [
-      'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-      'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
-    ];
-
-    const d = new Date(date);
-    const day = d.getDate();
-    const month = months[d.getMonth()];
-    const year = d.getFullYear();
-
-    return `${day} ${month}`;
-  }
-
-  toggleLike(event: Event) {
-    event.stopPropagation();
-    event.preventDefault();
-    let userData = localStorage.getItem('authToken');
-    let userNickname = localStorage.getItem('userNickname');
-    if (!userData && !userNickname) {
-      this.popUpEntryService.showDialog();
-      return;
-    }
-    const url = `${environment.apiUrl}/projects/${this.cardItem.id}/like`;
-    const method = 'PUT';
-    const token = localStorage.getItem('authToken');
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    this.http.request(method, url, { headers }).subscribe(() => {
-      this.cardItem.userLike = !this.cardItem.userLike;
-      this.cardItem.likesCount += this.cardItem.userLike ? 1 : -1;
-      this.cdr.detectChanges();
-    }, error => {
-      console.error('Ошибка при отправке лайка:', error);
-    });
-  }
-
-  viewUser(event: Event, id: string) {
-    event.stopPropagation();
-    event.preventDefault();
-    this.router.navigate([``, id]);
-  }
-
-  viewJob(event: Event, id: string) {
-    event.stopPropagation();
-    event.preventDefault();
-    this.router.navigate([`/vacancy/`, id]);
-  }
 }

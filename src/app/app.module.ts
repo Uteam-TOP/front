@@ -15,6 +15,10 @@ import {MainMenuComponent} from "./components/main-menu/main-menu.component";
 import {authInterceptor} from "./core/interceptors/auth-token.interceptor";
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MAT_DATE_LOCALE, provideNativeDateAdapter} from "@angular/material/core";
+import {registerLocaleData} from "@angular/common";
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu);
 
 @NgModule({
   declarations: [

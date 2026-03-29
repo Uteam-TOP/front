@@ -1,7 +1,7 @@
 import {Component, input, Input} from '@angular/core';
 import {AvatarPipe} from "../../../../../../shared/pipes/avatar.pipe";
 import {NgClass} from "@angular/common";
-import {IHackathonProject} from "../commands.component";
+import {IHackathonProject} from "../../../../../../core/models/hackathons";
 
 @Component({
   selector: 'app-commands-item',

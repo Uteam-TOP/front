@@ -1,12 +1,12 @@
 import {inject, Injectable} from '@angular/core';
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {environment} from "../../../environment";
-import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {IHackathonDto} from "../models/hackathonDto";
 import {IHackathonTeamMemberDto} from "../models/hackathonTeamMemberDto";
-import {IUserRoles, UserDto} from "../models/userDto";
+import {UserDto} from "../models/userDto";
 import {IProjectDto} from "../models/projectDto";
-import {IHackathonProject} from "../../pages/hackathon/hackathon-page/components/commands/commands.component";
+import {IHackathonMember, IHackathonProject} from "../models/hackathons";
 
 @Injectable({
   providedIn: 'root'
@@ -113,5 +113,22 @@ export class HackathonService {
   addWishingMember(hackathonId: number, data: any): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/hackathon-wishing/${hackathonId}/add-member`, data)
       .pipe(map(data => this.updateHackathon('member', 'add', data, data.id, hackathonId)))
+  }
+
+  updateWishingMember(hackathonId: number, data: IHackathonMember): Observable<any> {
+    const params = new HttpParams().set('hackathonProjectStatus', data.hackathonProjectStatus)
+    return this.http.post<any>(`${environment.apiUrl}/hackathon-wishing/${hackathonId}/update-member`, data, { params })
+      .pipe(map(data => this.updateHackathon('member', 'add', data, data.id, hackathonId)))
+  }
+
+  deleteWishingMember(memberId: number, hackathonId?: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/hackathon-wishing/delete/${memberId}`)
+      .pipe(map(data => this.updateHackathon('member', 'delete', {}, memberId)))
+  }
+
+  /* Hackathon nominations */
+
+  addHackathonNomination(data: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/nomination/create`, data)
   }
 }

@@ -18,27 +18,6 @@
     border: 4px solid var(--green);
     color: #010101;
 }
-/*
-
-.card:hover .title,
-.card:hover .lookingCard_level,
-.card:hover .chapterCard-title,
-.card:hover .chapterCard_title,
-.card:hover .chapterCard_value,
-.card:hover .tagText,
-/* .card:hover .motivation,
-.card:hover .dateVacancy,
-.card:hover .dateTitle,
-.card:hover .dateValue,
-.card:hover .level,
-.card:hover .menu_btn a {
-    color: #010101;
-} */
-
-/* .card:hover .chapterCard-value-eng{
-    color: rgba(0, 0, 0, 0.3)
-} */
-
 .chapterCard-value-eng {
     margin: 0;
     width: 90%;

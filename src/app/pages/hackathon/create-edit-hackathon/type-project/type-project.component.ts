@@ -28,7 +28,7 @@ export class TypeProjectComponent implements ControlValueAccessor, OnChanges, On
   tags: Tag[] = [
     { id: 1, name: 'ОНЛАЙН', nameEng: '', competenceLevel: null, type: 'ONLINE' },
     { id: 2, name: 'ОФФЛАЙН', nameEng: '', competenceLevel: null, type: 'OFFLINE' },
-    { id: 3, name: 'ОНЛАЙН + ОФФЛАЙН', nameEng: '', competenceLevel: null, type: 'ONLINE+OFFLINE' },
+    { id: 3, name: 'ОНЛАЙН + ОФФЛАЙН', nameEng: '', competenceLevel: null, type: 'HYBRID' },
   ];
 
   @Input() maxTags: number = 1;

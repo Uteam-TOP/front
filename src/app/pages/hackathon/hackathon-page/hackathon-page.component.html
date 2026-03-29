@@ -1,6 +1,6 @@
-<div class="container">
-  @if (hackathonService.page == 'home') {
-    @if (hackathonData(); as data) {
+@if (hackathonData(); as data) {
+  <div class="container">
+    @if (hackathonService.page == 'home') {
       <app-hackathon-screensaver [detailsList]="data"></app-hackathon-screensaver>
       <app-hackathon-data [dataHackathon]="data"></app-hackathon-data>
       @if (isAdmin()) {
@@ -11,10 +11,13 @@
         <app-party [members]="wishingMembers()"></app-party>
       </div>
     }
-  }
 
+    @if (hackathonService.page == 'manage') {
+      <app-manage-list-participants [commands]="hackathonProjects()" [members]="wishingMembers()"></app-manage-list-participants>
+    }
 
-  @if (hackathonService.page == 'manage') {
-    <app-manage-list-participants [commands]="hackathonProjects()" [members]="wishingMembers()"></app-manage-list-participants>
-  }
-</div>
+    @if (hackathonService.page === 'nominations-form') {
+      <app-create-edit-nominations [hackathon]="data"></app-create-edit-nominations>
+    }
+  </div>
+}
