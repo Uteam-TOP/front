@@ -20,6 +20,8 @@ import {HackathonService} from "../../../core/services/hackathon.service";
 import {UserService} from "../../../core/services/user.service";
 import {IHackathonProject} from "../../../core/models/hackathons";
 import {CreateEditNominationsComponent} from "./components/create-edit-nominations/create-edit-nominations.component";
+import {NominationsComponent} from "./components/nominations/nominations.component";
+import {AppointmentWinnersComponent} from "./components/appointment-winners/appointment-winners.component";
 
 @Component({
   selector: 'app-hackathon-page',
@@ -32,6 +34,8 @@ import {CreateEditNominationsComponent} from "./components/create-edit-nominatio
     ScreensaverHackComponent,
     SettingsAdminComponent,
     CreateEditNominationsComponent,
+    NominationsComponent,
+    AppointmentWinnersComponent,
   ],
   templateUrl: './hackathon-page.component.html',
   styleUrl: './hackathon-page.component.scss',
@@ -57,6 +61,7 @@ export class HackathonPageComponent implements OnInit {
   hackathonData = toSignal(this.hackathonService.getCurrentHackathon(this.id()));
   hackathonProjects = signal<IHackathonProject[]>([]);
   wishingMembers = signal<any>(null);
+  hackathonNominations = signal<any>(null);
 
   constructor(){
     effect(() => {
@@ -67,6 +72,9 @@ export class HackathonPageComponent implements OnInit {
         })
         this.hackathonService.getAllWishingMembers(hackathonId).subscribe(data => {
           this.wishingMembers.set(data);
+        })
+        this.hackathonService.getHackathonNominations(hackathonId).subscribe(data => {
+          this.hackathonNominations.set(data);
         })
       }
     })

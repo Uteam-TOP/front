@@ -6,7 +6,7 @@ import {IHackathonDto} from "../models/hackathonDto";
 import {IHackathonTeamMemberDto} from "../models/hackathonTeamMemberDto";
 import {UserDto} from "../models/userDto";
 import {IProjectDto} from "../models/projectDto";
-import {IHackathonMember, IHackathonProject} from "../models/hackathons";
+import {IHackathonMember, IHackathonNomination, IHackathonProject} from "../models/hackathons";
 
 @Injectable({
   providedIn: 'root'
@@ -128,7 +128,15 @@ export class HackathonService {
 
   /* Hackathon nominations */
 
-  addHackathonNomination(data: any): Observable<any> {
+  addHackathonNomination(data: IHackathonNomination): Observable<any> {
     return this.http.post(`${environment.apiUrl}/nomination/create`, data)
+  }
+
+  getHackathonNominations(hackathonId: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/main/nomination/hackathon/${hackathonId}`)
+  }
+
+  updateHackathonNomination(data: IHackathonNomination): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/nomination/update`, data)
   }
 }

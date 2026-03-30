@@ -16,6 +16,7 @@ export class HackathonDataComponent implements OnInit{
 
   private dialog = inject(MatDialog);
   dataHackathon = input<IHackathonDto>();
+  isAdmin = input<boolean>(false);
 
   constructor(){}
 

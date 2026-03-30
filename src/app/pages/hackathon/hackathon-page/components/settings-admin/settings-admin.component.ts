@@ -35,7 +35,7 @@ export class SettingsAdminComponent {
   }
 
   openNominationsForm() {
-    this.hackathonService.page = 'nominations-form'
+    this.hackathonService.page = 'appointment-winners'
   }
 
   // getWaitingCounts(): number {

@@ -21,6 +21,15 @@ export interface IHackathonMember {
   user: UserDto;
 }
 
+export interface IHackathonNomination {
+  id: number;
+  name: string;
+  description: string;
+  place: number | string;
+  hackathonProjectDto: IHackathonProject;
+  hackathon: IHackathonDto;
+}
+
 export enum EHackathonUserRole {
   Admin  = 'HACKATHON_ADMIN',
   Moderator  = 'HACKATHON_PROJECT_ADMIN',

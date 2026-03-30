@@ -1,0 +1,44 @@
+<div class="content">
+  <span class="title">{{ hackathon().title }}</span>
+  <div class="closed">
+    <a (click)="closeWinnersForm()">
+      <img src="assets/icons/arrow_button_b.svg" alt="arrow" />
+      вернуться
+    </a>
+  </div>
+
+  <div class="block-title">назначение победителей</div>
+  <div class="container">
+    @if (nominations(); as nominations) {
+      @for (nomination of nominations; track nomination.id; let i = $index) {
+        <div class="nomination-row">
+          <div class="nomination-row__left">
+            <p>{{nomination.name}}</p>
+          </div>
+          <div class="nomination-row__right">
+            @if (projects(); as projects) {
+              <mat-form-field appearance="outline" subscriptSizing="dynamic" class="uteam-select">
+                <mat-label>Выберите вариант</mat-label>
+                <mat-select [(value)]="nomination.hackathonProjectDto" panelClass="select-panel">
+                  <mat-select-trigger>
+                    <app-commands-item [item]="nomination.hackathonProjectDto"></app-commands-item>
+                  </mat-select-trigger>
+                  @for ( project of projects; track project.id) {
+                    <mat-option [value]="project">
+                      <app-commands-item [item]="project"></app-commands-item>
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+            }
+
+          </div>
+        </div>
+      }
+    }
+
+    <div class="buttons">
+      <ui-button [type]="'grey'" [size]="'large'" (click)="saveWinners()">Сохранить</ui-button>
+    </div>
+  </div>
+</div>
