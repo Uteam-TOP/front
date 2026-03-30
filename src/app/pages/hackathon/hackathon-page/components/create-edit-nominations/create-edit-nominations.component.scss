@@ -123,6 +123,7 @@
     margin: 15px;
     display: flex;
     justify-content: end;
+    gap: 16px;
   }
 }
 
@@ -151,6 +152,13 @@
 }
 
 .closed {
+  padding: 16px 11px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 114%;
+  text-transform: uppercase;
+  color: #101010;
+
   img {
     transform: rotate(-180deg);
   }

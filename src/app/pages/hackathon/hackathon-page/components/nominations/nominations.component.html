@@ -1,1 +1,58 @@
-<p>nominations works!</p>
+<div class="nominations-container">
+  <div class="label">Номинации:</div>
+  <div class="container">
+
+    @if (data(); as data) {
+
+      @if (!data.length) {
+        <div class="nomination-row">
+          <div class="nomination-row__left">
+            <p>вы еще не создали номинации</p>
+          </div>
+          <div class="nomination-row__right">
+            <p>Опишите призовые места и подарки</p>
+            <ui-button [type]="'grey'" [size]="'medium'" (click)="openCreateNominationsForm()">Создать</ui-button>
+          </div>
+        </div>
+      } @else {
+        @if (isAdmin()) {
+          <div class="buttons">
+            <ui-button [type]="'grey'" [size]="'medium'" (click)="openCreateNominationsForm()">Редактировать</ui-button>
+          </div>
+        }
+
+        @for (item of data | sortBy: 'place' : 'asc'; track item.id) {
+          <div class="nomination-row">
+            <div class="nomination-row__left">
+              <p>{{ item.name }}</p>
+            </div>
+            <div class="nomination-row__right">
+              <p>{{ item.description }}</p>
+            </div>
+          </div>
+        }
+      }
+
+    }
+  </div>
+
+  @if (showWinners) {
+    <div class="label">Победители хакатона:</div>
+    <div class="container">
+      @if (data(); as data) {
+        @for (item of data; track item.id) {
+          <div class="nomination-row">
+            <div class="nomination-row__left">
+              <p>{{ item.name }}</p>
+            </div>
+            <div class="nomination-row__right">
+              <p>{{ item.description }}</p>
+            </div>
+          </div>
+        }
+      }
+
+    </div>
+  }
+
+</div>

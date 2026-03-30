@@ -79,3 +79,10 @@
     text-transform: uppercase;
   }
 }
+
+@media (max-width: 720px) {
+  .content {
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+}
