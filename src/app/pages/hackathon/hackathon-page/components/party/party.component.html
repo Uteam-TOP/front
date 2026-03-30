@@ -1,0 +1,16 @@
+<div class="label">
+  Участники:
+</div>
+<div class="container">
+  @if (members(); as members) {
+    @if (members.length) {
+      @for (item of members; track item) {
+        <app-party-item [item]="item"></app-party-item>
+      }
+    } @else {
+      <p>Пока нет участников</p>
+    }
+
+  }
+
+</div>

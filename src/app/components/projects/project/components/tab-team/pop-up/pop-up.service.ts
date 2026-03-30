@@ -64,7 +64,7 @@ export class PopUpService {
     if (dataProject && dataProject.id && item && item.id) {
       forkJoin({
         members: this.myTeamService.teamMembers$.pipe(first()),
-        newMembers: this.newPeopleService.setApplication(dataProject.id, item.id)
+        newMembers: this.newPeopleService.setApplication(dataProject.id, item.id, {profession: item.profession})
       }).subscribe({
         next: (value) => {
           console.log("members", value);

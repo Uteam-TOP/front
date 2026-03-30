@@ -1,0 +1,32 @@
+@if (item(); as item) {
+  <div class="card">
+    <p class="title">
+      {{ item?.title }}
+    </p>
+    <div class="chapterCard">
+      <div class="lookingCard">
+        <p class="text13Caps" style="margin-top: 0.5rem; width: 90%; margin-bottom: 0; ">
+
+        </p>
+      </div>
+    </div>
+    <div class="chapterCard">
+      <div class="lookingCard">
+        <p class="text13" style="margin-top: 0.5rem; width: 90%; margin-bottom: 0; ">
+          Начало хакатона: {{ (item.startDate*1000) | date: 'dd.MM.yyyy' }}
+        </p>
+      </div>
+    </div>
+    <div class="profile">
+      <div class="rightProfileChapter">
+        <p class="dateVacancy dateTitle">
+          размещено
+        </p>
+        <p class="dateVacancy dateValue">
+          {{ (item.createdAt*1000) | date: 'dd.MM.yyyy' }} <!-- Форматирование даты -->
+        </p>
+      </div>
+    </div>
+  </div>
+
+}

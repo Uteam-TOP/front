@@ -3,6 +3,7 @@ import {DatePipe, NgOptimizedImage, NgStyle} from "@angular/common";
 import {ProjectService} from "../../projects/project/project.service";
 import {AvatarPipe} from "../../../shared/pipes/avatar.pipe";
 import {PopUpEntryService} from "../../pop-up-entry/pop-up-entry.service";
+import {PostDto} from "../../../core/models/postDto";
 
 @Component({
   selector: 'app-projects-news',

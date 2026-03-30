@@ -22,14 +22,14 @@ export interface UserDto {
     aboutMe?: string;
     readonly dateOfRegistration?: string;
     cityEntityOfResidence?: CityDto;
-    nickname?: string;
+    nickname: string;
     telegram?: string;
     hideTelegram?: boolean;
     email?: string;
     password?: string;
     hideEmail?: boolean;
     verifiedEmail?: boolean;
-    readonly role?: UserDto.RoleEnum;
+    readonly roles: IUserRoles[];
     imageLink?: string;
     banned?: boolean;
     banReason?: string;
@@ -37,6 +37,12 @@ export interface UserDto {
     activityStatus?: UserDto.ActivityStatusEnum;
     userSkills?: ITagDto[];
 }
+
+export interface IUserRoles {
+  id: number;
+  role: UserDto.RoleEnum;
+}
+
 export namespace UserDto {
     export const GenderEnum = {
         Male: 'MALE',
@@ -44,9 +50,8 @@ export namespace UserDto {
     } as const;
     export type GenderEnum = typeof GenderEnum[keyof typeof GenderEnum];
     export const RoleEnum = {
-        Root: 'ROOT',
-        Admin: 'ADMIN',
-        User: 'USER'
+        User: 'ROLE_USER',
+        Admin: 'ROLE_ADMIN',
     } as const;
     export type RoleEnum = typeof RoleEnum[keyof typeof RoleEnum];
     export const EmploymentStatusEnum = {

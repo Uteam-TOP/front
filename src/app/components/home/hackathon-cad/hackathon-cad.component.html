@@ -1,6 +1,6 @@
 <div class="card">
     <div class="background"
-        [ngStyle]="{'background-image': 'linear-gradient(rgba(16, 16, 16, 0.6), rgba(16, 16, 16, 0.6)), url(' + cardItem.headerLink + ')'}">
+        [ngStyle]="{'background-image': 'linear-gradient(rgba(16, 16, 16, 0.6), rgba(16, 16, 16, 0.6)), url(' + cardItem.imageLink + ')'}">
     </div>
 
 
@@ -19,15 +19,16 @@
             </span>
 
         </div>
-         <p class="label">
-            {{ formatRussianDate(cardItem.startDate) }} - {{ formatRussianDate(cardItem.endDate) }}
+         <p class="label dates">
+            {{ (cardItem.startDate*1000) | date: 'dd MMMM':'':'ru' }} -
+           {{ (cardItem.endDate*1000) | date: 'dd MMMM':'':'ru' }}
         </p>
          <span class="info-item">
             <span class="label">
                 Регистрация до:
             </span>
             <span class="value">
-                {{ formatRussianDate(cardItem.endDate) }}
+               {{ (cardItem.endDate*1000) | date: 'dd MMMM':'':'ru' }}
             </span>
         </span>
         <div class="info-item">
@@ -46,8 +47,6 @@
             <span class="label">Мотивация:</span>
             <span class="value">{{cardItem.prizePool}}</span>
         </div>
-       
 
-       
     </div>
 </div>

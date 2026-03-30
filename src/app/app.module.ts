@@ -13,6 +13,12 @@ import { PopUpErrorCreateComponent } from './components/pop-up-error-create/pop-
 import { LendingFooterButtonComponent } from "./pages/public-lending/sections/lending-footer-button/lending-footer-button.component";
 import {MainMenuComponent} from "./components/main-menu/main-menu.component";
 import {authInterceptor} from "./core/interceptors/auth-token.interceptor";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {MAT_DATE_LOCALE, provideNativeDateAdapter} from "@angular/material/core";
+import {registerLocaleData} from "@angular/common";
+import localeRu from '@angular/common/locales/ru';
+
+registerLocaleData(localeRu);
 
 @NgModule({
   declarations: [
@@ -36,7 +42,10 @@ import {authInterceptor} from "./core/interceptors/auth-token.interceptor";
   providers: [
     provideHttpClient(
       withInterceptors([authInterceptor])
-    )
+    ),
+    provideAnimationsAsync(),
+    provideNativeDateAdapter(),
+    { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' }
   ]
 })
 export class AppModule { }

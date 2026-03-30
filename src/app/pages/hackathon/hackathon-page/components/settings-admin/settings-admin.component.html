@@ -1,0 +1,28 @@
+<div class="container">
+    <span class="title">
+        Управление хакатоном:
+    </span>
+  <div class="btns">
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 12px;">
+      <a class="btn" [routerLink]="['/hackathon/edit/', paramId]">
+        <img src="assets/icons/edit.svg" alt="edit" />
+        Редактировать информацию
+      </a>
+      <app-popup-delete></app-popup-delete>
+
+      <app-collecting-applications></app-collecting-applications>
+
+      <a id="listPeople" (click)="openManage()">
+        @if (waitingCounts) {
+          <span class="tagNewPeople">
+            +{{ waitingCounts }} новые заявки
+          </span>
+        }
+        Управлять списком участников
+        <img src="assets/icons/arrow_button.svg" alt="arrow" />
+      </a>
+
+      <a class="btn" (click)="openNominationsForm()"><img src="assets/icons/crown.svg" alt="crown" />Назначить победителей</a>
+    </div>
+  </div>
+</div>

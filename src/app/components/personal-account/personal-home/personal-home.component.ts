@@ -1,4 +1,4 @@
-import {Component, HostListener, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import { SettingHeaderService } from '../../setting-header.service';
 import { ArchiveResumeComponent } from '../archive-resume/archive-resume.component';
 import { ArchiveVacancyComponent } from '../archive-vacancy/archive-vacancy.component';
@@ -33,11 +33,13 @@ import {TagComponent} from "../../../shared/ui-components/tag/tag.component";
 import {
   SkeletonProfileComponent
 } from "../../../shared/ui-components/skeleton-ui/skeleton-profile/skeleton-profile.component";
+import {HackathonService} from "../../../core/services/hackathon.service";
+import {PersonalHackathonComponent} from "../personal-hackathon/personal-hackathon.component";
 
 @Component({
   selector: 'app-personal-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, PersonalVacancyComponent, PersonalResumeComponent, ArchiveResumeComponent, ArchiveVacancyComponent, PopUpDeleteComponent, PopUpExitComponent, BanResumeComponent, BanVacancyComponent, PopUpChangePasswordComponent, PersonalProjectComponent, SortByPipe, UiButtonComponent, TagComponent, SkeletonProfileComponent],
+  imports: [CommonModule, RouterLink, PersonalVacancyComponent, PersonalResumeComponent, ArchiveResumeComponent, ArchiveVacancyComponent, PopUpDeleteComponent, PopUpExitComponent, BanResumeComponent, BanVacancyComponent, PopUpChangePasswordComponent, PersonalProjectComponent, SortByPipe, UiButtonComponent, TagComponent, SkeletonProfileComponent, PersonalHackathonComponent],
   templateUrl: './personal-home.component.html',
   styleUrl: './personal-home.component.css',
   animations: [
@@ -84,6 +86,9 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
   isMobile = false;
   isLoading = true;
 
+  willHackathonList: any = [];
+  creatorHackathonList: any = [];
+
   showResumeArchive: boolean = false;
   showVacancyArchive: boolean = false;
 
@@ -127,7 +132,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
     this.itemsToShowProjects = this.showAllProjects ? Infinity : 3;
   }
 
-  tab: 'project' | 'resume' | 'vacancy' = 'project';
+  tab: 'project' | 'resume' | 'vacancy' | 'hackathon' = 'project';
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -215,6 +220,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
       }
     );
 
+    this.getCurrentUserHackathons();
     this.updateView(window.innerWidth);
   }
 
@@ -283,17 +289,24 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  changePassword() {
-    this.popUpChangePasswordService.showPopup();
+  getCurrentUserHackathons() {
+    this.personalHomeService.getHackathonsCardData().subscribe(
+      result => {
+        if (result.PARTICIPANT_WILL) {
+          this.willHackathonList = result.PARTICIPANT_WILL;
+        }
+        if (result.TEAM_MEMBER ) {
+          this.creatorHackathonList = result.TEAM_MEMBER ;
+        }
+
+        console.log('hackathons', result);
+      }
+    )
   }
 
   getCardUrl(cardValue: any, type: string, route: string): string {
     localStorage.setItem('routeTypeCard', type);
     return this.router.createUrlTree([route, cardValue]).toString();
-  }
-
-  getProjectUrl(cardValue: any): string {
-    return this.router.createUrlTree(['project', cardValue]).toString();
   }
 
   onProjecClick(event: MouseEvent, cardId: any): void {

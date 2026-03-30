@@ -22,15 +22,22 @@ export class UserService {
     this.avatarUpdateTrigger.next(data);
   }
 
-  getCurrentUser(): Observable<UserDto | null> {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      return this.http.get<UserDto>(`${environment.apiUrl}/secured/users/currentUser`).pipe(
-        map((res) => {this.userData.next(res);console.log('res', res); return res})
-      );
+  isAdmin(): Observable<boolean> {
+    if (this.userData.getValue().id) {
+      return this.userData$.pipe(
+        map(data => {
+          return !!data.roles.find(role => role.role === UserDto.RoleEnum.Admin
+        )})
+      )
     } else {
-      return of(null);
+      return of(false);
     }
 
+  }
+
+  getCurrentUser(): Observable<UserDto | null> {
+    return this.http.get<UserDto>(`${environment.apiUrl}/secured/users/currentUser`).pipe(
+      map((res) => {this.userData.next(res); return res})
+    );
   }
 }

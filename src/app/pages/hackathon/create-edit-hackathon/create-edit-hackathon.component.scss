@@ -1,3 +1,5 @@
+@import "@angular/material/prebuilt-themes/azure-blue.css";
+
 p {
   margin: 0;
 }
@@ -210,12 +212,6 @@ textarea::placeholder {
   border: none;
 }
 
-.error-message {
-  color: red;
-  font-size: 0.7rem;
-}
-
-
 @media (max-width: 1198px) {
   .container {
     width: 100%;
@@ -251,6 +247,37 @@ textarea::placeholder {
 
   }
 }
+
+:host {
+  ::ng-deep {
+    .mat-mdc-text-field-wrapper {
+      background-color: white !important;
+      font-size: 12px;
+      border-radius: 12px;
+
+      label {
+        font-size: 12px;
+      }
+    }
+    .mat-date-range-input-wrapper {
+      min-width: 78px;
+    }
+  }
+
+  .my-datepicker-scope {
+    //margin-bottom: -15px;
+
+    app-input-error {
+      margin-top: -15px;
+    }
+  }
+}
+
+.is-loading {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 
 
 @media (max-width: 361px) {

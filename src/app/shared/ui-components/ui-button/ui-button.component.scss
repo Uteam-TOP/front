@@ -5,7 +5,7 @@
     border-radius: 30px;
     border: none;
     padding: 15px;
-    max-width: 200px;
+    max-width: 300px;
     height: 38px;
     background: #806bff;
     font-family: var(--font-Monts);
@@ -13,10 +13,16 @@
     font-size: 12px;
     line-height: 117%;
     color: #fff;
+    white-space: nowrap;
 
     &.size-small {
       padding: 8px 10px !important;
       height: 33px;
+    }
+    &.size-large {
+      padding: 12px 35px !important;
+      font-size: 16px;
+      height: auto !important;
     }
 
     &.type-border {
@@ -27,9 +33,9 @@
 
     &.type-green {
       background: var(--green);
-      color: #101010;
-      padding: 16px 26px !important;
+      color: white;
       height: auto;
+      padding: 9px 26px;
     }
 
     &.type-green-border {
@@ -40,8 +46,25 @@
       height: auto;
     }
 
+    &.type-grey {
+      background: rgba(226, 226, 226, 1);
+      color: rgba(16, 16, 16, 1);
+    }
+
+    &.type-red {
+      background: #e84e4e;
+      color: white;
+    }
+
     .icon-arrow {
       margin-left: 15px;
+    }
+
+
+    @media (max-width: 768px) {
+      &.type-green {
+        padding: 16px 26px !important;
+      }
     }
   }
 }

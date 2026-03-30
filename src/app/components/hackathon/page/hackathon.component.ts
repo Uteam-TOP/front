@@ -1,13 +1,13 @@
 
 import { Component, OnInit } from '@angular/core';
-import { ScreensaverHackComponent } from './components/screensaver/screensaver.component';
-import { HackathonDataComponent } from './components/hackathon-data/hackathon-data.component';
-import { CommandsHackComponent } from './components/commands/commands.component';
-import { PartyComponent } from './components/party/party.component';
-import { SettingsAdminComponent } from './components/settings-admin/settings-admin.component';
+import { ScreensaverHackComponent } from '../../../pages/hackathon/hackathon-page/components/screensaver/screensaver.component';
+import { HackathonDataComponent } from '../../../pages/hackathon/hackathon-page/components/hackathon-data/hackathon-data.component';
+import { CommandsHackComponent } from '../../../pages/hackathon/hackathon-page/components/commands/commands.component';
+import { PartyComponent } from '../../../pages/hackathon/hackathon-page/components/party/party.component';
+import { SettingsAdminComponent } from '../../../pages/hackathon/hackathon-page/components/settings-admin/settings-admin.component';
 import { HackathonService } from './hackathon.service';
 import { ActivatedRoute } from '@angular/router';
-import { ManageListParticipantsComponent } from './components/manage-list-participants/manage-list-participants.component';
+import { ManageListParticipantsComponent } from '../../../pages/hackathon/hackathon-page/components/manage-list-participants/manage-list-participants.component';
 
 @Component({
   selector: 'app-hackathon',

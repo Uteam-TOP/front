@@ -200,61 +200,6 @@
   }
 
   <div class="second-path">
-    <!-- <div class="container-cards">
-    <div class="container-resume" @fadeAnimation>
-      <div class="container-resume-header">
-        <p class="title-cards titleActive ">
-          Активные резюме:
-        </p>
-        <a class="container-resume-header-newCards" (click)="handlePostResume()" [ngStyle]="{'pointer-events': dataCurrentUser.banned ? 'none' : 'auto', 'opacity': dataCurrentUser.banned ? '0.5' : '1'}">
-          + Добавить резюме
-        </a>
-      </div>
-
-      <div class="cards">
-        <ng-container
-          *ngFor="let itemResume of resumeService.filterResumes('EVERYBODY') | slice: 0: itemsToShowResume">
-          <a [href]="getCardUrl(itemResume.id, 'resumes', 'resume')" class="app-card-vacancy-link"
-            (click)="onCardClick($event, itemResume.id, 'resume')">
-            <app-personal-resume @fadeAnimation [cardItem]="itemResume"></app-personal-resume>
-          </a>
-        </ng-container>
-        <ng-container
-          *ngFor="let itemResume of resumeService.filterResumes('BAN') | slice: 0: itemsToShowResume">
-          <app-ban-resume [cardItem]="itemResume"></app-ban-resume>
-        </ng-container>
-        <div class="block-switchCards">
-          <a (click)="toggleResumes()" *ngIf="resumeService.filterResumes('EVERYBODY').length>3"
-            class="switchCards">
-            {{ showAllResume ? 'Свернуть' : 'Показать все' }}
-          </a>
-        </div>
-      </div>
-      <div class="message-cards titleActive" *ngIf="resumeService.filterResumes('EVERYBODY').length==0">
-        Нет активных резюме
-      </div>
-    </div>
-    <div class="archive-resume">
-      <p class="title-cards">
-        Архив резюме:
-      </p>
-
-      <div class="cards">
-        <app-archive-resume @fadeAnimation
-          *ngFor="let itemResume of resumeService.filterResumes('CREATOR_ONLY') | slice:0:itemsToShowArchiveResume "
-        [cardItem]="itemResume"></app-archive-resume>
-        <div class="block-switchCards">
-          <a (click)="toggleArchiveResumes()" *ngIf="resumeService.filterResumes('CREATOR_ONLY').length>3"
-            class="switchCards">
-            {{ showAllArchiveResume ? 'Свернуть' : 'Показать все' }}
-          </a>
-        </div>
-      </div>
-      <div class="message-cards archiveMessage" *ngIf="resumeService.filterResumes('CREATOR_ONLY').length==0">
-        Архив пуст
-      </div>
-    </div>
-  </div> -->
 
   @if (!isMobile) {
     <div class="tabs">
@@ -266,6 +211,9 @@
       </div>
       <div class="tab tab-mint" [ngClass]="{'active' : tab === 'vacancy'}" (click)="tab = 'vacancy'">
         <span>Вакансии</span> ({{vacancyService.filterVacancies('EVERYBODY').length}})
+      </div>
+      <div class="tab tab-navy" [ngClass]="{'active' : tab === 'hackathon'}" (click)="tab = 'hackathon'">
+        <span>Хакатоны</span> ({{willHackathonList.length}})
       </div>
     </div>
   }
@@ -284,7 +232,7 @@
         </div>
         <div class="cards">
           @for (itemProject of projectService.projectsList | sortBy: 'createdAt'; track itemProject) {
-            <a class="app-card-vacancy-link" (click)="onProjecClick($event, itemProject.nickname)">
+            <a class="app-card-vacancy-link" [routerLink]="['/project', itemProject.nickname]" target="_blank">
               <app-personal-project @fadeAnimation [item]="itemProject">
               </app-personal-project>
             </a>
@@ -322,8 +270,6 @@
       </div>
 
     }
-
-
   }
 
   @if (tab === 'resume' || isMobile) {
@@ -490,6 +436,48 @@
         </div>
       }
     </div>
+  }
+
+  @if (tab === 'hackathon' || isMobile) {
+    <div class="container-cards" @fadeAnimation>
+      <div class="container-vacancy" style="background: #5a4bb8;">
+        <div class="container-vacancy-header">
+          <p class="title-cards titleActive ">
+            Хакатоны @if (isMobile) { ({{willHackathonList.length}}) }
+          </p>
+          <a class="container-vacancy-header-newCards" routerLink="/hackathon/create/"
+             [ngStyle]="{'pointer-events': dataCurrentUser.banned ? 'none' : 'auto', 'opacity': dataCurrentUser.banned ? '0.5' : '1'}">
+            + Добавить хакатон
+          </a>
+        </div>
+        <div class="cards">
+          @for (itemHackathon of willHackathonList | sortBy: 'createdAt'; track itemHackathon) {
+            <a class="app-card-vacancy-link" [routerLink]="['/hackathon', itemHackathon.nickname]" target="_blank">
+              <app-personal-hackathon @fadeAnimation [item]="itemHackathon">
+              </app-personal-hackathon>
+            </a>
+          }
+        </div>
+      </div>
+    </div>
+
+    @if (isMobile) {
+      <div class="buttons-mobile">
+        <ui-button
+          [size]="'small'"
+          [type]="'green'"
+          (click)="handlePostProject()">
+          Добавить хакатон
+        </ui-button>
+
+        <ui-button
+          [size]="'small'"
+          [type]="'green-border'">
+          Смотреть архив
+        </ui-button>
+      </div>
+
+    }
   }
 
   </div>

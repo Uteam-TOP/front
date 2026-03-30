@@ -1,10 +1,23 @@
-<div class="tag" [ngClass]="{ 'with-competence-level': tag.competenceLevel }">
-  <p class="tagText">
-    {{tag.name}}
-  </p>
-  @if (tag.competenceLevel) {
-    <p [ngStyle]="{ 'background': getTagColor(tag.competenceLevel) }" class="tag-level">
-      {{ getTagText(tag.competenceLevel) }}
+@if (tag) {
+  @if (type === 'default') {
+    <div class="tag" [ngClass]="{ 'with-competence-level': tag.competenceLevel }">
+      <p class="tagText">
+        {{tag.name}}
+      </p>
+
+      @if (tag.competenceLevel) {
+        <p [ngStyle]="{ 'background': getTagColor(tag.competenceLevel) }" class="tag-level">
+          {{ getTagText(tag.competenceLevel) }}
+        </p>
+      }
+    </div>
+  }
+
+  @if (type === 'lvl' && tag.competenceLevel) {
+    <p class="level-border"
+       [ngStyle]="{ 'border-color': getTagColor(tag.competenceLevel) }">
+      {{ getTagTextFull(tag.competenceLevel) }}
     </p>
   }
-</div>
+
+}

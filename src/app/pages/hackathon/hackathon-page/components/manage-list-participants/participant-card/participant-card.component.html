@@ -1,0 +1,105 @@
+@if (data(); as data) {
+  <div class="item">
+    <div class="date">
+      {{ (data.createdAt*1000) | date: 'dd.MM.yyyy hh:mm' }}
+    </div>
+    <div class="content">
+      @if (type() === 'team') {
+        <div class="avatar-wrapper">
+          <img [src]="team().project?.avatarLink | avatar" alt="Avatar" class="avatar" />
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <span class="name">Команда</span>
+            <span class="name">{{team().project?.title}}</span>
+          </div>
+        </div>
+        <div class="countPerson">
+          {{team().project?.team?.length}}
+          <br>
+          участников
+        </div>
+      } @else {
+        <div class="avatar-wrapper">
+          <img [src]="member()?.user?.imageLink | avatar" alt="Avatar" class="avatar" />
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <span class="name">{{ member()?.user?.lastName }}</span>
+            <span class="name">{{ member()?.user?.firstName }}</span>
+          </div>
+        </div>
+        <div class="speciality">
+          <div><span>Специальность:</span></div>
+          <div class="speciality__body">
+            <div class="speciality__title">{{ member()?.resume?.profession?.name }}</div>
+            <div><app-tag [tag]="member()?.resume?.profession" [type]="'lvl'"></app-tag></div>
+          </div>
+        </div>
+      }
+      <div class="btns">
+        @if (type() === 'team') {
+          @if (isAwaiting()) {
+            <ui-button
+              [size]="'small'"
+              [type]="'grey'"
+              (click)="rejectTeam(team().id)">
+              Отклонить
+            </ui-button>
+            <ui-button
+              [size]="'small'"
+              [type]="'green'"
+              (click)="addTeam(team())">
+              + Добавить
+            </ui-button>
+          } @else {
+            <ui-button
+              [size]="'small'"
+              [type]="'red'"
+              (click)="rejectTeam(team().id)">
+              Удалить
+            </ui-button>
+          }
+        }
+
+        @if (type() === 'member') {
+          @if (isAwaiting()) {
+            <ui-button
+              [size]="'small'"
+              [type]="'grey'"
+              (click)="rejectMember(member().id)">
+              Отклонить
+            </ui-button>
+            <ui-button
+              [size]="'small'"
+              [type]="'green'"
+              (click)="addMember(member())">
+              + Добавить
+            </ui-button>
+          } @else {
+
+            @if (isAdmin(member()?.hackathonUserRole)) {
+              <ui-button
+                [size]="'small'"
+                [type]="'red'"
+                (click)="removeModerator(member())">
+                Убрать права
+              </ui-button>
+            } @else {
+              <ui-button
+                [size]="'small'"
+                [type]="'green'"
+                (click)="setModerator(member())">
+                Сделать модератором
+              </ui-button>
+            }
+
+            <ui-button
+              [size]="'small'"
+              [type]="'red'"
+              (click)="rejectMember(member().id)">
+              Удалить
+            </ui-button>
+          }
+        }
+      </div>
+    </div>
+  </div>
+
+}
