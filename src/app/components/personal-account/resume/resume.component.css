@@ -211,8 +211,10 @@
     background: #B9AEFF;
 }
 
-/* @media (max-width: 1199.98px) {
-    .card:hover {
-        background: var(--background-card);
-    }
-} */
+@media (max-width: 700px) {
+  .menu_btn a {
+    font-size: 11px;
+    padding: 8px 10px;
+    gap: 5px;
+  }
+}

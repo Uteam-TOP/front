@@ -121,7 +121,7 @@ export class ViewCardComponent implements OnInit {
 
   setArchive(event: Event) {
     event.stopPropagation();
-    this.resumeService.toggleResumeArchive(this.dataCard);
+    this.resumeService.toggleResumeArchive(this.dataCard());
     void this.router.navigate([`/myaccount`, this.dataCard()?.user.id]);
   }
 

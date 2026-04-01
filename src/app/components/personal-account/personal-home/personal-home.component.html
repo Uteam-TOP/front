@@ -414,7 +414,7 @@
             Архив вакансий:
           </p>
           <div class="cards">
-            @for (itemVacancy of vacancyService.filterVacancies('CREATOR_ONLY') | slice:0:itemsToShowArchiveVacancies; track itemVacancy) {
+            @for (itemVacancy of vacancyService.filterVacancies('CREATOR_ONLY'); track itemVacancy) {
               <app-archive-vacancy [cardItem]="itemVacancy" @fadeAnimation
               ></app-archive-vacancy>
             }

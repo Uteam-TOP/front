@@ -5,7 +5,7 @@
   @if (projects(); as projects) {
     @if (projects.length) {
       @for (item of projects; track item) {
-        <app-commands-item [item]="item"></app-commands-item>
+        <app-commands-item [item]="item" [routerLink]="['/project', item.project.nickname]"></app-commands-item>
       }
     } @else {
       <p>Пока нет команд</p>

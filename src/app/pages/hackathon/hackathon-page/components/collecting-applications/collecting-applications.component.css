@@ -54,6 +54,7 @@
     line-height: 120%;
     color: #101010;
     cursor: pointer;
+  gap : 10px;
 }
 
 .cancel {

@@ -6,7 +6,7 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 120%;
-    color: #101010;
+    color: var(--font-color);
   }
 
   .container {
@@ -14,9 +14,10 @@
     flex-wrap: wrap;
     border-radius: 20px;
     padding: 16px;
-    background: #fff;
+    background: var(--background-card);
     flex-direction: column;
     position: relative;
+    color: var(--font-color);
   }
 
   .buttons {
