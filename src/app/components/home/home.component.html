@@ -15,7 +15,9 @@
         <div class="container">
           <h3 #projects>Новые проекты</h3>
           <div class="column">
-            <app-home-slider [items]="homeService.projects" [type]="'project'"></app-home-slider>
+            @if (projectsList(); as projectsList) {
+              <app-home-slider [items]="projectsList" [type]="'project'"></app-home-slider>
+            }
           </div>
           <div class="slider-footer slider-footer-projects">
             <a routerLink="/projects"><ui-button [text]="'Все проекты'" [type]="'arrow'"></ui-button></a>
@@ -39,7 +41,9 @@
         <div class="container" #vacancies>
           <h3>Вакансии</h3>
           <div class="column">
-            <app-home-slider [items]="homeService.vacancies" [type]="'vacancy'"></app-home-slider>
+            @if (vacanciesList(); as vacanciesList) {
+              <app-home-slider [items]="vacanciesList" [type]="'vacancy'"></app-home-slider>
+            }
           </div>
           <div class="slider-footer">
             <a routerLink="/vacancies"><ui-button [text]="'Все вакансии'" [type]="'arrow'"></ui-button></a>
@@ -55,7 +59,9 @@
         <div class="container" #resumes>
           <h3>Резюме</h3>
           <div class="column">
-            <app-home-slider [items]="homeService.resumes" [type]="'resume'"></app-home-slider>
+            @if (resumeList(); as resumeList) {
+              <app-home-slider [items]="resumeList" [type]="'resume'"></app-home-slider>
+            }
           </div>
           <div class="slider-footer">
             <a routerLink="/resumes"><ui-button [text]="'Все резюме'" [type]="'arrow'"></ui-button></a>
@@ -70,7 +76,9 @@
         <div class="container" #hackathons>
           <h3>Хакатоны</h3>
           <div class="column">
-            <app-home-slider [items]="homeService.hackathons" [type]="'hackathon'"></app-home-slider>
+            @if (hackathonsList(); as hackathonsList) {
+              <app-home-slider [items]="hackathonsList" [type]="'hackathon'"></app-home-slider>
+            }
           </div>
           <div class="slider-footer">
             <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>

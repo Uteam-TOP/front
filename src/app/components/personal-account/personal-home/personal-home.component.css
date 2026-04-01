@@ -587,8 +587,15 @@ p {
 
 }
 
+
 /* Media queries for phones */
 @media (max-width: 768px) {
+
+  .archive-vacancy {
+    .cards {
+      flex-wrap: wrap !important;
+    }
+  }
 
     .container-resume-header-newCards,
     .container-vacancy-header-newCards {

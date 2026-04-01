@@ -3,11 +3,12 @@
     flex-wrap: wrap;
     border-radius: 20px;
     padding: 16px;
-    background: #fff;
+    background: var(--background-card);
 }
 
 app-party-item {
     width: 50%;
+  cursor: pointer;
 }
 
 .label {
@@ -16,7 +17,7 @@ app-party-item {
     font-weight: 500;
     font-size: 16px;
     line-height: 120%;
-    color: #101010;
+    color: var(--font-color);
 }
 
 @media (max-width: 468px) {

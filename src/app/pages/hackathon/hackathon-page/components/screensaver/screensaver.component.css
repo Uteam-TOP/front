@@ -231,6 +231,13 @@ p{
 
     }
 
+  .content {
+    padding: 7px;
+  }
+
+  .header-content {
+    padding-top: 0;
+  }
 
 }
 

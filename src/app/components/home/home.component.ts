@@ -2,7 +2,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   Component,
   HostListener,
-  OnInit, viewChild, ViewChild, ElementRef, AfterViewInit, OnDestroy,
+  OnInit, viewChild, ViewChild, ElementRef, AfterViewInit, OnDestroy, signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BackgroundImgsComponent } from '../background-imgs/background-imgs.component';
@@ -27,6 +27,10 @@ import {Navigation} from "swiper/modules";
 import {HomeSliderComponent} from "./home-slider/home-slider.component";
 import {UiButtonComponent} from "../../shared/ui-components/ui-button/ui-button.component";
 import {SkeletonBlockComponent} from "../../shared/ui-components/skeleton-block/skeleton-block.component";
+import {resumeVacancyDto} from "../../core/models/resumeVacancyDto";
+import {takeUntil} from "rxjs";
+import {IHackathonDto} from "../../core/models/hackathonDto";
+import {IProjectDto} from "../../core/models/projectDto";
 
 @Component({
   selector: 'app-home',
@@ -64,6 +68,11 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   boundingRectVacancy: DOMRect | undefined;
   boundingRectResumes: DOMRect | undefined;
 
+  vacanciesList = signal<resumeVacancyDto[]>([]);
+  resumeList = signal<resumeVacancyDto[]>([]);
+  hackathonsList = signal<IHackathonDto[]>([]);
+  projectsList = signal<IProjectDto[]>([]);
+
   resumeVisibleSections: string[] = ['profession', 'availability', 'skills', 'motivations', 'profile']
   scrollTimeout: any;
 
@@ -89,49 +98,15 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   userId!: number;
 
-  @HostListener('document:scroll', ['$event'])
-  public onViewportScroll() {
-
-
-    if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
-    this.scrollTimeout = setTimeout(() => {
-
-      this.windowHeight = window.innerHeight;
-      this.boundingRectProjects = this.ProjectsDiv.nativeElement.getBoundingClientRect();
-      this.boundingRectHackathons = this.HackathonsDiv.nativeElement.getBoundingClientRect();
-      this.boundingRectVacancy = this.VacanciesDiv.nativeElement.getBoundingClientRect();
-      this.boundingRectResumes = this.ResumesDiv.nativeElement.getBoundingClientRect();
-      if (!this.homeService.vacancies.length) {
-        this.homeService.toggleType('vacancy');
-      }
-
-      if (this.boundingRectProjects && this.boundingRectProjects.top >= 0 && this.boundingRectProjects.bottom - 500 <= this.windowHeight) {
-        this.homeService.typeToggle = 'project';
-      }
-
-      if (this.boundingRectVacancy && this.boundingRectVacancy.top >= 0 && this.boundingRectVacancy.bottom - 500 <= this.windowHeight) {
-        if (!this.homeService.resumes.length) {
-          this.homeService.toggleType('resume');
-        }
-        this.homeService.typeToggle = 'vacancy';
-      }
-
-      if (this.boundingRectResumes && this.boundingRectResumes.top >= 0 && this.boundingRectResumes.bottom - 400 <= this.windowHeight) {
-        if (!this.homeService.hackathons.length) {
-          this.homeService.toggleType('hackathon');
-        }
-        this.homeService.typeToggle = 'resume';
-      }
-
-      if (this.boundingRectHackathons && this.boundingRectHackathons.top >= 0 && this.boundingRectHackathons.bottom - 500 <= this.windowHeight) {
-        this.homeService.typeToggle = 'hackathon';
-      }
-
-    }, 30)
-  }
-
   ngOnInit() {
     this.homeService.toggleType('project');
+
+    this.homeService.getCardProjects(0, 20, 'createdAt_DESC').subscribe(data => {
+      if (data) {
+        this.projectsList.set(data);
+      }
+      this.homeService.loading = false;
+    })
     this.settingHeaderService.isFilterState$.subscribe(value => {
       this.isVisibleFilter = value;
     });
@@ -143,9 +118,68 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.homeService.getNewsData(0).subscribe(data => {
-       this.news = data;
+      this.news = data;
     })
 
+  }
+
+  @HostListener('document:scroll', ['$event'])
+  public onViewportScroll() {
+    if (this.scrollTimeout) clearTimeout(this.scrollTimeout);
+    this.scrollTimeout = setTimeout(() => {
+
+      this.windowHeight = window.innerHeight;
+      this.boundingRectProjects = this.ProjectsDiv.nativeElement.getBoundingClientRect();
+      this.boundingRectHackathons = this.HackathonsDiv.nativeElement.getBoundingClientRect();
+      this.boundingRectVacancy = this.VacanciesDiv.nativeElement.getBoundingClientRect();
+      this.boundingRectResumes = this.ResumesDiv.nativeElement.getBoundingClientRect();
+      if (!this.vacanciesList().length) {
+        this.homeService.toggleType('vacancy');
+        this.homeService.getCardData('vacancy', 0, 20, 'creationDate_DESC').subscribe(data => {
+          if (data) {
+            const filteredData = data.filter((vacancy: any) => vacancy.visibility === "EVERYBODY");
+            this.vacanciesList.set(filteredData);
+          }
+          this.homeService.loading = false;
+        })
+      }
+
+      if (this.boundingRectProjects && this.boundingRectProjects.top >= 0 && this.boundingRectProjects.bottom - 500 <= this.windowHeight) {
+        this.homeService.typeToggle = 'project';
+      }
+
+      if (this.boundingRectVacancy && this.boundingRectVacancy.top >= 0 && this.boundingRectVacancy.bottom - 500 <= this.windowHeight) {
+        if (!this.homeService.resumes.length) {
+          this.homeService.toggleType('resume');
+          this.homeService.getCardData('resume', 0, 20, 'creationDate_DESC').subscribe(data => {
+            if (data) {
+              const filteredData = data.filter((resume: any) => resume.visibility === "EVERYBODY");
+              this.resumeList.set(filteredData);
+            }
+            this.homeService.loading = false;
+          })
+        }
+        this.homeService.typeToggle = 'vacancy';
+      }
+
+      if (this.boundingRectResumes && this.boundingRectResumes.top >= 0 && this.boundingRectResumes.bottom - 400 <= this.windowHeight) {
+        if (!this.homeService.hackathons.length) {
+          this.homeService.toggleType('hackathon');
+          this.homeService.getCardHackathons( 0, 20).subscribe(data => {
+            if (data) {
+              this.hackathonsList.set(data);
+            }
+            this.homeService.loading = false;
+          })
+        }
+        this.homeService.typeToggle = 'resume';
+      }
+
+      if (this.boundingRectHackathons && this.boundingRectHackathons.top >= 0 && this.boundingRectHackathons.bottom - 500 <= this.windowHeight) {
+        this.homeService.typeToggle = 'hackathon';
+      }
+
+    }, 30)
   }
 
   ngAfterViewInit() {

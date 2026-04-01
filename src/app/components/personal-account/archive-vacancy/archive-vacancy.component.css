@@ -168,8 +168,10 @@
     background: #B9AEFF;
 }
 
-/* @media (max-width: 1199.98px) {
-    .card:hover {
-        background: var(--card-archive);
+@media (max-width: 700px) {
+  .archive-vacancy {
+    .cards {
+      flex-wrap: wrap !important;
     }
-} */
+  }
+}

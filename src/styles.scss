@@ -21,15 +21,64 @@ $theme: mat.define-theme();
   @include mat.button-base($theme);
 }
 
+:root {
+  --background: #333334;
+  /* #f2f2f2 */
+  --background-card: rgba(149, 45, 45, 0.1);
+  /* #fff */
+  --card-hover: #7870b8;
+  /* #a6eb20 */
+  --background-card-account: #5a4bb8;
+  /* #fff */
+  --card-hover-account: rgba(255, 255, 255, 0.1);
+  /* #a6eb20 */
+  --background-archive: #101010;
+  /* #e2e2e2 */
+  --card-archive: #434242;
+  /* #fff */
+  --line-item: rgba(255, 255, 255, 0.1);
+  /* rgba(0, 0, 0, 0.1) */
+  --font-color: #fff;
+  /* #5A4BB8 */
+  --font-color-blue: #5A4BB8;
+  /* #101010 */
+  --logo-text-color: #fff;
+  /* #5a4bb8 */
+  --logo-background-color: rgba(255, 255, 255, 0.1);
+  /* rgba(185, 174, 255, 1)*/
+  --font-profession-eng: rgba(255, 255, 255, 0.1);
+  --screensaver-color: #a6eb20;
+  /* #101010 */
+  --screensaver-background: #474748;
+  --elements-bg: #806bff;
+  /* #a6eb20 */
+  --tag-background: rgba(243, 243, 243, 0.1);
+  --btnClosedFilter-color: rgba(51, 51, 52, 0.3);
+  /* rgba(227, 227, 230, 0.3); */
+  --btnClosedFilter-hover: rgba(227, 227, 230, 1);
+  --font-Monts: "Montserrat";
+  --second-family: "Comfortaa";
+
+  --button-profile-background: #e2e2e2;
+  --button-profile-border: 0px solid #806BFF;
+  --button-profile-color: #101010;
+  --green: #42c54e;
+
+  --subtitle1: 14px;
+  --text10: 10px;
+  --text12: 12px;
+  --text13: 13px;
+  --text14: 14px;
+  --text16: 16px;
+
+}
 
 /* Angular material Select */
 
-
-
 :root {
   @include mat.select-overrides((
-    panel-background-color: #f5f5f5,
-    enabled-trigger-text-color: rgb(159, 159, 159),
+    panel-background-color: var(--background-card),
+    enabled-trigger-text-color: var(--background-card),
     enabled-arrow-color: rgb(159, 159, 159),
   ));
 
@@ -38,11 +87,16 @@ $theme: mat.define-theme();
       outline-color: rgba(226, 226, 226, 1),
       container-shape: 12px,
       focus-outline-color: rgba(185, 174, 255, 1),
+      hover-outline-color: rgb(209, 200, 255),
+      input-text-color: var(--font-color),
+      label-text-color:  var(--font-color),
+      hover-label-text-color: rgba(185, 174, 255, 1),
     ));
   }
 
   .select-panel {
-    background-color: white;
+    background-color: var(--background-card);
+    border: 1px solid grey;
     border-radius: 8px;
   }
 
@@ -69,57 +123,7 @@ $theme: mat.define-theme();
   box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12);
 }
 
-:root {
-    --background: #333334;
-    /* #f2f2f2 */
-    --background-card: rgba(255, 255, 255, 0.1);
-    /* #fff */
-    --card-hover: #7870b8;
-    /* #a6eb20 */
-    --background-card-account: #5a4bb8;
-    /* #fff */
-    --card-hover-account: rgba(255, 255, 255, 0.1);
-    /* #a6eb20 */
-    --background-archive: #101010;
-    /* #e2e2e2 */
-    --card-archive: #434242;
-    /* #fff */
-    --line-item: rgba(255, 255, 255, 0.1);
-    /* rgba(0, 0, 0, 0.1) */
-    --font-color: #fff;
-    /* #5A4BB8 */
-    --font-color-blue: #5A4BB8;
-    /* #101010 */
-    --logo-text-color: #fff;
-    /* #5a4bb8 */
-    --logo-background-color: rgba(255, 255, 255, 0.1);
-    /* rgba(185, 174, 255, 1)*/
-    --font-profession-eng: rgba(255, 255, 255, 0.1);
-    --screensaver-color: #a6eb20;
-    /* #101010 */
-    --screensaver-background: #474748;
-    --elements-bg: #806bff;
-    /* #a6eb20 */
-    --tag-background: rgba(243, 243, 243, 0.1);
-    --btnClosedFilter-color: rgba(51, 51, 52, 0.3);
-    /* rgba(227, 227, 230, 0.3); */
-    --btnClosedFilter-hover: rgba(227, 227, 230, 1);
-    --font-Monts: "Montserrat";
-    --second-family: "Comfortaa";
 
-    --button-profile-background: #e2e2e2;
-    --button-profile-border: 0px solid #806BFF;
-    --button-profile-color: #101010;
-    --green: #42c54e;
-
-    --subtitle1: 14px;
-    --text10: 10px;
-    --text12: 12px;
-    --text13: 13px;
-    --text14: 14px;
-    --text16: 16px;
-
-}
 
 .text13Caps{
     font-family: var(--font-Monts);

@@ -1,7 +1,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    background: #fff;
+  background: var(--background-card);
     border-radius: 0 0 20px 20px;
   padding-top: 20px;
 }
@@ -44,7 +44,7 @@
     font-size: 24px;
     line-height: 120%;
     text-transform: uppercase;
-    color: #101010;
+    color: var(--font-color);
 }
 
 .info-block {
@@ -58,14 +58,14 @@
     font-weight: 600;
     font-size: 14px;
     line-height: 120%;
-    color: #101010;
+  color: var(--font-color);
 }
 
 .value {
     font-weight: 400;
     font-size: 14px;
     line-height: 129%;
-    color: #101010
+  color: var(--font-color);
 }
 
 .info-item {
@@ -86,14 +86,14 @@
     line-height: 120%;
     text-decoration: underline;
     text-decoration-skip-ink: none;
-    color: #101010;
+  color: var(--font-color);
 }
 
 #address {
     font-weight: 600;
     font-size: 16px;
     line-height: 120%;
-    color: #101010;
+  color: var(--font-color);
 }
 
 .second-content {
