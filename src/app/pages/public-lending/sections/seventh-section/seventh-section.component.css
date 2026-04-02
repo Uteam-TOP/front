@@ -203,7 +203,7 @@
     }
     .top-image img {
         display: grid;
-        width: 60%;
+        width: 45%;
     }
 
 
@@ -213,7 +213,7 @@
     }
     .bottom-image img {
             display: grid;
-            width: 75%;
+            width: 55%;
     }
 
     .first-title {
