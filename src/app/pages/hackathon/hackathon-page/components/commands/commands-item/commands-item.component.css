@@ -4,11 +4,11 @@
 }
 
 .container:hover {
-    box-shadow: 2px 4px 8px 0 rgba(40, 40, 40, 0.1); 
+    box-shadow: 2px 4px 8px 0 rgba(40, 40, 40, 0.1);
 }
 
 .container:hover .avatar {
-    transform: scale(1.1); 
+    transform: scale(1.1);
 }
 
 .avatar-wrapper {
@@ -28,5 +28,5 @@
     font-weight: 600;
     font-size: 12px;
     line-height: 117%;
-    color: #101010;
+  color: var(--font-color);
 }

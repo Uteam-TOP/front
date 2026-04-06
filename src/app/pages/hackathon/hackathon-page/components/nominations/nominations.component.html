@@ -7,11 +7,13 @@
       @if (!data.length) {
         <div class="nomination-row">
           <div class="nomination-row__left">
-            <p>вы еще не создали номинации</p>
+            <p>Номинаций пока нет</p>
           </div>
           <div class="nomination-row__right">
-            <p>Опишите призовые места и подарки</p>
-            <ui-button [type]="'grey'" [size]="'medium'" (click)="openCreateNominationsForm()">Создать</ui-button>
+            @if (isAdmin()) {
+              <p>Опишите призовые места и подарки</p>
+              <ui-button [type]="'grey'" [size]="'medium'" (click)="openCreateNominationsForm()">Создать</ui-button>
+            }
           </div>
         </div>
       } @else {

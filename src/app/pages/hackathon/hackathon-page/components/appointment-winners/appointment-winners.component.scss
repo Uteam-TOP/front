@@ -1,6 +1,7 @@
 
 .content {
   padding-top: 20px;
+  color: var(--font-color);
 
   .title {
     padding: 12px;
@@ -8,7 +9,7 @@
     font-size: 24px;
     line-height: 120%;
     text-transform: uppercase;
-    color: #101010;
+    color: var(--font-color);
   }
   .block-title {
     width: 100%;
@@ -17,7 +18,7 @@
     font-size: 16px;
     line-height: 112%;
     text-transform: uppercase;
-    color: #101010;
+    color: var(--font-color);
     border-bottom: #646464 solid 1px;
     margin-bottom: 24px;
     margin-top: 50px;
@@ -28,7 +29,7 @@
     font-size: 14px;
     line-height: 114%;
     text-transform: uppercase;
-    color: #101010;
+    color: var(--font-color);
 
     img {
       transform: rotate(-180deg);
@@ -40,7 +41,7 @@
     flex-wrap: wrap;
     border-radius: 20px;
     padding: 16px;
-    background: #fff;
+    background: var(--background-card);
     flex-direction: column;
     gap: 10px;
 

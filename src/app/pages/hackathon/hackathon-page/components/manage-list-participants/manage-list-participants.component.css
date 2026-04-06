@@ -8,7 +8,7 @@
     font-size: 24px;
     line-height: 120%;
     text-transform: uppercase;
-    color: #101010;
+  color: var(--font-color);
 }
 
 .closed {
@@ -17,7 +17,7 @@
     font-size: 14px;
     line-height: 114%;
     text-transform: uppercase;
-    color: #101010;
+  color: var(--font-color);
 }
 
 .block-title {
@@ -27,7 +27,7 @@
     font-size: 16px;
     line-height: 112%;
     text-transform: uppercase;
-    color: #101010;
+    color: var(--font-color);
     border-bottom: #646464 solid 1px;
   margin-bottom: 24px;
   margin-top: 50px;
@@ -36,7 +36,7 @@
 
 .new-commands {
     width: 100%;
-    background: #fff;
+    background: var(--background-card);
     border-radius: 20px;
     padding: 14px 24px;
 }
@@ -44,4 +44,8 @@
 app-participant-card + app-participant-card {
   border-top: 1px solid rgba(189, 189, 189, 1);
   display: block;
+}
+
+p {
+  color: var(--font-color);
 }

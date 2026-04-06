@@ -37,7 +37,7 @@ export class HomeService {
     this.typeToggle = type;
   }
 
-  getCardData(type: string, page?: number, pageSize?: number): Observable<any> {
+  getCardData(type: string, page?: number, pageSize?: number, sort: 'creationDate_ASC' | 'creationDate_DESC' = 'creationDate_ASC'): Observable<any> {
     let savedFilters: any = {};
     const filters = sessionStorage.getItem('bodyFilters');
 
@@ -56,7 +56,7 @@ export class HomeService {
     const size = pageSize ? pageSize : 100;
 
     const typeSort = localStorage.getItem('typeSort');
-    const queryParams = `page=${this.selectPage}&size=${size}&sorts=creationDate_ASC`;
+    const queryParams = `page=${this.selectPage}&size=${size}&sorts=${sort}`;
 
     return this.http.post(`${this.domain}/main/${type}/getAll?${queryParams}`, savedFilters).pipe( delay(300) );
   }
@@ -147,32 +147,22 @@ export class HomeService {
   }
 
 
-  getCardProjects(page?: number): Observable<any[]> {
+  getCardProjects(page?: number, size: number = 100, sort: 'createdAt_ASC' | 'createdAt_DESC' = 'createdAt_ASC'): Observable<any[]> {
     if (typeof page === 'number') {
       this.selectPage = page;
     }
 
-    const queryParams = `page=${this.selectPage}&size=30&sorts=createdAt_DESC`;
+    const queryParams = `page=${this.selectPage}&size=${size}&sorts=${sort}`;
 
-    const token = localStorage.getItem('authToken');
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    if (token) {
-      return this.http.post<any[]>(`${this.domain}/main/project/get-by-filter?${queryParams}`, {}, { headers });
-    } else {
-      return this.http.post<any[]>(`${this.domain}/main/project/get-by-filter?${queryParams}`, {});
-    }
+    return this.http.post<any[]>(`${this.domain}/main/project/get-by-filter?${queryParams}`, {});
 
   }
 
-    getCardHackathons(page?: number): Observable<any> {
+    getCardHackathons(page?: number, size: number = 100): Observable<any> {
     if (typeof page === 'number') {
       this.selectPage = page;
     }
-    const queryParams = `page=${this.selectPage}&size=30`;
+    const queryParams = `page=${this.selectPage}&size=${size}`;
 
     return this.http.get(`${this.domain}/main/hackathons?${queryParams}`,).pipe(delay(300));
   }
@@ -271,21 +261,21 @@ export class HomeService {
     // this.vacancies = [];
     // this.projects = [];
     // this.hackathons = [];
-    if (type === 'vacancy') {
-      this.getVacancies(10);
-    }
-    if (type === 'resume') {
-      this.getResumes(10);
-    }
-    if (type === 'project') {
-      this.getProject();
-    }
-    if (type === 'hackathon') {
-      this.gethackathons();
-    }
-    if (type === 'news') {
-
-    }
+    // if (type === 'vacancy') {
+    //   this.getVacancies(10);
+    // }
+    // if (type === 'resume') {
+    //   this.getResumes(10);
+    // }
+    // if (type === 'project') {
+    //   this.getProject();
+    // }
+    // if (type === 'hackathon') {
+    //   this.gethackathons();
+    // }
+    // if (type === 'news') {
+    //
+    // }
   }
 
   destroyHomeService() {
