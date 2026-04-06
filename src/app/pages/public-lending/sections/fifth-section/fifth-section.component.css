@@ -243,4 +243,22 @@
 
 }
 
+@media (max-width: 1400px) {
+  .article-text-right {
+    margin-top: 0px;
+  }
+
+  .three-title {
+    margin-top: 30px;
+  }
+
+  .yellow_block {
+    margin-top: 20px;
+  }
+
+  .block-btn {
+    margin-bottom: 100px;
+  }
+}
+
 
