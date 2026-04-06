@@ -141,3 +141,19 @@
 .typeItem:nth-child(2) {
   height: 250px;
 }
+
+@media (max-width: 768px) {
+  .popup-content {
+    min-height: 200px;
+    height: 100%;
+    padding: 20px;
+
+    .close {
+      display: none;
+    }
+  }
+
+  #title {
+    margin: 5px;
+  }
+}

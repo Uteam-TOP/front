@@ -16,18 +16,18 @@
     object-fit: cover;
 }
 
-.name {
+.user-name {
     font-weight: 600;
     font-size: 12px;
     line-height: 117%;
-    color: #101010;
+  color: var(--font-color);
 }
 
 .profession {
     font-weight: 500;
     font-size: 12px;
     line-height: 117%;
-    color: #101010;
+  color: var(--font-color);
 }
 
 .container:hover {

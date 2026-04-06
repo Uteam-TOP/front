@@ -4,11 +4,12 @@ import { CommandsItemComponent } from './commands-item/commands-item.component';
 import { CommandsService } from './commands.service';
 import { HackathonService } from '../../../../../components/hackathon/page/hackathon.service';
 import {IHackathonProject} from "../../../../../core/models/hackathons";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-commandsHack',
   standalone: true,
-  imports: [CommandsItemComponent],
+  imports: [CommandsItemComponent, RouterLink],
   templateUrl: './commands.component.html',
   styleUrl: './commands.component.css'
 })
