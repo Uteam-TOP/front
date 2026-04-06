@@ -267,3 +267,31 @@
 
 }
 
+@media (max-width: 1400px) {
+  .fifth-title-in {
+    margin-bottom: 120px;
+  }
+
+  .bottom-image {
+    padding-right: 0px;
+  }
+
+  .top-image {
+    display: grid;
+    position: absolute;
+    top: 280px;
+    left: 60px;
+  }
+
+  .top-image img {
+    width: 220px;
+  }
+
+  .first-title {
+    margin-left: -30px;
+    margin-top: -30px;
+  }
+
+
+}
+
