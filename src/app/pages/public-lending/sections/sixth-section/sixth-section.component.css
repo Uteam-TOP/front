@@ -184,7 +184,7 @@
 
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1400px) and (min-width: 768px) {
   .block_title {
     display: grid;
 
