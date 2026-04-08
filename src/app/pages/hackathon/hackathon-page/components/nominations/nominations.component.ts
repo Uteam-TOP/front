@@ -3,13 +3,15 @@ import {UiButtonComponent} from "../../../../../shared/ui-components/ui-button/u
 import {HackathonService} from "../../../../../core/services/hackathon.service";
 import {IHackathonNomination} from "../../../../../core/models/hackathons";
 import {SortByPipe} from "../../../../../shared/pipes/sort-by.pipe";
+import {CommandsItemComponent} from "../commands/commands-item/commands-item.component";
 
 @Component({
   selector: 'app-nominations',
   standalone: true,
   imports: [
     UiButtonComponent,
-    SortByPipe
+    SortByPipe,
+    CommandsItemComponent
   ],
   templateUrl: './nominations.component.html',
   styleUrl: './nominations.component.scss'

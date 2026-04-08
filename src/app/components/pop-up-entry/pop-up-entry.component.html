@@ -12,7 +12,7 @@
     flex-direction: column;
     width: 100%;
     align-items: center;">
-          <form [formGroup]="authForm" autocomplete="off" style="width: 100%;">
+          <form [formGroup]="authForm" autocomplete="off" style="width: 100%;" (ngSubmit)="authUser()">
             <p class="message">
               @if (popUpEntryService.withMessage && popUpEntryService.message) {
                 {{ popUpEntryService.message }}
@@ -26,7 +26,7 @@
               <label for="email" class="text10opac05">Почта:</label>
               <input #formField
                 trimOnInput
-                type="text"
+                type="email"
                 id="email"
                 formControlName="email"
                 placeholder="Введите почту"

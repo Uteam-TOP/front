@@ -61,37 +61,30 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
 
   authUser() {
 
-    this.isLoading = true;
-    const formData = this.authForm.value;
-    formData.email = formData.email.trim();
-    const data = { ...formData };
-    if (this.popUpEntryService.isAuth === true) {
-      delete data.telegram;
+    if (!this.isLoading) {
+      this.isLoading = true;
+      const formData = this.authForm.value;
+      formData.email = formData.email.trim();
+      const data = { ...formData };
+      if (this.popUpEntryService.isAuth === true) {
+        delete data.telegram;
+      }
+      this.popUpEntryService.signUpUesr(data).subscribe((response: any) => {
+        this.isLoading = false;
+        this.popUpEntryService.confirmAuth = true;
+
+        localStorage.setItem('confirmAuth', 'true');
+        localStorage.setItem('authEmail', formData.email);
+        // console.log('Auth response from backend:', response);
+        // this.tokenService.setToken(response.token);
+        // this.userAuthenticated = true;
+        // this.login_user();
+      }, (error) => {
+        this.isLoading = false;
+        this.errorMessage = error.error.details;
+      })
     }
 
-    // if (this.popUpEntryService.isAuth === true) {
-    //   this.popUpEntryService.authUesr(data).subscribe((response: any) => {
-    //     console.log('Auth response from backend:', response);
-    //     this.tokenService.setToken(response.token);
-    //     localStorage.setItem('userNickname', response.nickname);
-    //     this.userAuthenticated = true;
-    //     this.login_user();
-    //   })
-    // } else {
-    this.popUpEntryService.signUpUesr(data).subscribe((response: any) => {
-      this.isLoading = false;
-      this.popUpEntryService.confirmAuth = true;
-
-      localStorage.setItem('confirmAuth', 'true');
-      localStorage.setItem('authEmail', formData.email);
-      // console.log('Auth response from backend:', response);
-      // this.tokenService.setToken(response.token);
-      // this.userAuthenticated = true;
-      // this.login_user();
-    }, (error) => {
-      this.isLoading = false;
-      this.errorMessage = error.error.details;
-    })
     // }
   }
 

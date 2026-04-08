@@ -107,7 +107,7 @@ export class HackathonService {
   /* Hackathon Participant Will */
 
   getAllWishingMembers(hackathonId: number): Observable<IHackathonTeamMemberDto[]> {
-    return this.http.get<IHackathonTeamMemberDto[]>(`${environment.apiUrl}/hackathon-wishing/${hackathonId}/all-members`)
+    return this.http.get<IHackathonTeamMemberDto[]>(`${environment.apiUrl}/main/hackathon/${hackathonId}/all-members`)
   }
 
   addWishingMember(hackathonId: number, data: any): Observable<any> {

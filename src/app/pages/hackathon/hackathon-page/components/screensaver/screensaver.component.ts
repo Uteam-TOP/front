@@ -69,6 +69,14 @@ export class ScreensaverHackComponent {
   }
 
   getRegistrationStatusText(status: string): string {
+    const now = new Date();
+    const nowSeconds = Math.floor(now.getTime() / 1000);
+    if (nowSeconds > this.detailsList().endDate) {
+      return 'Хакатон завершен'
+    }
+    if (nowSeconds > this.detailsList().registrationDeadline) {
+      return 'Регистрация закончена'
+    }
     if (this.detailsList().endDate) {
       switch (status) {
         case 'OPEN': return 'Регистрация открыта';
