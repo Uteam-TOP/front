@@ -126,8 +126,10 @@ export class HackathonPageComponent implements OnInit {
         } else {
           if (data.updatedData.type === "project") {
             if (data.updatedData.operation === "delete") {
-              console.log('datadata2', data);
               this.hackathonProjects.update(commands => commands.filter(command => command.id !== data.updatedData.id))
+            }
+            if (data.updatedData.operation === "add") {
+              // this.hackathonProjects.update(commands => commands.filter(command => command.id !== data.updatedData.id))
             }
           }
           if (data.updatedData.type === "member") {

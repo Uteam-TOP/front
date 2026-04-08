@@ -45,7 +45,7 @@
                 Регистрация до:
             </span>
             <span class="label text16">
-                {{ formatRussianDate(dataHackathon.endDate) }}
+                {{ formatRussianDate(dataHackathon.registrationDeadline) }}
             </span>
           </span>
         </div>
@@ -60,9 +60,14 @@
       </span>
 
       <div id="btn-block">
-        <a id="btn" (click)="openPopup()">
-          Заявка на участие
-        </a>
+          @if (userIsMember()) {
+            <p>Вы уже зарегестрировались</p>
+          } @else {
+            <a id="btn" (click)="openPopup()">
+              Заявка на участие
+            </a>
+          }
+
       </div>
     </div>
   </div>
