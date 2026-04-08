@@ -18,9 +18,7 @@ export class CommandsHackComponent implements OnInit{
   dataHackathon: any;
 
   constructor(private commandsService:CommandsService, private hackathonService:HackathonService){
-    effect(() => {
-      console.log(this.projects())
-    });
+    effect(() => {});
   }
 
   ngOnInit(): void {

@@ -2,7 +2,7 @@
   <div class="container">
     @if (hackathonService.page == 'home') {
       <app-hackathon-screensaver [detailsList]="data"></app-hackathon-screensaver>
-      <app-hackathon-data [dataHackathon]="data"></app-hackathon-data>
+      <app-hackathon-data [dataHackathon]="data" [projects]="hackathonProjects()" [members]="wishingMembers()"></app-hackathon-data>
       @if (isAdmin()) {
         <app-settings-admin [hackathonProjects]="hackathonProjects()"></app-settings-admin>
       }
