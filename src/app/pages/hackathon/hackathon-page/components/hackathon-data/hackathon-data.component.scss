@@ -119,4 +119,18 @@
     .first-content {
         flex-direction: column;
     }
+
+  #btn-block {
+    padding: 24px 44px;
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+
+  }
+
+  .second-content {
+
+
+    padding-left: 12px;
+  }
 }

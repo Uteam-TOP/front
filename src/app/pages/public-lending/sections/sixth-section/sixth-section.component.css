@@ -183,3 +183,22 @@
     }
 
 }
+
+@media (max-width: 1400px) and (min-width: 768px) {
+  .block_title {
+    display: grid;
+
+    color: #fff;
+    width: 60%;
+    font-size: 600;
+    margin-top: -80px;
+    margin-bottom: 90px;
+    margin-left: 200px;
+    z-index: 10;
+  }
+
+  .btn_registration {
+    margin-bottom: 120px;
+    margin-left: 180px;
+  }
+}

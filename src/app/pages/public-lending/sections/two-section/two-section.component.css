@@ -287,3 +287,14 @@
     }
 
 }
+
+@media (max-width: 1400px) and (min-width: 1000px) {
+
+  .article--second {
+    margin-left: 140px;
+  }
+
+  .test img {
+    width: 140px;
+  }
+}

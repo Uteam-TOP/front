@@ -212,4 +212,11 @@ ul {
   span {
     display: inline-block;
   }
+
+}
+
+@media (max-width: 1400px) {
+  .footer-main-menu {
+    padding-bottom: 0px;
+  }
 }
