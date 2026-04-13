@@ -1,4 +1,4 @@
-import {Component, HostListener, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, inject, OnDestroy, OnInit, signal, ViewEncapsulation} from '@angular/core';
 import { SettingHeaderService } from '../../setting-header.service';
 import { ArchiveResumeComponent } from '../archive-resume/archive-resume.component';
 import { ArchiveVacancyComponent } from '../archive-vacancy/archive-vacancy.component';
@@ -35,6 +35,9 @@ import {
 } from "../../../shared/ui-components/skeleton-ui/skeleton-profile/skeleton-profile.component";
 import {HackathonService} from "../../../core/services/hackathon.service";
 import {PersonalHackathonComponent} from "../personal-hackathon/personal-hackathon.component";
+import {UserService} from "../../../core/services/user.service";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {IUserAchievement} from "../../../core/models/userDto";
 
 @Component({
   selector: 'app-personal-home',
