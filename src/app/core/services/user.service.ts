@@ -40,4 +40,8 @@ export class UserService {
       map((res) => {this.userData.next(res); return res})
     );
   }
+
+  getUserAchievements(userId: number): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/achievement/all-achievements-by-user/${userId}`)
+  }
 }
