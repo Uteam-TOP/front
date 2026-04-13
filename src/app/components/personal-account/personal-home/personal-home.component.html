@@ -30,9 +30,11 @@
                 <p>На платформе с {{ (dataCurrentUser.dateOfRegistration*1000) | date: 'dd-MM-yyyy' }}</p>
               </div>
               <div class="achievements">
-                <img src="assets/icons/achievment.png" alt="achievements" />
-                <img src="assets/icons/achievment.png" alt="achievements" />
-                <img src="assets/icons/achievment.png" alt="achievements" />
+                @if (userAchievements(); as userAchievements) {
+                  @for (achievement of userAchievements; track achievement.id) {
+                    <img [src]="achievement.image" [alt]="achievement.title" />
+                  }
+                }
               </div>
             </div>
           </div>

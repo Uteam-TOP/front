@@ -53,7 +53,7 @@ RUN npm install
 # Копируем остальные файлы проекта в контейнер
 COPY . .
 
-RUN npm run build-dev
+RUN npm run build
 
 # Устанавливаем переменные окружения
 ARG VERSION_NUMBER_ARG=no-version

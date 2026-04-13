@@ -59,6 +59,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   private subscriptionExit: Subscription = new Subscription();
+  private userService = inject(UserService);
   isPopupVisible: boolean = false;
   isExitPopupVisible: boolean = false;
   isChangePasswordPopupVisible: boolean = false;
@@ -91,6 +92,9 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
 
   showResumeArchive: boolean = false;
   showVacancyArchive: boolean = false;
+
+  currentUser = toSignal(this.userService.userData$);
+  userAchievements = signal<IUserAchievement[]>([]);
 
   toggleResumes() {
     this.showAllResume = !this.showAllResume;
@@ -222,6 +226,14 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
 
     this.getCurrentUserHackathons();
     this.updateView(window.innerWidth);
+
+    const currentUser = this.currentUser();
+    if (currentUser && currentUser.id) {
+      this.userService.getUserAchievements(currentUser.id).subscribe(
+        result => this.userAchievements.set(result)
+      )
+    }
+
   }
 
   @HostListener('window:resize', ['$event'])
