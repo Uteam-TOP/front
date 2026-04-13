@@ -38,6 +38,12 @@ export interface UserDto {
     userSkills?: ITagDto[];
 }
 
+export interface IUserAchievement {
+  id: number;
+  title: string;
+  image: string;
+}
+
 export interface IUserRoles {
   id: number;
   role: UserDto.RoleEnum;

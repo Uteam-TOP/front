@@ -1,4 +1,4 @@
-import {Component, HostListener, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, inject, OnDestroy, OnInit, signal, ViewEncapsulation} from '@angular/core';
 import { SettingHeaderService } from '../../setting-header.service';
 import { ArchiveResumeComponent } from '../archive-resume/archive-resume.component';
 import { ArchiveVacancyComponent } from '../archive-vacancy/archive-vacancy.component';
@@ -35,6 +35,9 @@ import {
 } from "../../../shared/ui-components/skeleton-ui/skeleton-profile/skeleton-profile.component";
 import {HackathonService} from "../../../core/services/hackathon.service";
 import {PersonalHackathonComponent} from "../personal-hackathon/personal-hackathon.component";
+import {UserService} from "../../../core/services/user.service";
+import {toSignal} from "@angular/core/rxjs-interop";
+import {IUserAchievement} from "../../../core/models/userDto";
 
 @Component({
   selector: 'app-personal-home',
@@ -59,6 +62,7 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   private subscriptionExit: Subscription = new Subscription();
+  private userService = inject(UserService);
   isPopupVisible: boolean = false;
   isExitPopupVisible: boolean = false;
   isChangePasswordPopupVisible: boolean = false;
@@ -91,6 +95,9 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
 
   showResumeArchive: boolean = false;
   showVacancyArchive: boolean = false;
+
+  currentUser = toSignal(this.userService.userData$);
+  userAchievements = signal<IUserAchievement[]>([]);
 
   toggleResumes() {
     this.showAllResume = !this.showAllResume;
@@ -222,6 +229,14 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
 
     this.getCurrentUserHackathons();
     this.updateView(window.innerWidth);
+
+    const currentUser = this.currentUser();
+    if (currentUser && currentUser.id) {
+      this.userService.getUserAchievements(currentUser.id).subscribe(
+        result => this.userAchievements.set(result)
+      )
+    }
+
   }
 
   @HostListener('window:resize', ['$event'])
