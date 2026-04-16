@@ -1,0 +1,43 @@
+.popup {
+  height: 100%;
+  position: relative;
+
+  .popup-content {
+    border: 1px solid var(--background-card);
+    height: 100%;
+    padding: 30px;
+    //width: 100%;
+    background: var(--background-card);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+
+    color: var(--font-color);
+  }
+
+  .close {
+    cursor: pointer;
+    font-size: 45px;
+    position: absolute;
+    top: 2px;
+    right: 14px;
+    color: var(--font-color);
+  }
+
+  ::ng-deep {
+    .popup-buttons {
+      margin-top: 10px;
+    }
+
+    .title {
+      align-items: center;
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+
+}

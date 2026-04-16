@@ -1,0 +1,16 @@
+<app-popup (close)="closePopup()">
+  <div class="image">
+    <img [src]="data.achievement.image" [alt]="data.achievement.title">
+  </div>
+  <p class="title">
+    {{data.achievement.title}}
+  </p>
+  @if (data.achievement.description) {
+    <p>
+      {{data.achievement.description}}
+    </p>
+  }
+  <div class="popup-buttons">
+    <ui-button [type]="'green'" [size]="'large'" (click)="closePopup()">Круто!</ui-button>
+  </div>
+</app-popup>

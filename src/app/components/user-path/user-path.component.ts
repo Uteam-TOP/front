@@ -13,7 +13,7 @@ import {
   imports: [RouterOutlet, SkeletonProfileComponent],
   templateUrl: './user-path.component.html',
   styleUrl: './user-path.component.css',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class UserPathComponent {
 

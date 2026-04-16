@@ -1,5 +1,7 @@
 
-import { Component } from '@angular/core';
+import {Component, inject, input, output} from '@angular/core';
+import {HackathonService} from "../../../../../core/services/hackathon.service";
+import {IHackathonDto} from "../../../../../core/models/hackathonDto";
 
 @Component({
   selector: 'app-popup-delete',
@@ -11,7 +13,9 @@ import { Component } from '@angular/core';
 export class PopupDeleteComponent {
 
   isPopupOpen = false;
-  
+  private hackathonService = inject(HackathonService);
+  onDelete = output();
+
   openPopup() {
     this.isPopupOpen = true;
   }
@@ -23,5 +27,9 @@ export class PopupDeleteComponent {
   token(): string {
     const value = "dcsd";
     return value ? value : '';
-}
+  }
+
+  delete() {
+    this.onDelete.emit();
+  }
 }

@@ -38,6 +38,9 @@ import {PersonalHackathonComponent} from "../personal-hackathon/personal-hackath
 import {UserService} from "../../../core/services/user.service";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {IUserAchievement} from "../../../core/models/userDto";
+import {MatDialog} from "@angular/material/dialog";
+import {SuccessModalComponent} from "../../../shared/modals/success-modal/success-modal.component";
+import {AchievementModalComponent} from "./achievement-modal/achievement-modal.component";
 
 @Component({
   selector: 'app-personal-home',
@@ -56,13 +59,15 @@ import {IUserAchievement} from "../../../core/models/userDto";
       ])
     ])
   ],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class PersonalHomeComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   private subscriptionExit: Subscription = new Subscription();
   private userService = inject(UserService);
+  private dialog = inject(MatDialog);
+
   isPopupVisible: boolean = false;
   isExitPopupVisible: boolean = false;
   isChangePasswordPopupVisible: boolean = false;
@@ -373,6 +378,14 @@ export class PersonalHomeComponent implements OnInit, OnDestroy {
       this.isTablet = false;
       this.isMobile = true;
     }
+  }
+
+  openAchievementModal(achievement: IUserAchievement) {
+    let dialogRef = this.dialog.open(AchievementModalComponent, {
+      height: 'auto',
+      width: '300px',
+      data: {achievement},
+    });
   }
 
 

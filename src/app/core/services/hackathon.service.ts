@@ -73,6 +73,12 @@ export class HackathonService {
     return this.http.post<any>(`${environment.apiUrl}/hackathons/update/${id}`, data)
   }
 
+  deleteHackathon(id: number): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}/hackathons/${id}`)
+  }
+
+
+
   /* Team members */
 
   getAllTeamMembers(hackathonId: number): Observable<IHackathonTeamMemberDto[]> {
