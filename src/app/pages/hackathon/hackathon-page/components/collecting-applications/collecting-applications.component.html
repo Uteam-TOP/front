@@ -18,12 +18,12 @@
         <a class="cancel" (click)="closePopup()">
           Отмена
         </a>
-        @if (!isStopCollecting) {
+        @if (hackathon()?.registrationStatus !== status.Closed) {
           <a class="access" (click)="stopping()">
             Остановить
           </a>
         }
-        @if (isStopCollecting) {
+        @if (hackathon()?.registrationStatus === status.Closed) {
           <a class="access" (click)="resume()">
             Возобновить
           </a>

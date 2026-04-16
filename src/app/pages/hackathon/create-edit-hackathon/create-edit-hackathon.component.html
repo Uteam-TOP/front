@@ -16,6 +16,19 @@
     </div>
     <div class="container-elements">
       <div class="container-elements-left">
+        <div class="container-elements-left-iconBlock">
+          <div class="container-elements-left-iconBlock-img" (click)="onSelectImage('logo')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                 [class.hidden]="isLogoImageSelected">
+              <path d="M12 3V21M3 12H21" stroke="#806BFF" stroke-width="1.4" stroke-linecap="round" />
+            </svg>
+            <input type="file" #fileLogoInput id="imageInput" accept="image/*"
+                   (change)="onImageChange($event, 'logo')" style="display: none;" />
+          </div>
+          <p class="container-elements-left-text">
+            Добавьте логотип события (jpg, png не более 10 мб)
+          </p>
+        </div>
         <div class="container-elements-left-gruopInputs">
           <div class="container-elements-left-gruopInputs-items">
             <div class="container-elements-left-gruopInputs-items-block">
@@ -47,7 +60,7 @@
                 Для кого:
               </p>
               <input class="container-elements-left-gruopInputs-items-block-input" type="text"
-                     placeholder="Введите для кого хакатон" formControlName="targetAudience" />
+                     placeholder="Введите для кого событие" formControlName="targetAudience" />
               <app-input-error [formElement]="form.get('targetAudience')" [inputName]="'Для кого'"></app-input-error>
             </div>
 

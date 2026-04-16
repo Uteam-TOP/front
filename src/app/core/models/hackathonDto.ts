@@ -11,10 +11,11 @@ import {UserDto} from "./userDto";
 
 
 export interface IHackathonDto {
-    id?: number;
+    id: number;
     title: string;
     nickname?: string;
     imageLink?: string;
+    hackathonLogo?: string;
     shortDescription?: string;
     format: HackathonDto.FormatEnum;
     startDate: number;

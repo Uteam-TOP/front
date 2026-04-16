@@ -22,6 +22,7 @@ import {IHackathonProject} from "../../../core/models/hackathons";
 import {CreateEditNominationsComponent} from "./components/create-edit-nominations/create-edit-nominations.component";
 import {NominationsComponent} from "./components/nominations/nominations.component";
 import {AppointmentWinnersComponent} from "./components/appointment-winners/appointment-winners.component";
+import {HackathonTeamMemberDto} from "../../../core/models/hackathonTeamMemberDto";
 
 @Component({
   selector: 'app-hackathon-page',
@@ -72,6 +73,22 @@ export class HackathonPageComponent implements OnInit {
         })
         this.hackathonService.getAllWishingMembers(hackathonId).subscribe(data => {
           this.wishingMembers.set(data);
+          const admins = data.filter(user =>
+            user.hackathonUserRole === HackathonTeamMemberDto.HackathonUserRoleEnum.HackathonAdmin ||
+            user.hackathonUserRole === HackathonTeamMemberDto.HackathonUserRoleEnum.HackathonProjectAdmin
+          )
+
+          if (admins.length) {
+            this.userService.userData$.subscribe(curUser => {
+              if (curUser) {
+                const currentUserIsAdmin = admins.find(user => user.user?.id === curUser.id);
+                if (currentUserIsAdmin) {
+                  this.isAdmin.set(true);
+                }
+              }
+            })
+          }
+          console.log('admins', admins);
         })
         this.hackathonService.getHackathonNominations(hackathonId).subscribe(data => {
           this.hackathonNominations.set(data);
@@ -90,7 +107,9 @@ export class HackathonPageComponent implements OnInit {
     this.userService.userData$.pipe(
       switchMap(userData => this.userService.isAdmin())
     ).subscribe(result => {
-      this.isAdmin.set(result);
+      if (result) {
+        this.isAdmin.set(true);
+      }
     })
 
     this.hackathonService.updateHackathon$.pipe(

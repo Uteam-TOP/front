@@ -74,14 +74,14 @@
       <!-- ***************************** hackathon ********************************** -->
       <ng-container>
         <div class="container" #hackathons>
-          <h3>Хакатоны</h3>
+          <h3>События</h3>
           <div class="column">
             @if (hackathonsList(); as hackathonsList) {
               <app-home-slider [items]="hackathonsList" [type]="'hackathon'"></app-home-slider>
             }
           </div>
           <div class="slider-footer">
-            <a routerLink="/hackathons"><ui-button [text]="'Все хакатоны'" [type]="'arrow'"></ui-button></a>
+            <a routerLink="/hackathons"><ui-button [text]="'Все события'" [type]="'arrow'"></ui-button></a>
           </div>
         </div>
       </ng-container>

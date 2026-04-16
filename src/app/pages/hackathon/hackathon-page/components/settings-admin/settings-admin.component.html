@@ -1,6 +1,6 @@
 <div class="container">
     <span class="title">
-        Управление хакатоном:
+        Управление событием:
     </span>
   <div class="btns">
     <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 12px;">
@@ -8,9 +8,9 @@
         <img src="assets/icons/edit.svg" alt="edit" />
         Редактировать информацию
       </a>
-      <app-popup-delete></app-popup-delete>
+      <app-popup-delete (onDelete)="delete()"></app-popup-delete>
 
-      <app-collecting-applications></app-collecting-applications>
+      <app-collecting-applications [hackathon]="hackathon()" (onStop)="updateCollecting(statuses.Closed)" (onStart)="updateCollecting(statuses.Open)"></app-collecting-applications>
 
       <a class="btn" (click)="openNominationsForm()"><img src="assets/icons/crown.svg" alt="crown" />Назначить победителей</a>
 
