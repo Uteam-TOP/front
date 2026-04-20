@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environment';
@@ -12,35 +12,18 @@ export class CreateEditProjectsService {
 
 
   setNewProject(dataProject: any): Observable<any> {
-    const token = localStorage.getItem('authToken');
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.post<any>(`${environment.apiUrl}/hackathons`, dataProject, { headers })
-
+    return this.http.post<any>(`${environment.apiUrl}/hackathons`, dataProject)
   }
 
   setEditProject(dataProject: any): Observable<any> {
-    const token = localStorage.getItem('authToken');
-
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.put<any>(`${environment.apiUrl}/hackathons/${dataProject.id}`, dataProject, { headers })
-
+    return this.http.put<any>(`${environment.apiUrl}/hackathons/${dataProject.id}`, dataProject)
   }
 
-  setAvatar(formData: any, endpoint: string, projectId: any): Observable<any> {
-    const token = localStorage.getItem('authToken');
+  setAvatar(formData: any, dirDefaultAvatar: string, projectId: any): Observable<any> {
+    let params = new HttpParams()
+      .set('dirDefaultAvatar', dirDefaultAvatar)
 
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-
-    return this.http.put(`${environment.apiUrl}/hackathons/${projectId}/${endpoint}`, formData, { headers, responseType: 'text' });
+    return this.http.put(`${environment.apiUrl}/hackathons/${projectId}/image`, formData, { params });
   }
 
 

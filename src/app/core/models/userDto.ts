@@ -42,6 +42,7 @@ export interface IUserAchievement {
   id: number;
   title: string;
   image: string;
+  description: string;
 }
 
 export interface IUserRoles {

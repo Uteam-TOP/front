@@ -32,7 +32,9 @@
               <div class="achievements">
                 @if (userAchievements(); as userAchievements) {
                   @for (achievement of userAchievements; track achievement.id) {
-                    <img [src]="achievement.image" [alt]="achievement.title" />
+                    <div (click)="openAchievementModal(achievement)">
+                      <img [src]="achievement.image" [alt]="achievement.title" />
+                    </div>
                   }
                 }
               </div>
@@ -215,7 +217,7 @@
         <span>Вакансии</span> ({{vacancyService.filterVacancies('EVERYBODY').length}})
       </div>
       <div class="tab tab-navy" [ngClass]="{'active' : tab === 'hackathon'}" (click)="tab = 'hackathon'">
-        <span>Хакатоны</span> ({{willHackathonList.length}})
+        <span>События</span> ({{willHackathonList.length}})
       </div>
     </div>
   }
@@ -445,11 +447,11 @@
       <div class="container-vacancy" style="background: #5a4bb8;">
         <div class="container-vacancy-header">
           <p class="title-cards titleActive ">
-            Хакатоны @if (isMobile) { ({{willHackathonList.length}}) }
+            События @if (isMobile) { ({{willHackathonList.length}}) }
           </p>
           <a class="container-vacancy-header-newCards" routerLink="/hackathon/create/"
              [ngStyle]="{'pointer-events': dataCurrentUser.banned ? 'none' : 'auto', 'opacity': dataCurrentUser.banned ? '0.5' : '1'}">
-            + Добавить хакатон
+            + Добавить событие
           </a>
         </div>
         <div class="cards">
@@ -469,7 +471,7 @@
           [size]="'small'"
           [type]="'green'"
           routerLink="/hackathon/create/">
-          Добавить хакатон
+          Добавить событие
         </ui-button>
 
         <ui-button

@@ -123,7 +123,7 @@ export class NewApplicationComponent implements OnInit {
     let dialogRef = this.dialog.open(SuccessModalComponent, {
       height: '250px',
       width: '450px',
-      data: {title: 'ЗАЯВКА ОТПРАВЛЕНА!', text: 'Ожидайте подтверждения от организатора хакатона'},
+      data: {title: 'ЗАЯВКА ОТПРАВЛЕНА!', text: 'Ожидайте подтверждения от организатора события'},
     });
 
     dialogRef.afterClosed().subscribe(result => {

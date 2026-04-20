@@ -55,6 +55,7 @@ export class CreateEditHackathonComponent {
   projectData: IHackathonDto = {} as IHackathonDto;
   isLoading = false;
   imageLink: any;
+  logoLink: any;
   errorMessages: string = '';
 
   private id = toSignal(
@@ -99,7 +100,7 @@ export class CreateEditHackathonComponent {
     this.form = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(200), forbiddenWordsValidator()]],
       nickname: ['', [Validators.required, forbiddenWordsValidator()]],
-      customLink: ['', [Validators.required]],
+      customLink: [''],
       endDate: ['', [Validators.required]],
       format: ['', [Validators.required]],
       location: ['', [Validators.required]],
@@ -110,7 +111,7 @@ export class CreateEditHackathonComponent {
       registrationDeadline: ['', [Validators.required]],
       shortDescription: ['', [Validators.required]],
       startDate: ['', [Validators.required]],
-      telegram: ['', [Validators.required]],
+      telegram: [''],
       targetAudience: ['', [Validators.required]],
       focus: ['', [Validators.required]],
     });
@@ -163,6 +164,7 @@ export class CreateEditHackathonComponent {
           logoContainer.style.backgroundRepeat = 'no-repeat';
           logoContainer.style.backgroundPosition = 'center';
         }
+        this.logoLink = file;
         this.isLogoImageSelected = true;
       }
 
@@ -171,11 +173,11 @@ export class CreateEditHackathonComponent {
   }
 
 
-  setAvatar(file: any, endpoint: string): void {
+  setAvatar(file: any, dirDefaultAvatar: string): void {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('image', file);
 
-    this.createEditProjectsService.setAvatar(formData, endpoint, this.projectData.id).subscribe({
+    this.createEditProjectsService.setAvatar(formData, dirDefaultAvatar, this.projectData.id).subscribe({
       next: (response) => {
         console.log('Avatar updated successfully:', response);
       },
@@ -201,6 +203,7 @@ export class CreateEditHackathonComponent {
           format: hackathon.format || '',
           hackathonLink: hackathon.hackathonLink || '',
           imageLink: hackathon.imageLink,
+          hackathonLogo: hackathon.hackathonLogo,
           nickname: hackathon.nickname,
           location: hackathon.location,
           organizer: hackathon.organizer,
@@ -295,20 +298,27 @@ export class CreateEditHackathonComponent {
         newData.id = this.projectData.id;
         this.hackathonService.editHackathon(newData, this.projectData.id).subscribe((data: any) => {
           if (this.imageLink) {
-            this.setAvatar(this.imageLink, 'image');
+            this.setAvatar(this.imageLink, 'IMAGE_LINK');
+          }
+          if (this.logoLink) {
+            this.setAvatar(this.logoLink, 'LOGO_LINK');
           }
           setTimeout(() => {
             void this.router.navigate(['hackathon', data.nickname]);
-          }, 1000)
+          }, 2000)
         })
       } else {
         this.hackathonService.createHackathon(newData).subscribe((data: any) => {
+          this.projectData = data;
           if (this.imageLink) {
-            this.setAvatar(this.imageLink, 'image');
+            this.setAvatar(this.imageLink, 'IMAGE_LINK');
+          }
+          if (this.logoLink) {
+            this.setAvatar(this.logoLink, 'LOGO_LINK');
           }
           setTimeout(() => {
             void this.router.navigate(['hackathon', data.nickname]);
-          }, 1000)
+          }, 2000)
         })
       }
     } else {

@@ -96,13 +96,16 @@ export class ManageListParticipantsComponent implements OnInit {
     let dialogRefConfirm = this.dialog.open(ConfirmModalComponent, {
       height: '300px',
       width: '550px',
-      data: {title: 'Подтверждение действия', text: 'Вы действительно хотите удалить команду из хакатона?'},
+      data: {title: 'Подтверждение действия', text: 'Вы действительно хотите удалить команду из события?'},
     });
 
     dialogRefConfirm.afterClosed().subscribe(result => {
-      this.hackathonService.deleteProjectToHackathon(id, this.data()?.id).subscribe(result => {
-        this.openDialog('Команда удалена')
-      });
+      if (result) {
+        this.hackathonService.deleteProjectToHackathon(id, this.data()?.id).subscribe(result => {
+          this.openDialog('Команда удалена')
+        });
+      }
+
     })
   }
 
@@ -118,7 +121,7 @@ export class ManageListParticipantsComponent implements OnInit {
     let dialogRefConfirm = this.dialog.open(ConfirmModalComponent, {
       height: '300px',
       width: '550px',
-      data: {title: 'Подтверждение действия', text: 'Вы действительно хотите удалить пользователя из хакатона?'},
+      data: {title: 'Подтверждение действия', text: 'Вы действительно хотите удалить пользователя из события?'},
     });
 
     dialogRefConfirm.afterClosed().subscribe(result => {
