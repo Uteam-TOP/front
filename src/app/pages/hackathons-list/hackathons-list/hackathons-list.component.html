@@ -1,4 +1,4 @@
-@if (hackathonsList$ | async; as data) {
+@if (hackathonsList(); as data) {
   @if (data.length) {
     <app-list-layer [cards]="data" [type]="'hackathon'"></app-list-layer>
   }

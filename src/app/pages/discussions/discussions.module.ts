@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {DiscussionsRoutingModule} from "./discussions-routing.module";
+import {DiscussionsComponent} from "./discussions.component";
+import {RouterOutlet} from "@angular/router";
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [DiscussionsComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    DiscussionsRoutingModule,
+    RouterOutlet
   ]
 })
 export class DiscussionsModule { }

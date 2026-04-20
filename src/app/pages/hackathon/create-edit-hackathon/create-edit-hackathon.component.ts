@@ -100,7 +100,7 @@ export class CreateEditHackathonComponent {
     this.form = this.fb.group({
       title: ['', [Validators.required, Validators.maxLength(200), forbiddenWordsValidator()]],
       nickname: ['', [Validators.required, forbiddenWordsValidator()]],
-      customLink: ['', [Validators.required]],
+      customLink: [''],
       endDate: ['', [Validators.required]],
       format: ['', [Validators.required]],
       location: ['', [Validators.required]],
@@ -111,7 +111,7 @@ export class CreateEditHackathonComponent {
       registrationDeadline: ['', [Validators.required]],
       shortDescription: ['', [Validators.required]],
       startDate: ['', [Validators.required]],
-      telegram: ['', [Validators.required]],
+      telegram: [''],
       targetAudience: ['', [Validators.required]],
       focus: ['', [Validators.required]],
     });
@@ -305,10 +305,11 @@ export class CreateEditHackathonComponent {
           }
           setTimeout(() => {
             void this.router.navigate(['hackathon', data.nickname]);
-          }, 1000)
+          }, 2000)
         })
       } else {
         this.hackathonService.createHackathon(newData).subscribe((data: any) => {
+          this.projectData = data;
           if (this.imageLink) {
             this.setAvatar(this.imageLink, 'IMAGE_LINK');
           }
@@ -317,7 +318,7 @@ export class CreateEditHackathonComponent {
           }
           setTimeout(() => {
             void this.router.navigate(['hackathon', data.nickname]);
-          }, 1000)
+          }, 2000)
         })
       }
     } else {

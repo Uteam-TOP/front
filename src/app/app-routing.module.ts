@@ -75,6 +75,10 @@ const routes: Routes = [
     path: 'news',
     loadChildren: () => import('./pages/news-list/news-list.module').then(m => m.NewsListModule)
   },
+  {
+    path: 'discussions',
+    loadChildren: () => import('./pages/discussions/discussions.module').then(m => m.DiscussionsModule)
+  },
 
   {
     path: ':id', loadChildren: () => import('./components/user-path/user-path.module').then(m => m.UserPathModule)
