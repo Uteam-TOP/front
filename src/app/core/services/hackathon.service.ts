@@ -65,12 +65,12 @@ export class HackathonService {
     )
   }
 
-  createHackathon(data: IHackathonDto): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/hackathons/add`, data)
+  createHackathon(data: IHackathonDto): Observable<IHackathonDto> {
+    return this.http.post<IHackathonDto>(`${environment.apiUrl}/hackathons/add`, data)
   }
 
-  editHackathon(data: IHackathonDto, id?: number): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/hackathons/update/${id}`, data)
+  editHackathon(data: IHackathonDto, id?: number): Observable<IHackathonDto> {
+    return this.http.post<IHackathonDto>(`${environment.apiUrl}/hackathons/update/${id}`, data)
   }
 
   deleteHackathon(id: number): Observable<any> {

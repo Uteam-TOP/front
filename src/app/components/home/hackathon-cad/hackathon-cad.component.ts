@@ -1,9 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { environment } from '../../../../environment';
-import { PopUpEntryService } from '../../pop-up-entry/pop-up-entry.service';
+import { Component, Input } from '@angular/core';
 import {IHackathonDto} from "../../../core/models/hackathonDto";
 
 @Component({

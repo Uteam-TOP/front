@@ -100,9 +100,12 @@ export class ManageListParticipantsComponent implements OnInit {
     });
 
     dialogRefConfirm.afterClosed().subscribe(result => {
-      this.hackathonService.deleteProjectToHackathon(id, this.data()?.id).subscribe(result => {
-        this.openDialog('Команда удалена')
-      });
+      if (result) {
+        this.hackathonService.deleteProjectToHackathon(id, this.data()?.id).subscribe(result => {
+          this.openDialog('Команда удалена')
+        });
+      }
+
     })
   }
 
