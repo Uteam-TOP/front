@@ -59,7 +59,6 @@ import {AchievementModalComponent} from "./achievement-modal/achievement-modal.c
       ])
     ])
   ],
-  encapsulation: ViewEncapsulation.Emulated
 })
 export class PersonalHomeComponent implements OnInit, OnDestroy {
 

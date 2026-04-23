@@ -1,17 +1,14 @@
-<div class="popup">
-  <span class="close" [mat-dialog-close]="false">&times;</span>
-  <div class="popup-content">
-    <p id="title">
-      {{data.title}}
+<app-popup (close)="closePopupSuccess()">
+  <p class="title">
+    {{data.title}}
+  </p>
+  @if (data.text) {
+    <p>
+      {{data.text}}
     </p>
-    @if (data.text) {
-      <p>
-        {{data.text}}
-      </p>
-    }
-    <div class="popup-buttons">
-      <span [mat-dialog-close]="true"><ui-button [type]="'green'" [size]="'large'">Да</ui-button></span>
-      <span [mat-dialog-close]="false"><ui-button [type]="'grey'" [size]="'large'">Нет</ui-button></span>
-    </div>
+  }
+  <div class="popup-buttons">
+    <span [mat-dialog-close]="true"><ui-button [type]="'green'" [size]="'large'">Да</ui-button></span>
+    <span [mat-dialog-close]="false"><ui-button [type]="'grey'" [size]="'large'">Нет</ui-button></span>
   </div>
-</div>
+</app-popup>

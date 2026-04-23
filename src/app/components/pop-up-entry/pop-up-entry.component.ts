@@ -38,7 +38,7 @@ export class PopUpEntryComponent implements AfterViewInit, OnDestroy, OnInit {
   ) {
     this.authForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      telegram: ['', [Validators.required, forbiddenWordsValidator()]],
+      // telegram: ['', [Validators.required, forbiddenWordsValidator()]],
       // nickname: ['', [Validators.required, forbiddenWordsValidator()]],
       // password: ['', [Validators.required, forbiddenWordsValidator()]],
     });

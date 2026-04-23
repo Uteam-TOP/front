@@ -85,3 +85,12 @@
   }
 }
 
+@media (max-width: 800px) {
+  .content {
+    .nomination-row {
+      flex-direction: column;
+      padding: 0;
+    }
+  }
+
+}

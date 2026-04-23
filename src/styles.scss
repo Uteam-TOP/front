@@ -94,6 +94,10 @@ $theme: mat.define-theme();
     ));
   }
 
+  .mat-mdc-dialog-surface {
+    height: auto;
+  }
+
   .select-panel {
     background-color: var(--background-card);
     border: 1px solid grey;
