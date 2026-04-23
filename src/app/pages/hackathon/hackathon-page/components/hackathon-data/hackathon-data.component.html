@@ -62,6 +62,10 @@
       <div id="btn-block">
           @if (userIsMember()) {
             <p>Вы уже зарегестрировались</p>
+          } @else if (dataHackathon.registrationStatus !== "OPEN" ||
+          getNowDate > dataHackathon.endDate ||
+          getNowDate > dataHackathon.registrationDeadline) {
+            <p>Регистрация закрыта</p>
           } @else {
             <a id="btn" (click)="openPopup()">
               Заявка на участие

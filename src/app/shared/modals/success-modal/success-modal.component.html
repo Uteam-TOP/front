@@ -1,16 +1,13 @@
-<div class="popup">
-  <span class="close" (click)="closePopupSuccess()">&times;</span>
-  <div class="popup-content">
-    <p id="title">
-      {{data.title}}
+<app-popup (close)="closePopupSuccess()">
+  <p class="title">
+    {{data.title}}
+  </p>
+  @if (data.text) {
+    <p>
+      {{data.text}}
     </p>
-    @if (data.text) {
-      <p>
-        {{data.text}}
-      </p>
-    }
-    <div class="popup-buttons">
-      <ui-button [type]="'grey'" [size]="'large'" (click)="closePopupSuccess()">Закрыть</ui-button>
-    </div>
+  }
+  <div class="popup-buttons">
+    <ui-button [type]="'grey'" [size]="'large'" (click)="closePopupSuccess()">Закрыть</ui-button>
   </div>
-</div>
+</app-popup>

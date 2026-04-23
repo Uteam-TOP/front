@@ -13,7 +13,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 10px;
+    //gap: 10px;
 
     color: var(--font-color);
   }
@@ -28,8 +28,14 @@
   }
 
   ::ng-deep {
+    p {
+      margin-bottom: 1rem !important;
+      margin-top: 1rem !important;
+    }
     .popup-buttons {
       margin-top: 10px;
+      display: flex;
+      gap: 20px;
     }
 
     .title {

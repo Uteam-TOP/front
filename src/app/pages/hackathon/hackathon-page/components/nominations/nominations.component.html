@@ -5,6 +5,11 @@
     @if (data(); as data) {
 
       @if (!data.length) {
+        @if (isAdmin()) {
+          <div class="nominations-header">
+            <ui-button [type]="'grey'" [size]="'medium'" (click)="openCreateNominationsForm()">Создать</ui-button>
+          </div>
+        }
         <div class="nomination-row">
           <div class="nomination-row__left">
             <p>Номинаций пока нет</p>
@@ -12,13 +17,12 @@
           <div class="nomination-row__right">
             @if (isAdmin()) {
               <p>Опишите призовые места и подарки</p>
-              <ui-button [type]="'grey'" [size]="'medium'" (click)="openCreateNominationsForm()">Создать</ui-button>
             }
           </div>
         </div>
       } @else {
         @if (isAdmin()) {
-          <div class="buttons">
+          <div class="nominations-header">
             <ui-button [type]="'grey'" [size]="'medium'" (click)="openCreateNominationsForm()">Редактировать</ui-button>
           </div>
         }

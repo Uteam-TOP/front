@@ -21,6 +21,8 @@ import {HackathonService} from "../../../core/services/hackathon.service";
 import {IHackathonDto} from "../../../core/models/hackathonDto";
 import {toSignal} from "@angular/core/rxjs-interop";
 import {map} from "rxjs";
+import {SuccessModalComponent} from "../../../shared/modals/success-modal/success-modal.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-create-edit-hackathon',
@@ -47,6 +49,7 @@ import {map} from "rxjs";
 export class CreateEditHackathonComponent {
 
   private hackathonService = inject(HackathonService);
+  private dialog = inject(MatDialog);
   form!: FormGroup;
   submitAttempted = false;
   isError: boolean = false;
@@ -316,9 +319,7 @@ export class CreateEditHackathonComponent {
           if (this.logoLink) {
             this.setAvatar(this.logoLink, 'LOGO_LINK');
           }
-          setTimeout(() => {
-            void this.router.navigate(['hackathon', data.nickname]);
-          }, 2000)
+          this.openDialog('Событие создано', 'Модератор скоро одобрит ваше событие');
         })
       }
     } else {
@@ -346,5 +347,16 @@ export class CreateEditHackathonComponent {
     //     this.form.get('nickname')?.setErrors(null);
     //   }
     // })
+  }
+
+  openDialog(title: string, text: string = '') {
+    let dialogRefSuccess = this.dialog.open(SuccessModalComponent, {
+      height: 'auto',
+      width: '400px',
+      data: {title, text},
+    });
+    dialogRefSuccess.afterClosed().subscribe(result => {
+      void this.router.navigate(['hackathon', this.projectData.nickname]);
+    })
   }
 }

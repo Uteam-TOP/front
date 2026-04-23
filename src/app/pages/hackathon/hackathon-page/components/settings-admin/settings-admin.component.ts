@@ -64,7 +64,8 @@ export class SettingsAdminComponent {
       hackathon.registrationStatus = status;
       this.hackathonService.editHackathon(hackathon, hackathon.id).subscribe(
         result => {
-          this.openDialog(`Статус хакатона ${result.title} был изменен на ${result.registrationStatus}`)
+          this.openDialog(`Статус был изменен`,
+            `Статус события ${result.title} был изменен на ${result.registrationStatus}`)
         }
       )
     }
@@ -72,7 +73,7 @@ export class SettingsAdminComponent {
 
   acceptHackathon() {
     let dialogRefConfirm = this.dialog.open(ConfirmModalComponent, {
-      height: '300px',
+      height: 'auto',
       width: '550px',
       data: {title: 'Подтверждение действия', text: 'Вы действительно хотите одобрить хакатон?'},
     });
@@ -86,11 +87,10 @@ export class SettingsAdminComponent {
 
   openDialog(title: string, text: string = '') {
     let dialogRefSuccess = this.dialog.open(SuccessModalComponent, {
-      height: '250px',
+      height: 'auto',
       width: '400px',
       data: {title, text},
     });
-
     dialogRefSuccess.afterClosed().subscribe(result => {})
   }
 
