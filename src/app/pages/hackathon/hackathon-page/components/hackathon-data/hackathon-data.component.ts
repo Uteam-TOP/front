@@ -6,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {IHackathonProject} from "../../../../../core/models/hackathons";
 import {UserService} from "../../../../../core/services/user.service";
 import {PopUpEntryService} from "../../../../../components/pop-up-entry/pop-up-entry.service";
+import {UserDto} from "../../../../../core/models/userDto";
 
 @Component({
   selector: 'app-hackathon-data',
@@ -24,6 +25,7 @@ export class HackathonDataComponent implements OnInit{
   isAdmin = input<boolean>(false);
   projects = input<IHackathonProject[]>([]);
   members = input<any[]>([]);
+  user = signal<UserDto>({} as UserDto);
 
   currentUserChecked: boolean = false;
   userIsMember = signal<boolean>(false);
@@ -39,6 +41,17 @@ export class HackathonDataComponent implements OnInit{
     // this.hackathonService.currentProjectData$.subscribe((data: any)=>{
     //   this.dataHackathon = data;
     // })
+    this.userService.userData$.subscribe(data => {
+      if (data) {
+        this.user.set(data);
+      }
+
+    })
+  }
+
+  get getNowDate(): number {
+    const now = new Date();
+    return Math.floor(now.getTime() / 1000);
   }
 
 
@@ -68,16 +81,17 @@ export class HackathonDataComponent implements OnInit{
   openPopup() {
     let userData = localStorage.getItem('authToken');
     let userNickname = localStorage.getItem('userNickname');
-    if (!userData && !userNickname) {
+    if (!this.user().id) {
       this.popUpEntryService.showDialog(true, 'Войдите, чтобы оставить заявку на участие');
-      return;
+    } else {
+      let dialogRef = this.dialog.open(NewApplicationComponent, {
+        height: '551px',
+        width: '1186px',
+        data: {hackathon: this.dataHackathon()},
+      })
     }
 
-    let dialogRef = this.dialog.open(NewApplicationComponent, {
-      height: '551px',
-      width: '1186px',
-      data: {hackathon: this.dataHackathon()},
-    })
+
   }
 
   isUserMember() {

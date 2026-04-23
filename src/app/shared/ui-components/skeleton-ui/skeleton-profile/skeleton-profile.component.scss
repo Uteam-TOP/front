@@ -1,14 +1,33 @@
 
-
 p {
   background: rgb(197, 197, 197);
   height: 20px;
   border-radius: 16px;
 }
 .container {
-  margin: 0 auto !important;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 35px;
+  box-sizing: border-box;
+  gap: 2rem;
+
+  position: relative;
+  z-index: 5;
   animation: skeleton-loading 1s linear infinite alternate;
-  padding-top: 30px
+
+  .first-part {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+.cards {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 32px;
 }
 
 .logo {

@@ -110,6 +110,18 @@
     padding: 24px 44px;
     display: flex;
     flex-direction: row-reverse;
+
+  p {
+    border-radius: 30px;
+    padding: 16px 20px;
+    background: #cdcdcd;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 112%;
+    text-transform: uppercase;
+    color: #fff;
+    cursor: pointer;
+  }
 }
 
 

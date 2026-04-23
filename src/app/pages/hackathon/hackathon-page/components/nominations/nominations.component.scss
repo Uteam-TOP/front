@@ -26,12 +26,16 @@
     right: 20px;
   }
 
+  .nominations-header {
+    display: flex;
+    justify-content: end;
+  }
+
   .nomination-row {
     display: flex;
     gap: 10px;
     align-items: center;
     padding: 0 16px;
-    height: 63px;
 
     &__left {
       flex: 1;
@@ -51,6 +55,30 @@
 
       p {
         font-size: 12px;
+      }
+    }
+  }
+
+}
+
+@media (max-width: 800px) {
+  .nominations-container {
+    padding-bottom: 30px;
+
+    .nomination-row {
+      gap: 0;
+      align-items: start;
+      padding: 0 16px;
+      flex-direction: column;
+      margin-top: 10px;
+
+      p {
+        margin: 5px 0;
+      }
+
+      &__right {
+        flex-direction: column;
+        align-items: start;
       }
     }
   }
