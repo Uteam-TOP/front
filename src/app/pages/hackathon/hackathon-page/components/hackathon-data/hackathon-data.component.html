@@ -61,7 +61,7 @@
 
       <div id="btn-block">
           @if (userIsMember()) {
-            <p>Вы уже зарегестрировались</p>
+            <p>Вы уже зарегистрировались</p>
           } @else if (dataHackathon.registrationStatus !== "OPEN" ||
           getNowDate > dataHackathon.endDate ||
           getNowDate > dataHackathon.registrationDeadline) {

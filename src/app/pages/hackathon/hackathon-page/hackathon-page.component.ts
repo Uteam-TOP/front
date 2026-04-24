@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, effect, inject, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, effect, HostListener, inject, OnInit, signal} from '@angular/core';
 import {CommandsHackComponent} from "./components/commands/commands.component";
 import {
     HackathonDataComponent
@@ -23,6 +23,7 @@ import {CreateEditNominationsComponent} from "./components/create-edit-nominatio
 import {NominationsComponent} from "./components/nominations/nominations.component";
 import {AppointmentWinnersComponent} from "./components/appointment-winners/appointment-winners.component";
 import {HackathonTeamMemberDto} from "../../../core/models/hackathonTeamMemberDto";
+import {ViewportScroller} from "@angular/common";
 
 @Component({
   selector: 'app-hackathon-page',

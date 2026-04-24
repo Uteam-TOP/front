@@ -8,6 +8,7 @@ import {HackathonDto, IHackathonDto} from "../../../../../core/models/hackathonD
 import {ConfirmModalComponent} from "../../../../../shared/modals/confirm-modal/confirm-modal.component";
 import {MatDialog} from "@angular/material/dialog";
 import {SuccessModalComponent} from "../../../../../shared/modals/success-modal/success-modal.component";
+import {ViewportScroller} from "@angular/common";
 
 @Component({
   selector: 'app-settings-admin',
@@ -22,6 +23,7 @@ export class SettingsAdminComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   private dialog = inject(MatDialog);
+  private scroller = inject(ViewportScroller);
 
   hackathonProjects = input<any>();
   participantsMembers = input<any>();
@@ -40,6 +42,7 @@ export class SettingsAdminComponent {
 
   openManage() {
     this.hackathonService.page = 'manage'
+    this.scroller.scrollToPosition([0, 0]);
   }
 
   openNominationsForm() {

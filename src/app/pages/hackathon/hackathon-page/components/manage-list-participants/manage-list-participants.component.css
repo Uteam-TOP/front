@@ -12,12 +12,19 @@
 }
 
 .closed {
-    padding: 16px 11px;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 114%;
-    text-transform: uppercase;
-  color: var(--font-color);
+  padding: 14px 11px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 100%;
+  text-transform: uppercase;
+  color: white;
+  background-color: var(--green);
+  margin-top: -19px;
+  margin-bottom: 20px;
+
+  img {
+    transform: rotateY(-180deg);
+  }
 }
 
 .block-title {
