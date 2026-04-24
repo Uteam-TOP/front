@@ -83,6 +83,10 @@
   margin-right: 25px;
 }
 
+.profile-left {
+  display: flex; flex-wrap: wrap; align-content: flex-start; flex-direction: column; justify-content: flex-start; margin-top: 15px
+}
+
 .personal-details {
   display: flex;
   flex-direction: row;
@@ -569,6 +573,10 @@ p {
 
     .ProfileChapter {
         padding: 1rem 1.5rem 0px 1.5rem;
+
+      .profile-left {
+        margin-top: 0;
+      }
     }
 
     .information-user {
@@ -667,7 +675,7 @@ p {
     }
 
     .first-part {
-        margin: 1rem;
+      margin: 36px 9px;
         width: 95%;
         flex-direction: column;
         gap: 1rem;
@@ -679,7 +687,22 @@ p {
     }
 
     .ProfileChapter {
-        padding: 0 1rem 0px 0.5rem;
+        padding: 0 1rem 0 0.5rem;
+      margin-left: 15px;
+      margin-right: 5px;
+      margin-top: -10px;
+
+      .logo {
+        min-width: 75px;
+      }
+
+      .date_registration {
+        text-align: left !Important;
+      }
+
+      .achievements {
+        flex-wrap: wrap;
+      }
     }
 
     .fullName {

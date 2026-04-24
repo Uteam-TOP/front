@@ -281,6 +281,10 @@ a {
         width: 100%;
     }
 
+    .first-container-back {
+      padding-left: 50px;
+    }
+
 
     .second-container {
         width: 100%;
@@ -294,11 +298,21 @@ a {
         height: 100vh;
     }
 
+    .second-container {
+      position: fixed;
+      top: 12px;
+      left: 7px;
+      width: 55px;
+    }
+
     .second-container .leftContent {
         background-color: var(--green) !important;
-        width: 100%;
-        border-radius: 0;
-        justify-content: space-between;
+      display: flex;
+      justify-content: center;
+        width: 43px;
+        height: 43px;
+        margin: 0 auto;
+        border-radius: 50%;
     }
 
     .backBtnContent {

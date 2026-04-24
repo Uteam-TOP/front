@@ -24,15 +24,18 @@
     margin-top: 50px;
   }
   .closed {
-    padding: 16px 11px;
+    padding: 14px 11px;
     font-weight: 600;
-    font-size: 14px;
-    line-height: 114%;
+    font-size: 12px;
+    line-height: 100%;
     text-transform: uppercase;
-    color: var(--font-color);
+    color: white;
+    background-color: var(--green);
+    margin-top: -19px;
+    margin-bottom: 20px;
 
     img {
-      transform: rotate(-180deg);
+      transform: rotateY(-180deg);
     }
   }
 
