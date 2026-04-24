@@ -294,7 +294,16 @@ p {
 
 @media (max-width: 768px) {
   .first-part {
+    margin: 76px 9px;
     flex-direction: column;
+  }
+  .container {
+    margin: 0;
+    width: 100%;
+  }
+
+  .ProfileChapter {
+    padding: 0 1rem 0 1rem !important;
   }
 }
 

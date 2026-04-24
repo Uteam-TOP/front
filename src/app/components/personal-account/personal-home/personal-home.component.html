@@ -16,8 +16,7 @@
                 <img [src]="'assets/avatars/default.png'" alt="logo" class="logoImg">
               }
             </div>
-            <div @fadeAnimation
-                 style="display: flex; flex-wrap: wrap; align-content: flex-start; flex-direction: column; justify-content: flex-start; margin-top: 15px">
+            <div @fadeAnimation class="profile-left">
               <p class="fullName">
                 {{dataCurrentUser?.lastName}} {{dataCurrentUser?.firstName}}
               </p>
