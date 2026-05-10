@@ -112,7 +112,7 @@
               <p class="container-elements-left-gruopInputs-items-block-title">Даты проведения:</p>
               <mat-form-field appearance="fill">
                 <mat-label>Выберите даты проведения</mat-label>
-                <mat-date-range-input [rangePicker]="picker">
+                <mat-date-range-input [rangePicker]="picker" [min]="minDate()">
                   <input matStartDate formControlName="startDate" placeholder="Начало">
                   <input matEndDate formControlName="endDate" placeholder="Конец">
                 </mat-date-range-input>
@@ -125,7 +125,13 @@
               <p class="container-elements-left-gruopInputs-items-block-title">Начало регистрации:</p>
               <mat-form-field appearance="fill" class="no-border-input">
                 <mat-label>Выберите дату открытия регистрации</mat-label>
-                <input matInput [matDatepicker]="registrationStartDate" formControlName="registrationStartDate">
+                <input
+                  matInput
+                  [matDatepicker]="registrationStartDate"
+                  formControlName="registrationStartDate"
+                  (dateChange)="openDateChange($event)"
+                  [max]="closeDate()"
+                  [min]="minDate()">
                 <mat-datepicker-toggle matSuffix [for]="registrationStartDate"></mat-datepicker-toggle>
                 <mat-datepicker panelClass="my-datepicker-popup" #registrationStartDate></mat-datepicker>
               </mat-form-field>
@@ -135,7 +141,12 @@
               <p class="container-elements-left-gruopInputs-items-block-title">Конец регистрации:</p>
               <mat-form-field appearance="fill">
                 <mat-label>Выберите дату закрытия регистрации</mat-label>
-                <input matInput [matDatepicker]="registrationDeadline" formControlName="registrationDeadline">
+                <input
+                  matInput
+                  [matDatepicker]="registrationDeadline"
+                  formControlName="registrationDeadline"
+                  (dateChange)="closeDateChange($event)"
+                  [min]="openDate()">
                 <mat-datepicker-toggle matSuffix [for]="registrationDeadline"></mat-datepicker-toggle>
                 <mat-datepicker panelClass="my-datepicker-popup" #registrationDeadline></mat-datepicker>
               </mat-form-field>

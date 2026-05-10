@@ -1,0 +1,29 @@
+.discussions-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.discussions-list-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  &__sort {
+    display: flex;
+    gap: 8px;
+
+    .sort-button {
+      padding: 9px 12px;
+      background: #FFFFFF;
+      border: 1px solid #E2E2E2;
+      border-radius: 6px;
+      cursor: pointer;
+
+      &.sort-active {
+        border-color: #806BFF;
+      }
+    }
+  }
+}

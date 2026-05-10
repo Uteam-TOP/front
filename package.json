@@ -27,6 +27,7 @@
     "lodash": "^4.17.21",
     "my-shared-library": "file:../common-uteam-library",
     "ngx-image-cropper": "^8.1.0",
+    "ngx-markdown": "^18.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.2",
     "rxjs": "~7.8.0",

@@ -17,6 +17,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {MAT_DATE_LOCALE, provideNativeDateAdapter} from "@angular/material/core";
 import {registerLocaleData} from "@angular/common";
 import localeRu from '@angular/common/locales/ru';
+import {provideMarkdown} from "ngx-markdown";
 
 registerLocaleData(localeRu);
 
@@ -45,6 +46,15 @@ registerLocaleData(localeRu);
     ),
     provideAnimationsAsync(),
     provideNativeDateAdapter(),
+    provideMarkdown({
+      markedOptions: {
+        provide: 'MarkedOptions',
+        useValue: {
+          gfm: true,
+          breaks: true,
+        },
+      },
+    }),
     { provide: MAT_DATE_LOCALE, useValue: 'ru-RU' }
   ]
 })

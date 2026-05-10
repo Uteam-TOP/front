@@ -35,7 +35,7 @@ export class MenuNavComponent implements OnInit {
   private _routeHistory: string[] = [];
 
   // Pages where the main menu is displayed
-  showMainMenuFor: string[] = ['/vacancies', '/hackathons', '/projects', '/resumes', '/news'];
+  showMainMenuFor: string[] = ['/vacancies', '/hackathons', '/projects', '/resumes', '/news', '/discussions'];
 
   currentUserLogo: any;
   buttonsConfig: { label: string, class: string, action: () => void }[] = [];
@@ -95,8 +95,14 @@ export class MenuNavComponent implements OnInit {
         if (event.url !== '/') {
           this.settingHeaderService.isSticky = false;
         }
+        console.log('id', event)
 
-        this.showMainMenu = this.showMainMenuFor.includes(event.url);
+        // this.showMainMenu = this.showMainMenuFor.includes(event.url);
+
+        this.showMainMenu = !!this.showMainMenuFor.find(item => {
+          const regex = new RegExp(item, "i");
+          return regex.test(event.url)
+        })
       }
     });
     this.menuNavService.getStorageValue().subscribe(value => {

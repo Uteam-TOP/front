@@ -1,5 +1,33 @@
 <div class="container">
-  <form >
+  <h3>Создать обсуждение</h3>
+  <form [formGroup]="form">
+     <div class="form-row">
+       <label for="title">Заголовок:</label>
+       <input id="title" formControlName="title" type="text" placeholder="Введите заголовок">
+       <app-input-error [formElement]="form.get('title')" [inputName]="'Название'"></app-input-error>
+     </div>
 
+    <div class="form-row">
+      <label for="text">Вопрос:</label>
+      <textarea
+        id="text"
+        formControlName="text"
+        rows="6"
+        placeholder="Текст вопроса">
+      </textarea>
+      <app-input-error [formElement]="form.get('text')" [inputName]="'Поле вопрос'"></app-input-error>
+    </div>
+
+    <div class="form-row">
+      <app-input-error [inputName]="errorMessages"></app-input-error>
+      <div class="container-elements-right-btnBlock">
+        <ui-button
+          [ngClass]="{'is-loading': isLoading}"
+          (click)="submitForm()"
+          [type]="'green'" [size]="'large'">
+          Опубликовать
+        </ui-button>
+      </div>
+    </div>
   </form>
 </div>

@@ -5,10 +5,11 @@ import {InputErrorComponent} from "../../../../../shared/ui-components/input-err
 import {PaginatorModule} from "primeng/paginator";
 import {FormArray, FormBuilder, ReactiveFormsModule, Validators, FormControl} from "@angular/forms";
 import {UiButtonComponent} from "../../../../../shared/ui-components/ui-button/ui-button.component";
-import {from, concatMap, debounceTime} from "rxjs";
+import {from, concatMap, debounceTime, mergeMap} from "rxjs";
 import {IHackathonNomination} from "../../../../../core/models/hackathons";
 import {SuccessModalComponent} from "../../../../../shared/modals/success-modal/success-modal.component";
 import {MatDialog} from "@angular/material/dialog";
+import {AchievementsService} from "../../../../../core/services/achievements.service";
 
 @Component({
   selector: 'app-create-edit-nominations',
@@ -27,6 +28,7 @@ export class CreateEditNominationsComponent {
   private hackathonService = inject(HackathonService);
   private fb = inject(FormBuilder);
   private dialog = inject(MatDialog);
+  private achievementsService = inject(AchievementsService);
 
   public form = this.fb.array([
     this.fb.group({
@@ -78,6 +80,21 @@ export class CreateEditNominationsComponent {
   }
 
   submitForm() {
+    // const formData = new FormData();
+    // formData.append('file', this.form.value.image, this.form.value.image.name);
+
+    // this.achievementsService.addAchievementImage(formData).pipe(
+    //   mergeMap(data => {
+    //     const addData = {
+    //       title: this.hackathon().title,
+    //       image: data.message,
+    //       description: this.hackathon().description,
+    //     }
+    //     return this.achievementsService.addAchievement(addData)
+    //   })
+    // ).subscribe(result => {})
+
+
     if (this.form.valid) {
       if (!this.isEdit) {
         this.saveNominations(this.form.value);
@@ -105,7 +122,16 @@ export class CreateEditNominationsComponent {
 
         from(updatedItems).pipe(
           concatMap(item => this.hackathonService.updateHackathonNomination(item)),
-          debounceTime(500)
+          debounceTime(500),
+
+          // mergeMap(data => {
+          //   const addData = {
+          //     title: data.title,
+          //     image: data.message,
+          //     description: this.hackathon().description,
+          //   }
+          //   return this.achievementsService.addAchievement(addData)
+          // })
         ).subscribe(
           result => {
             this.openSuccessModal();
