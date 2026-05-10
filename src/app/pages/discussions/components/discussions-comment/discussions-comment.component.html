@@ -48,7 +48,12 @@
         @if (countComments) {
           <div class="post-open-branch">
             <div class="count" (click)="hideChildren = !hideChildren">
-              <span class="circle">+</span>{{ countComments | i18nPlural: branchOpener }}
+              @if (hideChildren) {
+                <span class="circle">+</span>{{ countComments | i18nPlural: branchOpener }}
+              } @else {
+                <span class="circle">-</span>{{ countComments | i18nPlural: branchOpener }} | Скрыть
+              }
+
             </div>
           </div>
         }
