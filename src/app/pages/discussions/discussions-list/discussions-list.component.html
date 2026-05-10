@@ -1,1 +1,22 @@
-<p>discussions-list works!</p>
+<div class="discussions-list-container">
+  <div class="discussions-list-header">
+    <div class="discussions-list-header__sort">
+      @for (button of sortButtons; track button) {
+        <div class="sort-button"
+             (click)="onSort(button.field)"
+             [ngClass]="{'sort-active': button.field === sortByField}">
+          {{ button.title }}
+        </div>
+      }
+    </div>
+
+    <div class="add-button">
+      <ui-button [type]="'green'" [size]="'large'" [routerLink]="'/discussions/new'">+ Создать обсуждение</ui-button>
+    </div>
+  </div>
+  @if (allPosts(); as posts) {
+    @for (post of posts | sortBy: sortByField; track post.id) {
+      <app-discussions-list-item [post]="post"></app-discussions-list-item>
+    }
+  }
+</div>

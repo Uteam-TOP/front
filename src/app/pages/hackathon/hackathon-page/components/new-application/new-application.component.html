@@ -9,18 +9,28 @@
         <span class="title">
           Участвую своей командой
         </span>
-        <span class="subtitle">
-          (Я администратор команды и мы всей командой подаем заявку на участие)
-        </span>
-        <div class="items">
-          @for (item of projects; track item) {
-            <app-project [item]="item" [isSelected]="item.id === selectedProject()"></app-project>
-          }
-        </div>
+        @if (projects?.length) {
+          <span class="subtitle">
+            (Я администратор команды и мы всей командой подаем заявку на участие)
+          </span>
+          <div class="items">
+            @for (item of projects; track item) {
+              <app-project [item]="item" [isSelected]="item.id === selectedProject()"></app-project>
+            }
+          </div>
+        } @else {
+          <span class="subtitle">
+            <p>У вас нет команд для участия</p>
+            <ui-button [type]="'green'" (click)="handlePostProject()">
+              Создать команду
+            </ui-button>
+          </span>
+        }
+
       </div>
       <div class="typeItem" (click)="handlePostProject()">
         <span class="title">
-          Cоздать команду для участия в событии
+          Создать команду для участия в событии
         </span>
         <span class="subtitle">
           (Я сам создам команду и буду приглашать в команду участников)
@@ -30,14 +40,24 @@
         <span class="title">
           Индивидуальное участие
         </span>
-        <span class="subtitle">
-          (Я хочу участвовать и готов присоединиться к любой команде)
-        </span>
-        <div class="items">
-          @for (item of resumes; track item) {
-            <app-resume-person [item]="item" [isSelected]="item.id === selectedResume()?.id" (itemSelected)="onItemSelected($event)"></app-resume-person>
-          }
-        </div>
+        @if (resumes?.length) {
+          <span class="subtitle">
+            (Я хочу участвовать и готов присоединиться к любой команде)
+          </span>
+          <div class="items">
+            @for (item of resumes; track item) {
+              <app-resume-person [item]="item" [isSelected]="item.id === selectedResume()?.id" (itemSelected)="onItemSelected($event)"></app-resume-person>
+            }
+          </div>
+        } @else {
+          <span class="subtitle">
+            <p>У вас нет резюме для участия</p>
+            <ui-button [type]="'green'" (click)="handlePostResume()">
+              Создать резюме
+            </ui-button>
+          </span>
+        }
+
       </div>
     </div>
     <div class="btns">

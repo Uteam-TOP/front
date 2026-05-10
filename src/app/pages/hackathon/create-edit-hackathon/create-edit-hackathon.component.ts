@@ -1,4 +1,4 @@
-import {Component, ElementRef, inject, ViewChild} from '@angular/core';
+import {Component, ElementRef, inject, signal, ViewChild} from '@angular/core';
 import {PaginatorModule} from "primeng/paginator";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {TypeProjectComponent} from "./type-project/type-project.component";
@@ -50,6 +50,7 @@ export class CreateEditHackathonComponent {
 
   private hackathonService = inject(HackathonService);
   private dialog = inject(MatDialog);
+
   form!: FormGroup;
   submitAttempted = false;
   isError: boolean = false;
@@ -60,6 +61,10 @@ export class CreateEditHackathonComponent {
   imageLink: any;
   logoLink: any;
   errorMessages: string = '';
+
+  minDate = signal(new Date());
+  openDate = signal(new Date());
+  closeDate = signal(new Date());
 
   private id = toSignal(
     this.route.paramMap.pipe(
@@ -217,6 +222,9 @@ export class CreateEditHackathonComponent {
           targetAudience: hackathon.targetAudience,
         });
 
+        this.closeDate.set(new Date(this.form.value.registrationDeadline));
+        this.openDate.set(new Date(this.form.value.registrationStartDate));
+
         if (hackathon.nickname) {
           this.oldNickname = hackathon.nickname;
         }
@@ -359,4 +367,14 @@ export class CreateEditHackathonComponent {
       void this.router.navigate(['hackathon', this.projectData.nickname]);
     })
   }
+
+  closeDateChange(date: any) {
+    this.closeDate.set(new Date(date.value));
+  }
+
+  openDateChange(date: any) {
+    this.openDate.set(new Date(date.value));
+  }
+
+
 }

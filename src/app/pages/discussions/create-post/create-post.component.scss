@@ -1,0 +1,46 @@
+.container {
+  margin: 0 auto;
+  //width: 75%;
+  max-width: 846px;
+  padding: 24px;
+  background: var(--background-card);
+  border-radius: 20px;
+
+  h3 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: var(--font-color-blue);
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+
+    label {
+      font-size: 12px;
+      margin-left: 15px
+    }
+
+    textarea,
+    input {
+      width: 100%;
+      border: 1px solid #e2e2e2;
+      border-radius: 12px;
+      padding: 16px;
+      background: #fff;
+    }
+
+    input {
+      height: 46px;
+    }
+  }
+
+  .container-elements-right-btnBlock {
+    display: flex;
+    justify-content: end;
+  }
+}

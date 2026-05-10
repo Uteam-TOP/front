@@ -1,1 +1,70 @@
-<p>discussion-post works!</p>
+@if (displayPost(); as post) {
+  @if (post.id) {
+    <div class="container">
+      <div class="post-header">
+        <div class="post-user" [routerLink]="['/', post.author.nickname]">
+          <div class="post-user__avatar">
+            <img [src]="post.author.imageLink | avatar" alt="avatar" />
+          </div>
+          <div class="post-user__name">
+            <p>{{ post.author.firstName}} {{post.author.lastName }}</p>
+            @for (skill of post.author.userSkills; track skill.id) {
+              <span>{{ skill.name }}</span>
+            }
+          </div>
+        </div>
+        <div class="post-date">
+          <span>Размещен: {{ (post.createdAt*1000) | date: 'dd.MM.yyyy hh:mm' }}</span>
+        </div>
+      </div>
+
+      <div class="post-body">
+        <h3>{{ post.title }}</h3>
+        <markdown [data]="post.text"></markdown>
+      </div>
+
+      <div class="post-footer">
+        <div class="like" (click)="onLike(post.id)">
+          <p>{{ post.likesCount ?? 0 }}</p>
+          <img src="/assets/icons/like.png" alt="like">
+        </div>
+        <div class="like dislike" (click)="onDislike(post.id)">
+          <p>{{ post.dislikesCount ?? 0 }}</p>
+          <img src="/assets/icons/like.png" alt="dislike">
+        </div>
+        <div class="like comments">
+          <p>{{ post.commentsCount ?? 0 }}</p>
+          <img src="/assets/icons/comments.svg" alt="comments">
+        </div>
+
+      </div>
+
+      <div class="post-comments">
+        @if (currentUser()) {
+          <div class="post-comment-form">
+            <textarea rows="7" [(ngModel)]="commentForm" placeholder="Хотите ответить?"></textarea>
+            <ui-button [type]="'green'" [size]="'large'" (click)="onSubmit()">Ответить</ui-button>
+          </div>
+        }
+
+        @if (comments(); as comments) {
+          <div class="comments-list">
+            @for (comment of comments; track comment) {
+              @if (comment && comment.level === 0) {
+                <app-discussions-comment
+                  [comment]="comment"
+                  [inputComments]="comments"
+                  [commentsCount]="commentsCount()"
+                  (increaseCount)="increaseCountComments($event)"
+                  (onCommentReply)="onSubmit($event.parentId, $event.level, $event.comment)">
+                </app-discussions-comment>
+              }
+
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+}

@@ -1,12 +1,12 @@
 import {RouterModule, Routes} from "@angular/router";
-import {HackathonComponent} from "../hackathon/hackathon.component";
 import {NgModule} from "@angular/core";
 import {AuthGuard} from "../../components/personal-account/auth.guard";
+import {DiscussionsComponent} from "./discussions.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: HackathonComponent,
+    component: DiscussionsComponent,
     children: [
       {
         path: '',
@@ -14,19 +14,17 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'create',
+        path: 'new',
         loadComponent: () => import('./create-post/create-post.component').then(m => m.CreatePostComponent),
         canActivate: [AuthGuard]
       },
       {
         path: 'list',
-        loadComponent: () => import('./discussions-list/discussions-list.component').then(m => m.DiscussionsListComponent),
-        canActivate: [AuthGuard]
+        loadComponent: () => import('./discussions-list/discussions-list.component').then(m => m.DiscussionsListComponent)
       },
       {
         path: ':id',
-        loadComponent: () => import('./discussion-post/discussion-post.component').then(m => m.DiscussionPostComponent),
-        canActivate: [AuthGuard]
+        loadComponent: () => import('./discussion-post/discussion-post.component').then(m => m.DiscussionPostComponent)
       },
     ]
   }

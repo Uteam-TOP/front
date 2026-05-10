@@ -63,8 +63,8 @@
           @if (userIsMember()) {
             <p>Вы уже зарегистрировались</p>
           } @else if (dataHackathon.registrationStatus !== "OPEN" ||
-          getNowDate > dataHackathon.endDate ||
-          getNowDate > dataHackathon.registrationDeadline) {
+          getNowDate >= (dataHackathon.endDate + 86400) ||
+          getNowDate >= (dataHackathon.registrationDeadline + 86400)) {
             <p>Регистрация закрыта</p>
           } @else {
             <a id="btn" (click)="openPopup()">

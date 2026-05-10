@@ -142,7 +142,7 @@ export class HackathonService {
     return this.http.get(`${environment.apiUrl}/main/nomination/hackathon/${hackathonId}`)
   }
 
-  updateHackathonNomination(data: IHackathonNomination): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/nomination/update`, data)
+  updateHackathonNomination(data: IHackathonNomination): Observable<IHackathonNomination> {
+    return this.http.post<IHackathonNomination>(`${environment.apiUrl}/nomination/update`, data)
   }
 }

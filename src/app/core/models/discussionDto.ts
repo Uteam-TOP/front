@@ -4,7 +4,7 @@ export interface IDiscussionPostDto {
   id: number;
   title: string;
   text: string;
-  createdAt: string;
+  createdAt: number;
   author: UserDto;
   likesCount: number;
   dislikesCount: number;
@@ -14,13 +14,15 @@ export interface IDiscussionPostDto {
 }
 
 export interface IDiscussionComment {
-  id: number;
+  id?: number;
   text: string;
   postId: number;
-  parentCommentId: number;
+  parentCommentId: number | null;
   level: number;
   author: UserDto;
-  likesCount: number;
-  dislikesCount: number;
-  createdAt: string;
+  likesCount?: number;
+  dislikesCount?: number;
+  createdAt?: number;
+  childrenComments?: IDiscussionComment[];
+  allChildrenCount?: number;
 }

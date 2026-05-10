@@ -45,7 +45,7 @@
 
   .toggle-btn {
     flex: 1;
-    padding: 12px 55px;
+    padding: 12px 40px;
     text-align: center;
     cursor: pointer;
     border: none;
@@ -67,7 +67,7 @@
 
   .toggle-btn.active {
     border-radius: 30px;
-    padding: 15px 50px;
+    padding: 15px 40px;
     box-shadow: 1px 2px 4px 0 rgba(40, 40, 40, 0.1);
     background: #fff;
     color: #101010;
@@ -110,7 +110,7 @@
   }
 
   .switch-menu {
-    width: 56%;
+    width: fit-content;
     min-width: 880px;
   }
 

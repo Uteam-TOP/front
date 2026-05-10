@@ -16,11 +16,12 @@ import {IHackathonDto} from "../../../../../core/models/hackathonDto";
 import {ResumePersonService} from "../resume-person/resume-person.service";
 import {UserService} from "../../../../../core/services/user.service";
 import {SuccessModalComponent} from "../../../../../shared/modals/success-modal/success-modal.component";
+import {UiButtonComponent} from "../../../../../shared/ui-components/ui-button/ui-button.component";
 
 @Component({
   selector: 'app-new-application',
   standalone: true,
-  imports: [ProjectComponent, ResumePersonComponent],
+  imports: [ProjectComponent, ResumePersonComponent, UiButtonComponent],
   templateUrl: './new-application.component.html',
   styleUrl: './new-application.component.css'
 })
@@ -139,9 +140,16 @@ export class NewApplicationComponent implements OnInit {
       this.settingHeaderService.post = false;
       this.settingHeaderService.shared = false;
       this.router.navigate([`/${userNickname}/account/newProject`]);
+      this.dialogRef.close();
     } else {
       this.popUpErrorCreateService.visible = true;
     }
+  }
+
+  handlePostResume(): void {
+    const userNickname = localStorage.getItem('userNickname')
+    this.router.navigate([`/${userNickname}/account/newResume`]);
+    this.dialogRef.close();
   }
 
 

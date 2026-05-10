@@ -273,5 +273,38 @@ button,
   border: 4px solid var(--logo-background-color);
 }
 
+.like {
+  display: flex;
+  height: 30px;
+  background-color: #F3F3F3;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+
+  img {
+    width: 19px;
+    height: 19px;
+  }
+}
+
+.dislike {
+  img {
+    transform: rotate(180deg);
+  }
+}
+
+markdown {
+  white-space: pre-wrap;
+  margin-bottom: -10px;
+  display: block;
+}
+
+textarea {
+  resize: vertical;
+}
 /*html, body { height: 100%; }*/
 /*body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }*/
