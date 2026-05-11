@@ -135,10 +135,33 @@
 
   @media (max-width: 800px) {
     .container {
+      padding: 22px 8px;
+
       .post-header {
         flex-direction: column-reverse;
         gap: 8px;
       }
+
+      .post-header,
+      .post-body,
+      .post-footer {
+        padding: 0 8px;
+      }
+
+      ::ng-deep {
+        .post-comments {
+          padding: 8px;
+
+          .comments-list {
+            .comment {
+              padding: 12px;
+              font-size: 12px;
+            }
+          }
+        }
+      }
+
     }
+
   }
 
