@@ -27,3 +27,14 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .discussions-list-container {
+    padding: 10px;
+  }
+
+  .discussions-list-header {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+}

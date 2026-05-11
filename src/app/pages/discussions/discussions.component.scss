@@ -2,3 +2,9 @@
   margin: 8rem auto;
   max-width: 1100px;
 }
+
+@media (max-width: 768px) {
+  .discussions-container {
+    margin-top: 6rem;
+  }
+}
