@@ -33,9 +33,12 @@
             <p>{{ comment.dislikesCount ?? 0 }}</p>
             <img src="/assets/icons/like.png" alt="dislike">
           </div>
-          <div class="response" (click)="showResponseFormId = comment.id">
-            <a>Ответить</a>
-          </div>
+          @if (userService.isLogged()) {
+            <div class="response" (click)="showResponseFormId = comment.id">
+              <a>Ответить</a>
+            </div>
+          }
+
         </div>
 
         @if (showResponseFormId === comment.id && currentUser()) {

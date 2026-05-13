@@ -10,9 +10,13 @@
       }
     </div>
 
-    <div class="add-button">
-      <ui-button [type]="'green'" [size]="'large'" [routerLink]="'/discussions/new'">+ Создать обсуждение</ui-button>
-    </div>
+
+    @if (userService.isLogged()) {
+      <div class="add-button">
+        <ui-button [type]="'green'" [size]="'large'" [routerLink]="'/discussions/new'">+ Создать обсуждение</ui-button>
+      </div>
+    }
+
   </div>
   @if (allPosts(); as posts) {
     @for (post of posts | sortBy: sortByField; track post.id) {
