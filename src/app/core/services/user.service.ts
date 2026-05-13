@@ -35,6 +35,10 @@ export class UserService {
 
   }
 
+  isLogged(): boolean {
+    return !!this.userData.getValue().id;
+  }
+
   getCurrentUser(): Observable<UserDto | null> {
     return this.http.get<UserDto>(`${environment.apiUrl}/secured/users/currentUser`).pipe(
       map((res) => {this.userData.next(res); return res})

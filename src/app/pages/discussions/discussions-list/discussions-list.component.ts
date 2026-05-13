@@ -7,6 +7,7 @@ import {SortByPipe} from "../../../shared/pipes/sort-by.pipe";
 import {NgClass} from "@angular/common";
 import {UiButtonComponent} from "../../../shared/ui-components/ui-button/ui-button.component";
 import {RouterLink} from "@angular/router";
+import {UserService} from "../../../core/services/user.service";
 
 @Component({
   selector: 'app-discussions-list',
@@ -24,6 +25,7 @@ import {RouterLink} from "@angular/router";
 })
 export class DiscussionsListComponent implements OnInit {
   private discussionsService = inject(DiscussionsService);
+  userService = inject(UserService);
 
   allPosts = signal<IDiscussionPostDto[]>([]);
 

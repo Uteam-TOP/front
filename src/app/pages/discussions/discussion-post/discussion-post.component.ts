@@ -29,7 +29,7 @@ import {DiscussionsCommentComponent} from "../components/discussions-comment/dis
 })
 export class DiscussionPostComponent implements OnInit {
   private discussionsService = inject(DiscussionsService);
-  private userService = inject(UserService);
+  userService = inject(UserService);
   private route = inject(ActivatedRoute);
 
   private id = toSignal(
@@ -138,7 +138,7 @@ export class DiscussionPostComponent implements OnInit {
   onSubmit(parentId: number | null = null, level: number = 0, comment: string = this.commentForm) {
     this.commentForm = '';
     const currentUser = this.currentUser();
-    if (currentUser) {
+    if (currentUser && comment) {
       const commentData: IDiscussionComment = {
         text: comment,
         postId: this.id(),

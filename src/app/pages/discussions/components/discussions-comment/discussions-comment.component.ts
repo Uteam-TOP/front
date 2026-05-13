@@ -34,7 +34,7 @@ export class DiscussionsCommentComponent {
   inputComments = input<IDiscussionComment[]>();
   commentsCount = input<any>()
 
-  private userService = inject(UserService);
+  userService = inject(UserService);
 
   currentUser = toSignal(this.userService.userData$);
 
@@ -151,7 +151,10 @@ export class DiscussionsCommentComponent {
       this.comment.update(comment => ({
         ...comment,
         likesCount: result
-      }))
+      }));
+      setTimeout(() => {
+        this.hideChildren = false;
+      })
     })
   }
 
@@ -160,7 +163,10 @@ export class DiscussionsCommentComponent {
       this.comment.update(comment => ({
         ...comment,
         dislikesCount: result
-      }))
+      }));
+      setTimeout(() => {
+        this.hideChildren = false;
+      })
     })
   }
 

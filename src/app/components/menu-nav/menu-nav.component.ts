@@ -95,7 +95,6 @@ export class MenuNavComponent implements OnInit {
         if (event.url !== '/') {
           this.settingHeaderService.isSticky = false;
         }
-        console.log('id', event)
 
         // this.showMainMenu = this.showMainMenuFor.includes(event.url);
 

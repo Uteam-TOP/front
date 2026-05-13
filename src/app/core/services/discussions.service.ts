@@ -20,7 +20,7 @@ export class DiscussionsService {
     const params = new HttpParams()
       .set('page', page)
       .set('size', pageSize)
-    return this.http.get<IDiscussionPostDto[]>(`${environment.apiUrl}/discussion-post/all-discussion-posts`, {params});
+    return this.http.get<IDiscussionPostDto[]>(`${environment.apiUrl}/main/discussion-post/all-discussion-posts`, {params});
   }
 
   getPost(postId: number): Observable<IDiscussionPostDto> {
@@ -36,7 +36,7 @@ export class DiscussionsService {
   }
 
   getPostComments(postId: number): Observable<IDiscussionComment[]> {
-    return this.http.get<IDiscussionComment[]>(`${environment.apiUrl}/discussion-post-comment/${postId}`)
+    return this.http.get<IDiscussionComment[]>(`${environment.apiUrl}/main/discussion-post-comment/${postId}`)
   }
 
   addComment(data: IDiscussionComment): Observable<IDiscussionComment> {

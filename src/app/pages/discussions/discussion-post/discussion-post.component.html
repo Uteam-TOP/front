@@ -40,7 +40,7 @@
       </div>
 
       <div class="post-comments">
-        @if (currentUser()) {
+        @if (userService.isLogged()) {
           <div class="post-comment-form">
             <textarea rows="7" [(ngModel)]="commentForm" placeholder="Хотите ответить?"></textarea>
             <ui-button [type]="'green'" [size]="'large'" (click)="onSubmit()">Ответить</ui-button>
